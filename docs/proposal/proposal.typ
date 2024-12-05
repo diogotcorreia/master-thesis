@@ -22,33 +22,46 @@
 // to whom, and in particular explain the interest of the organization or
 // company within which the project is carried out.]
 
-Through the use of static and/or dynamic code analysis, this work in
-this thesis will consist of creating a tool that can detect class pollution
-in the Python programming language, followed by running this tool in various
-open-source libraries and applications.
+Code reuse attacks take advantage of existing code in an application to
+execute code flows that were not intended by its developers, having the
+potential to perform malicious actions.
+This class of attacks can take various forms, such as object injection @php-object-injection,
+prototype pollution @pp-yinzhi-cao, class pollution, and more, depending
+on language-specific features.
+While the former two have been the focus of many studies throughout the years,
+there has been little research done on class pollution in
+the Python programming language @pp-python.
 
-Class pollution consists in changing properties of a class/superclass or
-even the global namespace through Python's internal accessors (e.g.,
+In Python, class pollution consists in changing properties of a class/superclass
+or even the global namespace through Python's internal accessors (e.g.,
 `__class__`, `__base__`, `__globals__`, etc.).
 This behaviour is similar to, although slightly more limited than, JavaScript's
-Prototype Pollution, which various studies have concluded that is widespread
-and can result in severe vulnerabilities like Remote Code Execution (RCE) @silent-spring.
+prototype pollution, which various studies have concluded that is widespread
+and can result in severe vulnerabilities like Remote Code Execution (RCE)
+@silent-spring and Cross-Site Scripting (XSS) @probetheproto.
 
 The results of this project will uncover how widespread this vulnerability
-is and if any of the found vulnerabilities are exploitable in practice.
+is and if any of the found vulnerabilities are exploitable in practice,
+allowing developers to patch their respective applications.
+Additionally, investigation of the root causes of class pollution will
+help developers avoid dangerous constructs.
 
 = Research Questions
 // [A degree project must investigate a specific research/technical
 // question. Provisionally state the question that the project will
 // target.]
 
-- *RQ1:* How to design a tool that can efficiently and accurately detect
-  class pollution in Python?
-- *RQ2:* What is the impact of class pollution in vulnerable Python application?
-- *RQ3:* Is class pollution in Python widespread and exploitable in
-  real world applications?
-- *RQ4:* How does class pollution in Python compare to prototype pollution
-  in JavaScript when it comes to exploitability and widespreadness?
+#[
+  #set enum(numbering: (..nums) => [*RQ#numbering("1.", ..nums)*])
+  + What are the root causes and possible consequences of class pollution
+    in a Python application?
+  + How to design and implement a tool that can efficiently and accurately
+    detect class pollution in Python?
+  + Is class pollution in Python widespread and exploitable in
+    real world applications?
+  + How does class pollution in Python compare to prototype pollution
+    in JavaScript when it comes to exploitability and widespreadness?
+]
 
 = Hypothesis
 // [What is the expected outcome of the investigation?]
@@ -57,7 +70,8 @@ It is hypothesised that very few applications in the real world are
 vulnerable to class pollution due to the specific conditions necessary
 for pollution.
 Additionally, the impact of the vulnerabilities will likely be reduced
-due to the scope of the pollution being mostly on the same class.
+due to the scope of the pollution being mostly on the same class or global
+variables.
 
 Furthermore, when compared to JavaScript where prototype pollution
 happens through the very commonly used square bracket notation (e.g.,
@@ -71,6 +85,12 @@ less widespread than its JavaScript counterpart.
 // [What method will be used for answering the research question, e.g.,
 // how will observations be collected and conclusions drawn?]
 
+This research will be an empirical study, where the developed tool
+will be first tested against a set of artificial benchmarks and then
+ran on top Python libraries and applications.
+This results will then be used to draw conclusions inductively and
+generalize to the entire Python ecosystem.
+
 = Background of the Student
 // [Describe the knowledge (courses and/or experiences) you have that
 // makes this an appropriate project for you.]
@@ -78,13 +98,16 @@ less widespread than its JavaScript counterpart.
 The student has a strong background in the subject both through courses
 and research experience.
 Diogo has taken the DD2525 Language-Based Security course, given by Prof.
-Musard, and has been part of the LangSec group since September 2024 where
+Musard, where he has learned about static and dynamic code analysis,
+and has been part of the LangSec group since September 2024 where
 he has been researching prototype pollution in JavaScript.
 
 = Suggested Examiner at KTH
 // [You may suggest an examiner at KTH. State if you have been in contact
 // with the examiner and received a preliminary expression of interest to
 // serve as examiner.]
+
+#text(fill: red)[None (yet)]
 
 = Suggested Supervisor at KTH
 // [You may suggest a supervisor at KTH. State if you have been in
@@ -100,7 +123,7 @@ Musard Balliu (#link("mailto:musard@kth.se"))
 
 // TODO cite silent spring/ghunter
 The LangSec group at KTH, of which Prof. Musard is part of, has been working
-on Prototype Pollution in JavaScript @silent-spring @ghunter,
+on prototype pollution in JavaScript @silent-spring @ghunter,
 as well as static and dynamic code analysis.
 This expertise is directly transferable to the problem at hands, due to the
 similarities between the two vulnerabilities.
@@ -111,8 +134,8 @@ similarities between the two vulnerabilities.
 // also have completed all the courses that are relevant for the
 // project.]
 
-At the end of HT24, 91.5 credits in courses will have been completed,
-of which the AK2030 Theory and Methodology of Science course is included in.
+At the end of HT24, the student will have completed 91.5 credits in courses,
+including the AK2030 Theory and Methodology of Science course.
 
 = Study Planning
 // [List all the courses that you will need to complete during or after
@@ -121,6 +144,6 @@ of which the AK2030 Theory and Methodology of Science course is included in.
 // of the last elements of your education.]
 
 No courses, with the exception of the programme integrating course DD2303,
-will be taken during or after the degree project.
+will be taken by the student during or after the degree project.
 
 #bibliography("references.yml", title: "References")
