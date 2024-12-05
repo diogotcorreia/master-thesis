@@ -36,15 +36,15 @@ In Python, class pollution consists in changing properties of a class/superclass
 or even the global namespace through Python's internal accessors (e.g.,
 `__class__`, `__base__`, `__globals__`, etc.).
 This behaviour is similar to, although slightly more limited than, JavaScript's
-prototype pollution, which various studies have concluded that is widespread
+prototype pollution, which various studies have concluded to be widespread
 and can result in severe vulnerabilities like Remote Code Execution (RCE)
 @silent-spring and Cross-Site Scripting (XSS) @probetheproto.
 
-The results of this project will uncover how widespread this vulnerability
-is and if any of the found vulnerabilities are exploitable in practice,
+This project aims to uncover how widespread this vulnerability
+is and if any of the discovered vulnerabilities are exploitable in practice,
 allowing developers to patch their respective applications.
-Additionally, investigation of the root causes of class pollution will
-help developers avoid dangerous constructs.
+Additionally, a systematic investigation of the root causes of class pollution
+will help developers avoid dangerous constructs.
 
 = Research Questions
 // [A degree project must investigate a specific research/technical
@@ -87,8 +87,8 @@ less widespread than its JavaScript counterpart.
 
 This research will be an empirical study, where the developed tool
 will be first tested against a set of artificial benchmarks and then
-ran on top Python libraries and applications.
-This results will then be used to draw conclusions inductively and
+run against top Python libraries and applications.
+These results will then be used to draw conclusions inductively and
 generalize to the entire Python ecosystem.
 
 = Background of the Student
@@ -96,8 +96,8 @@ generalize to the entire Python ecosystem.
 // makes this an appropriate project for you.]
 
 The student has a strong background in the subject both through courses
-and research experience.
-Diogo has taken the DD2525 Language-Based Security course, given by Prof.
+taken and through research experience.
+Diogo has taken the DD2525 Language-Based Security course, taught by Prof.
 Musard, where he has learned about static and dynamic code analysis,
 and has been part of the LangSec group since September 2024 where
 he has been researching prototype pollution in JavaScript.
@@ -143,7 +143,7 @@ including the AK2030 Theory and Methodology of Science course.
 // those courses. This is aimed to ensure that the thesis really is one
 // of the last elements of your education.]
 
-No courses, with the exception of the programme integrating course DD2303,
-will be taken by the student during or after the degree project.
+No courses will be taken by the student during or after the degree project,
+with the exception of the programme integrating course DD2303.
 
 #bibliography("references.yml", title: "References")
