@@ -107,21 +107,22 @@ he has been researching prototype pollution in JavaScript.
 // with the examiner and received a preliminary expression of interest to
 // serve as examiner.]
 
-#text(fill: red)[None (yet)]
+*Roberto Guanciale* (#link("mailto:robertog@kth.se")) has accepted to be
+the examiner for this degree project.
 
 = Suggested Supervisor at KTH
 // [You may suggest a supervisor at KTH. State if you have been in
 // contact with the supervisor and received a preliminary expression of
 // interest to serve as supervisor.]
 
-Musard Balliu (#link("mailto:musard@kth.se"))
+*Musard Balliu* (#link("mailto:musard@kth.se")) has accepted to be
+the supervisor for this degree project.
 
 = Resources
 // [What is already available at the company (or other host institution)
 // in the form of previous projects, software, expertise, etc. that the
 // project can build on?]
 
-// TODO cite silent spring/ghunter
 The LangSec group at KTH, of which Prof. Musard is part of, has been working
 on prototype pollution in JavaScript @silent-spring @ghunter,
 as well as static and dynamic code analysis.
@@ -146,4 +147,5 @@ including the AK2030 Theory and Methodology of Science course.
 No courses will be taken by the student during or after the degree project,
 with the exception of the programme integrating course DD2303.
 
+#pagebreak()
 #bibliography("references.yml", title: "References")
