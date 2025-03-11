@@ -4,7 +4,6 @@
   ocamlPackages,
   python3,
   rsync,
-  stdenv,
   writeText,
   ...
 }: let
@@ -137,22 +136,6 @@
         --replace-fail "%CUSTOM_LINKER_OPTION%" ""
     '';
   };
-
-  typeshed = stdenv.mkDerivation {
-    pname = "typeshed";
-    version = "0-unstable-2025-02-28";
-    src = fetchFromGitHub {
-      owner = "python";
-      repo = "typeshed";
-      rev = "be17dc0ac4786f51174c604d047252ac54b27bfb";
-      hash = "sha256-Vqqmc4CipmmPIiJWgaoVrwHhb+6O0YftsHur1dTDJ1E=";
-    };
-    installPhase = ''
-      mkdir $out
-      cp -r stubs $out
-      cp -r stdlib $out
-    '';
-  };
 in
   python3.pkgs.buildPythonPackage {
     inherit version;
@@ -197,7 +180,7 @@ in
       mkdir dist
       PYTHONPATH="$PYTHONPATH:./scripts" python3 scripts/pypi \
         --version "${version'}" \
-        --typeshed-path "${typeshed}" \
+        --typeshed-path ./stubs/typeshed/typeshed \
         --output-dir "./dist"
     '';
 
