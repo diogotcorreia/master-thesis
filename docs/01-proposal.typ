@@ -1,4 +1,4 @@
-#import "template.typ": in_page_cover, header, footer, setup_page
+#import "utils/template.typ": in_page_cover, header, footer, setup_page
 
 #let title = [Uncovering Class Pollution in Python]
 #let date = [December 2024]

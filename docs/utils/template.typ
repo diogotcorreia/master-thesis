@@ -13,7 +13,7 @@
     #grid(
       columns: (auto, auto),
       gutter: 10pt,
-      image("KTH_logo_RGB_bla.svg", height: 100pt),
+      image("../assets/KTH_logo_RGB_bla.svg", height: 100pt),
       align(left)[
         #heading(numbering: none, outlined: false)[#title]
         #heading(
