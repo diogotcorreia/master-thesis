@@ -4,7 +4,7 @@
   text(fill: kthblue, it),
 )
 
-#let in_page_cover(title: none, date: none) = {
+#let in_page_cover(title: none, subtitle: none, date: none) = {
   set text(12pt)
   show link: stylize_link
   show heading: set block(above: 1em, below: 0.5em)
@@ -20,7 +20,8 @@
           numbering: none,
           outlined: false,
           level: 2,
-        )[Degree Project Proposal]
+          subtitle,
+        )
 
         #v(10pt)
 

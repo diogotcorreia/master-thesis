@@ -7,7 +7,7 @@
 
 #set page("a4", header: header(title: title), footer: footer())
 
-#in_page_cover(title: title, date: date)
+#in_page_cover(title: title, subtitle: [Degree Project Proposal], date: date)
 
 = Thesis Title
 // [Provide a preliminary title, which gives an indication of what the

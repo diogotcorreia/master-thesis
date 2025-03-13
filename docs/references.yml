@@ -102,3 +102,14 @@ pp-python:
     title: 2023 3rd Asia-Pacific Conference on Communications Technology and Computer Science (ACCTCS)
     issue: ''
     volume: 0
+pp-python-blog:
+  type: article
+  title: "Prototype Pollution in Python"
+  author: Abdulraheem Khaled
+  url:
+    value: https://blog.abdulrah33m.com/prototype-pollution-in-python/
+    date: 2025-03-14
+  date: 2023-01-04
+  parent:
+    type: blog
+    title: "Abdulrah33m's Blog"
