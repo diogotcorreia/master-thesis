@@ -50,11 +50,11 @@ For the past few decades, researchers have been investigating how the execution
 flow of programs can be manipulated.
 This is especially prevalent in C/C++ compiled code, which can be vulnerable to
 memory corruption and therefore susceptible to techniques such as
-Shellcode execution and Return Oriented Programming (ROP). // TODO sources
+Shellcode execution and Return Oriented Programming (ROP) @rop-payload-detection @rop-geometry.
 
 In contrast with compiled languages, the now widely used interpreted programming
 languages (such as JavaScript, Python, PHP, etc.) are generally immune against
-those techniques, since allocations are handled by the interpreter instead. // TODO sources
+those techniques, since allocations are handled by the interpreter instead @meaning-memory-safety.
 However, they open the door for different kinds of vulnerabilities not previously
 possible, such as code reuse attacks, which, in certain languages, can be easily
 overlooked by developers when iterating on a codebase.
@@ -80,7 +80,7 @@ Some high-profile open-source programs that extensively use Python are
 and
 #link("https://github.com/ansible/ansible")[ansible],
 along with many companies like Netflix, Google and Reddit
-that use it for their products as well. // TODO sources
+that use it for their products as well.
 For this reason, Python is a very valuable target for malicious attackers
 and therefore extremely relevant for security researchers.
 
@@ -242,8 +242,6 @@ cascade into reduced data for @rq-widespread[] and @rq-cmp-pp[].
 
 If that is the case, it might be necessary to decrease the number of packages analysed in @rq-widespread[]
 in order to allow for manual validation, reducing the external validity of the experiment.
-
-#pagebreak()
 
 = Evaluation & News Value
 // Evaluation: How is it determined if the objectives of the degree project have been fulfilled and if the research question has been adequately answered? What kind of qualitative or quantitative measures can be defined and evaluated?
