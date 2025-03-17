@@ -107,7 +107,12 @@ will help developers avoid dangerous constructs.
 The degree project has the goal of answering the following four research questions:
 
 #[
-  #set enum(numbering: wrapped-enum-numbering((..nums) => [*RQ#numbering("1.", ..nums)*]))
+  #set enum(
+    numbering: wrapped-enum-numbering(
+      ref-numbering: (..nums) => [*RQ#numbering("1.1", ..nums)*],
+      (..nums) => [*RQ#numbering("1.1.", ..nums)*],
+    ),
+  )
   + #enum-label("rq-causes-consequences")
     What are the root causes and possible consequences of class pollution
     in a Python application?
@@ -125,7 +130,7 @@ The degree project has the goal of answering the following four research questio
 
 These questions are explained below in more detail, along with their objectives, tasks and methods.
 
-== @rq-causes-consequences[] Root Causes and Consequences of Class Pollution
+== @rq-causes-consequences[]: Root Causes and Consequences of Class Pollution
 
 Answering this research question is key for the remaining work in this project,
 since its goal is to identify all the different forms class pollution can take
@@ -139,7 +144,7 @@ investigation by observing interpreter behaviour, which together will allow for 
 different constructs that can pollute internal properties of Python classes, as well as
 valuable targets to pollute.
 
-== @rq-tool-design[] Efficient and Accurate Tool Implementation
+== @rq-tool-design[]: Efficient and Accurate Tool Implementation
 
 This is the most important and laborious research question, consisting in the
 development of a tool that can be ran against a Python codebase to flag potential
@@ -164,7 +169,7 @@ To ensure this, a set of artificial benchmarks will be written and then the tool
 will be run against them, revealing initial results regarding its accuracy,
 which will then be validated by the results obtained through @rq-widespread[].
 
-== @rq-widespread[] Prevalence and Exploitability of Class Pollution
+== @rq-widespread[]: Prevalence and Exploitability of Class Pollution
 
 Equipped with the tool from @rq-tool-design[], a more comprehensive evaluation can now be
 conducted by running it against various different Python libraries and applications in order
@@ -191,7 +196,7 @@ counts could also be tested if they are deemed relevant in the scope of this pro
 Finally, the obtained results will then be used to draw conclusions inductively and generalize
 prevalence and exploitability to the entire Python ecosystem.
 
-== @rq-cmp-pp[] Comparison to Prototype Pollution
+== @rq-cmp-pp[]: Comparison to Prototype Pollution
 
 With this research question, the aim is to compare the results obtained from @rq-causes-consequences[]
 and @rq-widespread[] with prior work on prototype pollution, such as #cite(<ghunter>, form: "prose") and

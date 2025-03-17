@@ -46,9 +46,13 @@
 ///
 // One is @one[] and another is @another[] // One is 1 and another is II.2
 /// ```
-#let wrapped-enum-numbering(numbering) = {
+#let wrapped-enum-numbering(ref-numbering: auto, numbering) = {
   let enum-numbering = (..it) => {
-    enum-numbering-state.update(x => numbering)
+    if ref-numbering == auto {
+      enum-numbering-state.update(x => numbering)
+    } else {
+      enum-numbering-state.update(x => ref-numbering)
+    }
     counter(enum-counter-name).update(it.pos())
     std.numbering(numbering, ..it)
   }

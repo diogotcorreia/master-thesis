@@ -1,8 +1,14 @@
 #let kthblue = rgb("#2258a5")
-#let stylize_link(it) = underline(
-  stroke: 1pt + kthblue,
-  text(fill: kthblue, it),
-)
+#let stylize_link(it) = {
+  if type(it.dest) == location {
+    it
+  } else {
+    underline(
+      stroke: 1pt + kthblue,
+      text(fill: kthblue, it),
+    )
+  }
+}
 
 #let in_page_cover(title: none, subtitle: none, date: none) = {
   set text(12pt)
