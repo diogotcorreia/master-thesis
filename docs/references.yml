@@ -113,3 +113,13 @@ pp-python-blog:
   parent:
     type: blog
     title: "Abdulrah33m's Blog"
+stack-overflow-survey-2024-most-popular:
+  type: web
+  title: "Most popular technologies"
+  author: "Stack Overflow"
+  url:
+    value: https://survey.stackoverflow.co/2024/technology/#most-popular-technologies
+    visited: 2025-03-14
+  parent:
+    type: web
+    title: "2024 Developer Survey"

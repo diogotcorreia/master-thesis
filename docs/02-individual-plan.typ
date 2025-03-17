@@ -46,9 +46,9 @@
 // The high level objective of the project, the desired outcome from the perspective of the assignment provider.
 // The background knowledge required to carry out the project.
 
-For the past decades, researchers have been investigating how to manipulate
-the execution flow of programs.
-This was prevalent in C/C++ compiled code, which could be vulnerable to
+For the past few decades, researchers have been investigating how the execution
+flow of programs can be manipulated.
+This is especially prevalent in C/C++ compiled code, which can be vulnerable to
 memory corruption and therefore susceptible to techniques such as
 Shellcode execution and Return Oriented Programming (ROP). // TODO sources
 
@@ -71,16 +71,15 @@ the Python programming language @pp-python.
 
 The *Python programming language* was created in 1991 by Guido van Rossum and has since
 seen immense adoption from the programming community, with more than 50% of the respondents
-of the 2024 StackOverflow Survey
-#link("https://survey.stackoverflow.co/2024/technology/#most-popular-technologies")[having worked with or want to work with it].
+of the 2024 Stack Overflow Survey having worked with it or wanting to @stack-overflow-survey-2024-most-popular.
 It is used for many applications, such as scripting, web applications, machine learning, and much
 more.
 Some high-profile open-source programs that extensively use Python are
 #link("https://github.com/home-assistant/core")[Home Assistant],
-#link("https://github.com/yt-dlp/yt-dlp")[yt-dlp]
+#link("https://github.com/element-hq/synapse")[Matrix Synapse]
 and
 #link("https://github.com/ansible/ansible")[ansible],
-along hundreds of companies like Netflix, Google and Reddit
+along with many companies like Netflix, Google and Reddit
 that use it for their products as well. // TODO sources
 For this reason, Python is a very valuable target for malicious attackers
 and therefore extremely relevant for security researchers.
@@ -93,7 +92,7 @@ prototype pollution, which various studies have concluded to be widespread
 and can result in severe vulnerabilities like Remote Code Execution (RCE)
 @silent-spring and Cross-Site Scripting (XSS) @probetheproto.
 
-This project aims to uncover how widespread this vulnerability
+This project aims to uncover how widespread Python class pollution
 is and if any of the discovered vulnerabilities are exploitable in practice,
 allowing developers to patch their respective applications.
 Additionally, a systematic investigation of the root causes of class pollution
@@ -116,11 +115,12 @@ The degree project has the goal of answering the following four research questio
     How to design and implement a tool that can efficiently and accurately
     detect class pollution in Python?
   + #enum-label("rq-widespread")
-    Is class pollution in Python widespread and exploitable in
+    Is class pollution in Python prevalent and exploitable in
     real world applications?
   + #enum-label("rq-cmp-pp")
     How does class pollution in Python compare to prototype pollution
-    in JavaScript when it comes to exploitability and widespreadness?
+    in JavaScript when it comes to exploitability and prevalence in
+    the real-world?
 ]
 
 These questions are explained below in more detail, along with their objectives, tasks and methods.
@@ -135,19 +135,19 @@ identifying possible consequences is still important for the motivation of the p
 as well as to generate awareness among developers.
 
 To achieve this objective, a literature review will be performed, along with a systematic
-investigation by observing interpreter behaviour, which together will allow for creating
-a list of different constructs that can pollute internal properties of Python classes,
-as well as a list of valuable targets to pollute.
+investigation by observing interpreter behaviour, which together will allow for sampling
+different constructs that can pollute internal properties of Python classes, as well as
+valuable targets to pollute.
 
 == @rq-tool-design[] Efficient and Accurate Tool Implementation
 
 This is the most important and laborious research question, consisting in the
-development of a tool that can be ran against a Python codebase and flag potential
+development of a tool that can be ran against a Python codebase to flag potential
 code paths that can result in class pollution.
 
 It is imperative that the tool is as efficient and accurate as possible
 (i.e., it has a short runtime and low false positive/negative rate),
-and ideally requiring little human intervention
+and ideally requires little human intervention
 given that in @rq-widespread[] it will be ran against many different codebases.
 
 To achieve these objectives, the tool will be built on top of
@@ -158,47 +158,50 @@ it is impossible to have perfect static taint analysis, but the use of Pysa will
 abstract most of these complexities away, while allowing focus to be placed on
 the specifics of the problem at hand.
 
-The tool should be able to find all the dangerous constructs found in @rq-causes-consequences[]
-and, ideally, perform validation automatically.
+The tool should be able to find all the dangerous constructs compiled in @rq-causes-consequences[]
+and, if possible, perform validation automatically.
 To ensure this, a set of artificial benchmarks will be written and then the tool
 will be run against them, revealing initial results regarding its accuracy,
 which will then be validated by the results obtained through @rq-widespread[].
 
-== @rq-widespread[] Widepreadness and Exploitability of Class Pollution
+== @rq-widespread[] Prevalence and Exploitability of Class Pollution
 
-Equipped with the tool from @rq-tool-design[], it can now be run against various different
-Python libraries and applications in order to determine how widespread class pollution is.
+Equipped with the tool from @rq-tool-design[], a more comprehensive evaluation can now be
+conducted by running it against various different Python libraries and applications in order
+to determine how prevalent class pollution is.
 
-The first step is picking which libraries and applications will be analyzed.
+The first step is deciding on which libraries and applications will be analyzed.
 To ensure a representative sample of various different packages, a selection
-of 3000 packages will be downloaded from #link("https://pypi.org/")[PyPI], the largest
-Python repository.
+of 3,000 packages will be downloaded from #link("https://pypi.org/")[PyPI], the largest
+Python package repository.
 These packages will be sourced from three different cohorts:
-- the 1000 most downloaded packages in the last month;
-- 1000 packages picked randomly from the 1001-9000 most downloaded packages in the last month;
-- the 9001-10000 most downloaded packages in the last month.
+- the 1,000 most downloaded packages in the last month;
+- 1,000 packages picked randomly from the 1,001-9,000 most downloaded packages in the last month;
+- the 9,001-10,000 most downloaded packages in the last month.
 
 It is theorized that less frequently downloaded packages could be undergo less rigorous testing
 and scrutiny, therefore having a higher probability of being vulnerable to class pollution,
 hence the emphasis on testing less popular packages.
-These numbers are subject to adjustments if they are found to not be appropriate for the
-timeline of the project.
+In any case, these numbers may be subject to adjustments if they are found to not be appropriate
+for the timeline of the project.
 
 Additionally, some other applications not available on PyPI or otherwise with lower download
 counts could also be tested if they are deemed relevant in the scope of this project.
 
 Finally, the obtained results will then be used to draw conclusions inductively and generalize
-widepreadness and exploitability to the entire Python ecosystem.
+prevalence and exploitability to the entire Python ecosystem.
 
 == @rq-cmp-pp[] Comparison to Prototype Pollution
 
 With this research question, the aim is to compare the results obtained from @rq-causes-consequences[]
 and @rq-widespread[] with prior work on prototype pollution, such as #cite(<ghunter>, form: "prose") and
-#cite(<pp-yinzhi-cao>, form: "prose"), and reach a conclusion on which one is more prevalent.
+#cite(<pp-yinzhi-cao>, form: "prose"), and reach a conclusion on how prevalent and exploitable
+they both are.
 
 To achieve this, both quantitative and qualitative properties will be taken into account,
-such as what percentage of packages are vulnerable, how easy it is to exploit, and
-how severe the consequences are.
+such as what percentage of packages are detected to be vulnerable, how easy it is to exploit,
+how severe the consequences are, and how these numbers differ depending on the popularity and size
+of each package.
 
 Furthermore, given what is already known by class pollution (i.e., pollution requires the use of
 `getattr` followed by `setattr`), it is hypothesised that this Python vulnerability will be
@@ -228,8 +231,8 @@ but only in general as a motivation for this work, as per @rq-causes-consequence
 // Risks: Explain what can go wrong and delay or make the project impossible to conclude. Explain how you will deal with these problems.
 
 The proposed project is rather ambitious and it can certainly take more time than expected.
-The most likely scenario is that the tool developed as per @rq-tool-design[] cannot be fully
-completed on time, and will therefore be missing some features like automated validation, which can
+It could happen that the tool developed as per @rq-tool-design[] cannot be fully
+completed in time, and would therefore be missing some features like automated validation, which can
 cascade into reduced data for @rq-widespread[] and @rq-cmp-pp[].
 
 If that is the case, it might be necessary to decrease the number of packages analysed in @rq-widespread[]
@@ -278,9 +281,8 @@ The developed tool will interface with Pysa, which is written in Python and OCam
 #footnote[
   Pysa is currently being rewritten in Rust, but it is only expected to be
   #link("https://github.com/facebook/pyre-check/tree/897a035baabe731e50f833b8b749739463bd230f/pyre2")[
-    complete at the end of 2025
-  ],
-  which makes it unviable for the timeline of this project
+    complete at the end of 2025],
+  which makes using it infeasible for the timeline of this project
 ],
 and will be developed in Rust.
 When the tool is completed, it will be tested against many different open-source
