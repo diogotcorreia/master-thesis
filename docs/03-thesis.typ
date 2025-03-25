@@ -2,8 +2,10 @@
 
 #import "@preview/glossarium:0.5.1": make-glossary, register-glossary, print-glossary
 #import "./utils/acronyms.typ": acronyms
+#import "utils/enum-references.typ": setup_enum_references
 #show: make-glossary
 #register-glossary(acronyms)
+#show: setup_enum_references
 
 #show: kth-thesis.with(
   primary-lang: "en",
