@@ -8,6 +8,7 @@ in
 
       (python3.withPackages (ps: [
         mypkgs.pyre-check
+        mypkgs.sapp
       ]))
     ];
   }
