@@ -1,104 +1,173 @@
 # https://github.com/typst/hayagriva/blob/main/docs/file-format.md
+# https://jonasloos.github.io/bibtex-to-hayagriva-webapp/
+pp-python-blog:
+  type: article
+  title: "Prototype Pollution in Python"
+  author: Abdulraheem Khaled
+  url:
+    value: https://blog.abdulrah33m.com/prototype-pollution-in-python/
+    date: 2025-03-14
+  date: 2023-01-04
+  parent:
+    type: blog
+    title: "Abdulrah33m's Blog"
+stack-overflow-survey-2024-most-popular:
+  type: web
+  title: "Most popular technologies"
+  author: "Stack Overflow"
+  url:
+    value: https://survey.stackoverflow.co/2024/technology/#most-popular-technologies
+    visited: 2025-03-14
+  parent:
+    type: web
+    title: "2024 Developer Survey"
+
+# From Zotero:
 ghunter:
   type: article
-  title: '{GHunter: Universal Prototype Pollution Gadgets in JavaScript Runtimes}'
+  title: '{GHunter}: {Universal} Prototype Pollution Gadgets in {JavaScript} Runtimes'
   author:
   - Cornelissen, Eric
   - Shcherbakov, Mikhail
   - Balliu, Musard
   date: 2024-08
   page-range: 3693–3710
-  parent:
-    type: proceedings
-    location: Philadelphia, Pennsylvania, US
-    parent:
-      type: proceedings
-      title: 33rd USENIX Security Symposium (USENIX Security 24)
-silent-spring:
-  type: article
-  title: 'Silent spring: prototype pollution leads to remote code execution in node.js'
-  author:
-  - Shcherbakov, Mikhail
-  - Balliu, Musard
-  - Staicu, Cristian-Alexandru
-  date: 2023
   serial-number:
-    isbn: 978-1-939133-37-3
-  abstract: Prototype pollution is a dangerous vulnerability affecting prototype-based languages like JavaScript and the Node.js platform. It refers to the ability of an attacker to inject properties into an object's root prototype at runtime and subsequently trigger the execution of legitimate code gadgets that access these properties on the object's prototype, leading to attacks such as Denial of Service (DoS), privilege escalation, and Remote Code Execution (RCE). While there is anecdotal evidence that prototype pollution leads to RCE, current research does not tackle the challenge of gadget detection, thus only showing feasibility of DoS attacks, mainly against Node.js libraries.In this paper, we set out to study the problem in a holistic way, from the detection of prototype pollution to detection of gadgets, with the ambitious goal of finding end-to-end exploits beyond DoS, in full-fledged Node.js applications. We build the first multi-staged framework that uses multilabel static taint analysis to identify prototype pollution in Node.js libraries and applications, as well as a hybrid approach to detect universal gadgets, notably, by analyzing the Node.js source code. We implement our framework on top of GitHub's static analysis framework CodeQL to find 11 universal gadgets in core Node.js APIs, leading to code execution. Furthermore, we use our methodology in a study of 15 popular Node.js applications to identify prototype pollutions and gadgets. We manually exploit eight RCE vulnerabilities in three high-profile applications such as NPM CLI, Parse Server, and Rocket.Chat. Our results provide alarming evidence that prototype pollution in combination with powerful universal gadgets lead to RCE in Node.js.
+    isbn: 978-1-939133-44-1
   parent:
     type: proceedings
-    title: Proceedings of the 32nd USENIX Conference on Security Symposium
+    title: 33rd {USENIX} Security Symposium ({USENIX} Security 24)
     publisher: USENIX Association
-    location: Anaheim, CA, USA
-    parent:
-      type: proceedings
-      title: SEC '23
+    location: Philadelphia, PA
+meaning-memory-safety:
+  type: anthos
+  title: The {Meaning} of {Memory Safety}
+  author:
+  - Azevedo De Amorim, Arthur
+  - Hri̧tcu, C̆at̆alin
+  - Pierce, Benjamin C.
+  date: 2018
+  editor:
+  - Bauer, Lujo
+  - Küsters, Ralf
+  page-range: 79–105
+  serial-number:
+    doi: 10.1007/978-3-319-89722-6_4
+    isbn: 978-3-319-89721-9 978-3-319-89722-6
+  parent:
+    type: anthology
+    title: Principles of {Security} and {Trust}
+    publisher: Springer International Publishing
+    location: Cham
+    volume: 10804
 php-object-injection:
   type: article
-  title: 'Code Reuse Attacks in PHP: Automated POP Chain Generation'
+  title: 'Code {Reuse Attacks} in {PHP}: {Automated POP Chain Generation}'
   author:
   - Dahse, Johannes
   - Krein, Nikolai
   - Holz, Thorsten
-  date: 2014
+  date: 2014-11
   page-range: 42–53
-  url: https://doi.org/10.1145/2660267.2660363
   serial-number:
     doi: 10.1145/2660267.2660363
-    isbn: '9781450329576'
-  abstract: Memory corruption vulnerabilities that lead to control-flow hijacking attacks are a common problem for binary executables and such attacks are known for more than two decades. Over the last few years, especially code reuse attacks attracted a lot of attention. In such attacks, an adversary does not need to inject her own code during the exploitation phase, but she reuses existing code fragments (so called gadgets) to build a code chain that performs malicious computations on her behalf. Return-oriented programming (ROP) is a well-known technique that bypasses many existing defenses. Surprisingly, code reuse attacks are also a viable attack vector against web applications.In this paper, we study code reuse attacks in the context of PHP-based web applications. We analyze how PHP object injection (POI) vulnerabilities can be exploited via property-oriented programming (POP) and perform a systematic analysis of available gadgets in common PHP applications. Furthermore, we introduce an automated approach to statically detect POI vulnerabilities in object-oriented PHP code. Our approach is also capable of generating POP chains in an automated way. We implemented a prototype of the proposed approach and evaluated it with 10 well-known applications. Overall, we detected 30 new POI vulnerabilities and 28 new gadget chains.
+    isbn: 978-1-4503-2957-6
   parent:
     type: proceedings
-    title: Proceedings of the 2014 ACM SIGSAC Conference on Computer and Communications Security
-    publisher: Association for Computing Machinery
-    location: Scottsdale, Arizona, USA
-    parent:
-      type: proceedings
-      title: CCS '14
+    title: Proceedings of the 2014 {ACM SIGSAC Conference} on {Computer} and {Communications Security}
+    publisher: ACM
+    location: Scottsdale Arizona USA
+pp-python:
+  type: article
+  title: Research and {Explore} of {Prototype Pollution Attack} in {Python}
+  author: Ouyang, Ziyi
+  date: 2023-02
+  page-range: 415–419
+  serial-number:
+    doi: 10.1109/ACCTCS58815.2023.00055
+    isbn: 979-8-3503-1080-1
+  parent:
+    type: proceedings
+    title: 2023 3rd {Asia-Pacific Conference} on {Communications Technology} and {Computer Science} ({ACCTCS})
+    publisher: IEEE
+    location: Shenyang, China
 pp-yinzhi-cao:
   type: article
-  title: Detecting Node.js prototype pollution vulnerabilities via object lookup analysis
+  title: Detecting {Node}.Js Prototype Pollution Vulnerabilities via Object Lookup Analysis
   author:
   - Li, Song
   - Kang, Mingqing
   - Hou, Jianwei
   - Cao, Yinzhi
-  date: 2021
+  date: 2021-08
   page-range: 268–279
-  url: https://doi.org/10.1145/3468264.3468542
   serial-number:
     doi: 10.1145/3468264.3468542
-    isbn: '9781450385626'
-  abstract: Prototype pollution is a type of vulnerability specific to prototype-based languages, such as JavaScript, which allows an adversary to pollute a base object’s property, leading to a further consequence such as Denial of Service (DoS), arbitrary code execution, and session fixation. On one hand, the only prior work in detecting prototype pollution adopts dynamic analysis to fuzz package inputs, which inevitably has code coverage issues in triggering some deeply embedded vulnerabilities. On the other hand, it is challenging to apply state-of-the-art static analysis in detecting prototype pollution because of the involvement of prototype chains and fine-grained object relations including built-in ones. In this paper, we propose a flow-, context-, and branch-sensitive static taint analysis tool, called ObjLupAnsys, to detect prototype pollution vulnerabilities. The key of ObjLupAnsys is a so-called object lookup analysis, which gradually expands the source and sink objects into big clusters with a complex inner structure by performing targeted object lookups in both clusters so that a system built-in function can be redefined. Specifically, at the source cluster, ObjLupAnsys proactively creates new object properties based on how the target program uses the initial source object; at the sink cluster, ObjLupAnsys assigns property values in object lookups to decrease the number of object lookups to reach a system built-in function. We implemented an open-source tool and applied it for the detection of prototype pollution among Node.js packages. Our evaluation shows that ObjLupAnsys finds 61 zero-day, previously-unknown, exploitable vulnerabilities as opposed to 18 by the state-of-the-art dynamic fuzzing tool and three by a state-of-the-art static analysis tool that is modified to detect prototype pollution. To date, 11 vulnerable Node.js packages are assigned with CVE numbers and five have already been patched by their developers. In addition, ObjLupAnsys also discovered seven applications or packages including a real-world, online website, which are indirectly vulnerable due to the inclusion of vulnerable packages found by ObjLupAnsys.
+    isbn: 978-1-4503-8562-6
   parent:
     type: proceedings
-    title: Proceedings of the 29th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering
-    publisher: Association for Computing Machinery
-    location: Athens, Greece
-    parent:
-      type: proceedings
-      title: ESEC/FSE 2021
+    title: Proceedings of the 29th {ACM Joint Meeting} on {European Software Engineering Conference} and {Symposium} on the {Foundations} of {Software Engineering}
+    publisher: ACM
+    location: Athens Greece
 probetheproto:
   type: article
-  title: 'Probe the Proto: Measuring Client-Side Prototype Pollution Vulnerabilities of One Million Real-world Websites.'
+  title: 'Probe the {Proto}: {Measuring Client-Side Prototype Pollution Vulnerabilities} of {One Million Real-world Websites}'
   author:
   - Kang, Zifeng
   - Li, Song
   - Cao, Yinzhi
   date: 2022
-  parent:
-    type: proceedings
-    title: NDSS
-pp-python:
-  type: article
-  title: Research and Explore of Prototype Pollution Attack in Python
-  author: Ouyang, Ziyi
-  date: 2023
-  page-range: 415–419
   serial-number:
-    doi: 10.1109/ACCTCS58815.2023.00055
+    doi: 10.14722/ndss.2022.24308
+    isbn: 978-1-891562-74-7
   parent:
     type: proceedings
-    title: 2023 3rd Asia-Pacific Conference on Communications Technology and Computer Science (ACCTCS)
-    issue: ''
-    volume: 0
+    title: Proceedings 2022 {Network} and {Distributed System Security Symposium}
+    publisher: Internet Society
+    location: San Diego, CA, USA
+rop-geometry:
+  type: article
+  title: 'The Geometry of Innocent Flesh on the Bone: Return-into-Libc without Function Calls (on the X86)'
+  author: Shacham, Hovav
+  date: 2007-10
+  page-range: 552–561
+  serial-number:
+    doi: 10.1145/1315245.1315313
+    isbn: 978-1-59593-703-2
+  parent:
+    type: proceedings
+    title: Proceedings of the 14th {ACM} Conference on {Computer} and Communications Security
+    publisher: ACM
+    location: Alexandria Virginia USA
+rop-payload-detection:
+  type: article
+  title: '{ROP} Payload Detection Using Speculative Code Execution'
+  author:
+  - Polychronakis, Michalis
+  - Keromytis, Angelos D.
+  date: 2011-10
+  page-range: 58–65
+  serial-number:
+    doi: 10.1109/MALWARE.2011.6112327
+    isbn: 978-1-4673-0034-6 978-1-4673-0031-5 978-1-4673-0033-9
+  parent:
+    type: proceedings
+    title: 2011 6th {International Conference} on {Malicious} and {Unwanted Software}
+    publisher: IEEE
+    location: Fajardo, PR, USA
+silent-spring:
+  type: article
+  title: 'Silent Spring: {Prototype} Pollution Leads to Remote Code Execution in Node.Js'
+  author:
+  - Shcherbakov, Mikhail
+  - Balliu, Musard
+  - Staicu, Cristian-Alexandru
+  date: 2023-08
+  page-range: 5521–5538
+  serial-number:
+    isbn: 978-1-939133-37-3
+  parent:
+    type: proceedings
+    title: 32nd {USENIX} Security Symposium ({USENIX} Security 23)
+    publisher: USENIX Association
+    location: Anaheim, CA
