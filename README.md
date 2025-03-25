@@ -27,7 +27,7 @@ using my public key at [gpg.diogotc.com].
 
 ## License
 
-All the code is licensed under the [GPLv3 license](./LICENSE.md), while the
+All the code is licensed under the [GPL-3.0-or-later license](./LICENSE.md), while the
 documents in the `docs` directory are licensed under
 [CC-BY-SA-4.0](./docs/LICENSE.md).
 
