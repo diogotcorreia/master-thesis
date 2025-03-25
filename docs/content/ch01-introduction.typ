@@ -6,7 +6,7 @@ For the past few decades, researchers have been investigating how the execution
 flow of programs can be manipulated.
 This is especially prevalent in C/C++ compiled code, which can be vulnerable to
 memory corruption and therefore susceptible to techniques such as
-Shellcode execution and Return Oriented Programming (ROP) @rop-payload-detection @rop-geometry.
+Shellcode execution and @rop @rop-payload-detection @rop-geometry.
 
 In contrast with compiled languages, the now widely used interpreted programming
 languages (such as JavaScript, Python, PHP, etc.) are generally immune against
@@ -27,14 +27,21 @@ the Python programming language @pp-python. // TODO: consider removing this refe
 
 == Problem
 
-- unknown prevalence of class pollution
-- no tool that can detect it
+There are currently no tools that can identify constructs that can lead to class
+pollution, nor any indication of how prevalent this vulnerability is across existing
+Python applications.
+As seen with similar vulnerabilities, such as prototype pollution @silent-spring @ghunter, there
+is a possibility that the impact of class pollution could be high, leading to,
+for example, Authorization Bypass, @dos, @rce, and/or @ssti.
+For this reason, it is paramount to better understand what is the potential
+impact and prevalence of this vulnerability, as well as possible countermeasures
+to protect against it.
 
-#lorem(100)
+The specifics of the problem are further outlined in @bg:python.
 
 == Research Questions
 
-The degree project has the goal of answering the following four research questions:
+This degree project aims to answer the following four research questions:
 
 #[
   #set enum(
@@ -58,35 +65,54 @@ The degree project has the goal of answering the following four research questio
     the real-world?
 ]
 
-// TODO: expand?
+These reflect the iterative process of understanding the vulnerability at
+hands, going over how to efficiently identify it, testing existing
+applications for its presence, and, finally, reaching a conclusion on
+how it compares to similar vulnerabilities.
 
 == Purpose
 
-- generate awareness for this type of vulnerabilities in python programs
-- inspire future research on the topic
+The purpose of this project is to generate awareness for this vulnerability
+in Python programs amongst the Python developer community.
+As previously stated, there has not been previous substantial research on this topic,
+and therefore the Python developers might not be aware of it, writing
+constructs that could lead to class pollution.
+If developers are aware of the existence of class pollution and its countermeasures,
+they can avoid writing vulnerable programs.
 
-#text(fill: red, lorem(50))
+Additionally, it hopes to inspire future research on the topic, which could improve
+the automated detection of class pollution, as outlined in @discussion:futurework.
 
 == Goals
 
 This project aims to uncover how widespread Python class pollution
-is and if any of the discovered vulnerabilities are exploitable in practice,
+is amongst a sample of source-available Python projects,
+and if any of the discovered vulnerabilities are exploitable in practice,
 allowing developers to patch their respective applications.
-Additionally, a systematic investigation of the root causes of class pollution
-will help developers avoid dangerous constructs.
+Additionally, a systematic investigation of the root causes of class pollution,
+as per @rq-causes-consequences[], will help developers avoid dangerous constructs.
 
-#text(fill: red, lorem(100))
+Finally, this thesis also aims to perform a quantitative and qualitative
+comparison between class pollution in Python and prototype pollution in JavaScript,
+going over how prevalent they are and what conditions are necessary for them
+to be exploitable in practice.
 
 == Ethics & Sustainability
 
-// TODO rewrite since there is missing context because this is at the beginning
+As further outlined in @method, the designed tool has been run against various
+source-available projects that can be downloaded from @pypi.
+All vulnerabilities found during the elaboration of this project have been
+responsibly disclosed to the respective developers and maintainers within a reasonable
+time frame, following standard disclosure procedures.
 
-Given that this study will be solely performed on source-available projects, and that all vulnerabilities will be
-responsibly disclosed to the respective developers and maintainers within a reasonable timeframe,
-this project does not raise ethical questions.
+Additionally, while this tool could be used maliciously to detect class pollution
+in unpatched projects, the benefits for developers far outweigh the drawbacks in
+regards to exploitability, as the vulnerability can be quickly identified and
+fixed.
 
-Moreover, while this project is not directly related to sustainability, it will serve a role in
-securing various applications that could be directly related to sustainability.
+Moreover, while this project is not directly related to sustainability, it will serve
+an important role in securing various Python applications that could be directly related
+to sustainability.
 
 == Limitations
 
@@ -96,5 +122,7 @@ It is, however, not aimed at identifying consequences of said pollution in speci
 but only in general as a motivation for this work, as per @rq-causes-consequences[].
 
 == Structure of the Thesis
+
+// TODO: to be written at the end
 
 #text(fill: red, lorem(50))

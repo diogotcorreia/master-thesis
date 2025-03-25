@@ -1,4 +1,4 @@
-= Method or Methods
+= Method or Methods <method>
 
 #lorem(50)
 

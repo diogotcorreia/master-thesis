@@ -1,9 +1,7 @@
 = Discussion
 
-Let's talk about acronyms: when referring to a single @os, the first time we mention it the @os gets expanded, but not any further.
+#lorem(200)
 
-We can also discuss multiple @os:pl at once, in plural.
-
-#line(length: 50%)
+== Future Work <discussion:futurework>
 
 #lorem(200)
