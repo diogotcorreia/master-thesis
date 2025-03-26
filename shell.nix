@@ -1,9 +1,9 @@
 let
   # Pin specific version of nixpkgs to ensure reproducibility far into the future
-  # Pinned: nixos-24.11 2025-03-21
+  # Pinned: nixos-unstable 2025-03-25
   nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/7105ae3957700a9646cc4b766f5815b23ed0c682.tar.gz";
-    sha256 = "sha256-8XfURTDxOm6+33swQJu/hx6xw1Tznl8vJJN5HwVqckg=";
+    url = "https://github.com/NixOS/nixpkgs/archive/698214a32beb4f4c8e3942372c694f40848b360d.tar.gz";
+    sha256 = "sha256-hw63HnwnqU3ZQfsMclLhMvOezpM7RSB0dMAtD5/sOiw=";
   };
 in
   {pkgs ? import nixpkgs {}}: let
