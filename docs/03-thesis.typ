@@ -7,6 +7,11 @@
 #register-glossary(acronyms)
 #show: setup_enum_references
 
+// Fix et al. only appearing on 7+ authors in in-text citations.
+// IEEE style guide says it should show up for 3 or more.
+// See: https://github.com/typst/hayagriva/issues/164
+#set cite(style: "./ieee-et-al-3.csl")
+
 #show: kth-thesis.with(
   primary-lang: "en",
   localized-info: (
