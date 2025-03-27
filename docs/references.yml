@@ -77,6 +77,15 @@ php-object-injection:
     title: Proceedings of the 2014 {ACM SIGSAC Conference} on {Computer} and {Communications Security}
     publisher: ACM
     location: Scottsdale Arizona USA
+pp-arteau:
+  type: anthos
+  title: Prototype Pollution Attack in {NodeJS} Application
+  author: Arteau, Olivier
+  date: 2018
+  parent:
+    type: anthology
+    title: '{NorthSec}'
+    publisher: Olivier Arteau
 pp-python:
   type: article
   title: Research and {Explore} of {Prototype Pollution Attack} in {Python}
@@ -91,6 +100,21 @@ pp-python:
     title: 2023 3rd {Asia-Pacific Conference} on {Communications Technology} and {Computer Science} ({ACCTCS})
     publisher: IEEE
     location: Shenyang, China
+pp-python-prevention:
+  type: article
+  title: Exploitation and Prevention of {Python} Prototype Chain Pollution
+  author: Qingyun, Zhang
+  date: 2024-02
+  page-range: 229–236
+  serial-number:
+    doi: 10.54254/2755-2721/43/20230839
+    issn: 2755-2721, 2755-273X
+  abstract: As more and more enterprises and organizations migrate their business infrastructure to the internet, the significance of software security vulnerabilities becomes increasingly prominent. Python, as a flexible and efficient programming language, plays a crucial role in web application development. Consequently, research on its security is imperative. In recent years, researchers have explored Python prototype chain pollution vulnerabilities. This paper aims to further investigate the exploitation of prototype chain pollution in Python and provide an explanation of pollution prevention. The paper will introduce the working principles of the prototype chain, attack scenarios, and analyze the exploitation of prototype chain pollution in Python using experimental samples. Finally, the article will propose two possible defense measures to assist developers in better mitigating potential development risks and safeguarding cyberspace security.
+  parent:
+    type: periodical
+    title: Applied and Computational Engineering
+    issue: 1
+    volume: 43
 pp-yinzhi-cao:
   type: article
   title: Detecting {Node}.Js Prototype Pollution Vulnerabilities via Object Lookup Analysis

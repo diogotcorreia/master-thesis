@@ -5,6 +5,11 @@
     long: "Denial of Service",
   ),
   (
+    key: "dom",
+    short: "DOM",
+    long: "Document Object Model",
+  ),
+  (
     key: "kth",
     short: "KTH",
     long: "KTH Royal Institute of Technology",
@@ -26,8 +31,18 @@
     long: "Return-Oriented Programming",
   ),
   (
+    key: "ssrf",
+    short: "SSRF",
+    long: "Server-Side Request Forgery",
+  ),
+  (
     key: "ssti",
     short: "SSTI",
     long: "Server-Side Template Injection",
+  ),
+  (
+    key: "xss",
+    short: "XSS",
+    long: "Cross-Site Scripting",
   ),
 )

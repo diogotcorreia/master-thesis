@@ -1,10 +1,17 @@
 #import "@preview/kthesis:0.1.1": kth-thesis, setup-appendices
 
+#import "@preview/codly:1.2.0": codly-init, codly
+#import "@preview/codly-languages:0.1.8": codly-languages
 #import "@preview/glossarium:0.5.4": make-glossary, register-glossary, print-glossary
 #import "./utils/acronyms.typ": acronyms
 #import "utils/enum-references.typ": setup_enum_references
+
+#show: codly-init
+#codly(languages: codly-languages, zebra-fill: none)
+
 #show: make-glossary
 #register-glossary(acronyms)
+
 #show: setup_enum_references
 
 // Fix et al. only appearing on 7+ authors in in-text citations.
