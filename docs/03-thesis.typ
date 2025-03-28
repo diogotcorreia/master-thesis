@@ -1,8 +1,9 @@
-#import "@preview/kthesis:0.1.1": kth-thesis, setup-appendices
+#import "./utils/global-imports.typ": kthesis, codly, codly-languages, glossarium
+#import kthesis: kth-thesis, setup-appendices
 
-#import "@preview/codly:1.2.0": codly-init, codly
-#import "@preview/codly-languages:0.1.8": codly-languages
-#import "@preview/glossarium:0.5.4": make-glossary, register-glossary, print-glossary
+#import codly: codly-init, codly
+#import codly-languages: codly-languages
+#import glossarium: make-glossary, register-glossary, print-glossary
 #import "./utils/acronyms.typ": acronyms
 #import "utils/enum-references.typ": setup_enum_references
 
