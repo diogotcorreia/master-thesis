@@ -21,6 +21,15 @@ stack-overflow-survey-2024-most-popular:
   parent:
     type: web
     title: "2024 Developer Survey"
+php-magic-methods:
+  type: reference
+  title: "Magic Methods"
+  url:
+    value: https://www.php.net/manual/en/language.oop5.magic.php
+    visited: 2025-03-28
+  parent:
+    type: reference
+    title: "PHP Manual"
 
 # From Zotero:
 ghunter:

@@ -6,7 +6,7 @@ Given that very little research has been done on this topic -- there is only a
 blog post @pp-python-blog and two works @pp-python @pp-python-prevention that go over mostly
 the same content -- there are currently no state-of-the-art tools that can detect Python class
 pollution.
-For this reason, this chapter go over similar vulnerabilities in other languages instead,
+For this reason, this chapter goes over similar vulnerabilities in other languages instead,
 such as prototype pollution in JavaScript (@bg:js-pp) and object injection in PHP (@bg:php-oi).
 Then, internal structures and behaviour of the Python language and interpreter will be explored
 in @bg:python in order to provide context for the rest of this project, where the techniques
@@ -132,9 +132,57 @@ from the root prototype by using `Object.create(null)`.
 
 == PHP Object Injection <bg:php-oi>
 
-- class-based inheritance
-- magic methods
-- deserialisation/serialisation
+In PHP, inheritance can be achieved through the use of classes, similarly to Java and C++.
+Notably, the language does not have a root class, which means that, unlike JavaScript,
+it is not possible to pollute a root object that affects every object in the application.
+
+However, attackers can take advantage of PHP's deserialisation and serialisation features,
+which convert arbitrary objects into a string and vice-versa, and use them to create
+objects with types the application did not expect @php-object-injection.
+
+Another relevant language feature is magic methods, which are called by PHP on various actions
+@php-magic-methods.
+For instance, the `__sleep` method is called before serialisation, `__wakeup` is called after
+deserialisation, `__destruct` is called when an object is about to be destroyed because there
+is no longer any reference to it, and many more @php-object-injection @php-magic-methods.
+When used in conjunction with dynamic dispatch, an attacker can take advantage of any class
+in the application as a gadget, possibly achieving vulnerabilities like @rce, as demonstrated
+by @code:php-oi-rce @php-object-injection.
+
+#figure(
+  caption: [
+    Example showing how deserialising data can result in @rce in PHP, by taking advantage of
+    inheritance and dynamic dispatch
+  ],
+)[
+  ```php
+  <?php
+  class Foo {
+    public ?string $output;
+
+    public function __wakeup() {
+      $this->output = $this->foobar();
+    }
+
+    public function foobar() {
+      return "hello world"; // benign
+    }
+  }
+
+  class Bar extends Foo {
+    public string $cmd;
+
+    public function foobar() {
+      return shell_exec($this->cmd); // can be abused if attacker controls cmd
+    }
+  }
+
+  // O:3:"Bar":1:{s:3:"cmd";s:9:"uname -sr"}
+  $obj = unserialize($_GET["data"]);
+
+  echo $obj->output; // prints "Linux 6.6.83"
+  ```
+] <code:php-oi-rce>
 
 == Python <bg:python>
 
