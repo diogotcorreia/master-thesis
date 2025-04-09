@@ -11,11 +11,19 @@ in
   in
     pkgs.mkShell {
       buildInputs = with pkgs; [
+        # for thesis writing
         typst
         typstyle
 
         (python3.withPackages (ps: [
           mypkgs.pyre-check
         ]))
+
+        # for tool
+        cargo
+        rustc
+        rustfmt
+        rust-analyzer
+        clippy
       ];
     }
