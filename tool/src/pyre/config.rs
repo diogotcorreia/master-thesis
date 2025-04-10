@@ -8,6 +8,7 @@ pub struct PyreConfiguration {
 }
 
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "lowercase")]
 pub enum SitePackageSearchStrategy {
     None,
     All,
@@ -33,7 +34,8 @@ pub struct TaintRule {
     pub name: String,
     pub code: u32,
     pub sources: Vec<String>,
-    pub sink: Vec<String>,
+    pub sinks: Vec<String>,
+    pub message_format: String,
 }
 
 #[derive(Debug, Serialize)]

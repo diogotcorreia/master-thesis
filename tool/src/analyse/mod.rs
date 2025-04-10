@@ -1,11 +1,24 @@
 use std::{
-    fs, io,
+    fs::{self, File},
+    io::{self, BufReader},
     path::{Path, PathBuf},
+    process::Command,
     time::{SystemTime, UNIX_EPOCH},
 };
 
 use anyhow::{Context, Result};
 use tracing::debug;
+
+use crate::{
+    errors::ToolError,
+    pyre::{
+        config::{
+            PyreConfiguration, SitePackageSearchStrategy, TaintConfig, TaintEntry, TaintOptions,
+            TaintRule,
+        },
+        results::TaintOutput,
+    },
+};
 
 #[derive(Debug)]
 pub struct AnalyseOptions {
@@ -16,35 +29,144 @@ pub struct AnalyseOptions {
 
 impl AnalyseOptions {
     pub fn run_analysis(&self) -> Result<()> {
-        let _new_dir = self.copy_to_workdir()?;
+        self.setup_pyre_files()?;
+        let results_dir = self.run_pysa()?;
+        let results = self.get_pyre_results(&results_dir)?;
+        debug!("Results: {results:#?}");
         Ok(())
     }
 
-    #[tracing::instrument]
-    fn copy_to_workdir(&self) -> Result<PathBuf> {
-        let destination_file_name = {
-            let now = SystemTime::now()
-                .duration_since(UNIX_EPOCH)
-                .unwrap()
-                .as_millis();
-
-            let mut file_name = self
-                .project_dir
-                .file_name()
-                .map(|s| s.to_os_string())
-                .unwrap_or("unknown".into());
-            file_name.push(".");
-            file_name.push(now.to_string());
-            file_name
+    #[tracing::instrument(skip(self))]
+    fn setup_pyre_files(&self) -> Result<()> {
+        let config = PyreConfiguration {
+            site_package_search_strategy: SitePackageSearchStrategy::Pep561,
+            source_directories: vec!["./src".to_string()],
+            taint_models_path: vec![".".to_string()],
         };
-        let destination = self.work_dir.join(destination_file_name).join("src");
-        copy_dir_all(&self.project_dir, &destination)
-            .context("failed to copy project into work dir")?;
 
-        debug!("copied project to {destination:?}");
+        let taint_config = TaintConfig {
+            sources: vec![TaintEntry {
+                name: "CustomGetAttr".to_string(),
+            }],
+            sinks: vec![TaintEntry {
+                name: "CustomSetAttr".to_string(),
+            }],
+            features: vec![TaintEntry {
+                name: "customgetattr".to_string(),
+            }],
+            rules: vec![TaintRule {
+                name: "class-pollution".to_string(),
+                code: 9901,
+                sources: vec!["CustomGetAttr".to_string()],
+                sinks: vec!["CustomSetAttr".to_string()],
+                message_format: "There might be class pollution here".to_string(),
+            }],
+            options: TaintOptions {
+                maximum_overrides_to_analyze: 1,
+                maximum_trace_length: 20,
+            },
+        };
 
-        Ok(destination)
+        let sources_sinks = r#"
+@SkipObscure
+def getattr(
+    __o: TaintInTaintOut[Via[customgetattr]],
+    __name,
+    __default: TaintInTaintOut[LocalReturn],
+) -> TaintSource[CustomGetAttr, ViaValueOf[__name, WithTag["get-name"]]]: ...
+
+@SkipObscure
+def setattr(
+    __o: TaintSink[CustomSetAttr, ViaValueOf[__name, WithTag["set-name"]], ViaValueOf[__value, WithTag["set-value"]]],
+    __name,
+    __value,
+): ...
+"#;
+
+        let config_path = self.project_dir.join(".pyre_configuration");
+        let taint_config_path = self.project_dir.join("taint.config");
+        let sources_sinks_path = self.project_dir.join("sources_sinks.pysa");
+
+        serde_json::to_writer(File::create(config_path)?, &config)?;
+        serde_json::to_writer(File::create(taint_config_path)?, &taint_config)?;
+        std::fs::write(sources_sinks_path, sources_sinks)?;
+
+        debug!("setup pyre/pysa configuration files");
+
+        Ok(())
     }
+
+    #[tracing::instrument(skip(self))]
+    fn run_pysa(&self) -> Result<PathBuf> {
+        let results_path = self.project_dir.join("pysa-results");
+
+        let output = Command::new(&self.pyre_path)
+            .arg("--log-level")
+            .arg("WARNING")
+            .arg("analyze")
+            .arg("--rule")
+            .arg("9901")
+            .arg("--save-results-to")
+            .arg(&results_path)
+            .current_dir(&self.project_dir)
+            .output()
+            .context("failed to execute pysa")?;
+
+        if output.status.success() {
+            debug!("ran pysa and saved results to {results_path:?}");
+            Ok(results_path)
+        } else {
+            Err(ToolError::PyreError {
+                stdout: String::from_utf8(output.stdout)?,
+                stderr: String::from_utf8(output.stderr)?,
+            }
+            .into())
+        }
+    }
+
+    #[tracing::instrument(skip(self))]
+    fn get_pyre_results(&self, results_dir: &Path) -> Result<Vec<TaintOutput>> {
+        let file = File::open(results_dir.join("taint-output.json"))?;
+        serde_json::Deserializer::from_reader(BufReader::new(file))
+            .into_iter()
+            .filter_map(|r| {
+                r.map(|out| Some(out).filter(|out| !matches!(out, TaintOutput::Other {})))
+                    .map_err(|r| r.into())
+                    .transpose()
+            })
+            .collect()
+    }
+}
+
+#[tracing::instrument]
+/// Copy a project into the work directory.
+/// A new directory is created inside the workdir with the name <project dir name>.<timestamp>,
+/// and the contents of the given project_src are moved into a `src` directory inside this
+/// newly-created directory.
+/// The new project directory (not the inner src) is returned.
+pub fn setup_project_from_external_src(work_dir: &Path, project_src: &Path) -> Result<PathBuf> {
+    let destination_dir_name = {
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_millis();
+
+        let mut dir_name = project_src
+            .file_name()
+            .map(|s| s.to_os_string())
+            .unwrap_or("unknown".into());
+        dir_name.push(".");
+        dir_name.push(now.to_string());
+        dir_name
+    };
+
+    let project_dir = work_dir.join(destination_dir_name);
+    let destination = project_dir.join("src");
+    copy_dir_all(project_src, &destination).context("failed to copy project into work dir")?;
+
+    debug!("copied project to {destination:?}");
+
+    Ok(project_dir)
 }
 
 // stdlib does not have a function to copy directories :(

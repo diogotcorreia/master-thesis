@@ -2,7 +2,10 @@ use std::{path::PathBuf, str::FromStr};
 
 use anyhow::{Context, Result};
 use clap::Parser;
-use class_pollution_detection::{analyse::AnalyseOptions, cli::{Cli, Commands}};
+use class_pollution_detection::{
+    analyse::{setup_project_from_external_src, AnalyseOptions},
+    cli::{Cli, Commands},
+};
 use tempdir::TempDir;
 use tracing::debug;
 
@@ -13,13 +16,14 @@ fn main() -> Result<()> {
 
     let workdir = TempDir::new("class-pollution-detection")
         .context("failed to create work dir in temporary directory")?;
-    debug!("created work dir at {workdir:?}");
+    debug!("created work dir at {:?}", workdir.path());
 
     match cli.command {
         Commands::Analyse(analyse_args) => {
+            let project_dir = setup_project_from_external_src(workdir.path(), &analyse_args.dir)?;
             let options = AnalyseOptions {
                 work_dir: workdir.path().to_path_buf(),
-                project_dir: analyse_args.dir,
+                project_dir,
                 pyre_path: cli.pyre_path.unwrap_or(PathBuf::from_str("pyre")?),
             };
             options.run_analysis()?;
