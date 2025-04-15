@@ -8,6 +8,10 @@ let
 in
   {pkgs ? import nixpkgs {}}: let
     mypkgs = import ./nix {inherit pkgs;};
+
+    pyenv = pkgs.python3.withPackages (ps: [
+      mypkgs.pyre-check
+    ]);
   in
     pkgs.mkShell {
       buildInputs = with pkgs; [
@@ -15,15 +19,20 @@ in
         typst
         typstyle
 
-        (python3.withPackages (ps: [
-          mypkgs.pyre-check
-        ]))
-
         # for tool
         cargo
         rustc
         rustfmt
         rust-analyzer
         clippy
+
+        # for tool runtime
+        pyenv
+        uv
       ];
+
+      shellHook = ''
+        export UV_NO_MANAGED_PYTHON=1
+        export UV_PYTHON="${pyenv}/bin/python"
+      '';
     }
