@@ -1,6 +1,6 @@
 use std::{
     fs::{self, DirEntry, File},
-    io::{self, BufReader},
+    io::{self, BufRead, BufReader},
     path::{Path, PathBuf},
     process::Command,
     time::{SystemTime, UNIX_EPOCH},
@@ -16,14 +16,17 @@ use crate::{
             PyreConfiguration, SitePackageSearchStrategy, TaintConfig, TaintEntry, TaintOptions,
             TaintRule,
         },
-        results::TaintOutput,
+        results::{TaintOutput, TaintOutputHeader},
     },
 };
 
 const SRC_DIR: &str = "src";
 const PYSA_RESULTS_DIR: &str = "pysa-results";
+const PYSA_TAINT_OUTPUT_NAME: &str = "taint-output.json";
 const LOCKFILE_NAME: &str = "requirements.lock.txt";
 const DEPS_DIR: &str = "deps";
+
+const PYSA_TAINT_OUTPUT_SUPPORTED_VERSION: u32 = 3;
 
 #[derive(Debug)]
 pub struct AnalyseOptions {
@@ -221,11 +224,24 @@ def setattr(
 
     #[tracing::instrument(skip(self))]
     fn get_pyre_results(&self, results_dir: &Path) -> Result<Vec<TaintOutput>> {
-        let file = File::open(results_dir.join("taint-output.json"))?;
-        serde_json::Deserializer::from_reader(BufReader::new(file))
+        let file = File::open(results_dir.join(PYSA_TAINT_OUTPUT_NAME))?;
+        let mut reader = BufReader::new(file);
+        let mut header = String::new();
+        reader.read_line(&mut header)?; // skip file header
+        let header: TaintOutputHeader = serde_json::from_str(&header)?;
+
+        if header.file_version != PYSA_TAINT_OUTPUT_SUPPORTED_VERSION {
+            return Err(ToolError::PyreResultVersionMismatch {
+                got: header.file_version,
+                expected: PYSA_TAINT_OUTPUT_SUPPORTED_VERSION,
+            }
+            .into());
+        }
+
+        serde_json::Deserializer::from_reader(reader)
             .into_iter()
             .filter_map(|r| {
-                r.map(|out| Some(out).filter(|out| !matches!(out, TaintOutput::Other {})))
+                r.map(|out| Some(out).filter(|out| matches!(out, TaintOutput::Issue(_))))
                     .map_err(|r| r.into())
                     .transpose()
             })
