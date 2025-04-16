@@ -5,6 +5,7 @@ pub struct PyreConfiguration {
     pub site_package_search_strategy: SitePackageSearchStrategy,
     pub source_directories: Vec<String>,
     pub taint_models_path: Vec<String>,
+    pub site_roots: Vec<String>,
 }
 
 #[derive(Debug, Serialize)]

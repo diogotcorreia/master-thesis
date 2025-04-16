@@ -136,6 +136,7 @@ impl AnalyseOptions {
             site_package_search_strategy: SitePackageSearchStrategy::Pep561,
             source_directories: vec![format!("./{SRC_DIR}")],
             taint_models_path: vec![".".to_string()],
+            site_roots: vec![format!("./{DEPS_DIR}")],
         };
 
         let taint_config = TaintConfig {
