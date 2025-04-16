@@ -81,11 +81,25 @@ impl AnalyseOptions {
 
     #[tracing::instrument(skip(self))]
     fn resolve_dependencies(&self, dependency_files: &[PathBuf]) -> Result<PathBuf> {
+        let supports_extras = dependency_files
+            .iter()
+            .map(|p| {
+                p.file_name()
+                    .unwrap_or_default()
+                    .to_str()
+                    .unwrap_or_default()
+            })
+            .any(|x| x == "pyproject.toml" || x == "setup.py" || x == "setup.cfg");
+
         let lockfile_path = self.project_dir.join(LOCKFILE_NAME);
         let output = Command::new("uv")
             .arg("pip")
             .arg("compile")
-            .arg("--all-extras")
+            .args(if supports_extras {
+                ["--all-extras"].as_slice()
+            } else {
+                &[]
+            })
             .arg("--generate-hashes")
             .arg("--universal")
             .arg("--output-file")
