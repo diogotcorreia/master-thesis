@@ -15,6 +15,8 @@ pub enum TaintOutput {
 #[derive(Debug, Deserialize)]
 pub struct TaintIssueData {
     pub traces: Vec<TaintTraces>,
+    #[serde(flatten)]
+    pub location: SpanLocation,
 }
 
 #[derive(Debug, Deserialize)]
@@ -72,6 +74,7 @@ pub struct LocalFeature {
 #[derive(Debug, Deserialize)]
 pub struct SpanLocation {
     pub filename: String,
+    pub path: Option<String>,
     pub line: u32,
     pub start: u32,
     pub end: u32,
