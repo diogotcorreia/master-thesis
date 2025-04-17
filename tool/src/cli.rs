@@ -11,6 +11,10 @@ pub struct Cli {
     /// If not provided, tries to find it in PATH.
     pub pyre_path: Option<PathBuf>,
 
+    #[arg(long, env)]
+    /// Whether to keep the work directory after exiting, instead of deleting it.
+    pub keep_workdir: bool,
+
     #[command(subcommand)]
     pub command: Commands,
 }
