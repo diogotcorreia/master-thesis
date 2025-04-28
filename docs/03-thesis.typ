@@ -24,7 +24,7 @@
   primary-lang: "en",
   localized-info: (
     en: (
-      title: "Uncovering Class Polution In Python",
+      title: "Uncovering Class Pollution In Python",
       subtitle: lorem(7),
       abstract: include "./content/abstract-1-en.typ",
       keywords: (
