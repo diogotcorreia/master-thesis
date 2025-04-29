@@ -1,32 +1,29 @@
 use std::{
     fs::{self, DirEntry, File},
-    io::{self, BufRead, BufReader},
+    io,
     path::{Path, PathBuf},
     process::Command,
     time::{SystemTime, UNIX_EPOCH},
 };
 
 use anyhow::{Context, Result};
+use results::{ProcessedResults, UnprocessedResults};
 use tracing::{debug, info};
 
 use crate::{
     errors::ToolError,
-    pyre::{
-        config::{
-            PyreConfiguration, SitePackageSearchStrategy, TaintConfig, TaintEntry, TaintOptions,
-            TaintRule,
-        },
-        results::{TaintOutput, TaintOutputHeader},
+    pyre::config::{
+        PyreConfiguration, SitePackageSearchStrategy, TaintConfig, TaintEntry, TaintOptions,
+        TaintRule,
     },
 };
 
 const SRC_DIR: &str = "src";
 const PYSA_RESULTS_DIR: &str = "pysa-results";
-const PYSA_TAINT_OUTPUT_NAME: &str = "taint-output.json";
 const LOCKFILE_NAME: &str = "requirements.lock.txt";
 const DEPS_DIR: &str = "deps";
 
-const PYSA_TAINT_OUTPUT_SUPPORTED_VERSION: u32 = 3;
+pub mod results;
 
 #[derive(Debug)]
 pub struct AnalyseOptions {
@@ -49,7 +46,7 @@ impl AnalyseOptions {
         self.setup_pyre_files()?;
         let results_dir = self.run_pysa()?;
         let results = self.get_pyre_results(&results_dir)?;
-        debug!("Results: {results:#?}");
+        info!("Results:\n{}", results.summarise()?);
         Ok(())
     }
 
@@ -239,29 +236,8 @@ def setattr(
     }
 
     #[tracing::instrument(skip(self))]
-    fn get_pyre_results(&self, results_dir: &Path) -> Result<Vec<TaintOutput>> {
-        let file = File::open(results_dir.join(PYSA_TAINT_OUTPUT_NAME))?;
-        let mut reader = BufReader::new(file);
-        let mut header = String::new();
-        reader.read_line(&mut header)?; // skip file header
-        let header: TaintOutputHeader = serde_json::from_str(&header)?;
-
-        if header.file_version != PYSA_TAINT_OUTPUT_SUPPORTED_VERSION {
-            return Err(ToolError::PyreResultVersionMismatch {
-                got: header.file_version,
-                expected: PYSA_TAINT_OUTPUT_SUPPORTED_VERSION,
-            }
-            .into());
-        }
-
-        serde_json::Deserializer::from_reader(reader)
-            .into_iter()
-            .filter_map(|r| {
-                r.map(|out| Some(out).filter(|out| matches!(out, TaintOutput::Issue(_))))
-                    .map_err(|r| r.into())
-                    .transpose()
-            })
-            .collect()
+    fn get_pyre_results(&self, results_dir: &Path) -> Result<ProcessedResults> {
+        Ok(UnprocessedResults::from_results_dir(results_dir)?.process())
     }
 }
 

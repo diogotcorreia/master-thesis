@@ -65,6 +65,7 @@ pub struct TaintCall {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub struct LocalFeature {
+    pub via: Option<String>,
     pub always_via: Option<String>,
     pub always_via_get_name_value: Option<String>,
     pub always_via_set_name_value: Option<String>,
@@ -78,4 +79,19 @@ pub struct SpanLocation {
     pub line: u32,
     pub start: u32,
     pub end: u32,
+}
+
+impl TaintRoot {
+    pub fn kinds(&self) -> &[RootKind] {
+        match self {
+            TaintRoot::Origin(taint_root_origin) => &taint_root_origin.kinds,
+            TaintRoot::Call(taint_root_call) => &taint_root_call.kinds,
+        }
+    }
+    pub fn local_features(&self) -> &[LocalFeature] {
+        match self {
+            TaintRoot::Origin(taint_root_origin) => &taint_root_origin.local_features,
+            TaintRoot::Call(taint_root_call) => &taint_root_call.local_features,
+        }
+    }
 }
