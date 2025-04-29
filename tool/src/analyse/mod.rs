@@ -41,8 +41,10 @@ impl AnalyseOptions {
         info!("Started analysis of {:?}", self.project_dir);
 
         let dependency_files = self.find_dependency_files()?;
-        let lockfile = self.resolve_dependencies(&dependency_files)?;
-        self.install_dependencies(&lockfile)?;
+        if !dependency_files.is_empty() {
+            let lockfile = self.resolve_dependencies(&dependency_files)?;
+            self.install_dependencies(&lockfile)?;
+        }
 
         self.setup_pyre_files()?;
         let results_dir = self.run_pysa()?;
