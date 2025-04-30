@@ -34,5 +34,6 @@ in
       shellHook = ''
         export UV_NO_MANAGED_PYTHON=1
         export UV_PYTHON="${pyenv}/bin/python"
+        export PYRE_LIB_PATH="${pyenv}/lib/pyre_check"
       '';
     }

@@ -22,6 +22,7 @@ pub struct TaintConfig {
     pub sinks: Vec<TaintEntry>,
     pub features: Vec<TaintEntry>,
     pub rules: Vec<TaintRule>,
+    pub combined_source_rules: Vec<TaintCombinedSourceRule>,
     pub options: TaintOptions,
 }
 
@@ -37,6 +38,20 @@ pub struct TaintRule {
     pub sources: Vec<String>,
     pub sinks: Vec<String>,
     pub message_format: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TaintCombinedSourceRule {
+    pub name: String,
+    pub code: u32,
+    pub rule: Vec<TaintPartialRule>,
+    pub message_format: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TaintPartialRule {
+    pub sources: Vec<String>,
+    pub partial_sink: String,
 }
 
 #[derive(Debug, Serialize)]

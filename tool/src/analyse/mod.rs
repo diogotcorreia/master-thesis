@@ -13,8 +13,8 @@ use tracing::{debug, info};
 use crate::{
     errors::ToolError,
     pyre::config::{
-        PyreConfiguration, SitePackageSearchStrategy, TaintConfig, TaintEntry, TaintOptions,
-        TaintRule,
+        PyreConfiguration, SitePackageSearchStrategy, TaintCombinedSourceRule, TaintConfig,
+        TaintEntry, TaintOptions, TaintPartialRule,
     },
 };
 
@@ -30,6 +30,7 @@ pub struct AnalyseOptions {
     pub work_dir: PathBuf,
     pub project_dir: PathBuf,
     pub pyre_path: PathBuf,
+    pub pyre_lib_path: PathBuf,
 }
 
 impl AnalyseOptions {
@@ -151,7 +152,17 @@ impl AnalyseOptions {
         let config = PyreConfiguration {
             site_package_search_strategy: SitePackageSearchStrategy::Pep561,
             source_directories: vec![format!("./{SRC_DIR}")],
-            taint_models_path: vec![".".to_string()],
+            taint_models_path: vec![
+                ".".to_string(),
+                self.pyre_lib_path
+                    .join("taint")
+                    .to_string_lossy()
+                    .to_string(),
+                self.pyre_lib_path
+                    .join("third_party_taint")
+                    .to_string_lossy()
+                    .to_string(),
+            ],
             site_roots: vec![format!("./{DEPS_DIR}")],
         };
 
@@ -165,11 +176,20 @@ impl AnalyseOptions {
             features: vec![TaintEntry {
                 name: "customgetattr".to_string(),
             }],
-            rules: vec![TaintRule {
+            rules: vec![],
+            combined_source_rules: vec![TaintCombinedSourceRule {
                 name: "class-pollution".to_string(),
                 code: 9901,
-                sources: vec!["CustomGetAttr".to_string()],
-                sinks: vec!["CustomSetAttr".to_string()],
+                rule: vec![
+                    TaintPartialRule {
+                        sources: vec!["CustomGetAttr".to_string()],
+                        partial_sink: "CustomSetAttr".to_string(),
+                    },
+                    TaintPartialRule {
+                        sources: vec!["UserControlled".to_string()],
+                        partial_sink: "UserControlledSink".to_string(),
+                    },
+                ],
                 message_format: "There might be class pollution here".to_string(),
             }],
             options: TaintOptions {
@@ -188,10 +208,13 @@ def getattr(
 
 @SkipObscure
 def setattr(
-    __o: TaintSink[CustomSetAttr, ViaValueOf[__name, WithTag["set-name"]], ViaValueOf[__value, WithTag["set-value"]]],
-    __name,
+    __o: PartialSink[CustomSetAttr],
+    __name: PartialSink[UserControlledSink],
     __value,
 ): ...
+
+# Extra source for input
+def input(prompt, /) -> TaintSource[UserControlled]: ...
 "#;
 
         let config_path = self.project_dir.join(".pyre_configuration");
@@ -215,6 +238,7 @@ def setattr(
             .arg("--log-level")
             .arg("WARNING")
             .arg("analyze")
+            .arg("--no-verify") // needed because not all modules are installed for every project
             .arg("--rule")
             .arg("9901")
             .arg("--save-results-to")

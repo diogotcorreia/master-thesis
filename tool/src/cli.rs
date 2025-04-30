@@ -12,6 +12,11 @@ pub struct Cli {
     pub pyre_path: Option<PathBuf>,
 
     #[arg(long, env)]
+    /// Path to the pyre_check lib directory, which contains the extra `taint` and
+    /// `third_party_taint` directories.
+    pub pyre_lib_path: PathBuf,
+
+    #[arg(long, env)]
     /// Whether to keep the work directory after exiting, instead of deleting it.
     pub keep_workdir: bool,
 

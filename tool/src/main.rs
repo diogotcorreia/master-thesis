@@ -46,6 +46,7 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
                 work_dir: workdir.to_path_buf(),
                 project_dir,
                 pyre_path: cli.pyre_path.clone().unwrap_or(PathBuf::from_str("pyre")?),
+                pyre_lib_path: cli.pyre_lib_path.clone(),
             };
             options.run_analysis()?;
         }
