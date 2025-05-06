@@ -12,15 +12,19 @@ use tracing::{debug, info};
 
 use crate::{
     errors::ToolError,
-    pyre::config::{
-        PyreConfiguration, SitePackageSearchStrategy, TaintCombinedSourceRule, TaintConfig,
-        TaintEntry, TaintOptions, TaintPartialRule,
+    pyre::{
+        config::{
+            PyreConfiguration, SitePackageSearchStrategy, TaintCombinedSourceRule, TaintConfig,
+            TaintEntry, TaintOptions, TaintPartialRule,
+        },
+        models::write_taint_models,
     },
+    python::PyLock,
 };
 
 const SRC_DIR: &str = "src";
 const PYSA_RESULTS_DIR: &str = "pysa-results";
-const LOCKFILE_NAME: &str = "requirements.lock.txt";
+const LOCKFILE_NAME: &str = "pylock.toml";
 const DEPS_DIR: &str = "deps";
 
 pub mod results;
@@ -30,7 +34,6 @@ pub struct AnalyseOptions {
     pub work_dir: PathBuf,
     pub project_dir: PathBuf,
     pub pyre_path: PathBuf,
-    pub pyre_lib_path: PathBuf,
 }
 
 impl AnalyseOptions {
@@ -39,12 +42,15 @@ impl AnalyseOptions {
         info!("Started analysis of {:?}", self.project_dir);
 
         let dependency_files = self.find_dependency_files()?;
-        if !dependency_files.is_empty() {
-            let lockfile = self.resolve_dependencies(&dependency_files)?;
-            self.install_dependencies(&lockfile)?;
-        }
+        let lockfile = if !dependency_files.is_empty() {
+            let (lockfile_path, lockfile) = self.resolve_dependencies(&dependency_files)?;
+            self.install_dependencies(&lockfile_path)?;
+            lockfile
+        } else {
+            PyLock::default()
+        };
 
-        self.setup_pyre_files()?;
+        self.setup_pyre_files(lockfile)?;
         let results_dir = self.run_pysa()?;
         let results = self.get_pyre_results(&results_dir)?;
         info!("Results:\n{}", results.summarise()?);
@@ -80,7 +86,7 @@ impl AnalyseOptions {
     }
 
     #[tracing::instrument(skip(self))]
-    fn resolve_dependencies(&self, dependency_files: &[PathBuf]) -> Result<PathBuf> {
+    fn resolve_dependencies(&self, dependency_files: &[PathBuf]) -> Result<(PathBuf, PyLock)> {
         let supports_extras = dependency_files
             .iter()
             .map(|p| {
@@ -112,7 +118,11 @@ impl AnalyseOptions {
 
         if output.status.success() {
             debug!("ran uv pip compile and saved results to {lockfile_path:?}");
-            Ok(lockfile_path)
+            let lockfile_content =
+                fs::read_to_string(&lockfile_path).context("failed to read resulting lockfile")?;
+            let lockfile =
+                toml::from_str(&lockfile_content).context("failed to parse resulting lockfile")?;
+            Ok((lockfile_path, lockfile))
         } else {
             Err(ToolError::UvError {
                 stdout: String::from_utf8(output.stdout)?,
@@ -147,29 +157,24 @@ impl AnalyseOptions {
         }
     }
 
-    #[tracing::instrument(skip(self))]
-    fn setup_pyre_files(&self) -> Result<()> {
+    #[tracing::instrument(skip(self, lockfile))]
+    fn setup_pyre_files(&self, lockfile: PyLock) -> Result<()> {
         let config = PyreConfiguration {
-            site_package_search_strategy: SitePackageSearchStrategy::Pep561,
+            site_package_search_strategy: SitePackageSearchStrategy::All,
             source_directories: vec![format!("./{SRC_DIR}")],
-            taint_models_path: vec![
-                ".".to_string(),
-                self.pyre_lib_path
-                    .join("taint")
-                    .to_string_lossy()
-                    .to_string(),
-                self.pyre_lib_path
-                    .join("third_party_taint")
-                    .to_string_lossy()
-                    .to_string(),
-            ],
+            taint_models_path: vec![".".to_string()],
             site_roots: vec![format!("./{DEPS_DIR}")],
         };
 
         let taint_config = TaintConfig {
-            sources: vec![TaintEntry {
-                name: "CustomGetAttr".to_string(),
-            }],
+            sources: vec![
+                TaintEntry {
+                    name: "CustomGetAttr".to_string(),
+                },
+                TaintEntry {
+                    name: "UserControlled".to_string(),
+                },
+            ],
             sinks: vec![TaintEntry {
                 name: "CustomSetAttr".to_string(),
             }],
@@ -198,32 +203,13 @@ impl AnalyseOptions {
             },
         };
 
-        let sources_sinks = r#"
-@SkipObscure
-def getattr(
-    __o: TaintInTaintOut[Via[customgetattr]],
-    __name,
-    __default: TaintInTaintOut[LocalReturn],
-) -> TaintSource[CustomGetAttr, ViaValueOf[__name, WithTag["get-name"]]]: ...
-
-@SkipObscure
-def setattr(
-    __o: PartialSink[CustomSetAttr],
-    __name: PartialSink[UserControlledSink],
-    __value,
-): ...
-
-# Extra source for input
-def input(prompt, /) -> TaintSource[UserControlled]: ...
-"#;
-
         let config_path = self.project_dir.join(".pyre_configuration");
         let taint_config_path = self.project_dir.join("taint.config");
         let sources_sinks_path = self.project_dir.join("sources_sinks.pysa");
 
         serde_json::to_writer(File::create(config_path)?, &config)?;
         serde_json::to_writer(File::create(taint_config_path)?, &taint_config)?;
-        std::fs::write(sources_sinks_path, sources_sinks)?;
+        write_taint_models(&sources_sinks_path, lockfile)?;
 
         debug!("setup pyre/pysa configuration files");
 
@@ -238,7 +224,6 @@ def input(prompt, /) -> TaintSource[UserControlled]: ...
             .arg("--log-level")
             .arg("WARNING")
             .arg("analyze")
-            .arg("--no-verify") // needed because not all modules are installed for every project
             .arg("--rule")
             .arg("9901")
             .arg("--save-results-to")

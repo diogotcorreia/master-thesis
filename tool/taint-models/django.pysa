@@ -1,0 +1,40 @@
+# Adapted from https://github.com/facebook/pyre-check/blob/dd88e489ced2df1c9bdb0b234e13daf5b863a11a/stubs/taint/core_privacy_security/django_sources_sinks.pysa
+
+django.http.request.HttpRequest.COOKIES: TaintSource[UserControlled] = ...
+django.http.request.HttpRequest.META: TaintSource[UserControlled] = ...
+django.http.request.HttpRequest.FILES: TaintSource[UserControlled] = ...
+django.http.request.HttpRequest.GET: TaintSource[UserControlled] = ...
+django.http.request.HttpRequest.POST: TaintSource[UserControlled] = ...
+@property
+def django.http.request.HttpRequest.body(self) -> TaintSource[UserControlled]: ...
+def django.http.request.HttpRequest.readlines(self) -> TaintSource[UserControlled]: ...
+
+# Sometimes code isn't properly typed, so this helps ensure that HttpRequest itself is tainted.
+ModelQuery(
+  name = "django_HttpRequest_functions",
+  find = "functions",
+  where = [
+    any_parameter.annotation.equals("django.http.HttpRequest")
+  ],
+  model =
+    Parameters(
+      TaintSource[UserControlled],
+      where=[
+        type_annotation.equals("django.http.HttpRequest"),
+      ]
+    )
+)
+ModelQuery(
+  name = "django_HttpRequest_methods",
+  find = "methods",
+  where = [
+    any_parameter.annotation.equals("django.http.HttpRequest")
+  ],
+  model =
+    Parameters(
+      TaintSource[UserControlled],
+      where=[
+        type_annotation.equals("django.http.HttpRequest"),
+      ]
+    )
+)
