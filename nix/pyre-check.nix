@@ -8,13 +8,13 @@
   ...
 }: let
   # using unstable because 0.9.23 depends on errpy which is not packaged
-  version = "0-unstable-2025-02-28";
+  version = "0-unstable-2025-05-09";
   version' = "0.9.23";
   pyre-src = fetchFromGitHub {
     owner = "facebook";
     repo = "pyre-check";
-    rev = "4d61987b64856718fa2800c97131b5e164667790";
-    hash = "sha256-jc/hXclEdDUMq5x7dmAcld9Ge52faudm5yvk3pa7JpI=";
+    rev = "2baa01d69d8eff3fd11b31fc11381c51d2acef38";
+    hash = "sha256-OyPij49QQ3NUMUZM1jNN16uEKRu/RVc5g1uG11VlIUI=";
   };
   versionFile = writeText "version.ml" ''
     let build_info () =
