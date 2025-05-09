@@ -1,0 +1,24 @@
+diff --git a/external/recognized.ml b/external/recognized.ml
+index 95d4f63..c298422 100644
+--- a/external/recognized.ml
++++ b/external/recognized.ml
+@@ -22,6 +22,7 @@ let property_decorators =
+       "property";
+       "builtins.property";
+       "_magic_enum_attr";
++      "werkzeug.utils.cached_property";
+     ]
+ 
+ 
+diff --git a/interprocedural/callGraph.ml b/interprocedural/callGraph.ml
+index 5fcf896..73e7594 100644
+--- a/interprocedural/callGraph.ml
++++ b/interprocedural/callGraph.ml
+@@ -214,6 +214,7 @@ module CallableToDecoratorsMap = struct
+       "click.decorators.pass_meta_key";
+       "overrides.override";
+       "overrides.overrides";
++      "werkzeug.utils.cached_property";
+     ]
+     @ Target.class_method_decorators
+     @ Target.static_method_decorators

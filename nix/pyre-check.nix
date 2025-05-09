@@ -98,6 +98,12 @@
     src = pyre-src;
     sourceRoot = "${pyre-src.name}/source";
 
+    patches = [
+      # pyre doesn't support defining custom @property decorators
+      # however, flask uses one, so we need to add it here so that we can model it correctly
+      ./0001-add-werkzeug-cached-property-decorator.diff
+    ];
+
     duneVersion = "3";
 
     env.DUNE_PROFILE = "release";
