@@ -11,6 +11,7 @@ in
 
     pyenv = pkgs.python3.withPackages (ps: [
       mypkgs.pyre-check
+      ps.requests
     ]);
   in
     pkgs.mkShell {
