@@ -12,4 +12,7 @@ The script supports resuming a stopped session, and respects GitHub's rate-limit
 This then needs to be pre-processed by another script, since it saves the raw response
 from GitHub.
 
+Then, running `./github/process_raw_gh_data.py` will generate a JSON file that
+merges the previously fetched data and strips out unnecessary information.
+
 // TODO
