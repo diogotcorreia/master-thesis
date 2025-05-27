@@ -15,4 +15,7 @@ from GitHub.
 Then, running `./github/process_raw_gh_data.py` will generate a JSON file that
 merges the previously fetched data and strips out unnecessary information.
 
-// TODO
+Finally, running `./gen_input_dataset.py` will generate a `dataset.toml` in the current
+directory, containing a random subset of packages.
+This file can be fed directly into the tool present in this repository, which will analyse
+them for class pollution vulnerabilities.

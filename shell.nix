@@ -12,6 +12,7 @@ in
     pyenv = pkgs.python3.withPackages (ps: [
       mypkgs.pyre-check
       ps.requests
+      ps.tomli-w
     ]);
   in
     pkgs.mkShell {

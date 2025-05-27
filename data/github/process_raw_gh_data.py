@@ -34,7 +34,7 @@ for path in files:
                 {
                     "full_name": repo["full_name"],
                     "stars": repo["stargazers_count"],
-                    "homepage": repo["homepage"] or "",
+                    "homepage": repo["homepage"],
                     "default_branch": repo["default_branch"],
                     "test": {"a": "b"},
                 }
