@@ -12,7 +12,13 @@ pub struct Cli {
     pub pyre_path: Option<PathBuf>,
 
     #[arg(long, env)]
+    /// A path to the work directory to use, for storing files during the analysis and
+    /// also final reports, when applicable.
+    pub workdir: Option<PathBuf>,
+
+    #[arg(long, env)]
     /// Whether to keep the work directory after exiting, instead of deleting it.
+    /// This is implicitly true if the --workdir option is given.
     pub keep_workdir: bool,
 
     #[command(subcommand)]
@@ -23,6 +29,8 @@ pub struct Cli {
 pub enum Commands {
     /// Run analysis on a Python program and try to find class pollution
     Analyse(AnalyseArgs),
+    /// Run an end-to-end pipeline, analysing the projects declared in the given dataset
+    E2E(E2EArgs),
 }
 
 #[derive(Args)]
@@ -30,4 +38,11 @@ pub struct AnalyseArgs {
     #[arg()]
     /// Path to the project to analyse
     pub dir: PathBuf,
+}
+
+#[derive(Args)]
+pub struct E2EArgs {
+    #[arg()]
+    /// Path to a TOML file containing dataset information
+    pub dataset: PathBuf,
 }

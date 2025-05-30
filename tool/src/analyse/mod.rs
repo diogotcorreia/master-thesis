@@ -30,15 +30,14 @@ const DEPS_DIR: &str = "deps";
 pub mod results;
 
 #[derive(Debug)]
-pub struct AnalyseOptions {
-    pub work_dir: PathBuf,
-    pub project_dir: PathBuf,
-    pub pyre_path: PathBuf,
+pub struct AnalyseOptions<'a> {
+    pub project_dir: &'a Path,
+    pub pyre_path: &'a Path,
 }
 
-impl AnalyseOptions {
+impl<'a> AnalyseOptions<'a> {
     #[tracing::instrument(skip(self))]
-    pub fn run_analysis(&self) -> Result<()> {
+    pub fn run_analysis(&self) -> Result<ProcessedResults> {
         info!("Started analysis of {:?}", self.project_dir);
 
         let dependency_files = self.find_dependency_files()?;
@@ -54,7 +53,7 @@ impl AnalyseOptions {
         let results_dir = self.run_pysa()?;
         let results = self.get_pyre_results(&results_dir)?;
         info!("Results:\n{}", results.summarise()?);
-        Ok(())
+        Ok(results)
     }
 
     #[tracing::instrument(skip(self))]

@@ -1,4 +1,5 @@
 use std::{
+    fs,
     path::{Path, PathBuf},
     str::FromStr,
 };
@@ -8,46 +9,44 @@ use clap::Parser;
 use class_pollution_detection::{
     analyse::{setup_project_from_external_src, AnalyseOptions},
     cli::{Cli, Commands},
+    e2e::{config::DatasetConfig, pipeline::Pipeline},
+    Workdir,
 };
-use tempdir::TempDir;
-use tracing::debug;
 
 fn main() -> Result<()> {
     tracing_subscriber::fmt::init();
 
     let cli = Cli::parse();
 
-    let workdir = TempDir::new("class-pollution-detection")
-        .context("failed to create work dir in temporary directory")?;
-    debug!("created work dir at {:?}", workdir.path());
+    let workdir = Workdir::from_cli(&cli)?;
 
     // save result for later so that we can still handle logic of workdir deletion
     let result = handle_command(workdir.path(), &cli);
 
-    if cli.keep_workdir {
-        // avoid deleting workdir on drop
-        workdir.into_path();
-        debug!("keeping work dir");
-    } else {
-        workdir
-            .close()
-            .context("failed to delete work dir in temporary directory")?;
-        debug!("deleted work dir");
-    }
+    workdir.close()?;
 
     result
 }
 
 fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
+    let pyre_path = cli.pyre_path.clone().unwrap_or(PathBuf::from_str("pyre")?);
     match &cli.command {
         Commands::Analyse(analyse_args) => {
             let project_dir = setup_project_from_external_src(workdir, &analyse_args.dir)?;
             let options = AnalyseOptions {
-                work_dir: workdir.to_path_buf(),
-                project_dir,
-                pyre_path: cli.pyre_path.clone().unwrap_or(PathBuf::from_str("pyre")?),
+                project_dir: &project_dir,
+                pyre_path: &pyre_path,
             };
             options.run_analysis()?;
+        }
+        Commands::E2E(e2e_args) => {
+            let dataset_content =
+                fs::read_to_string(&e2e_args.dataset).context("failed to read dataset config")?;
+            let dataset_config: DatasetConfig =
+                toml::from_str(&dataset_content).context("failed to parse dataset config")?;
+
+            let pipeline = Pipeline::new(workdir, &dataset_config, &pyre_path);
+            pipeline.run()?;
         }
     }
 

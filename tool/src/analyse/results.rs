@@ -6,6 +6,7 @@ use std::{
 };
 
 use anyhow::Result;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     errors::ToolError,
@@ -133,13 +134,13 @@ impl ProcessedResults {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessedIssues {
     pub raw_data: TaintIssueData,
     pub getattr_count: GetAttrCount,
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum GetAttrCount {
     None, // should not happen?
     One,

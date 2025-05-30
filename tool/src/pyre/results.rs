@@ -1,4 +1,4 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize)]
 pub struct TaintOutputHeader {
@@ -12,27 +12,27 @@ pub enum TaintOutput {
     Model {},
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct TaintIssueData {
     pub traces: Vec<TaintTraces>,
     #[serde(flatten)]
     pub location: SpanLocation,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct TaintTraces {
     pub name: String,
     pub roots: Vec<TaintRoot>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum TaintRoot {
     Origin(TaintRootOrigin),
     Call(TaintRootCall),
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct TaintRootOrigin {
     pub kinds: Vec<RootKind>,
     #[serde(default)]
@@ -40,7 +40,7 @@ pub struct TaintRootOrigin {
     pub origin: SpanLocation,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct TaintRootCall {
     pub kinds: Vec<RootKind>,
     #[serde(default)]
@@ -48,21 +48,21 @@ pub struct TaintRootCall {
     pub call: TaintCall,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct RootKind {
     pub kind: String,
     #[serde(default)]
     pub features: Vec<LocalFeature>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct TaintCall {
     pub position: SpanLocation,
     pub resolves_to: Vec<String>,
     pub port: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub struct LocalFeature {
     pub via: Option<String>,
@@ -72,7 +72,7 @@ pub struct LocalFeature {
     pub always_via_set_value_value: Option<String>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct SpanLocation {
     pub filename: String,
     pub path: Option<String>,
