@@ -74,7 +74,7 @@ pub struct LocalFeature {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct SpanLocation {
-    pub filename: String,
+    pub filename: Option<String>,
     pub path: Option<String>,
     pub line: u32,
     pub start: u32,

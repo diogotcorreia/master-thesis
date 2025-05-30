@@ -101,7 +101,13 @@ impl ProcessedResults {
             writeln!(
                 s,
                 "- at {}, line {}",
-                issue.raw_data.location.filename, issue.raw_data.location.line
+                issue
+                    .raw_data
+                    .location
+                    .filename
+                    .as_deref()
+                    .unwrap_or("<unknown>"),
+                issue.raw_data.location.line
             )?;
         }
         writeln!(
@@ -113,7 +119,13 @@ impl ProcessedResults {
             writeln!(
                 s,
                 "- at {}, line {}",
-                issue.raw_data.location.filename, issue.raw_data.location.line
+                issue
+                    .raw_data
+                    .location
+                    .filename
+                    .as_deref()
+                    .unwrap_or("<unknown>"),
+                issue.raw_data.location.line
             )?;
         }
         writeln!(
@@ -125,7 +137,13 @@ impl ProcessedResults {
             writeln!(
                 s,
                 "- at {}, line {}",
-                issue.raw_data.location.filename, issue.raw_data.location.line
+                issue
+                    .raw_data
+                    .location
+                    .filename
+                    .as_deref()
+                    .unwrap_or("<unknown>"),
+                issue.raw_data.location.line
             )?;
         }
         writeln!(s, "Total issues: {}", self.issues.len())?;
