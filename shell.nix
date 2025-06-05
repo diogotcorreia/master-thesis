@@ -31,6 +31,11 @@ in
         # for tool runtime
         pyenv
         uv
+
+        # common dependencies for building python wheels
+        pkg-config
+        postgresql
+        mariadb
       ];
 
       shellHook = ''
