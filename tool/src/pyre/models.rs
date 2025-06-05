@@ -20,6 +20,7 @@ pub fn write_taint_models(dest: &Path, lockfile: &PyLock) -> Result<()> {
         match package.name.as_str() {
             "django" => writeln!(file, "{}", DJANGO_MODELS)?,
             "flask" => writeln!(file, "{}", FLASK_MODELS)?,
+            "sqlalchemy" => writeln!(file, "{}", SQLALCHEMY_MODELS)?,
             _ => {}
         }
     }
