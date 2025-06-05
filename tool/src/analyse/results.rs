@@ -11,6 +11,7 @@ use serde::{Deserialize, Serialize};
 use crate::{
     errors::ToolError,
     pyre::results::{TaintIssueData, TaintOutput, TaintOutputHeader},
+    python::PipPackage,
 };
 
 const PYSA_TAINT_OUTPUT_NAME: &str = "taint-output.json";
@@ -67,13 +68,19 @@ impl UnprocessedResults {
             })
             .collect();
 
-        ProcessedResults { issues }
+        ProcessedResults {
+            issues,
+            warnings: vec![],
+            resolved_dependencies: vec![],
+        }
     }
 }
 
 #[derive(Debug)]
 pub struct ProcessedResults {
     pub issues: Vec<ProcessedIssues>,
+    pub warnings: Vec<String>,
+    pub resolved_dependencies: Vec<PipPackage>,
 }
 
 impl ProcessedResults {

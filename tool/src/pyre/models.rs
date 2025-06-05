@@ -7,10 +7,11 @@ use crate::python::PyLock;
 const DEFAULT_MODELS: &str = include_str!("../../taint-models/default.pysa");
 const DJANGO_MODELS: &str = include_str!("../../taint-models/django.pysa");
 const FLASK_MODELS: &str = include_str!("../../taint-models/flask.pysa");
+const SQLALCHEMY_MODELS: &str = include_str!("../../taint-models/sqlalchemy.pysa");
 
 /// Calculate which taint models should be loaded based on the
 /// dependencies present.
-pub fn write_taint_models(dest: &Path, lockfile: PyLock) -> Result<()> {
+pub fn write_taint_models(dest: &Path, lockfile: &PyLock) -> Result<()> {
     let mut file = File::create(dest)?;
     writeln!(file, "{}", DEFAULT_MODELS)?;
 

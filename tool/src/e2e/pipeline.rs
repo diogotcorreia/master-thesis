@@ -12,7 +12,10 @@ use serde::{Deserialize, Serialize};
 use tar::Archive;
 use tracing::{debug, error, info};
 
-use crate::analyse::{results::ProcessedIssues, AnalyseOptions};
+use crate::{
+    analyse::{results::ProcessedIssues, AnalyseOptions},
+    python::PipPackage,
+};
 
 use super::config::{DatasetConfig, GitHubSrc, RepositoryConfig, RepositorySrc};
 
@@ -128,15 +131,13 @@ impl<'a> Pipeline<'a> {
         let has_issues = !results.issues.is_empty();
         let report = Report {
             repository_config: repo_config.clone(),
-            warnings: vec![],
+            warnings: results.warnings,
             errors: vec![],
             issues: results.issues,
-            resolved_dependencies: vec![], // TODO
+            resolved_dependencies: results.resolved_dependencies,
             elapsed_seconds: None,
             previous_run: false,
         };
-
-        // TODO: warnings
 
         if !has_issues {
             // remove src if nothing is found, to save disk space
@@ -301,7 +302,7 @@ pub struct Report {
     pub warnings: Vec<String>, // TODO make this a proper enum
     pub errors: Vec<String>,
     pub issues: Vec<ProcessedIssues>,
-    pub resolved_dependencies: Vec<String>,
+    pub resolved_dependencies: Vec<PipPackage>,
     pub elapsed_seconds: Option<u64>,
     /// Whether this report comes from a previous run, that is, it was read from the file system
     /// instead of the analysis being done now.

@@ -8,7 +8,7 @@ use std::{
 
 use anyhow::{Context, Result};
 use results::{ProcessedResults, UnprocessedResults};
-use tracing::{debug, info};
+use tracing::{debug, info, warn};
 
 use crate::{
     errors::ToolError,
@@ -35,24 +35,35 @@ pub struct AnalyseOptions<'a> {
     pub pyre_path: &'a Path,
 }
 
-impl<'a> AnalyseOptions<'a> {
+impl AnalyseOptions<'_> {
     #[tracing::instrument(skip(self))]
     pub fn run_analysis(&self) -> Result<ProcessedResults> {
         info!("Started analysis of {:?}", self.project_dir);
+
+        let mut warnings = vec![];
 
         let dependency_files = self.find_dependency_files()?;
         let lockfile = if !dependency_files.is_empty() {
             let (lockfile_path, lockfile) = self.resolve_dependencies(&dependency_files)?;
             self.install_dependencies(&lockfile_path)?;
+            if lockfile.packages.is_empty() {
+                warn!("No dependencies detected");
+                warnings.push("No dependencies detected".to_string());
+            }
+
             lockfile
         } else {
+            warn!("No dependency files detected");
+            warnings.push("No dependency files detected".to_string());
             PyLock::default()
         };
 
-        self.setup_pyre_files(lockfile)?;
+        self.setup_pyre_files(&lockfile)?;
         let results_dir = self.run_pysa()?;
-        let results = self.get_pyre_results(&results_dir)?;
+        let mut results = self.get_pyre_results(&results_dir)?;
         info!("Results:\n{}", results.summarise()?);
+        results.warnings = warnings;
+        results.resolved_dependencies = lockfile.packages;
         Ok(results)
     }
 
@@ -157,7 +168,7 @@ impl<'a> AnalyseOptions<'a> {
     }
 
     #[tracing::instrument(skip(self, lockfile))]
-    fn setup_pyre_files(&self, lockfile: PyLock) -> Result<()> {
+    fn setup_pyre_files(&self, lockfile: &PyLock) -> Result<()> {
         let config = PyreConfiguration {
             site_package_search_strategy: SitePackageSearchStrategy::All,
             source_directories: vec![format!("./{SRC_DIR}")],
@@ -219,15 +230,16 @@ impl<'a> AnalyseOptions<'a> {
     fn run_pysa(&self) -> Result<PathBuf> {
         let results_path = self.project_dir.join(PYSA_RESULTS_DIR);
 
-        let output = Command::new(&self.pyre_path)
+        let output = Command::new(self.pyre_path)
             .arg("--log-level")
             .arg("WARNING")
             .arg("analyze")
             .arg("--rule")
             .arg("9901")
+            .arg("--infer-self-tito")
             .arg("--save-results-to")
             .arg(&results_path)
-            .current_dir(&self.project_dir)
+            .current_dir(self.project_dir)
             .output()
             .context("failed to execute pysa")?;
 
