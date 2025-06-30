@@ -10,7 +10,9 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     errors::ToolError,
-    pyre::results::{TaintIssueData, TaintOutput, TaintOutputHeader},
+    pyre::results::{
+        SpanLocation, TaintIssueData, TaintModelData, TaintOutput, TaintOutputHeader, TraceFragment,
+    },
     python::PipPackage,
 };
 
@@ -19,6 +21,7 @@ const PYSA_TAINT_OUTPUT_SUPPORTED_VERSION: u32 = 3;
 
 #[derive(Debug)]
 pub struct UnprocessedResults {
+    pub models: Vec<TaintModelData>,
     pub issues: Vec<TaintIssueData>,
 }
 
@@ -39,30 +42,77 @@ impl UnprocessedResults {
             .into());
         }
 
-        let issues = serde_json::Deserializer::from_reader(reader)
-            .into_iter()
-            .filter_map(|r| {
-                r.map(|out: TaintOutput| match out {
-                    TaintOutput::Issue(issue_data) => Some(issue_data),
-                    _ => None,
-                })
-                .map_err(|r| r.into())
-                .transpose()
-            })
-            .collect::<Result<Vec<_>>>()?;
+        let mut models = vec![];
+        let mut issues = vec![];
+        for entry in serde_json::Deserializer::from_reader(reader).into_iter() {
+            match entry? {
+                TaintOutput::Model(data) => models.push(data),
+                TaintOutput::Issue(data) => issues.push(data),
+            }
+        }
 
-        Ok(UnprocessedResults { issues })
+        // allow for binary search later
+        models.sort_by_cached_key(|model| model.callable.clone());
+
+        Ok(UnprocessedResults { models, issues })
     }
 
-    pub fn process(self) -> ProcessedResults {
+    pub fn process(&self) -> ProcessedResults {
         let issues = self
             .issues
-            .into_iter()
+            .iter()
             .map(|issue_data| {
-                let getattr_count = GetAttrCount::from_issue_data(&issue_data);
+                let getattr_count = GetAttrCount::from_issue_data(issue_data);
+
+                let mut traces = vec![];
+
+                let backward_traces = issue_data
+                    .traces
+                    .iter()
+                    .find(|t| t.name == "backward")
+                    .map(|t| t.roots.as_slice())
+                    .unwrap_or_default();
+                let forward_traces = issue_data
+                    .traces
+                    .iter()
+                    .find(|t| t.name == "forward")
+                    .map(|t| t.roots.as_slice())
+                    .unwrap_or_default();
+
+                let filename = issue_data
+                    .location
+                    .filename
+                    .clone()
+                    .filter(|f| f != "*")
+                    .or(issue_data.location.path.clone());
+
+                if let Some(trace) = forward_traces.first() {
+                    traces.extend(self.find_traces(
+                        trace,
+                        TraceDirection::Forward,
+                        filename.clone(),
+                        &[],
+                    ));
+                }
+
+                traces.push(TraceEntry {
+                    status: TraceEntryStatus::Present,
+                    callable: issue_data.callable.clone(),
+                    port: "root".to_string(),
+                    location: issue_data.location.clone(),
+                });
+
+                if let Some(trace) = backward_traces.first() {
+                    traces.extend(
+                        self.find_traces(trace, TraceDirection::Backward, filename.clone(), &[])
+                            .into_iter()
+                            .rev(),
+                    );
+                }
 
                 ProcessedIssues {
-                    raw_data: issue_data,
+                    location: issue_data.location.clone(),
+                    trace: traces,
                     getattr_count,
                 }
             })
@@ -73,6 +123,101 @@ impl UnprocessedResults {
             warnings: vec![],
             resolved_dependencies: vec![],
         }
+    }
+
+    fn find_traces(
+        &self,
+        trace: &TraceFragment,
+        dir: TraceDirection,
+        filename: Option<String>,
+        visited: &[(String, String)],
+    ) -> Vec<TraceEntry> {
+        let (callable, port, location) = match trace {
+            TraceFragment::Origin(taint_root_origin) => {
+                let Some(leaf) = taint_root_origin
+                    .kinds
+                    .iter()
+                    .flat_map(|k| &k.leaves)
+                    .next()
+                else {
+                    return vec![];
+                };
+
+                (&leaf.name, &leaf.port, &taint_root_origin.origin)
+            }
+            TraceFragment::Call(taint_root_call) => {
+                let call = &taint_root_call.call;
+                let Some(callable) = call.resolves_to.first() else {
+                    return vec![];
+                };
+                (callable, &call.port, &call.position)
+            }
+            TraceFragment::Declaration(_) => return vec![],
+        };
+
+        let location = filename
+            .map(|f| location.with_filename(f))
+            .unwrap_or_else(|| location.clone());
+
+        if visited.iter().any(|(c, p)| c == callable && p == port) {
+            return vec![TraceEntry {
+                status: TraceEntryStatus::Recursive,
+                callable: callable.clone(),
+                port: port.clone(),
+                location,
+            }];
+        }
+
+        let Some((new_filename, fragment)) = self.find_model(callable, port, dir) else {
+            return vec![TraceEntry {
+                status: TraceEntryStatus::Missing,
+                callable: callable.clone(),
+                port: port.clone(),
+                location,
+            }];
+        };
+
+        let mut new_visited = visited.to_vec();
+        new_visited.push((callable.clone(), port.clone()));
+
+        let mut res = self.find_traces(fragment, dir, new_filename, &new_visited);
+        res.push(TraceEntry {
+            status: TraceEntryStatus::Present,
+            callable: callable.clone(),
+            port: port.clone(),
+            location,
+        });
+
+        res
+    }
+
+    fn find_model<'a>(
+        &'a self,
+        callable: &String,
+        port: &String,
+        dir: TraceDirection,
+    ) -> Option<(Option<String>, &'a TraceFragment)> {
+        let model = self
+            .models
+            .binary_search_by_key(callable, |m| m.callable.clone())
+            .ok()
+            .map(|i| &self.models[i])?;
+        let traces = match dir {
+            TraceDirection::Forward => &model.sources,
+            TraceDirection::Backward => &model.sinks,
+        };
+        let fragment = traces
+            .iter()
+            .find(|t| &t.port == port)
+            .and_then(|trace| trace.taint.first())?;
+
+        let filename = model
+            .filename
+            .clone()
+            .filter(|f| f != "*")
+            .or(model.path.clone());
+
+        Some((filename, fragment))
     }
 }
 
@@ -108,13 +253,8 @@ impl ProcessedResults {
             writeln!(
                 s,
                 "- at {}, line {}",
-                issue
-                    .raw_data
-                    .location
-                    .filename
-                    .as_deref()
-                    .unwrap_or("<unknown>"),
-                issue.raw_data.location.line
+                issue.location.filename.as_deref().unwrap_or("<unknown>"),
+                issue.location.line
             )?;
         }
         writeln!(
@@ -126,13 +266,8 @@ impl ProcessedResults {
             writeln!(
                 s,
                 "- at {}, line {}",
-                issue
-                    .raw_data
-                    .location
-                    .filename
-                    .as_deref()
-                    .unwrap_or("<unknown>"),
-                issue.raw_data.location.line
+                issue.location.filename.as_deref().unwrap_or("<unknown>"),
+                issue.location.line
             )?;
         }
         writeln!(
@@ -144,13 +279,8 @@ impl ProcessedResults {
             writeln!(
                 s,
                 "- at {}, line {}",
-                issue
-                    .raw_data
-                    .location
-                    .filename
-                    .as_deref()
-                    .unwrap_or("<unknown>"),
-                issue.raw_data.location.line
+                issue.location.filename.as_deref().unwrap_or("<unknown>"),
+                issue.location.line
             )?;
         }
         writeln!(s, "Total issues: {}", self.issues.len())?;
@@ -161,7 +291,8 @@ impl ProcessedResults {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProcessedIssues {
-    pub raw_data: TaintIssueData,
+    pub location: SpanLocation,
+    pub trace: Vec<TraceEntry>,
     pub getattr_count: GetAttrCount,
 }
 
@@ -209,4 +340,26 @@ impl GetAttrCount {
 
         Self::One
     }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TraceEntry {
+    pub status: TraceEntryStatus,
+    pub callable: String,
+    pub port: String,
+    pub location: SpanLocation,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub enum TraceEntryStatus {
+    Missing,
+    Recursive,
+    Present,
+}
+
+#[derive(Debug, Clone, Copy)]
+enum TraceDirection {
+    Forward,
+    Backward,
 }

@@ -31,6 +31,8 @@ pub enum Commands {
     Analyse(AnalyseArgs),
     /// Run an end-to-end pipeline, analysing the projects declared in the given dataset
     E2E(E2EArgs),
+    /// Parse results from a pysa run and summarise them
+    Results(ResultsArgs),
 }
 
 #[derive(Args)]
@@ -45,4 +47,11 @@ pub struct E2EArgs {
     #[arg()]
     /// Path to a TOML file containing dataset information
     pub dataset: PathBuf,
+}
+
+#[derive(Args)]
+pub struct ResultsArgs {
+    #[arg()]
+    /// Path to the pysa-results directory
+    pub results_dir: PathBuf,
 }

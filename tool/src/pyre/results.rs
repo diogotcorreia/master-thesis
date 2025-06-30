@@ -9,27 +9,40 @@ pub struct TaintOutputHeader {
 #[serde(rename_all = "lowercase", tag = "kind", content = "data")]
 pub enum TaintOutput {
     Issue(TaintIssueData),
-    Model {},
+    Model(TaintModelData),
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct TaintIssueData {
-    pub traces: Vec<TaintTraces>,
+    pub callable: String,
+    pub traces: Vec<TaintIssueTraces>,
     #[serde(flatten)]
     pub location: SpanLocation,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct TaintTraces {
+pub struct TaintModelData {
+    pub callable: String,
+    pub filename: Option<String>,
+    pub path: Option<String>,
+    #[serde(default)]
+    pub sources: Vec<TaintTrace>,
+    #[serde(default)]
+    pub sinks: Vec<TaintTrace>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct TaintIssueTraces {
     pub name: String,
-    pub roots: Vec<TaintRoot>,
+    pub roots: Vec<TraceFragment>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(untagged)]
-pub enum TaintRoot {
+pub enum TraceFragment {
     Origin(TaintRootOrigin),
     Call(TaintRootCall),
+    Declaration(TaintRootDeclaration),
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -49,10 +62,17 @@ pub struct TaintRootCall {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+pub struct TaintRootDeclaration {
+    pub declaration: (),
+}
+
+#[derive(Debug, Deserialize, Serialize)]
 pub struct RootKind {
     pub kind: String,
     #[serde(default)]
     pub features: Vec<LocalFeature>,
+    #[serde(default)]
+    pub leaves: Vec<KindLeaf>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -73,6 +93,14 @@ pub struct LocalFeature {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+pub struct KindLeaf {
+    #[serde(default)]
+    pub name: String,
+    #[serde(default)]
+    pub port: String,
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct SpanLocation {
     pub filename: Option<String>,
     pub path: Option<String>,
@@ -81,17 +109,33 @@ pub struct SpanLocation {
     pub end: u32,
 }
 
-impl TaintRoot {
+impl SpanLocation {
+    pub fn with_filename(&self, filename: String) -> Self {
+        let mut loc = self.clone();
+        loc.filename = Some(filename);
+        loc
+    }
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct TaintTrace {
+    pub port: String,
+    pub taint: Vec<TraceFragment>,
+}
+
+impl TraceFragment {
     pub fn kinds(&self) -> &[RootKind] {
         match self {
-            TaintRoot::Origin(taint_root_origin) => &taint_root_origin.kinds,
-            TaintRoot::Call(taint_root_call) => &taint_root_call.kinds,
+            TraceFragment::Origin(taint_root_origin) => &taint_root_origin.kinds,
+            TraceFragment::Call(taint_root_call) => &taint_root_call.kinds,
+            TraceFragment::Declaration(_) => &[],
         }
     }
     pub fn local_features(&self) -> &[LocalFeature] {
         match self {
-            TaintRoot::Origin(taint_root_origin) => &taint_root_origin.local_features,
-            TaintRoot::Call(taint_root_call) => &taint_root_call.local_features,
+            TraceFragment::Origin(taint_root_origin) => &taint_root_origin.local_features,
+            TraceFragment::Call(taint_root_call) => &taint_root_call.local_features,
+            TraceFragment::Declaration(_) => &[],
         }
     }
 }
