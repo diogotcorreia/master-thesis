@@ -214,7 +214,7 @@ impl AnalyseOptions<'_> {
         };
 
         let config_path = self.project_dir.join(".pyre_configuration");
-        let taint_config_path = self.project_dir.join("taint.config");
+        let taint_config_path = self.project_dir.join("taint.pyre_config");
         let sources_sinks_path = self.project_dir.join("sources_sinks.pysa");
 
         serde_json::to_writer(File::create(config_path)?, &config)?;

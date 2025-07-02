@@ -102,6 +102,9 @@
       # pyre doesn't support defining custom @property decorators
       # however, flask uses one, so we need to add it here so that we can model it correctly
       ./0001-add-werkzeug-cached-property-decorator.diff
+      # pyre assumes all .config files are pyre configuration, which is not true,
+      # so change it to something more unique
+      ./0002-change-taint-config-suffix.diff
     ];
 
     duneVersion = "3";

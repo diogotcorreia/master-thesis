@@ -1,0 +1,13 @@
+diff --git a/interprocedural_analyses/taint/taintConfiguration.ml b/interprocedural_analyses/taint/taintConfiguration.ml
+index c1dbef31fa..7b98e39628 100644
+--- a/interprocedural_analyses/taint/taintConfiguration.ml
++++ b/interprocedural_analyses/taint/taintConfiguration.ml
+@@ -1822,7 +1822,7 @@ let apply_missing_flows configuration = function
+ (** Create a taint configuration by finding `.config` files in the given directories. *)
+ let from_taint_model_paths taint_model_paths =
+   let file_paths =
+-    PyrePath.get_matching_files_recursively ~suffix:".config" ~paths:taint_model_paths
++    PyrePath.get_matching_files_recursively ~suffix:".pyre_config" ~paths:taint_model_paths
+   in
+   let parse_json path =
+     if not (PyrePath.file_exists path) then
