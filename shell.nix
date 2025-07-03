@@ -34,8 +34,15 @@ in
 
         # common dependencies for building python wheels
         pkg-config
-        postgresql
+        libpq.pg_config # pg_config for psycopg
         mariadb
+        openldap # for python-ldap
+        cyrus_sasl # for python-ldap
+        libxslt # for xmlsec
+        libxml2 # for xmlsec
+        xmlsec # for xmlsec
+        libtool # for xmlsec
+        zlib # for lxml
       ];
 
       shellHook = ''
