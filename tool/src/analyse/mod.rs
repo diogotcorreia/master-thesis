@@ -1,5 +1,5 @@
 use std::{
-    fs::{self, DirEntry, File},
+    fs::{self, File},
     io,
     path::{Path, PathBuf},
     process::Command,
@@ -19,12 +19,11 @@ use crate::{
         },
         models::write_taint_models,
     },
-    python::PyLock,
+    python::{deps::compile_pylock, PyLock},
 };
 
 const SRC_DIR: &str = "src";
 const PYSA_RESULTS_DIR: &str = "pysa-results";
-const LOCKFILE_NAME: &str = "pylock.toml";
 const DEPS_DIR: &str = "deps";
 
 pub mod results;
@@ -42,21 +41,14 @@ impl AnalyseOptions<'_> {
 
         let mut warnings = vec![];
 
-        let dependency_files = self.find_dependency_files()?;
-        let lockfile = if !dependency_files.is_empty() {
-            let (lockfile_path, lockfile) = self.resolve_dependencies(&dependency_files)?;
-            self.install_dependencies(&lockfile_path)?;
-            if lockfile.packages.is_empty() {
-                warn!("No dependencies detected");
-                warnings.push("No dependencies detected".to_string());
-            }
-
-            lockfile
-        } else {
-            warn!("No dependency files detected");
-            warnings.push("No dependency files detected".to_string());
-            PyLock::default()
-        };
+        let (lockfile_path, lockfile) =
+            compile_pylock(self.project_dir, &self.project_dir.join(SRC_DIR))
+                .context("failed to resolve dependencies")?;
+        self.install_dependencies(&lockfile_path)?;
+        if lockfile.packages.is_empty() {
+            warn!("No dependencies detected");
+            warnings.push("No dependencies detected".to_string());
+        }
 
         self.setup_pyre_files(&lockfile)?;
         let results_dir = self.run_pysa()?;
@@ -65,81 +57,6 @@ impl AnalyseOptions<'_> {
         results.warnings = warnings;
         results.resolved_dependencies = lockfile.packages;
         Ok(results)
-    }
-
-    #[tracing::instrument(skip(self))]
-    /// Finds files that contain dependency information in the project's src directory.
-    /// Candidate files are pyproject.toml, requirements*.txt, setup.py and setup.cfg.
-    /// Only files at the root of the project are considered.
-    fn find_dependency_files(&self) -> Result<Vec<PathBuf>> {
-        fn is_dep_file(entry: &DirEntry) -> bool {
-            // only files are considered, not directories
-            if !entry.file_type().map(|ft| ft.is_file()).unwrap_or(false) {
-                return false;
-            }
-            if let Ok(name) = entry.file_name().into_string() {
-                name == "pyproject.toml"
-                    || name == "setup.py"
-                    || name == "setup.cfg"
-                    || (name.starts_with("requirements") && name.ends_with(".txt"))
-            } else {
-                false
-            }
-        }
-
-        Ok(self
-            .project_dir
-            .join(SRC_DIR)
-            .read_dir()?
-            .filter_map(|entry| entry.ok().filter(is_dep_file).map(|entry| entry.path()))
-            .collect())
-    }
-
-    #[tracing::instrument(skip(self))]
-    fn resolve_dependencies(&self, dependency_files: &[PathBuf]) -> Result<(PathBuf, PyLock)> {
-        let supports_extras = dependency_files
-            .iter()
-            .map(|p| {
-                p.file_name()
-                    .unwrap_or_default()
-                    .to_str()
-                    .unwrap_or_default()
-            })
-            .any(|x| x == "pyproject.toml" || x == "setup.py" || x == "setup.cfg");
-
-        let lockfile_path = self.project_dir.join(LOCKFILE_NAME);
-        let output = Command::new("uv")
-            .arg("pip")
-            .arg("compile")
-            .args(if supports_extras {
-                ["--all-extras"].as_slice()
-            } else {
-                &[]
-            })
-            .arg("--generate-hashes")
-            .arg("--universal")
-            .arg("--output-file")
-            .arg(&lockfile_path)
-            .arg("--")
-            .args(dependency_files)
-            .current_dir(self.project_dir.join(SRC_DIR))
-            .output()
-            .context("failed to resolve dependencies")?;
-
-        if output.status.success() {
-            debug!("ran uv pip compile and saved results to {lockfile_path:?}");
-            let lockfile_content =
-                fs::read_to_string(&lockfile_path).context("failed to read resulting lockfile")?;
-            let lockfile =
-                toml::from_str(&lockfile_content).context("failed to parse resulting lockfile")?;
-            Ok((lockfile_path, lockfile))
-        } else {
-            Err(ToolError::UvError {
-                stdout: String::from_utf8(output.stdout)?,
-                stderr: String::from_utf8(output.stderr)?,
-            }
-            .into())
-        }
     }
 
     #[tracing::instrument(skip(self))]
