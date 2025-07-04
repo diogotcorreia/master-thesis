@@ -21,5 +21,6 @@ pub struct PipPackage {
 #[serde(rename_all = "kebab-case")]
 pub struct PyProject {
     // https://peps.python.org/pep-0735/
+    #[serde(default)]
     dependency_groups: HashMap<String, IgnoredAny>,
 }
