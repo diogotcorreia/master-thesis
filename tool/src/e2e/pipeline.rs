@@ -62,8 +62,7 @@ impl<'a> Pipeline<'a> {
                     }
                     Err(error) => {
                         error!(
-                            e = format!("{error:#}"),
-                            "Failed to read existing report at {report_path:?}"
+                            "Failed to read existing report at {report_path:?}\nError: {error:?}"
                         )
                     }
                 }
@@ -78,11 +77,11 @@ impl<'a> Pipeline<'a> {
                     report
                 }
                 Err(error) => {
-                    error!(e = format!("{error:#}"), "Failed to analyse {}", repo.id);
+                    error!("Failed to analyse {}\nError: {error:?}", repo.id);
                     Report {
                         repository_config: repo.clone(),
                         warnings: vec![],
-                        errors: vec![error.to_string()],
+                        errors: vec![format!("{error:?}")],
                         issues: vec![],
                         resolved_dependencies: vec![],
                         elapsed_seconds: Some(elapsed.as_secs()),
