@@ -17,18 +17,24 @@ const LOCKFILE_NAME: &str = "pylock.toml";
 pub fn compile_pylock(workdir: &Path, src_dir: &Path) -> Result<(PathBuf, PyLock)> {
     let dependency_files = discover_dependency_files(src_dir)?;
     let dependency_files = export_existing_lockfiles(workdir, dependency_files)?;
+    let dependency_files = dependency_files.iter().filter(|dep| {
+        // Ignore setup.py if there are other dependency files.
+        // This is because executing setup.py usually requires installing dependencies,
+        // entering a catch-22 situation: https://peps.python.org/pep-0518/#rationale
+        !matches!(dep.kind, DependencyFileKind::SetupPy) || dependency_files.len() == 1
+    });
 
     let supports_extras = dependency_files
-        .iter()
+        .clone()
         .any(|dep| dep.kind.supports_extras());
     let groups_args = dependency_files
-        .iter()
+        .clone()
         .flat_map(|dep| match &dep.kind {
             DependencyFileKind::PyProject { groups } => groups.as_slice(),
             _ => &[],
         })
         .flat_map(|group| ["--group", group]);
-    let dependency_files_args = dependency_files.iter().map(|dep| dep.path.as_path());
+    let dependency_files_args = dependency_files.map(|dep| dep.path.as_path());
 
     let lockfile_path = workdir.join(LOCKFILE_NAME);
     let output = Command::new("uv")
@@ -69,7 +75,8 @@ pub fn compile_pylock(workdir: &Path, src_dir: &Path) -> Result<(PathBuf, PyLock
 #[derive(Debug)]
 enum DependencyFileKind {
     PyProject { groups: Vec<String> },
-    Setup,
+    SetupPy,
+    SetupCfg,
     Requirements,
 
     UvLock,
@@ -80,7 +87,9 @@ impl DependencyFileKind {
     fn supports_extras(&self) -> bool {
         matches!(
             self,
-            DependencyFileKind::PyProject { .. } | DependencyFileKind::Setup
+            DependencyFileKind::PyProject { .. }
+                | DependencyFileKind::SetupPy
+                | DependencyFileKind::SetupCfg
         )
     }
 }
@@ -107,7 +116,9 @@ impl DependencyFile {
             let groups = lockfile.dependency_groups.into_keys().collect_vec();
             Some(DependencyFileKind::PyProject { groups })
         } else if name == "setup.py" || name == "setup.cfg" {
-            Some(DependencyFileKind::Setup)
+            Some(DependencyFileKind::SetupPy)
+        } else if name == "setup.cfg" {
+            Some(DependencyFileKind::SetupCfg)
         } else if name == "uv.lock" {
             Some(DependencyFileKind::UvLock)
         } else if name.starts_with("pylock.") && name.ends_with(".toml") {
