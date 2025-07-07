@@ -67,6 +67,8 @@ pub fn compile_pylock(
         })
         .arg("--generate-hashes")
         .arg("--universal")
+        // when using more than one index, always query all of them
+        .args(["--index-strategy", "unsafe-best-match"])
         .arg("--output-file")
         .arg(&lockfile_path)
         .args(groups_args)
