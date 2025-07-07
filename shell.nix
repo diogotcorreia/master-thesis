@@ -47,6 +47,6 @@ in
 
       shellHook = ''
         export UV_NO_MANAGED_PYTHON=1
-        export UV_PYTHON="${pyenv}/bin/python"
+        export UV_PYTHON="${pkgs.python310}/bin/python"
       '';
     }
