@@ -122,10 +122,22 @@ impl<'a> Pipeline<'a> {
             }
         }
 
+        let resolve_dependencies_opts = if repo_config.extra_dependencies.is_empty() {
+            None
+        } else {
+            Some(
+                self.dataset_config
+                    .resolve_dependencies_opts
+                    .with_extra_deps(repo_config.extra_dependencies.clone()),
+            )
+        };
+
         let options = AnalyseOptions {
             project_dir: &project_dir,
             pyre_path: self.pyre_path,
-            resolve_dependencies_opts: &self.dataset_config.resolve_dependencies_opts,
+            resolve_dependencies_opts: resolve_dependencies_opts
+                .as_ref()
+                .unwrap_or(&self.dataset_config.resolve_dependencies_opts),
         };
         let results = options.run_analysis()?;
         let has_issues = !results.issues.is_empty();

@@ -1,4 +1,5 @@
 use std::{
+    ffi::OsString,
     fs::{self, DirEntry},
     path::{Path, PathBuf},
     process::Command,
@@ -20,6 +21,17 @@ const LOCKFILE_NAME: &str = "pylock.toml";
 pub struct ResolveDependenciesOpts {
     pub denylisted_packages: Vec<String>,
     pub additional_wheel_repos: Vec<String>,
+    pub extra_dependencies: Vec<String>,
+}
+
+impl ResolveDependenciesOpts {
+    pub fn with_extra_deps(&self, extra_deps: Vec<String>) -> Self {
+        Self {
+            denylisted_packages: self.denylisted_packages.clone(),
+            additional_wheel_repos: self.additional_wheel_repos.clone(),
+            extra_dependencies: extra_deps,
+        }
+    }
 }
 
 pub fn compile_pylock(
@@ -55,6 +67,17 @@ pub fn compile_pylock(
         .additional_wheel_repos
         .iter()
         .flat_map(|repo| ["--find-links", repo]);
+    let overrides = if opts.extra_dependencies.is_empty() {
+        None
+    } else {
+        let overrides_file = workdir.join("requirements-override.txt");
+        fs::write(&overrides_file, opts.extra_dependencies.join("\n"))
+            .context("failed to write requirements-override.txt file")?;
+        Some([
+            OsString::from("--overrides"),
+            overrides_file.into_os_string(),
+        ])
+    };
 
     let lockfile_path = workdir.join(LOCKFILE_NAME);
     let output = Command::new("uv")
@@ -67,6 +90,7 @@ pub fn compile_pylock(
         })
         .arg("--generate-hashes")
         .arg("--universal")
+        .args(overrides.into_iter().flatten())
         // when using more than one index, always query all of them
         .args(["--index-strategy", "unsafe-best-match"])
         .arg("--output-file")
