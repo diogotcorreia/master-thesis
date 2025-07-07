@@ -43,6 +43,17 @@ def process_repo(repo):
 
 result = {
     "repos": list(map(process_repo, selected_repos)),
+    "resolve_dependencies_opts": {
+        "denylisted_packages": [
+            "pywin32",  # windows only
+            "gssapi",  # fails to build under nix
+        ],
+        # some packages are not directly available on PyPI
+        "additional_wheel_repos": [
+            "https://download.pytorch.org/whl/torch_stable.html",
+            "https://pytorch-geometric.com/whl/torch-2.3.0+cu121.html",
+        ],
+    },
 }
 
 out_path = Path(os.path.realpath(".")) / "dataset.toml"

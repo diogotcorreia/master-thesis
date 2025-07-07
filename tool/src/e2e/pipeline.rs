@@ -125,6 +125,7 @@ impl<'a> Pipeline<'a> {
         let options = AnalyseOptions {
             project_dir: &project_dir,
             pyre_path: self.pyre_path,
+            resolve_dependencies_opts: &self.dataset_config.resolve_dependencies_opts,
         };
         let results = options.run_analysis()?;
         let has_issues = !results.issues.is_empty();

@@ -6,6 +6,7 @@ use std::{
 
 use anyhow::{bail, Context, Result};
 use itertools::Itertools;
+use serde::Deserialize;
 use tracing::debug;
 
 use crate::errors::ToolError;
@@ -14,7 +15,18 @@ use super::{PyLock, PyProject};
 
 const LOCKFILE_NAME: &str = "pylock.toml";
 
-pub fn compile_pylock(workdir: &Path, src_dir: &Path) -> Result<(PathBuf, PyLock)> {
+#[derive(Debug, Default, Deserialize)]
+#[serde(default)]
+pub struct ResolveDependenciesOpts {
+    pub denylisted_packages: Vec<String>,
+    pub additional_wheel_repos: Vec<String>,
+}
+
+pub fn compile_pylock(
+    workdir: &Path,
+    src_dir: &Path,
+    opts: &ResolveDependenciesOpts,
+) -> Result<(PathBuf, PyLock)> {
     let dependency_files = discover_dependency_files(src_dir)?;
     let dependency_files = export_existing_lockfiles(workdir, dependency_files)?;
     let dependency_files = dependency_files.iter().filter(|dep| {
@@ -35,6 +47,14 @@ pub fn compile_pylock(workdir: &Path, src_dir: &Path) -> Result<(PathBuf, PyLock
         })
         .flat_map(|group| ["--group", group]);
     let dependency_files_args = dependency_files.map(|dep| dep.path.as_path());
+    let excluded_packages = opts
+        .denylisted_packages
+        .iter()
+        .flat_map(|dep| ["--no-emit-package", dep]);
+    let find_links = opts
+        .additional_wheel_repos
+        .iter()
+        .flat_map(|repo| ["--find-links", repo]);
 
     let lockfile_path = workdir.join(LOCKFILE_NAME);
     let output = Command::new("uv")
@@ -50,6 +70,8 @@ pub fn compile_pylock(workdir: &Path, src_dir: &Path) -> Result<(PathBuf, PyLock
         .arg("--output-file")
         .arg(&lockfile_path)
         .args(groups_args)
+        .args(excluded_packages)
+        .args(find_links)
         .arg("--")
         .args(dependency_files_args)
         .current_dir(src_dir)

@@ -19,7 +19,10 @@ use crate::{
         },
         models::write_taint_models,
     },
-    python::{deps::compile_pylock, PyLock},
+    python::{
+        deps::{compile_pylock, ResolveDependenciesOpts},
+        PyLock,
+    },
 };
 
 const SRC_DIR: &str = "src";
@@ -32,6 +35,7 @@ pub mod results;
 pub struct AnalyseOptions<'a> {
     pub project_dir: &'a Path,
     pub pyre_path: &'a Path,
+    pub resolve_dependencies_opts: &'a ResolveDependenciesOpts,
 }
 
 impl AnalyseOptions<'_> {
@@ -41,9 +45,12 @@ impl AnalyseOptions<'_> {
 
         let mut warnings = vec![];
 
-        let (lockfile_path, lockfile) =
-            compile_pylock(self.project_dir, &self.project_dir.join(SRC_DIR))
-                .context("failed to resolve dependencies")?;
+        let (lockfile_path, lockfile) = compile_pylock(
+            self.project_dir,
+            &self.project_dir.join(SRC_DIR),
+            self.resolve_dependencies_opts,
+        )
+        .context("failed to resolve dependencies")?;
         self.install_dependencies(&lockfile_path)?;
         if lockfile.packages.is_empty() {
             warn!("No dependencies detected");

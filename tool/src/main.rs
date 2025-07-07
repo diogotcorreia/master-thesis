@@ -10,6 +10,7 @@ use class_pollution_detection::{
     analyse::{results::UnprocessedResults, setup_project_from_external_src, AnalyseOptions},
     cli::{Cli, Commands},
     e2e::{config::DatasetConfig, pipeline::Pipeline},
+    python::deps::ResolveDependenciesOpts,
     Workdir,
 };
 use tracing::info;
@@ -37,6 +38,7 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
             let options = AnalyseOptions {
                 project_dir: &project_dir,
                 pyre_path: &pyre_path,
+                resolve_dependencies_opts: &ResolveDependenciesOpts::default(),
             };
             options.run_analysis()?;
         }

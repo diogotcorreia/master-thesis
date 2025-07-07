@@ -1,7 +1,11 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize)]
+use crate::python::deps::ResolveDependenciesOpts;
+
+#[derive(Debug, Default, Deserialize)]
+#[serde(default)]
 pub struct DatasetConfig {
+    pub resolve_dependencies_opts: ResolveDependenciesOpts,
     pub repos: Vec<RepositoryConfig>,
 }
 
