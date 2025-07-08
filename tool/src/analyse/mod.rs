@@ -45,17 +45,24 @@ impl AnalyseOptions<'_> {
 
         let mut warnings = vec![];
 
-        let (lockfile_path, lockfile) = compile_pylock(
+        let lockfile = if let Some((lockfile_path, lockfile)) = compile_pylock(
             self.project_dir,
             &self.project_dir.join(SRC_DIR),
             self.resolve_dependencies_opts,
         )
-        .context("failed to resolve dependencies")?;
-        self.install_dependencies(&lockfile_path)?;
-        if lockfile.packages.is_empty() {
-            warn!("No dependencies detected");
-            warnings.push("No dependencies detected".to_string());
-        }
+        .context("failed to resolve dependencies")?
+        {
+            self.install_dependencies(&lockfile_path)?;
+            if lockfile.packages.is_empty() {
+                warn!("No dependencies detected");
+                warnings.push("No dependencies detected".to_string());
+            }
+            lockfile
+        } else {
+            warn!("No dependency files detected");
+            warnings.push("No dependency files detected".to_string());
+            PyLock::default()
+        };
 
         self.setup_pyre_files(&lockfile)?;
         let results_dir = self.run_pysa()?;

@@ -38,9 +38,13 @@ pub fn compile_pylock(
     workdir: &Path,
     src_dir: &Path,
     opts: &ResolveDependenciesOpts,
-) -> Result<(PathBuf, PyLock)> {
+) -> Result<Option<(PathBuf, PyLock)>> {
     let dependency_files = discover_dependency_files(src_dir)?;
     let dependency_files = export_existing_lockfiles(workdir, dependency_files)?;
+    if dependency_files.is_empty() {
+        return Ok(None);
+    }
+
     let dependency_files = dependency_files.iter().filter(|dep| {
         // Ignore setup.py if there are other dependency files.
         // This is because executing setup.py usually requires installing dependencies,
@@ -110,7 +114,7 @@ pub fn compile_pylock(
             fs::read_to_string(&lockfile_path).context("failed to read resulting lockfile")?;
         let lockfile =
             toml::from_str(&lockfile_content).context("failed to parse resulting lockfile")?;
-        Ok((lockfile_path, lockfile))
+        Ok(Some((lockfile_path, lockfile)))
     } else {
         Err(ToolError::UvError {
             stdout: String::from_utf8(output.stdout)?,
