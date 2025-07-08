@@ -163,7 +163,7 @@ impl DependencyFile {
                 toml::from_str(&pyproject_content).context("failed to parse pyproject.toml")?;
             let groups = lockfile.dependency_groups.into_keys().collect_vec();
             Some(DependencyFileKind::PyProject { groups })
-        } else if name == "setup.py" || name == "setup.cfg" {
+        } else if name == "setup.py" {
             Some(DependencyFileKind::SetupPy)
         } else if name == "setup.cfg" {
             Some(DependencyFileKind::SetupCfg)
