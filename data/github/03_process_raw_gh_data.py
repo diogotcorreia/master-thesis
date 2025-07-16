@@ -18,6 +18,16 @@ print(f"Getting data from {len(files)} file(s)")
 # some data is repeated, deduplicate it
 seen_repos = set()
 
+revs = {}
+
+rev_file = save_path / "revs.txt"
+with open(rev_file, "r") as f:
+    for line in f:
+        data = line.strip().split("\t")
+        assert len(data) == 3
+        # (id, branch): rev
+        revs[(data[1], data[2])] = data[0]
+
 all_repos = []
 
 for path in files:
@@ -30,13 +40,14 @@ for path in files:
                 continue
             seen_repos.add(id)
 
+            branch = repo["default_branch"]
             all_repos.append(
                 {
                     "full_name": repo["full_name"],
                     "stars": repo["stargazers_count"],
                     "homepage": repo["homepage"],
-                    "default_branch": repo["default_branch"],
-                    "test": {"a": "b"},
+                    "default_branch": branch,
+                    "rev": revs[(str(id), branch)]
                 }
             )
 

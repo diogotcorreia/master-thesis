@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import re
 from pathlib import Path
@@ -141,7 +142,7 @@ while next_request["url"]:
     next_request = get_next_request(res)
 
     if res["rate_limit"]["remaining"] == 0:
-        seconds_to_reset = int(res["rate_limit"]["reset"] - time())
+        seconds_to_reset = math.ceil(res["rate_limit"]["reset"] - time())
         print(f"Hit rate limit. Sleeping for {seconds_to_reset} seconds...")
         sleep(seconds_to_reset)
 

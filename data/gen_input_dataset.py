@@ -31,8 +31,7 @@ def process_repo(repo):
             # TODO get stuff from pypi instead, whenever possible
             "kind": "github",
             "full_name": repo["full_name"],
-            # TODO pin rev from latest tag and/or default branch
-            "rev": repo["default_branch"],
+            "rev": repo["rev"],
             # This will have to be adjusted manually if needed
             "basedir": "",
         },
