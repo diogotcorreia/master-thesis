@@ -8,6 +8,8 @@ pub enum ToolError {
     PyreError { stdout: String, stderr: String },
     #[error("cannot parse results due to version mismatch (expected {expected}, but got {got})")]
     PyreResultVersionMismatch { got: u32, expected: u32 },
+    #[error("reached timeout while executing pyre")]
+    PyreTimeout,
     #[error("error executing uv (stdout: {stdout}, stderr: {stderr})")]
     UvError { stdout: String, stderr: String },
 }

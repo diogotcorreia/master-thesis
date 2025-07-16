@@ -2,13 +2,14 @@ use std::{
     fs::{self, File},
     io,
     path::{Path, PathBuf},
-    process::Command,
-    time::{SystemTime, UNIX_EPOCH},
+    process::{Command, Stdio},
+    time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
 use anyhow::{Context, Result};
 use results::{ProcessedResults, UnprocessedResults};
 use tracing::{debug, info, warn};
+use wait_timeout::ChildExt;
 
 use crate::{
     errors::{PipelineResult, PipelineStage, ToolError, WithPipelineStage},
@@ -68,7 +69,10 @@ impl AnalyseOptions<'_> {
 
         self.setup_pyre_files(&lockfile)
             .with_stage(PipelineStage::PyreSetup)?;
-        let results_dir = self.run_pysa().with_stage(PipelineStage::Analysis)?;
+        let results_dir = self
+            .run_pysa()
+            .context("failed to execute pysa")
+            .with_stage(PipelineStage::Analysis)?;
         let mut results = self
             .get_pyre_results(&results_dir)
             .with_stage(PipelineStage::Processing)?;
@@ -169,7 +173,7 @@ impl AnalyseOptions<'_> {
     fn run_pysa(&self) -> Result<PathBuf> {
         let results_path = self.project_dir.join(PYSA_RESULTS_DIR);
 
-        let output = Command::new(self.pyre_path)
+        let mut child = Command::new(self.pyre_path)
             .arg("--log-level")
             .arg("WARNING")
             .arg("analyze")
@@ -179,18 +183,30 @@ impl AnalyseOptions<'_> {
             .arg("--save-results-to")
             .arg(&results_path)
             .current_dir(self.project_dir)
-            .output()
-            .context("failed to execute pysa")?;
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::piped())
+            .spawn()?;
 
-        if output.status.success() {
-            debug!("ran pysa and saved results to {results_path:?}");
-            Ok(results_path)
-        } else {
-            Err(ToolError::PyreError {
-                stdout: String::from_utf8(output.stdout)?,
-                stderr: String::from_utf8(output.stderr)?,
+        let timeout = Duration::from_secs(60 * 60 * 2); // 2 hours
+        match child.wait_timeout(timeout)? {
+            Some(status) => {
+                if status.success() {
+                    debug!("ran pysa and saved results to {results_path:?}");
+                    Ok(results_path)
+                } else {
+                    let output = child.wait_with_output()?;
+                    Err(ToolError::PyreError {
+                        stdout: String::from_utf8(output.stdout)?,
+                        stderr: String::from_utf8(output.stderr)?,
+                    }
+                    .into())
+                }
             }
-            .into())
+            None => {
+                child.kill()?;
+                Err(ToolError::PyreTimeout.into())
+            }
         }
     }
 
