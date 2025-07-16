@@ -6,12 +6,29 @@ import tomli_w
 
 save_path = Path(os.path.dirname(os.path.realpath(__file__))) / "github" / "data"
 
-DATASET_SIZE = 5
+MOST_STARRED_SIZE = 1000
+MOST_STARRED_PICK = 500
+MIDDLE_PICK = 500
+LEAST_STARRED_SIZE = 1000
+LEAST_STARRED_PICK = 500
 
 with open(save_path / "all-repos.json") as f:
     repos = json.load(f)["repos"]
 
-selected_repos = random.choices(repos, k=DATASET_SIZE)
+repos.sort(key=lambda r: r["stars"], reverse=True)
+
+most_starred = repos[:MOST_STARRED_SIZE]
+middle = repos[MOST_STARRED_SIZE:-LEAST_STARRED_SIZE]
+least_starred = repos[-LEAST_STARRED_SIZE:]
+
+selected_repos = (
+    random.choices(most_starred, k=MOST_STARRED_PICK)
+    + random.choices(middle, k=MIDDLE_PICK)
+    + random.choices(least_starred, k=LEAST_STARRED_PICK)
+)
+
+# avoid leaving the least starred for last during analysis
+random.shuffle(selected_repos)
 
 
 def process_repo(repo):
