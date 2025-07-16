@@ -40,7 +40,7 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
                 pyre_path: &pyre_path,
                 resolve_dependencies_opts: &ResolveDependenciesOpts::default(),
             };
-            options.run_analysis()?;
+            options.run_analysis().map_err(|e| e.error)?;
         }
         Commands::E2E(e2e_args) => {
             let dataset_content =

@@ -11,7 +11,7 @@ use results::{ProcessedResults, UnprocessedResults};
 use tracing::{debug, info, warn};
 
 use crate::{
-    errors::ToolError,
+    errors::{PipelineResult, PipelineStage, ToolError, WithPipelineStage},
     pyre::{
         config::{
             PyreConfiguration, SitePackageSearchStrategy, TaintCombinedSourceRule, TaintConfig,
@@ -40,7 +40,7 @@ pub struct AnalyseOptions<'a> {
 
 impl AnalyseOptions<'_> {
     #[tracing::instrument(skip(self))]
-    pub fn run_analysis(&self) -> Result<ProcessedResults> {
+    pub fn run_analysis(&self) -> PipelineResult<ProcessedResults> {
         info!("Started analysis of {:?}", self.project_dir);
 
         let mut warnings = vec![];
@@ -50,9 +50,11 @@ impl AnalyseOptions<'_> {
             &self.project_dir.join(SRC_DIR),
             self.resolve_dependencies_opts,
         )
-        .context("failed to resolve dependencies")?
+        .context("failed to resolve dependencies")
+        .with_stage(PipelineStage::ResolvingDependencies)?
         {
-            self.install_dependencies(&lockfile_path)?;
+            self.install_dependencies(&lockfile_path)
+                .with_stage(PipelineStage::InstallingDependencies)?;
             if lockfile.packages.is_empty() {
                 warn!("No dependencies detected");
                 warnings.push("No dependencies detected".to_string());
@@ -64,10 +66,16 @@ impl AnalyseOptions<'_> {
             PyLock::default()
         };
 
-        self.setup_pyre_files(&lockfile)?;
-        let results_dir = self.run_pysa()?;
-        let mut results = self.get_pyre_results(&results_dir)?;
-        info!("Results:\n{}", results.summarise()?);
+        self.setup_pyre_files(&lockfile)
+            .with_stage(PipelineStage::PyreSetup)?;
+        let results_dir = self.run_pysa().with_stage(PipelineStage::Analysis)?;
+        let mut results = self
+            .get_pyre_results(&results_dir)
+            .with_stage(PipelineStage::Processing)?;
+        info!(
+            "Results:\n{}",
+            results.summarise().with_stage(PipelineStage::Processing)?
+        );
         results.warnings = warnings;
         results.resolved_dependencies = lockfile.packages;
         Ok(results)

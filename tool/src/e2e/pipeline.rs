@@ -1,4 +1,5 @@
 use std::{
+    fmt::Debug,
     fs::{self, File},
     io::{BufReader, Write},
     path::{Path, PathBuf},
@@ -14,6 +15,7 @@ use tracing::{debug, error, info};
 
 use crate::{
     analyse::{results::ProcessedIssues, AnalyseOptions},
+    errors::{PipelineError, PipelineResult, PipelineStage, WithPipelineStage},
     python::PipPackage,
 };
 
@@ -76,11 +78,12 @@ impl<'a> Pipeline<'a> {
                     report.elapsed_seconds = Some(elapsed.as_secs());
                     report
                 }
-                Err(error) => {
+                Err(PipelineError { stage, error }) => {
                     error!("Failed to analyse {}\nError: {error:?}", repo.id);
                     Report {
                         repository_config: repo.clone(),
                         warnings: vec![],
+                        error_stage: Some(stage),
                         errors: vec![format!("{error:?}")],
                         issues: vec![],
                         resolved_dependencies: vec![],
@@ -99,7 +102,7 @@ impl<'a> Pipeline<'a> {
         Ok(())
     }
 
-    fn run_repo(&self, repo_config: &RepositoryConfig) -> Result<Report> {
+    fn run_repo(&self, repo_config: &RepositoryConfig) -> PipelineResult<Report> {
         let destination_dir_name = {
             let now = SystemTime::now()
                 .duration_since(UNIX_EPOCH)
@@ -111,12 +114,14 @@ impl<'a> Pipeline<'a> {
 
         let project_dir = self.work_dir.join(ANALYSIS_DIR).join(destination_dir_name);
         let src_dir = project_dir.join(SRC_DIR);
-        fs::create_dir_all(&src_dir)?;
+        fs::create_dir_all(&src_dir).with_stage(PipelineStage::Setup)?;
 
         match &repo_config.src {
             RepositorySrc::GitHub(src) => {
-                let tarball_path = self.download_gh_tarball(src)?;
-                Self::extract_tarball(&tarball_path, &src_dir)?;
+                let tarball_path = self
+                    .download_gh_tarball(src)
+                    .with_stage(PipelineStage::Setup)?;
+                Self::extract_tarball(&tarball_path, &src_dir).with_stage(PipelineStage::Setup)?;
 
                 debug!("extracted project to {src_dir:?}");
             }
@@ -144,6 +149,7 @@ impl<'a> Pipeline<'a> {
         let report = Report {
             repository_config: repo_config.clone(),
             warnings: results.warnings,
+            error_stage: None,
             errors: vec![],
             issues: results.issues,
             resolved_dependencies: results.resolved_dependencies,
@@ -153,7 +159,7 @@ impl<'a> Pipeline<'a> {
 
         if !has_issues {
             // remove src if nothing is found, to save disk space
-            fs::remove_dir_all(src_dir)?;
+            fs::remove_dir_all(src_dir).with_stage(PipelineStage::Cleanup)?;
             // removing deps doesn't help with storage in theory because they are hard linked by uv
         }
         Ok(report)
@@ -278,9 +284,13 @@ impl<'a> Pipeline<'a> {
             errors
                 .iter()
                 .map(|r| format!(
-                    "- {} ({} error(s)){}",
+                    "- {} ({} error(s), {}){}",
                     r.repository_config.id,
                     r.errors.len(),
+                    r.error_stage
+                        .as_ref()
+                        .map(|s| format!("{:?}", s))
+                        .unwrap_or("Unknown".to_string()),
                     if r.previous_run { " (cached)" } else { "" }
                 ))
                 .join("\n"),
@@ -312,6 +322,7 @@ impl<'a> Pipeline<'a> {
 pub struct Report {
     pub repository_config: RepositoryConfig,
     pub warnings: Vec<String>, // TODO make this a proper enum
+    pub error_stage: Option<PipelineStage>,
     pub errors: Vec<String>,
     pub issues: Vec<ProcessedIssues>,
     pub resolved_dependencies: Vec<PipPackage>,
