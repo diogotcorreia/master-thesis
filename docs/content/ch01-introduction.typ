@@ -1,4 +1,4 @@
-#import "../utils/enum-references.typ": wrapped-enum-numbering, enum-label
+#import "../utils/enum-references.typ": enum-label, wrapped-enum-numbering
 
 = Introduction <intro>
 
@@ -44,12 +44,10 @@ The specifics of the problem are further outlined in @bg:python.
 This degree project aims to answer the following four research questions:
 
 #[
-  #set enum(
-    numbering: wrapped-enum-numbering(
-      ref-numbering: (..nums) => [*RQ#numbering("1.1", ..nums)*],
-      (..nums) => [*RQ#numbering("1.1.", ..nums)*],
-    ),
-  )
+  #set enum(numbering: wrapped-enum-numbering(
+    ref-numbering: (..nums) => [*RQ#numbering("1.1", ..nums)*],
+    (..nums) => [*RQ#numbering("1.1.", ..nums)*],
+  ))
   + #enum-label("rq-causes-consequences")
     What are the root causes and possible consequences of class pollution
     in a Python application?
@@ -120,6 +118,13 @@ This project is aimed at designing a tool that can identify code paths potential
 to class pollution.
 It is, however, not aimed at identifying consequences of said pollution in specific programs,
 but only in general as a motivation for this work, as per @rq-causes-consequences[].
+
+== Contributions
+
+// TODO: go back to research questions, provide an answer
+// say which section it is discussed in
+
+#text(fill: red, lorem(50))
 
 == Structure of the Thesis
 

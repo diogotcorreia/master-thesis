@@ -28,7 +28,7 @@ as illustrated by @fg:prototype-chain.
   // TODO do a flowchart-style graph that shows getting the property from the root
   // prototype when it is not set in the object
   rect(fill: red, height: 10em, lorem(5)),
-  caption: "Property discovery through the prototype chain"
+  caption: "Property discovery through the prototype chain",
 ) <fg:prototype-chain>
 
 The prototype pollution attack was first introduced by #cite(<pp-arteau>, form: "prose")
@@ -120,7 +120,7 @@ third-party packages.
 When it comes to the client-side, that is, JavaScript running in browsers,
 #cite(<probetheproto>, form: "prose") has found that it is possible to pollute the
 root prototype via the URL in certain websites, possibly leaving them vulnerable to @xss,
-cookie manipulation, and/or url manipulation.
+cookie manipulation, and/or URL manipulation.
 
 === Mitigations
 
@@ -149,12 +149,10 @@ When used in conjunction with dynamic dispatch, an attacker can take advantage o
 in the application as a gadget, possibly achieving vulnerabilities like @rce, as demonstrated
 by @code:php-oi-rce @php-object-injection.
 
-#figure(
-  caption: [
-    Example showing how deserialising data can result in @rce in PHP, by taking advantage of
-    inheritance and dynamic dispatch
-  ],
-)[
+#figure(caption: [
+  Example showing how deserialising data can result in @rce in PHP, by taking advantage of
+  inheritance and dynamic dispatch
+])[
   ```php
   <?php
   class Foo {
@@ -203,20 +201,144 @@ and therefore extremely relevant for security researchers.
 
 === Dunder Methods & Properties
 
-- used for internal stuff
-- show `__init__`, `__str__`, `__add__`, etc
+// https://docs.python.org/3/reference/datamodel.html#special-method-names
 
-=== Object Attributes
+In Python, most objects have double underscore (dunder) methods and
+properties that are used internally by the interpreter.
+Some of these methods and properties are meant to be overridden by users,
+like `__init__()` and `__add__()`, while others are meant to aid the interpreter,
+like `__base__`.
 
-- setattr/getattr
-- how inheritance works
-- classes
-- immutable object class
+In reality, some of Python's syntax is simply syntactic sugar for calling these
+dunder methods.
+For instance, the expression `foo + bar` is interpreted by Python
+as `type(foo).__add__(foo, bar)`.
+This allows for very expressive customisability for developers, not only by
+overloading operators, but also by changing the behaviour of common constructs,
+such as, converting an object to a string (`__str__()`), subclass initialisation
+(`__init__subclass__()`), listing names of the object's scope (`__dir__()`),
+and much more.
 
-=== Dictionaries
+Additionally, some of the dunder methods and properties can be used to traverse
+the data stored by a Python program.
+One great example of this is that all functions capture the scope they are defined
+in, making a reference to all global variables in that scope available
+through `__globals__`, as can be seen on @code:python-function-globals.
 
-- bracket syntax
-- `__setitem__/__getitem__`
+#figure(caption: [
+  Functions in Python capture the global scope and make it available through `__globals__`
+])[
+  ```py
+  FOO = "hello world"
+
+  def bar():
+    pass
+
+  print(bar.__globals__)
+  # {'FOO': 'hello world', 'bar': <function bar at 0x7f4b144c9800>, ...}
+  ```
+] <code:python-function-globals>
+
+This behaviour can be extremely useful for attackers when exploiting vulnerabilities
+in Python like @ssti.
+
+=== Object Attributes and Item Containers
+
+In Python, data in objects can be stored in different ways;
+it can either be an attribute of an object, or it can be an item
+in a container (dictionaries, lists, and tuples are examples of containers).
+
+This is an important distinction because it dictates how that data
+can be accessed.
+In case of an attribute, it can be accessed statically through dot-notation,
+and dynamically through the built-in `getattr` and its writing counterpart
+`setattr`, as exemplified in @code:python-access-attributes.
+
+#figure(caption: [
+  Statically and dynamically accessing attributes of Python objects
+])[
+  ```py
+  foo = Foo()
+  # access attribute `bar` of `foo`
+  foo.bar
+
+  qux = "bar"
+  # access attribute `bar` of `foo` as well
+  getattr(foo, qux)
+  ```
+] <code:python-access-attributes>
+
+On the other hand, accessing items inside containers, both statically and
+dynamically, is done through the bracket-notation, which is once again
+syntactic sugar for calling `__getitem__` or `__setitem__`, as shown in
+@code:python-access-items-containers.
+
+#figure(caption: [
+  Accessing items inside containers, such as dictionaries and lists
+])[
+  ```py
+  foo = {"bar": 123}
+  qux = "bar"
+
+  foo.bar # AttributeError
+  foo["bar"] # 123
+  foo[qux] # 123
+  ```
+] <code:python-access-items-containers>
+
+This will be an important distinction later on.
+
+=== Class Inheritance
+
+// https://docs.python.org/3/tutorial/classes.html
+
+Contrary to JavaScript's prototype-based inheritance described in @bg:js-pp,
+Python uses a class-based approach to inheritance.
+Like in C++, classes may have one or more superclasses, called bases.
+
+If a class is defined without explicitly declaring a base class, it
+automatically inherits from the `object` class.
+The `object` class is special because it is immutable, hence it is
+impossible to add or change its attributes, as exemplified in @code:python-object-immutable.
+
+#figure(caption: [
+  Python classes inherit from the immutable `object` class
+])[
+  ```py
+  class A:
+    pass
+
+  print(A.__bases__) # (<class 'object'>,)
+
+  # TypeError: cannot set 'foo' attribute of immutable type 'object'
+  A.__bases__[0].foo = "bar"
+  ```
+] <code:python-object-immutable>
+
+Furthermore, and perhaps intuitively, all attributes present or modified on a base
+class are present on the subclasses if they are otherwise undeclared,
+as shown in @code:python-attribute-inheritance.
+
+#figure(caption: [
+  Classes inherit attributes from their bases
+])[
+  ```py
+  class A:
+    pass
+
+  class B(A):
+    pass
+
+  b = B()
+  print(b.foo) # AttributeError
+
+  A.foo = "bar"
+  print(b.foo) # bar
+
+  B.foo = "qux"
+  print(b.foo) # qux
+  ```
+] <code:python-attribute-inheritance>
 
 == Static Code Analysis <bg:static-analysis>
 
