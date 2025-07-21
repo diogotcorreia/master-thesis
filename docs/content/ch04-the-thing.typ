@@ -1,4 +1,4 @@
-= The Thing
+= The Thing <thing>
 
 == Software Design
 

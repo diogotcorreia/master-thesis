@@ -30,6 +30,12 @@ php-magic-methods:
   parent:
     type: reference
     title: "PHP Manual"
+python-reference-manual:
+  type: reference
+  title: The Python Language Reference
+  url:
+    value: https://docs.python.org/3/reference/index.html
+    visited: 2025-07-21
 
 # From Zotero:
 ghunter:
