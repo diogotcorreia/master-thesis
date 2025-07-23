@@ -36,6 +36,13 @@ python-reference-manual:
   url:
     value: https://docs.python.org/3/reference/index.html
     visited: 2025-07-21
+gh-linguist:
+  type: repository
+  title: linguist
+  author: github-linguist
+  url:
+    value: https://github.com/github-linguist/linguist
+    visited: 2025-07-23
 
 # From Zotero:
 ghunter:
