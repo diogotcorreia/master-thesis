@@ -15,14 +15,13 @@ pub fn write_taint_models(dest: &Path, lockfile: &PyLock) -> Result<()> {
     let mut file = File::create(dest)?;
     writeln!(file, "{}", DEFAULT_MODELS)?;
 
-    for package in lockfile.packages.iter() {
-        #[allow(clippy::single_match)]
-        match package.name.as_str() {
-            "django" => writeln!(file, "{}", DJANGO_MODELS)?,
-            "flask" => writeln!(file, "{}", FLASK_MODELS)?,
-            "sqlalchemy" => writeln!(file, "{}", SQLALCHEMY_MODELS)?,
-            _ => {}
-        }
-    }
+    // for package in lockfile.packages.iter() {
+        // match package.name.as_str() {
+            // "django" => writeln!(file, "{}", DJANGO_MODELS)?,
+            // "flask" => writeln!(file, "{}", FLASK_MODELS)?,
+            // "sqlalchemy" => writeln!(file, "{}", SQLALCHEMY_MODELS)?,
+            // _ => {}
+        // }
+    // }
     Ok(())
 }

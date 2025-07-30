@@ -47,7 +47,14 @@ impl UnprocessedResults {
         for entry in serde_json::Deserializer::from_reader(reader).into_iter() {
             match entry? {
                 TaintOutput::Model(data) => models.push(data),
-                TaintOutput::Issue(data) => issues.push(data),
+                TaintOutput::Issue(data) => {
+                    // TODO: add proper comment
+                    if !data.has_via_feature("tito-broadening")
+                        && !data.has_via_feature("obscure:model")
+                    {
+                        issues.push(data)
+                    }
+                }
             }
         }
 

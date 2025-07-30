@@ -7,13 +7,7 @@ def getattr(
 
 @SkipObscure
 def setattr(
-    __o: PartialSink[CustomSetAttr],
-    __name: PartialSink[UserControlledSink],
+    __o: TaintSink[CustomSetAttr],
+    __name,
     __value,
 ): ...
-
-# Extra source for input
-def input(prompt, /) -> TaintSource[UserControlled]: ...
-
-# Filesystem
-def open() -> TaintSource[UserControlled]: ...

@@ -16,7 +16,7 @@ use crate::{
     pyre::{
         config::{
             PyreConfiguration, SitePackageSearchStrategy, TaintCombinedSourceRule, TaintConfig,
-            TaintEntry, TaintOptions, TaintPartialRule,
+            TaintEntry, TaintOptions, TaintPartialRule, TaintRule,
         },
         models::write_taint_models,
     },
@@ -120,36 +120,23 @@ impl AnalyseOptions<'_> {
         };
 
         let taint_config = TaintConfig {
-            sources: vec![
-                TaintEntry {
-                    name: "CustomGetAttr".to_string(),
-                },
-                TaintEntry {
-                    name: "UserControlled".to_string(),
-                },
-            ],
+            sources: vec![TaintEntry {
+                name: "CustomGetAttr".to_string(),
+            }],
             sinks: vec![TaintEntry {
                 name: "CustomSetAttr".to_string(),
             }],
             features: vec![TaintEntry {
                 name: "customgetattr".to_string(),
             }],
-            rules: vec![],
-            combined_source_rules: vec![TaintCombinedSourceRule {
+            rules: vec![TaintRule {
                 name: "class-pollution".to_string(),
                 code: 9901,
-                rule: vec![
-                    TaintPartialRule {
-                        sources: vec!["CustomGetAttr".to_string()],
-                        partial_sink: "CustomSetAttr".to_string(),
-                    },
-                    TaintPartialRule {
-                        sources: vec!["UserControlled".to_string()],
-                        partial_sink: "UserControlledSink".to_string(),
-                    },
-                ],
+                sources: vec!["CustomGetAttr".to_string()],
+                sinks: vec!["CustomSetAttr".to_string()],
                 message_format: "There might be class pollution here".to_string(),
             }],
+            combined_source_rules: vec![],
             options: TaintOptions {
                 maximum_overrides_to_analyze: 1,
                 maximum_trace_length: 20,
@@ -179,7 +166,7 @@ impl AnalyseOptions<'_> {
             .arg("analyze")
             .arg("--rule")
             .arg("9901")
-            .arg("--infer-self-tito")
+            // .arg("--infer-self-tito")
             .arg("--save-results-to")
             .arg(&results_path)
             .current_dir(self.project_dir)
