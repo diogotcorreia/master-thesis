@@ -15,8 +15,8 @@ use crate::{
     errors::{PipelineResult, PipelineStage, ToolError, WithPipelineStage},
     pyre::{
         config::{
-            PyreConfiguration, SitePackageSearchStrategy, TaintCombinedSourceRule, TaintConfig,
-            TaintEntry, TaintOptions, TaintPartialRule,
+            PyreConfiguration, SitePackageSearchStrategy, TaintConfig, TaintEntry, TaintOptions,
+            TaintRule,
         },
         models::write_taint_models,
     },
@@ -67,7 +67,7 @@ impl AnalyseOptions<'_> {
             PyLock::default()
         };
 
-        self.setup_pyre_files(&lockfile)
+        self.setup_pyre_files()
             .with_stage(PipelineStage::PyreSetup)?;
         let results_dir = self
             .run_pysa()
@@ -110,8 +110,8 @@ impl AnalyseOptions<'_> {
         }
     }
 
-    #[tracing::instrument(skip(self, lockfile))]
-    fn setup_pyre_files(&self, lockfile: &PyLock) -> Result<()> {
+    #[tracing::instrument(skip(self))]
+    fn setup_pyre_files(&self) -> Result<()> {
         let config = PyreConfiguration {
             site_package_search_strategy: SitePackageSearchStrategy::All,
             source_directories: vec![format!("./{SRC_DIR}")],
@@ -120,36 +120,23 @@ impl AnalyseOptions<'_> {
         };
 
         let taint_config = TaintConfig {
-            sources: vec![
-                TaintEntry {
-                    name: "CustomGetAttr".to_string(),
-                },
-                TaintEntry {
-                    name: "UserControlled".to_string(),
-                },
-            ],
+            sources: vec![TaintEntry {
+                name: "CustomGetAttr".to_string(),
+            }],
             sinks: vec![TaintEntry {
                 name: "CustomSetAttr".to_string(),
             }],
             features: vec![TaintEntry {
                 name: "customgetattr".to_string(),
             }],
-            rules: vec![],
-            combined_source_rules: vec![TaintCombinedSourceRule {
+            rules: vec![TaintRule {
                 name: "class-pollution".to_string(),
                 code: 9901,
-                rule: vec![
-                    TaintPartialRule {
-                        sources: vec!["CustomGetAttr".to_string()],
-                        partial_sink: "CustomSetAttr".to_string(),
-                    },
-                    TaintPartialRule {
-                        sources: vec!["UserControlled".to_string()],
-                        partial_sink: "UserControlledSink".to_string(),
-                    },
-                ],
+                sources: vec!["CustomGetAttr".to_string()],
+                sinks: vec!["CustomSetAttr".to_string()],
                 message_format: "There might be class pollution here".to_string(),
             }],
+            combined_source_rules: vec![],
             options: TaintOptions {
                 maximum_overrides_to_analyze: 1,
                 maximum_trace_length: 20,
@@ -162,7 +149,7 @@ impl AnalyseOptions<'_> {
 
         serde_json::to_writer(File::create(config_path)?, &config)?;
         serde_json::to_writer(File::create(taint_config_path)?, &taint_config)?;
-        write_taint_models(&sources_sinks_path, lockfile)?;
+        write_taint_models(&sources_sinks_path)?;
 
         debug!("setup pyre/pysa configuration files");
 
@@ -179,7 +166,7 @@ impl AnalyseOptions<'_> {
             .arg("analyze")
             .arg("--rule")
             .arg("9901")
-            .arg("--infer-self-tito")
+            // .arg("--infer-self-tito")
             .arg("--save-results-to")
             .arg(&results_path)
             .current_dir(self.project_dir)

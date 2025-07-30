@@ -18,6 +18,8 @@ pub struct TaintIssueData {
     pub traces: Vec<TaintIssueTraces>,
     #[serde(flatten)]
     pub location: SpanLocation,
+    #[serde(default)]
+    pub features: Vec<LocalFeature>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -121,6 +123,14 @@ impl SpanLocation {
 pub struct TaintTrace {
     pub port: String,
     pub taint: Vec<TraceFragment>,
+}
+
+impl TaintIssueData {
+    pub fn has_via_feature(&self, value: &str) -> bool {
+        self.features.iter().any(|feature| {
+            feature.via.iter().any(|v| value == v) || feature.always_via.iter().any(|v| value == v)
+        })
+    }
 }
 
 impl TraceFragment {

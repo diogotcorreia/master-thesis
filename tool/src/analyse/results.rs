@@ -47,7 +47,17 @@ impl UnprocessedResults {
         for entry in serde_json::Deserializer::from_reader(reader).into_iter() {
             match entry? {
                 TaintOutput::Model(data) => models.push(data),
-                TaintOutput::Issue(data) => issues.push(data),
+                TaintOutput::Issue(data) => {
+                    // Issues with feature `tito-broadening` or `obscure:model` usually mean the
+                    // taint flows indirectly or that the result of getattr is manipulated in
+                    // some way before being passed to setattr, which does not yield a class
+                    // pollution vulnerability.
+                    if !data.has_via_feature("tito-broadening")
+                        && !data.has_via_feature("obscure:model")
+                    {
+                        issues.push(data)
+                    }
+                }
             }
         }
 
