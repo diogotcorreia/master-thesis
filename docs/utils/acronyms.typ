@@ -1,5 +1,10 @@
 #let acronyms = (
   (
+    key: "cli",
+    short: "CLI",
+    long: "Command-Line Interface",
+  ),
+  (
     key: "dos",
     short: "DoS",
     long: "Denial of Service",
