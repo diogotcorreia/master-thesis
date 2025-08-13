@@ -92,6 +92,7 @@ impl<'a> Pipeline<'a> {
                         warnings: vec![],
                         error_stage: Some(stage),
                         errors: vec![format!("{error:?}")],
+                        raw_issue_count: 0,
                         issues: vec![],
                         resolved_dependencies: vec![],
                         elapsed_seconds: Some(elapsed.as_secs()),
@@ -159,6 +160,7 @@ impl<'a> Pipeline<'a> {
             warnings: results.warnings,
             error_stage: None,
             errors: vec![],
+            raw_issue_count: results.raw_issue_count,
             issues: results.issues,
             resolved_dependencies: results.resolved_dependencies,
             elapsed_seconds: None,
@@ -332,6 +334,7 @@ pub struct Report {
     pub warnings: Vec<String>, // TODO make this a proper enum
     pub error_stage: Option<PipelineStage>,
     pub errors: Vec<String>,
+    pub raw_issue_count: usize,
     pub issues: Vec<ProcessedIssues>,
     pub resolved_dependencies: Vec<PipPackage>,
     pub elapsed_seconds: Option<u64>,

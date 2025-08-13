@@ -23,6 +23,7 @@ const PYSA_TAINT_OUTPUT_SUPPORTED_VERSION: u32 = 3;
 pub struct UnprocessedResults {
     pub models: Vec<TaintModelData>,
     pub issues: Vec<TaintIssueData>,
+    pub raw_issue_count: usize,
 }
 
 impl UnprocessedResults {
@@ -44,6 +45,7 @@ impl UnprocessedResults {
 
         let mut models = vec![];
         let mut issues = vec![];
+        let mut raw_issue_count = 0usize;
         for entry in serde_json::Deserializer::from_reader(reader).into_iter() {
             match entry? {
                 TaintOutput::Model(data) => models.push(data),
@@ -57,6 +59,8 @@ impl UnprocessedResults {
                     {
                         issues.push(data)
                     }
+
+                    raw_issue_count += 1;
                 }
             }
         }
@@ -64,7 +68,11 @@ impl UnprocessedResults {
         // allow for binary search later
         models.sort_by_cached_key(|model| model.callable.clone());
 
-        Ok(UnprocessedResults { models, issues })
+        Ok(UnprocessedResults {
+            models,
+            issues,
+            raw_issue_count,
+        })
     }
 
     pub fn process(&self) -> ProcessedResults {
@@ -132,6 +140,7 @@ impl UnprocessedResults {
             issues,
             warnings: vec![],
             resolved_dependencies: vec![],
+            raw_issue_count: self.raw_issue_count,
         }
     }
 
@@ -236,6 +245,7 @@ pub struct ProcessedResults {
     pub issues: Vec<ProcessedIssues>,
     pub warnings: Vec<String>,
     pub resolved_dependencies: Vec<PipPackage>,
+    pub raw_issue_count: usize,
 }
 
 impl ProcessedResults {
