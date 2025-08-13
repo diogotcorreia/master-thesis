@@ -37,6 +37,9 @@ pub enum Commands {
 
 #[derive(Args)]
 pub struct AnalyseArgs {
+    #[arg(long)]
+    /// Whether to install dependencies before performing the analysis
+    pub use_deps: bool,
     #[arg()]
     /// Path to the project to analyse
     pub dir: PathBuf,
@@ -44,6 +47,9 @@ pub struct AnalyseArgs {
 
 #[derive(Args)]
 pub struct E2EArgs {
+    #[arg(long)]
+    /// Whether to install dependencies before performing the analysis
+    pub use_deps: bool,
     #[arg()]
     /// Path to a TOML file containing dataset information
     pub dataset: PathBuf,

@@ -36,6 +36,7 @@ pub mod results;
 pub struct AnalyseOptions<'a> {
     pub project_dir: &'a Path,
     pub pyre_path: &'a Path,
+    pub resolve_dependencies: bool,
     pub resolve_dependencies_opts: &'a ResolveDependenciesOpts,
 }
 
@@ -46,24 +47,28 @@ impl AnalyseOptions<'_> {
 
         let mut warnings = vec![];
 
-        let lockfile = if let Some((lockfile_path, lockfile)) = compile_pylock(
-            self.project_dir,
-            &self.project_dir.join(SRC_DIR),
-            self.resolve_dependencies_opts,
-        )
-        .context("failed to resolve dependencies")
-        .with_stage(PipelineStage::ResolvingDependencies)?
-        {
-            self.install_dependencies(&lockfile_path)
-                .with_stage(PipelineStage::InstallingDependencies)?;
-            if lockfile.packages.is_empty() {
-                warn!("No dependencies detected");
-                warnings.push("No dependencies detected".to_string());
+        let lockfile = if self.resolve_dependencies {
+            if let Some((lockfile_path, lockfile)) = compile_pylock(
+                self.project_dir,
+                &self.project_dir.join(SRC_DIR),
+                self.resolve_dependencies_opts,
+            )
+            .context("failed to resolve dependencies")
+            .with_stage(PipelineStage::ResolvingDependencies)?
+            {
+                self.install_dependencies(&lockfile_path)
+                    .with_stage(PipelineStage::InstallingDependencies)?;
+                if lockfile.packages.is_empty() {
+                    warn!("No dependencies detected");
+                    warnings.push("No dependencies detected".to_string());
+                }
+                lockfile
+            } else {
+                warn!("No dependency files detected");
+                warnings.push("No dependency files detected".to_string());
+                PyLock::default()
             }
-            lockfile
         } else {
-            warn!("No dependency files detected");
-            warnings.push("No dependency files detected".to_string());
             PyLock::default()
         };
 

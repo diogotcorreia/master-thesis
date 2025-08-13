@@ -31,14 +31,21 @@ pub struct Pipeline<'a> {
     work_dir: &'a Path,
     dataset_config: &'a DatasetConfig,
     pyre_path: &'a Path,
+    resolve_dependencies: bool,
 }
 
 impl<'a> Pipeline<'a> {
-    pub fn new(work_dir: &'a Path, dataset_config: &'a DatasetConfig, pyre_path: &'a Path) -> Self {
+    pub fn new(
+        work_dir: &'a Path,
+        dataset_config: &'a DatasetConfig,
+        pyre_path: &'a Path,
+        resolve_dependencies: bool,
+    ) -> Self {
         Self {
             work_dir,
             dataset_config,
             pyre_path,
+            resolve_dependencies,
         }
     }
 
@@ -140,6 +147,7 @@ impl<'a> Pipeline<'a> {
         let options = AnalyseOptions {
             project_dir: &project_dir,
             pyre_path: self.pyre_path,
+            resolve_dependencies: self.resolve_dependencies,
             resolve_dependencies_opts: resolve_dependencies_opts
                 .as_ref()
                 .unwrap_or(&self.dataset_config.resolve_dependencies_opts),

@@ -38,6 +38,7 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
             let options = AnalyseOptions {
                 project_dir: &project_dir,
                 pyre_path: &pyre_path,
+                resolve_dependencies: analyse_args.use_deps,
                 resolve_dependencies_opts: &ResolveDependenciesOpts::default(),
             };
             options.run_analysis().map_err(|e| e.error)?;
@@ -48,7 +49,7 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
             let dataset_config: DatasetConfig =
                 toml::from_str(&dataset_content).context("failed to parse dataset config")?;
 
-            let pipeline = Pipeline::new(workdir, &dataset_config, &pyre_path);
+            let pipeline = Pipeline::new(workdir, &dataset_config, &pyre_path, e2e_args.use_deps);
             pipeline.run()?;
         }
         Commands::Results(results_args) => {
