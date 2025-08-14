@@ -13,6 +13,7 @@ pub struct DatasetConfig {
 pub struct RepositoryConfig {
     pub id: String,
     pub src: RepositorySrc,
+    #[serde(default)]
     pub extra_dependencies: Vec<String>,
     pub meta: RepositoryMeta,
 }
@@ -21,6 +22,7 @@ pub struct RepositoryConfig {
 #[serde(tag = "kind", rename_all = "lowercase")]
 pub enum RepositorySrc {
     GitHub(GitHubSrc),
+    PyPI(PyPISrc),
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -31,8 +33,17 @@ pub struct GitHubSrc {
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct PyPISrc {
+    pub name: Option<String>,
+    pub version: Option<String>,
+    pub download_url: String,
+    pub filename: String,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct RepositoryMeta {
-    pub repo_url: String,
-    pub stars: u32,
+    pub repo_url: Option<String>,
+    pub stars: Option<u32>,
+    pub downloads: Option<u32>,
     pub homepage: Option<String>,
 }

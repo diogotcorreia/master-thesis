@@ -4,34 +4,62 @@ from pathlib import Path
 import random
 import tomli_w
 
-save_path = Path(os.path.dirname(os.path.realpath(__file__))) / "github" / "data"
 
-MOST_STARRED_SIZE = 1000
-MOST_STARRED_PICK = 500
-MIDDLE_PICK = 500
-LEAST_STARRED_SIZE = 1000
-LEAST_STARRED_PICK = 500
+def pick_with_cohorts(lst, cohort_splits, cohort_pick):
+    assert len(cohort_splits) + 1 == len(cohort_pick)
+    cohort_splits = [0, *cohort_splits, None]
 
-with open(save_path / "all-repos.json") as f:
-    repos = json.load(f)["repos"]
+    cohorts = [lst[a:b] for a, b in zip(cohort_splits, cohort_splits[1:])]
+    assert len(cohorts) == len(cohort_pick)
 
-repos.sort(key=lambda r: r["stars"], reverse=True)
+    result = []
+    for i, cohort in enumerate(cohorts):
+        result += random.choices(cohort, k=cohort_pick[i])
 
-most_starred = repos[:MOST_STARRED_SIZE]
-middle = repos[MOST_STARRED_SIZE:-LEAST_STARRED_SIZE]
-least_starred = repos[-LEAST_STARRED_SIZE:]
+    # avoid having the cohorts separated during analysis
+    random.shuffle(result)
+    return result
 
-selected_repos = (
-    random.choices(most_starred, k=MOST_STARRED_PICK)
-    + random.choices(middle, k=MIDDLE_PICK)
-    + random.choices(least_starred, k=LEAST_STARRED_PICK)
+
+save_path_gh = (
+    Path(os.path.dirname(os.path.realpath(__file__)))
+    / "github"
+    / "data"
+    / "all-repos.json"
 )
 
-# avoid leaving the least starred for last during analysis
-random.shuffle(selected_repos)
+with open(save_path_gh) as f:
+    gh_repos = json.load(f)["repos"]
 
 
-def process_repo(repo):
+gh_repos.sort(key=lambda r: r["stars"], reverse=True)
+
+gh_repos = pick_with_cohorts(
+    gh_repos,
+    [1000, -1000],  # split in top 1000 repos, bottom 1000, and the others
+    [500, 500, 500],  # get 500 from each cohort
+)
+
+save_path_pypi = (
+    Path(os.path.dirname(os.path.realpath(__file__))) / "pypi" / "data" / "data.json"
+)
+
+pypi_packages = []
+with open(save_path_pypi) as f:
+    for line in f:
+        pypi_packages.append(json.loads(line))
+
+
+pypi_packages.sort(key=lambda r: r["downloads"], reverse=True)
+
+pypi_packages = pick_with_cohorts(
+    pypi_packages,
+    [3000, -3000],  # split in top 3000 packages, bottom 3000, and the others
+    [500, 500, 500],  # get 500 from each cohort
+)
+
+
+def process_gh_repo(repo):
     meta = {
         "repo_url": f"https://github.com/{repo['full_name']}",
         "stars": repo["stars"],
@@ -45,7 +73,6 @@ def process_repo(repo):
         # github users/orgs cannot contain a dot, so this is a good separator
         "id": f"gh.{repo['full_name'].replace('/', '.')}",
         "src": {
-            # TODO get stuff from pypi instead, whenever possible
             "kind": "github",
             "full_name": repo["full_name"],
             "rev": repo["rev"],
@@ -57,8 +84,27 @@ def process_repo(repo):
     }
 
 
+def process_pypi_package(pkg):
+    meta = {
+        "downloads": pkg["downloads"],
+    }
+
+    return {
+        "id": f"pypi.{pkg['name']}",
+        "src": {
+            "kind": "pypi",
+            "name": pkg["name"],
+            "version": pkg["version"],
+            "download_url": pkg["url"],
+            "filename": pkg["filename"],
+        },
+        "meta": meta,
+    }
+
+
 result = {
-    "repos": list(map(process_repo, selected_repos)),
+    "repos": list(map(process_gh_repo, gh_repos))
+    + list(map(process_pypi_package, pypi_packages)),
     "resolve_dependencies_opts": {
         "denylisted_packages": [
             "pywin32",  # windows only
@@ -77,4 +123,4 @@ out_path = Path(os.path.realpath(".")) / "dataset.toml"
 with open(out_path, "wb") as f:
     tomli_w.dump(result, f)
 
-print(f"Saved dataset of size {len(selected_repos)} to {out_path}")
+print(f"Saved dataset of size {len(result["repos"])} to {out_path}")

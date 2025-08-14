@@ -1,17 +1,19 @@
 use std::{
     fmt::Debug,
     fs::{self, File},
-    io::{BufReader, Write},
+    io::{BufReader, Read, Write},
     path::{Path, PathBuf},
     time::{Instant, SystemTime, UNIX_EPOCH},
 };
 
-use anyhow::Result;
+use anyhow::{anyhow, Result};
+use bzip2::read::BzDecoder;
 use flate2::bufread::GzDecoder;
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 use tar::Archive;
 use tracing::{debug, error, info};
+use zip::ZipArchive;
 
 use crate::{
     analyse::{results::ProcessedIssues, AnalyseOptions},
@@ -19,11 +21,12 @@ use crate::{
     python::PipPackage,
 };
 
-use super::config::{DatasetConfig, GitHubSrc, RepositoryConfig, RepositorySrc};
+use super::config::{DatasetConfig, GitHubSrc, PyPISrc, RepositoryConfig, RepositorySrc};
 
 const REPORTS_DIR: &str = "reports";
 const TARBALLS_DIR: &str = "tarballs";
 const TARBALLS_GITHUB_DIR: &str = "github";
+const TARBALLS_PYPI_DIR: &str = "pypi";
 const ANALYSIS_DIR: &str = "analysis";
 const SRC_DIR: &str = "src";
 
@@ -124,16 +127,16 @@ impl<'a> Pipeline<'a> {
         let src_dir = project_dir.join(SRC_DIR);
         fs::create_dir_all(&src_dir).with_stage(PipelineStage::Setup)?;
 
-        match &repo_config.src {
-            RepositorySrc::GitHub(src) => {
-                let tarball_path = self
-                    .download_gh_tarball(src)
-                    .with_stage(PipelineStage::Setup)?;
-                Self::extract_tarball(&tarball_path, &src_dir).with_stage(PipelineStage::Setup)?;
-
-                debug!("extracted project to {src_dir:?}");
-            }
-        }
+        let archive_path = match &repo_config.src {
+            RepositorySrc::GitHub(src) => self
+                .download_gh_tarball(src)
+                .with_stage(PipelineStage::Setup)?,
+            RepositorySrc::PyPI(src) => self
+                .download_pypi_archive(src)
+                .with_stage(PipelineStage::Setup)?,
+        };
+        Self::extract_archive(&archive_path, &src_dir).with_stage(PipelineStage::Setup)?;
+        debug!("extracted project to {src_dir:?}");
 
         let resolve_dependencies_opts = if repo_config.extra_dependencies.is_empty() {
             None
@@ -208,9 +211,64 @@ impl<'a> Pipeline<'a> {
         Ok(dest)
     }
 
-    fn extract_tarball(tarball_path: &Path, destination: &Path) -> Result<()> {
+    /// Downloads a source archive from GitHub. Uses already downloaded archive if it exists.
+    /// The archive is stored in the tarballs directory under the workdir.
+    fn download_pypi_archive(&self, src: &PyPISrc) -> Result<PathBuf> {
+        let dest_dir = self.work_dir.join(TARBALLS_DIR).join(TARBALLS_PYPI_DIR);
+        fs::create_dir_all(&dest_dir)?;
+        let dest = dest_dir.join(&src.filename);
+        if dest.try_exists()? {
+            // archive already exists, skip downloading
+            return Ok(dest);
+        }
+        // note: we trust the input, otherwise this can download arbitrary stuff from the internet
+        let res = reqwest::blocking::get(&src.download_url)?;
+
+        let content = res.bytes()?;
+        let mut file = File::create(&dest)?;
+        file.write_all(&content)?;
+
+        debug!("Saved archive to {dest:?}");
+
+        Ok(dest)
+    }
+
+    /// Autodetect archive type and extract it
+    fn extract_archive(archive_path: &Path, destination: &Path) -> Result<()> {
+        let Some(file_name) = archive_path.file_name() else {
+            return Err(anyhow!("archive_path does not have a file name"));
+        };
+
+        if let Some(file_name) = file_name.to_str() {
+            if file_name.ends_with(".tar.gz") || file_name.ends_with(".tgz") {
+                return Self::extract_tar_gz(archive_path, destination);
+            }
+            if file_name.ends_with(".zip") || file_name.ends_with(".whl") {
+                return Self::extract_zip(archive_path, destination);
+            }
+            if file_name.ends_with(".tar.bz2") {
+                return Self::extract_tar_bz2(archive_path, destination);
+            }
+        }
+
+        Err(anyhow!(
+            "unable to extract: failed to determine archive type"
+        ))
+    }
+
+    fn extract_tar_gz(tarball_path: &Path, destination: &Path) -> Result<()> {
         let tar_gz = File::open(tarball_path)?;
         let tar = GzDecoder::new(BufReader::new(tar_gz));
+        Self::extract_tarball(tar, destination)
+    }
+
+    fn extract_tar_bz2(tarball_path: &Path, destination: &Path) -> Result<()> {
+        let tar_gz = File::open(tarball_path)?;
+        let tar = BzDecoder::new(BufReader::new(tar_gz));
+        Self::extract_tarball(tar, destination)
+    }
+
+    fn extract_tarball<R: Read>(tar: R, destination: &Path) -> Result<()> {
         let mut archive = Archive::new(tar);
         archive.unpack(destination)?;
 
@@ -226,6 +284,13 @@ impl<'a> Pipeline<'a> {
             _ => {}
         }
         Ok(())
+    }
+
+    fn extract_zip(zip_path: &Path, destination: &Path) -> Result<()> {
+        let file = File::open(zip_path)?;
+        let mut zip_archive = ZipArchive::new(BufReader::new(file))?;
+        Ok(zip_archive
+            .extract_unwrapped_root_dir(destination, zip::read::root_dir_common_filter)?)
     }
 
     fn read_existing_report(report_path: &Path) -> Result<Report> {
