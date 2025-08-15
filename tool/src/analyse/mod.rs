@@ -183,7 +183,11 @@ impl AnalyseOptions<'_> {
             .process_group(0)
             .spawn()?;
 
-        let timeout = Duration::from_secs(60 * 60 * 2); // 2 hours
+        let timeout = if self.resolve_dependencies {
+            Duration::from_secs(60 * 60 * 2) // 2 hours
+        } else {
+            Duration::from_secs(60 * 30) // 30 minutes
+        };
         match child.wait_timeout(timeout)? {
             Some(status) => {
                 if status.success() {
