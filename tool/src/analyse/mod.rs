@@ -1,6 +1,7 @@
 use std::{
     fs::{self, File},
     io,
+    os::unix::process::CommandExt,
     path::{Path, PathBuf},
     process::{Command, Stdio},
     time::{Duration, SystemTime, UNIX_EPOCH},
@@ -8,6 +9,7 @@ use std::{
 
 use anyhow::{Context, Result};
 use results::{ProcessedResults, UnprocessedResults};
+use signal_child::signal;
 use tracing::{debug, info, warn};
 use wait_timeout::ChildExt;
 
@@ -178,6 +180,7 @@ impl AnalyseOptions<'_> {
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
+            .process_group(0)
             .spawn()?;
 
         let timeout = Duration::from_secs(60 * 60 * 2); // 2 hours
@@ -196,7 +199,8 @@ impl AnalyseOptions<'_> {
                 }
             }
             None => {
-                child.kill()?;
+                // kill the entire process group, so that children are killed as well
+                signal(-(child.id() as i32), signal::Signal::SIGKILL)?;
                 Err(ToolError::PyreTimeout.into())
             }
         }
