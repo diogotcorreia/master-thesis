@@ -17,7 +17,7 @@ use codespan_reporting::{
 };
 use inquire::{MultiSelect, Select, Text};
 use itertools::Itertools;
-use tracing::{debug, error, warn};
+use tracing::{debug, error, info, warn};
 
 use crate::analyse::results::{IssueLabel, NotVulnerableReason, ProcessedIssue};
 
@@ -135,9 +135,10 @@ impl<'a> Labeling<'a> {
     fn prompt_project(&self, id: &str, analysis_dir: &Path, mut report: Report) -> Option<Report> {
         debug!("Looking for unlabeled issues");
         let mut changed = false;
-        for issue in report.issues.iter_mut() {
+        let count = report.issues.len();
+        for (i, issue) in report.issues.iter_mut().enumerate() {
             if let IssueLabel::Unlabeled = issue.label {
-                match Self::prompt_issue(analysis_dir, issue) {
+                match Self::prompt_issue(analysis_dir, issue, (i, count)) {
                     Ok(_) => changed = true,
                     Err(error) => {
                         error!("Failed to prompt issue\nError: {error:?}");
@@ -149,7 +150,11 @@ impl<'a> Labeling<'a> {
         changed.then_some(report)
     }
 
-    fn prompt_issue(analysis_dir: &Path, issue: &mut ProcessedIssue) -> Result<()> {
+    fn prompt_issue(
+        analysis_dir: &Path,
+        issue: &mut ProcessedIssue,
+        index: (usize, usize),
+    ) -> Result<()> {
         let writer = StandardStream::stderr(ColorChoice::Auto);
         let term_config = term::Config {
             before_label_lines: 100,
@@ -213,6 +218,8 @@ impl<'a> Labeling<'a> {
 
         term::emit(&mut writer.lock(), &term_config, &files, &diagnostic)
             .context("failed to show pyre issue")?;
+
+        info!("Looking at issue {}/{}", index.0 + 1, index.1);
 
         let options = vec![
             IssueLabel::Unlabeled,
