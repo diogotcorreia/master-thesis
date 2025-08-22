@@ -1,0 +1,51 @@
+name: Compile and publish PDF
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compile:
+    name: Compile and Release PDF
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+    - name: Install Typst Compilation
+      shell: bash
+      run: |
+        wget https://github.com/typst/typst/releases/download/${{ env.TYPST_VERSION }}/typst-x86_64-unknown-linux-musl.tar.xz
+        tar xf typst-x86_64-unknown-linux-musl.tar.xz
+        echo "$PWD/typst-x86_64-unknown-linux-musl" >> $GITHUB_PATH
+      env:
+        TYPST_VERSION: v0.13.1
+
+    - name: Compile thesis with Typst
+      shell: bash
+      working-directory: ./docs
+      run: |
+        typst compile ./03-thesis.typ
+
+    - name: Move PDF
+      run: |
+        cp docs/03-thesis.pdf diogo-correia-thesis.pdf
+
+    - name: GitHub Release
+      run: |
+        git tag -d compiled-pdf || true
+        git push origin --delete compiled-pdf || true
+        git tag compiled-pdf
+        git push origin compiled-pdf
+        gh release delete ${{ env.VERSION }} -y || true
+        gh release create ${{ env.VERSION }} -p -t "Compiled PDF" -n "Compiled PDF of thesis (commit ${{ github.sha }})" ${{ env.FILES }}
+      env:
+        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        VERSION: 'compiled-pdf'
+        FILES: diogo-correia-thesis.pdf
