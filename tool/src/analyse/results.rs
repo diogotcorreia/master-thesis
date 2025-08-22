@@ -1,5 +1,5 @@
 use std::{
-    fmt::Write,
+    fmt::{Display, Write},
     fs::File,
     io::{BufRead, BufReader},
     path::Path,
@@ -128,9 +128,10 @@ impl UnprocessedResults {
                     );
                 }
 
-                ProcessedIssues {
+                ProcessedIssue {
                     location: issue_data.location.clone(),
                     trace: traces,
+                    label: IssueLabel::default(),
                     getattr_count,
                 }
             })
@@ -242,7 +243,7 @@ impl UnprocessedResults {
 
 #[derive(Debug)]
 pub struct ProcessedResults {
-    pub issues: Vec<ProcessedIssues>,
+    pub issues: Vec<ProcessedIssue>,
     pub warnings: Vec<String>,
     pub resolved_dependencies: Vec<PipPackage>,
     pub raw_issue_count: usize,
@@ -310,10 +311,71 @@ impl ProcessedResults {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ProcessedIssues {
+pub struct ProcessedIssue {
     pub location: SpanLocation,
     pub trace: Vec<TraceEntry>,
+    #[serde(default)]
+    pub label: IssueLabel,
     pub getattr_count: GetAttrCount,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(tag = "kind")]
+pub enum IssueLabel {
+    #[default]
+    Unlabeled,
+    Vulnerable,
+    // not-vulnerable:
+    NotVulnerable {
+        reasons: Vec<NotVulnerableReason>,
+    },
+}
+
+impl Display for IssueLabel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            IssueLabel::Unlabeled => "Unlabeled (skip)".fmt(f),
+            IssueLabel::Vulnerable => "Vulnerable".fmt(f),
+            IssueLabel::NotVulnerable { .. } => "Not Vulnerable (false positive)".fmt(f),
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(tag = "kind")]
+pub enum NotVulnerableReason {
+    /// The object passed to setattr is no longer the result value of getattr
+    ModifiedReference,
+    /// The code does not recurse/iterate the calls to getattr
+    NonRecursive,
+    /// There is a filter in place to prevent attributes like __globals__
+    Filtered,
+    /// The attributes are not controlled by function inputs/variables (e.g., they are static
+    /// strings, f-strings or concatenation of strings)
+    NotControlled,
+    Other {
+        notes: String,
+    },
+}
+
+impl Display for NotVulnerableReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            NotVulnerableReason::ModifiedReference => {
+                "Modified Reference: the object passed to setattr is no longer the result value of getattr".fmt(f)
+            }
+            NotVulnerableReason::NonRecursive => {
+                "Non Recursive: the code does not recurse/iterate the calls to getattr".fmt(f)
+            }
+            NotVulnerableReason::Filtered => {
+                "Filtered: there is a filter in place to prevent attributes like __globals__".fmt(f)
+            }
+            NotVulnerableReason::NotControlled => {
+                "Not Controlled: the attributes are not controlled by function inputs/variables".fmt(f)
+            }
+            NotVulnerableReason::Other { .. } => "Other (requires comment)".fmt(f),
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]

@@ -1,3 +1,6 @@
+use std::{fs, path::Path};
+
+use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 
 use crate::python::deps::ResolveDependenciesOpts;
@@ -7,6 +10,13 @@ use crate::python::deps::ResolveDependenciesOpts;
 pub struct DatasetConfig {
     pub resolve_dependencies_opts: ResolveDependenciesOpts,
     pub repos: Vec<RepositoryConfig>,
+}
+
+impl DatasetConfig {
+    pub fn read(path: &Path) -> Result<Self> {
+        let dataset_content = fs::read_to_string(path).context("failed to read dataset config")?;
+        toml::from_str(&dataset_content).context("failed to parse dataset config")
+    }
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]

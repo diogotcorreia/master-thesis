@@ -33,6 +33,8 @@ pub enum Commands {
     E2E(E2EArgs),
     /// Parse results from a pysa run and summarise them
     Results(ResultsArgs),
+    /// Parse reports from a previous e2e run, show issues, and ask for appropriate labels
+    Label(LabelArgs),
 }
 
 #[derive(Args)]
@@ -60,4 +62,12 @@ pub struct ResultsArgs {
     #[arg()]
     /// Path to the pysa-results directory
     pub results_dir: PathBuf,
+}
+
+#[derive(Args)]
+pub struct LabelArgs {
+    #[arg(long)]
+    /// Path to a TOML file containing dataset information.
+    /// When used, only reports for repos in the dataset are considered.
+    pub dataset: Option<PathBuf>,
 }

@@ -1,5 +1,4 @@
 use std::{
-    fs,
     path::{Path, PathBuf},
     str::FromStr,
 };
@@ -9,7 +8,7 @@ use clap::Parser;
 use class_pollution_detection::{
     analyse::{results::UnprocessedResults, setup_project_from_external_src, AnalyseOptions},
     cli::{Cli, Commands},
-    e2e::{config::DatasetConfig, pipeline::Pipeline},
+    e2e::{config::DatasetConfig, labeling::Labeling, pipeline::Pipeline},
     python::deps::ResolveDependenciesOpts,
     Workdir,
 };
@@ -44,10 +43,7 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
             options.run_analysis().map_err(|e| e.error)?;
         }
         Commands::E2E(e2e_args) => {
-            let dataset_content =
-                fs::read_to_string(&e2e_args.dataset).context("failed to read dataset config")?;
-            let dataset_config: DatasetConfig =
-                toml::from_str(&dataset_content).context("failed to parse dataset config")?;
+            let dataset_config = DatasetConfig::read(&e2e_args.dataset)?;
 
             let pipeline = Pipeline::new(workdir, &dataset_config, &pyre_path, e2e_args.use_deps);
             pipeline.run()?;
@@ -59,6 +55,16 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
             let results = results.process();
 
             info!("Summary:\n{}", results.summarise()?);
+        }
+        Commands::Label(label_args) => {
+            let dataset_config = label_args
+                .dataset
+                .as_ref()
+                .map(|path| DatasetConfig::read(path))
+                .transpose()?;
+
+            let labeling = Labeling::new(workdir, dataset_config.as_ref());
+            labeling.prompt_unlabeled()?;
         }
     }
 

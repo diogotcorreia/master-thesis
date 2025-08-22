@@ -117,6 +117,10 @@ impl SpanLocation {
         loc.filename = Some(filename);
         loc
     }
+
+    pub fn get_filename(&self) -> Option<&str> {
+        self.filename.as_deref().or(self.path.as_deref())
+    }
 }
 
 #[derive(Debug, Deserialize, Serialize)]

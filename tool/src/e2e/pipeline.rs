@@ -16,18 +16,18 @@ use tracing::{debug, error, info};
 use zip::ZipArchive;
 
 use crate::{
-    analyse::{results::ProcessedIssues, AnalyseOptions},
+    analyse::{results::ProcessedIssue, AnalyseOptions},
     errors::{PipelineError, PipelineResult, PipelineStage, WithPipelineStage},
     python::PipPackage,
 };
 
 use super::config::{DatasetConfig, GitHubSrc, PyPISrc, RepositoryConfig, RepositorySrc};
 
-const REPORTS_DIR: &str = "reports";
+pub const REPORTS_DIR: &str = "reports";
 const TARBALLS_DIR: &str = "tarballs";
 const TARBALLS_GITHUB_DIR: &str = "github";
 const TARBALLS_PYPI_DIR: &str = "pypi";
-const ANALYSIS_DIR: &str = "analysis";
+pub const ANALYSIS_DIR: &str = "analysis";
 const SRC_DIR: &str = "src";
 
 pub struct Pipeline<'a> {
@@ -63,7 +63,7 @@ impl<'a> Pipeline<'a> {
                 .join(REPORTS_DIR)
                 .join(format!("{}.json", repo.id));
             if report_path.try_exists()? {
-                match Self::read_existing_report(&report_path) {
+                match Report::read(&report_path) {
                     Ok(report) => {
                         reports.push(report);
                         info!(
@@ -103,7 +103,7 @@ impl<'a> Pipeline<'a> {
                     }
                 }
             };
-            Self::write_report(&report_path, &report)?;
+            report.write(&report_path)?;
             info!("Saved report for {} at {:?}", repo.id, &report_path);
             reports.push(report);
         }
@@ -293,21 +293,6 @@ impl<'a> Pipeline<'a> {
             .extract_unwrapped_root_dir(destination, zip::read::root_dir_common_filter)?)
     }
 
-    fn read_existing_report(report_path: &Path) -> Result<Report> {
-        let file = File::open(report_path)?;
-        let bufreader = BufReader::new(file);
-        Ok(serde_json::from_reader(bufreader)?)
-    }
-
-    fn write_report(report_path: &Path, report: &Report) -> Result<()> {
-        if let Some(parent) = report_path.parent() {
-            fs::create_dir_all(parent)?;
-        }
-        let file = File::create(report_path)?;
-        serde_json::to_writer(file, report)?;
-        Ok(())
-    }
-
     fn generate_summary(reports: &[Report]) -> String {
         let no_issues: Vec<_> = reports
             .iter()
@@ -400,7 +385,7 @@ pub struct Report {
     pub error_stage: Option<PipelineStage>,
     pub errors: Vec<String>,
     pub raw_issue_count: usize,
-    pub issues: Vec<ProcessedIssues>,
+    pub issues: Vec<ProcessedIssue>,
     pub resolved_dependencies: Vec<PipPackage>,
     pub elapsed_seconds: Option<u64>,
     /// Whether this report comes from a previous run, that is, it was read from the file system
@@ -425,6 +410,21 @@ impl Report {
     /// For serde default field
     fn _true() -> bool {
         true
+    }
+
+    pub fn read(report_path: &Path) -> Result<Self> {
+        let file = File::open(report_path)?;
+        let bufreader = BufReader::new(file);
+        Ok(serde_json::from_reader(bufreader)?)
+    }
+
+    pub fn write(&self, report_path: &Path) -> Result<()> {
+        if let Some(parent) = report_path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+        let file = File::create(report_path)?;
+        serde_json::to_writer(file, self)?;
+        Ok(())
     }
 }
 
