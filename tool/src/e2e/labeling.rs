@@ -197,15 +197,21 @@ impl<'a> Labeling<'a> {
                 .with_message("forward and backward traces meet here"),
         );
         for (i, trace) in issue.trace.iter().enumerate() {
-            let message = if trace.callable == "getattr" {
-                "the return value of getattr becomes tainted"
+            let (style, message) = if trace.callable == "getattr" {
+                (
+                    LabelStyle::Primary,
+                    "the return value of getattr becomes tainted",
+                )
             } else if trace.callable == "setattr" {
-                "the first argument of setattr is tainted"
+                (
+                    LabelStyle::Primary,
+                    "the first argument of setattr is tainted",
+                )
             } else {
-                "taint propagates"
+                (LabelStyle::Secondary, "taint propagates")
             };
             labels.push(
-                label!(LabelStyle::Secondary, trace.location).with_message(format!(
+                label!(style, trace.location).with_message(format!(
                     "#{}: {}",
                     i + 1,
                     message
