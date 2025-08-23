@@ -353,6 +353,8 @@ pub enum NotVulnerableReason {
     /// The attributes are not controlled by function inputs/variables (e.g., they are static
     /// strings, f-strings or concatenation of strings)
     NotControlled,
+    /// Only a predefined list of attributes is allowed to flow into getattr and/or setattr.
+    AttrAllowList,
     Other {
         notes: String,
     },
@@ -372,6 +374,9 @@ impl Display for NotVulnerableReason {
             }
             NotVulnerableReason::NotControlled => {
                 "Not Controlled: the attributes are not controlled by function inputs/variables".fmt(f)
+            }
+            NotVulnerableReason::AttrAllowList => {
+                "Attr Allow List: Only a predefined list of attributes is allowed".fmt(f)
             }
             NotVulnerableReason::Other { .. } => "Other (requires comment)".fmt(f),
         }

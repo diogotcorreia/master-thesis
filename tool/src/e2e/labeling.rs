@@ -210,13 +210,11 @@ impl<'a> Labeling<'a> {
             } else {
                 (LabelStyle::Secondary, "taint propagates")
             };
-            labels.push(
-                label!(style, trace.location).with_message(format!(
-                    "#{}: {}",
-                    i + 1,
-                    message
-                )),
-            );
+            labels.push(label!(style, trace.location).with_message(format!(
+                "#{}: {}",
+                i + 1,
+                message
+            )));
         }
         let diagnostic = Diagnostic::warning()
             .with_message("found potential class pollution")
@@ -241,6 +239,7 @@ impl<'a> Labeling<'a> {
                 NotVulnerableReason::NonRecursive,
                 NotVulnerableReason::Filtered,
                 NotVulnerableReason::NotControlled,
+                NotVulnerableReason::AttrAllowList,
                 NotVulnerableReason::Other {
                     notes: "".to_string(),
                 },
