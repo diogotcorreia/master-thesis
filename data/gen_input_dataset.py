@@ -14,7 +14,7 @@ def pick_with_cohorts(lst, cohort_splits, cohort_pick):
 
     result = []
     for i, cohort in enumerate(cohorts):
-        result += random.choices(cohort, k=cohort_pick[i])
+        result += random.sample(cohort, k=cohort_pick[i])
 
     # avoid having the cohorts separated during analysis
     random.shuffle(result)
@@ -117,6 +117,10 @@ result = {
         ],
     },
 }
+
+# assert no repeats
+all_repos = [repo["id"] for repo in result["repos"]]
+assert len(all_repos) == len(set(all_repos))
 
 out_path = Path(os.path.realpath(".")) / "dataset.toml"
 
