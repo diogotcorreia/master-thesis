@@ -50,22 +50,23 @@ impl<'a> Labeling<'a> {
         let reports = self.list_reports()?;
         let all_analysis = self.list_analysis()?;
 
-        for (id, report_path) in reports {
-            let report = match Report::read(&report_path) {
+        let report_count = reports.len();
+        for (i, (id, report_path)) in reports.iter().enumerate() {
+            let report = match Report::read(report_path) {
                 Ok(report) => report,
                 Err(error) => {
-                    error!("Failed to open report {:?}\nError: {error:?}", &report_path);
+                    error!("Failed to open report {:?}\nError: {error:?}", report_path);
                     continue;
                 }
             };
-            let analysis_dir = Self::find_analysis_directory(&all_analysis, &id);
+            let analysis_dir = Self::find_analysis_directory(&all_analysis, id);
 
             let Some(dir) = analysis_dir else {
                 warn!("Could not find the analysis directory for {}", id);
                 continue;
             };
-            if let Some(updated_report) = self.prompt_project(&id, dir, report) {
-                updated_report.write(&report_path)?;
+            if let Some(updated_report) = self.prompt_project(id, dir, report, (i, report_count)) {
+                updated_report.write(report_path)?;
                 debug!("Saved updated report to {:?}", &report_path);
             }
         }
@@ -132,8 +133,18 @@ impl<'a> Labeling<'a> {
     }
 
     #[tracing::instrument(skip(self, report))]
-    fn prompt_project(&self, id: &str, analysis_dir: &Path, mut report: Report) -> Option<Report> {
-        debug!("Looking for unlabeled issues");
+    fn prompt_project(
+        &self,
+        id: &str,
+        analysis_dir: &Path,
+        mut report: Report,
+        index: (usize, usize),
+    ) -> Option<Report> {
+        debug!(
+            "Looking for unlabeled issues (project {}/{})",
+            index.0 + 1,
+            index.1
+        );
         let mut changed = false;
         let count = report.issues.len();
         for (i, issue) in report.issues.iter_mut().enumerate() {
