@@ -376,7 +376,7 @@ impl Display for NotVulnerableReason {
                 "Not Controlled: the attributes are not controlled by function inputs/variables".fmt(f)
             }
             NotVulnerableReason::AttrAllowList => {
-                "Attr Allow List: Only a predefined list of attributes is allowed".fmt(f)
+                "Attr Allow List: only a predefined list of attributes is allowed".fmt(f)
             }
             NotVulnerableReason::Other { .. } => "Other (requires comment)".fmt(f),
         }
