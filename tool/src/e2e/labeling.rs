@@ -94,11 +94,12 @@ impl<'a> Labeling<'a> {
         all_analysis: &'b [(String, PathBuf)],
         id: &str,
     ) -> Option<&'b Path> {
+        let id_dot = format!("{id}.");
         let index = all_analysis.binary_search_by(|(dir_name, _)| {
             let Some((dep_id, _)) = dir_name.rsplit_once(".") else {
                 return Ordering::Less;
             };
-            dep_id.cmp(id).then(Ordering::Less)
+            dep_id.cmp(&id_dot).then(Ordering::Less)
         });
         match index {
             Ok(_) => unreachable!(),
