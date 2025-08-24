@@ -96,9 +96,10 @@ impl<'a> Labeling<'a> {
     ) -> Option<&'b Path> {
         let id_dot = format!("{id}.");
         let index = all_analysis.binary_search_by(|(dir_name, _)| {
-            let Some((dep_id, _)) = dir_name.rsplit_once(".") else {
+            let Some(i) = dir_name.rfind(".") else {
                 return Ordering::Less;
             };
+            let dep_id = &dir_name[..(i + 1)];
             dep_id.cmp(&id_dot).then(Ordering::Less)
         });
         match index {
