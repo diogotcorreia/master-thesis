@@ -1,7 +1,6 @@
 use std::{
     cmp::Ordering,
     collections::HashMap,
-    ffi::OsStr,
     fs,
     path::{Path, PathBuf},
 };
@@ -23,7 +22,8 @@ use crate::analyse::results::{IssueLabel, NotVulnerableReason, ProcessedIssue};
 
 use super::{
     config::DatasetConfig,
-    pipeline::{Report, ANALYSIS_DIR, REPORTS_DIR},
+    pipeline::{Report, ANALYSIS_DIR},
+    AllowedRepos,
 };
 
 pub struct Labeling<'a> {
@@ -33,12 +33,7 @@ pub struct Labeling<'a> {
 
 impl<'a> Labeling<'a> {
     pub fn new(work_dir: &'a Path, dataset: Option<&DatasetConfig>) -> Self {
-        let allowed_repos = if let Some(dataset) = dataset {
-            let ids = dataset.repos.iter().map(|r| r.id.clone()).collect_vec();
-            AllowedRepos::new_filtered(ids)
-        } else {
-            AllowedRepos::new_all()
-        };
+        let allowed_repos = AllowedRepos::from(dataset);
 
         Labeling {
             work_dir,
@@ -75,23 +70,7 @@ impl<'a> Labeling<'a> {
     }
 
     fn list_reports(&self) -> Result<Vec<(String, PathBuf)>> {
-        let reports_dir = self.work_dir.join(REPORTS_DIR);
-        if !reports_dir.is_dir() {
-            return Ok(Vec::new());
-        }
-
-        let dir = reports_dir.read_dir()?;
-
-        Ok(dir.process_results(|iter| {
-            iter.map(|file| file.path())
-                .filter(|path| path.is_file())
-                .filter(|path| path.extension() == Some(OsStr::new("json")))
-                .filter_map(|path| {
-                    let stem = path.file_stem()?.to_str()?;
-                    Some((stem.to_string(), path)).filter(|(s, _)| self.allowed_repos.is_allowed(s))
-                })
-                .collect_vec()
-        })?)
+        crate::e2e::list_reports(self.work_dir, &self.allowed_repos)
     }
 
     fn list_analysis(&self) -> Result<Vec<(String, PathBuf)>> {
@@ -269,29 +248,5 @@ impl<'a> Labeling<'a> {
         issue.label = label;
 
         Ok(())
-    }
-}
-
-enum AllowedRepos {
-    All,
-    Filtered(Vec<String>),
-}
-
-impl AllowedRepos {
-    fn new_all() -> Self {
-        Self::All
-    }
-    fn new_filtered(mut ids: Vec<String>) -> Self {
-        ids.sort();
-        AllowedRepos::Filtered(ids)
-    }
-
-    fn is_allowed(&self, id: &str) -> bool {
-        match self {
-            AllowedRepos::All => true,
-            AllowedRepos::Filtered(items) => items
-                .binary_search_by_key(&id, |item| item.as_str())
-                .is_ok(),
-        }
     }
 }

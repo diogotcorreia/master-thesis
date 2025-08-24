@@ -35,6 +35,8 @@ pub enum Commands {
     Results(ResultsArgs),
     /// Parse reports from a previous e2e run, show issues, and ask for appropriate labels
     Label(LabelArgs),
+    /// Parse reports from a previous e2e run, and compile it into a JSON file that be used for charts
+    Summary(SummaryArgs),
 }
 
 #[derive(Args)]
@@ -66,6 +68,14 @@ pub struct ResultsArgs {
 
 #[derive(Args)]
 pub struct LabelArgs {
+    #[arg(long)]
+    /// Path to a TOML file containing dataset information.
+    /// When used, only reports for repos in the dataset are considered.
+    pub dataset: Option<PathBuf>,
+}
+
+#[derive(Args)]
+pub struct SummaryArgs {
     #[arg(long)]
     /// Path to a TOML file containing dataset information.
     /// When used, only reports for repos in the dataset are considered.
