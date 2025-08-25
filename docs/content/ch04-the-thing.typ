@@ -20,7 +20,8 @@ and explains its implementation in @thing:impl.
 ) <fg:tool-flowchart>
 
 The architecture of the tool can be divided into three major steps:
-resolving dependencies; running taint analysis; and result processing.
+optionally resolving dependencies; running taint analysis;
+and result processing.
 Additionally, two external tools are heavily used by #TheTool:
 *uv*#footnote[https://docs.astral.sh/uv/], a modern Python package
 manager by Astral, is used for resolving and installing dependencies;
@@ -39,6 +40,8 @@ call is propagated to its outputs.
 Furthermore, installing dependencies has the benefit that the
 dependencies of the project are also analysed for class pollution,
 therefore significantly increasing the number of projects analysed.
+However, installing dependencies can significantly slow down analysis,
+as well as introduce false positives, as later explored in @results.
 After the analysis is performed, there is also a need to parse
 Pysa's output, which is done by compiling the information
 present in the output into a list of taint traces that highlight
@@ -56,7 +59,35 @@ those that are deemed safe from class pollution.
 
 == Taint Models <thing:taint-models>
 
-#lorem(50)
+#TheTool ships with the following Pysa taint models that detect class pollution:
+
+#figure(caption: [
+  Pysa taint models that detect class pollution
+])[
+  ```py
+  @SkipObscure
+  def getattr(
+      __o: TaintInTaintOut[Via[customgetattr]],
+      __name,
+      __default: TaintInTaintOut[LocalReturn],
+  ) -> TaintSource[CustomGetAttr, ViaValueOf[__name, WithTag["get-name"]]]: ...
+
+  @SkipObscure
+  def setattr(
+      __o: TaintSink[CustomSetAttr],
+      __name,
+      __value,
+  ): ...
+  ```
+] <code:pysa-taint-models>
+
+These models assume that class pollution can be identified by a flow from
+the return value of `getattr` (`TaintSource`) to the first argument of `setattr` (`TaintSink`),
+given the conclusion of the literature review in @results:lit-review.
+
+Additionally, these models contain extra annotations (e.g., `Via`, `ViaValueOf`, `WithTag`, etc.)
+that instruct Pysa to collect information that can later be used to filter out
+false positives.
 
 == Implementation <thing:impl>
 
@@ -89,7 +120,7 @@ Instructions on how to use this environment can be found on @usage.
 
 === Dataset Generator <thing:dataset-gen>
 
-#text(fill:red, lorem(50))
+#text(fill: red, lorem(50))
 
 // - python scripts (3 scripts + random picker)
 // - save cache, etc
