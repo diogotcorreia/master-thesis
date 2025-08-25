@@ -43,6 +43,15 @@ gh-linguist:
   url:
     value: https://github.com/github-linguist/linguist
     visited: 2025-07-23
+pypi-downloads:
+  type: reference
+  title: Analyzing PyPI package downloads
+  url:
+    value: https://packaging.python.org/en/latest/guides/analyzing-pypi-package-downloads/
+    visited: 2025-08-23
+  parent:
+    type: reference
+    title: Python Packaging User Guide
 
 # From Zotero:
 ghunter:
