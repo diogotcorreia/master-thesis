@@ -11,10 +11,12 @@
 #let gh_projects = mk_platform_data(raw_data, "GitHub")
 
 #let mk_issues_table(projects, popularity_label) = {
+  set text(size: 8pt)
+  set table.cell(breakable: false)
   table(
     columns: (auto, auto, auto, 11.5em),
-    inset: 10pt,
     align: horizon,
+    stroke: 0.5pt,
     table.header([*Name*], [*#popularity_label*], [*Issues*], [*Issue Labels*]),
     ..projects
       .map(project => {
