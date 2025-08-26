@@ -1,7 +1,10 @@
-= Background <bg>
+#import "../utils/global-imports.typ": codly
+
+= Background and Root Causes <bg>
 
 This chapter provides background on code-reuse attacks in multiple programming languages,
-followed by a brief explanation of relevant Python internals.
+followed by a brief explanation of relevant Python internals and the results of a
+literature review on causes and consequences of class pollution in Python.
 Given that very little research has been done on this topic -- there is only a
 blog post @pp-python-blog and two works @pp-python @pp-python-prevention that go over mostly
 the same content -- there are currently no state-of-the-art tools that can detect Python class
@@ -9,7 +12,8 @@ pollution.
 For this reason, this chapter goes over similar vulnerabilities in other languages instead,
 such as prototype pollution in JavaScript (@bg:js-pp) and object injection in PHP (@bg:php-oi).
 Then, internal structures and behaviour of the Python language and interpreter will be explored
-in @bg:python in order to provide context for the rest of this project, where the techniques
+in @bg:python, along with the results of the literature review in @bg:lit-review,
+in order to provide context for the rest of this project, where the techniques
 used in the aforementioned languages will be applied to Python, resulting in class pollution.
 
 Finally, @bg:static-analysis goes over what static code analysis and taint analysis are and
@@ -340,6 +344,357 @@ as shown in @code:python-attribute-inheritance.
   ```
 ] <code:python-attribute-inheritance>
 
+== Class Pollution in Python <bg:lit-review>
+
+To answer @rq-causes-consequences[], a literature review has been performed
+that unveils which constructs can lead to class pollution and under which
+circumstances they are exploitable.
+Given the lack of abundant scientific work on this topic,
+the review has been complemented with articles and technical blog
+posts from outside the research community.
+Additionally, given its thoroughness, the Python specification
+@python-reference-manual has been used to investigate further
+constructs that can result in class pollution.
+
+In total, two papers @pp-python-prevention @pp-python-blog,
+one blog post @pp-python, and The Python Reference Manual
+@python-reference-manual have been analysed in order to
+compile the causes and consequences of class pollution.
+
+As such, the results of this literature review are presented
+in this section.
+
+=== Dangerous Constructs
+
+The classic way to achieve class pollution is accessing the properties
+`__init__.__globals__` of an object (i.e., not a primitive)
+through `getattr`, and then using a combination of `getattr` and `__getitem__`
+(commonly used through subscription, `[]`, of dictionary and lists).
+This is possible because, as shown previously by @code:python-function-globals,
+functions capture the global scope they are declared in, allowing an attacker
+to move laterally throughout the program.
+
+Given the requirement of traversing various attributes, a vulnerable function is usually
+recursive, and somehow sets or merges a value into an existing object, as exemplified
+by @code:cp-merge @pp-python-blog.
+
+#figure(caption: [
+  A merge function vulnerable to class pollution, which takes two objects,
+  merging their attributes or entries recursively.
+])[
+  #codly.codly(
+    annotation-format: none,
+    annotations: (
+      (
+        start: 13,
+        end: 28,
+        content: block(width: 14em, inset: 1em)[
+          Example exploit, which illustrates how the value
+          of `MY_VAR` can be changed by traversing `__init__` and `__globals__`
+        ],
+      ),
+    ),
+  )
+  ```py
+  def merge(src, dst):
+    for k, v in src.items():
+      if hasattr(dst, "__getitem__"):
+        if dst.get(k) and isinstance(v, dict):
+          merge(v, dst.get(k))
+        else:
+          dst[k] = v
+      elif hasattr(dst, k) and isinstance(v, dict):
+        merge(v, getattr(dst, k))
+      else:
+        setattr(dst, k, v)
+
+  MY_VAR = "foo"
+  class A:
+    def __init__(self):
+      pass
+
+  merge(
+    {
+      "__init__": {
+        "__globals__": {
+          "MY_VAR": "bar",
+        },
+      },
+    },
+    A()
+  )
+  print(MY_VAR) # "bar"
+  ```
+] <code:cp-merge>
+
+Another way to escape the current context is to get the `__builtins__`
+property of a module, but that is not as common since it requires the vulnerable
+construct to be executed on a module instead of on an object.
+Additionally, it is an implementation detail and might not be available in
+Python implementations other than CPython.
+
+Unfortunately, both `__globals__` and `__builtins__`
+#footnote[
+  `__builtins__` might, under certain circumstances, return a module instead,
+  which can be traversed using `getattr`
+]
+return a dictionary, which
+cannot be traversed using `getattr`.
+This results in a big limitation for the exploitation of class pollution:
+to traverse outside a class hierarchy, the construct needs to use not only
+`getattr`, but to fallback to `__getitem__` when it encounters a dictionary or list.
+
+Sometimes, vulnerable constructs that use `__getitem__` only do so when the key is numeric,
+presumably to traverse a list or tuple.
+This is not very useful in the context of traversing a dictionary, because there is
+no way to obtain a list from a dictionary without a function call (e.g., through `.values()`).
+Another possible way to traverse using only attribute accesses and lists would be
+through the `__subclasses__()` method of the `object` class, which returns a list
+of all classes that extend `object` (all classes that don't explicitly declare a base),
+but that also requires a function call.
+
+In case only `getattr` and `setattr` are used in the vulnerable construct,
+the gadgets are limited to the ones present in the class hierarchy of the given object,
+which can be traversed through `__base__`.
+An example of a gadget that works inside the same class hierarchy can be found
+in @code:gadget-getattr-only @pp-python-blog.
+
+#figure(caption: [
+  Gadget inside the same class hierarchy. Polluting `DEFAULT_CMD`
+  results in @rce
+])[
+  ```py
+  from os import popen
+
+  class Foo:
+    DEFAULT_CMD = 'echo hello'
+
+  class Bar(Foo): pass
+
+  class Qux(Foo):
+    def run(self):
+      return popen(self.DEFAULT_CMD).read().strip()
+
+  bar = Bar()
+  qux = Qux()
+
+  qux.run() # returns 'hello'
+  bar.__class__.__base__.DEFAULT_CMD = "whoami" # exploit
+  qux.run() # returns 'user'
+  ```
+] <code:gadget-getattr-only>
+
+Finally, after having traversed to a gadget, the final step in class pollution is to
+set the attribute to a desired value.
+Again, depending on the type of the parent, this can either be done with `setattr`
+or `__setitem__`.
+
+To sum up, for a vulnerable construct to be able to use many gadgets, it needs to use
+both `getattr` and `__getitem__`, and then either `setattr` or `__setitem__`.
+
+=== Possible Gadgets
+
+While this work is mostly focused on finding dangerous constructs rather than gadgets,
+it is still important to highlight some of them, both for the relevance of this
+degree project, as well as to aid with creating a proof-of-concept when reporting
+vulnerabilities.
+
+==== Mutating Built-ins
+
+An easy way of creating a @dos is to change the value of a builtin.
+Assuming the payload can only be a string, then changing the value of
+`__builtins__.list` to e.g., `"foo"` will cause all calls to `list()`
+to crash.
+Obviously, if the payload can be a function, then it is possible to achieve @rce
+this way.
+One might argue that simply accessing an attribute that doesn't exist can
+already cause the program to crash, but in that case, the program might
+catch the exception (or verify that the attribute exists before accessing it)
+because it could be expected that it might not exist.
+However, the program is definitely not expecting the type of `list` to have changed
+to a string.
+The usage of these gadget is illustrated in @code:gadget-builtins.
+
+#figure(caption: [
+  How polluting a frequently used built-in can cause a @dos vulnerability
+])[
+  ```py
+  class Foo:
+    def __init__(self):
+      pass
+
+  foo = Foo()
+
+  glbs = getattr(getattr(foo, "__init__"), "__globals__")
+  glbs["__builtins__"]["list"] = "foobar"
+
+  list([1, 2, 3]) # TypeError: 'str' object is not callable
+  ```
+] <code:gadget-builtins>
+
+==== Signing keys, URLs, Commands
+
+Many "constants" or attributes are available throughout Python programs
+that control the behaviour of the code, from cryptographic keys
+used to sign data, URLs for requests, or even commands to be executed
+in a shell.
+Changing one of these might allow an attacker to bypass authorization,
+exfiltrate data, or even achieve @rce.
+
+Apart from @code:gadget-getattr-only, a common example is showing
+how changing the app key in a Flask application allows an attacker to
+forge any cookies, and possibly bypassing authentication, as shown
+in @code:gadget-flask-key @pp-python-blog.
+
+#figure(caption: [
+  A Flask application that contains a gadget in the form of a cookie
+  signing key. A valid cookie can be generated using a tool like
+  #link("https://github.com/Paradoxis/Flask-Unsign")[Flask-Unsign]
+])[
+  ```py
+  import os
+  from flask import Flask, session
+
+  app = Flask(__name__)
+  app.secret_key = os.urandom(64) # random bytes
+
+  @app.route("/admin")
+  def admin():
+      if "is_admin" in session and session["is_admin"]:
+        # oops!
+        pass
+
+  @app.route("/vulnerable")
+  def vulnerable():
+    # this endpoint is vulnerable to class pollution and
+    # can change app.secret_key
+    pass
+
+  if __name__ == "__main__":
+      app.run()
+  ```
+] <code:gadget-flask-key>
+
+==== Overriding Environment Variables
+
+Overriding the environment variables in `os.environ` can be very powerful
+since many parts of a Python program, including the standard library,
+use it to control certain behaviour.
+A common example is hijacking `PATH`, so that shell commands executed by name
+could instead run an attacker-controlled program.
+This would require an attacker that can write to a file in a known location,
+which is common practice in web applications that accept user uploads.
+However, the file needs to be executable, which the attacker might not be
+able to easily achieve.
+A simplified example, where the attacker controls a file named "whoami"
+in the current directory, can be seen in @code:gadget-path-hijack.
+
+#figure(caption: [
+  Path hijacking of a `os.popen` call leads to @rce
+])[
+  ```sh
+  #!/usr/bin/env bash
+  echo "you've been pwned, this is not whoami!"
+  ```
+  ```py
+  import os
+
+  # pollute PATH
+  os.environ["PATH"] = "."
+  # .
+  # ├── main.py
+  # └── whoami
+
+  print(os.popen("whoami").read().strip())
+  # prints "you've been pwned, this is not whoami!"
+  ```
+] <code:gadget-path-hijack>
+
+Other interesting variables to pollute are `PYTHONPATH` and `COMSPEC`.
+The former is used by Python to locate imported modules, but is only read when
+the program is first started.
+Nonetheless, it could be useful in cases when another Python program is launched
+as a child process.
+Additionally, the contents of the `sys.path` list can be directly manipulated
+using class pollution as well, which achieves the same goal as modifying `PYTHONPATH`
+for the current program, as shown by @code:gadget-pythonpath-hijack.
+As for `COMSPEC`, it is only useful on Windows, where it can be used to achieve
+@rce when a call to `subprocess.Popen` is made @pp-python-blog.
+
+#figure(caption: [
+  Hijacking of Python's import path (`PYTHONPATH`/`sys.path`) leads to @rce
+])[
+  ```py
+  import sys
+  # pollute PYTHONPATH
+  sys.path[0] = "./uploads"
+
+  import subprocess
+  ```
+  ```py
+  # uploads/subprocess.py
+  print("pwned, hello from subprocess.py")
+  ```
+  ```shell
+  $ python main.py
+  pwned, hello from subprocess.py
+  ```
+] <code:gadget-pythonpath-hijack>
+
+==== Function Default Parameters
+
+As mentioned previously, Python relies heavily on dunder properties for its internals.
+One of those cases is when handling default parameters of functions, where it stores
+the defaults in `__defaults__` (a tuple) and `__kwdefaults__` (a dictionary),
+for unnamed and named parameters respectively.
+Changing one of these values affects all future calls to the respective function,
+if they do not include a value for the given parameter.
+
+Modifying the values of `__defaults__` can be challenging because tuples are immutable,
+so `__defaults__` would need to be polluted in one go, as a tuple.
+It is not common for user input to be converted to a tuple (e.g., during JSON deserialization),
+so this might be out of reach for most exploits, but nonetheless worth mentioning.
+However, `__kwdefaults__` is a dictionary, meaning it is possible to pollute individual
+values.
+It might be more attractive to pollute functions specific to a certain application,
+but one gadget available in the `subprocess` module is the `Popen` constructor,
+which takes a `umask` named parameter.
+Polluting this could be used, for example, to force all files created by child processes
+to be world-readable and world-writable.
+This is illustrated by @code:gadget-umask, where it is worth noting that
+`os.popen` calls `subprocess.Popen` under the hood, which highlights that the
+program does not need to call a gadget directly for it to be effective.
+
+#figure(caption: [
+  Polluting umask of all child processes created through `subprocess.Popen`
+])[
+  ```py
+  import os
+  import subprocess
+
+  os.popen("touch before")
+
+  # pollute
+  subprocess.Popen.__init__.__kwdefaults__["umask"] = 0o000
+  os.popen("touch super-secret")
+
+  ```
+  ```shell
+  $ python main.py
+  $ ls -o before super-secret
+  -rw-r--r-- 1 dtc 0 Aug 26 18:31 before
+  -rw-rw-rw- 1 dtc 0 Aug 26 18:31 super-secret
+  ```
+] <code:gadget-umask>
+
+=== Summary // TODO: is there a better way to name this?
+
+The results of these literature review let us answer @rq-causes-consequences[].
+In summary, class pollution can be exploited via recursive calls to
+`getattr` and `__getitem__`, finalised by a call to `setattr` or `__setitem__`.
+Many gadgets become accessible when it is possible to traverse through the
+`__globals__` attribute of a function, which can result in @dos, authentication
+bypass, or even @rce.
 == Static Code Analysis <bg:static-analysis>
 
 - analyse source code directly; no execution

@@ -42,10 +42,6 @@
 
 #lorem(100)
 
-== Literature Review <results:lit-review>
-
-#lorem(50)
-
 == Analysis Results <results:analysis>
 
 Out of the #raw_data.len() projects analysed, a total of #no_issues_projects.len()

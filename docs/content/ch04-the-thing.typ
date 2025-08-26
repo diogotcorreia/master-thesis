@@ -83,7 +83,14 @@ those that are deemed safe from class pollution.
 
 These models assume that class pollution can be identified by a flow from
 the return value of `getattr` (`TaintSource`) to the first argument of `setattr` (`TaintSink`),
-given the conclusion of the literature review in @results:lit-review.
+given the conclusion of the literature review in @bg:lit-review.
+
+While class pollution can also be achieved using `__setitem__` as a sink instead of
+`setattr`, Pysa does not accurately support this due to the lack of type information,
+so it was assumed that most instances of class pollution would at least contain
+a call to `setattr`.
+Similarly, `__getitem__` is not accounted for, since taint already flows through it to
+the sink.
 
 Additionally, these models contain extra annotations (e.g., `Via`, `ViaValueOf`, `WithTag`, etc.)
 that instruct Pysa to collect information that can later be used to filter out

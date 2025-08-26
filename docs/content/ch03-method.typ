@@ -25,25 +25,6 @@ thesis.
   caption: "Visual representation of the research process",
 ) <fg:research-process>
 
-=== Literature Review
-
-In order to answer @rq-causes-consequences[], a literature review
-has been conducted.
-Given the lack of abundant scientific work on this topic,
-the review has been complemented with articles and technical blog
-posts from outside the research community.
-Additionally, given its thoroughness, the Python specification
-@python-reference-manual has been used to investigate further
-constructs that can result in class pollution.
-
-In total, two papers @pp-python-prevention @pp-python-blog,
-one blog post @pp-python, and The Python Reference Manual
-@python-reference-manual have been analysed in order to
-compile the causes and consequences of class pollution.
-
-As such, the results of this literature review are presented
-in @results:lit-review.
-
 === Tool Design
 
 #text(fill: red, lorem(50))
