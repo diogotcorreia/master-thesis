@@ -61,6 +61,9 @@ The tables below provide a detailed description of the obtained results,
 highlighting the projects that were deemed vulnerable.
 For convenience, the tables have been split based on the platform of
 the project, and sorted by popularity, either downloads or stars.
+As previously mentioned, it is possible for one issue to have multiple
+labels, hence why summing the label counts might yield more than the number
+of issues for a given project.
 
 == @pypi
 
