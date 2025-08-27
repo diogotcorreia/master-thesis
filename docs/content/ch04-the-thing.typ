@@ -14,9 +14,7 @@ and explains its implementation in @thing:impl.
 #figure(
   // TODO
   rect(fill: red, height: 10em, lorem(5)),
-  caption: [
-    Analysis pipeline for each entry in the dataset using #TheTool.
-  ],
+  caption: [Analysis pipeline for each entry in the dataset using #TheTool],
 ) <fg:tool-flowchart>
 
 The architecture of the tool can be divided into three major steps:
@@ -61,9 +59,7 @@ those that are deemed safe from class pollution.
 
 #TheTool ships with the following Pysa taint models that detect class pollution:
 
-#figure(caption: [
-  Pysa taint models that detect class pollution
-])[
+#figure(caption: [Pysa taint models that detect class pollution])[
   ```py
   @SkipObscure
   def getattr(

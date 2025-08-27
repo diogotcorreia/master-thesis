@@ -54,10 +54,8 @@ slightly by platform, with only #vulnerable_pypi_projects.len() @pypi projects
 being vulnerable in contrast with #vulnerable_gh_projects.len() GitHub projects.
 
 #figure(
-  caption: [
-    Visualisation of how many projects have been found to possibly
-    contain a class pollution vulnerability, discriminated by platform.
-  ],
+  caption: [Visualisation of how many projects have been found to possibly
+    contain a class pollution vulnerability, discriminated by platform.],
 )[
   #let x_pypi = range(3)
   #let y_pypi = (

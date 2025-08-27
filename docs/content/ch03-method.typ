@@ -154,10 +154,7 @@ This process is pictured in @fg:dataset-cohorts.
 #figure(
   // TODO
   rect(fill: red, height: 10em, lorem(5)),
-  caption: [
-    Splitting the intermediate datasets into cohorts to obtain
-    the final dataset
-  ],
+  caption: [Splitting the intermediate datasets into cohorts to obtain the final dataset],
 ) <fg:dataset-cohorts>
 
 == Evaluation Framework <method:evaluation>

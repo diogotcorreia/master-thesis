@@ -1,4 +1,4 @@
-#import "../utils/global-imports.typ": codly
+#import "../utils/global-imports.typ": codly, gls-shrt
 
 = Background and Root Causes <bg>
 
@@ -96,10 +96,8 @@ an object are set on a @dom element.
 In this example, polluting `innerHTML` would lead to @xss, as the for-loop would
 iterate over that property as well.
 
-#figure(caption: [
-  Example gadget demonstrating how enumerable properties can be used to
-  set arbitrary properties of @dom elements
-])[
+#figure(caption: [Example gadget demonstrating how enumerable properties can be used to
+  set arbitrary properties of #gls-shrt("dom") elements])[
   ```js
   let attributes = {
     href: "https://example.com",
@@ -153,10 +151,8 @@ When used in conjunction with dynamic dispatch, an attacker can take advantage o
 in the application as a gadget, possibly achieving vulnerabilities like @rce, as demonstrated
 by @code:php-oi-rce @php-object-injection.
 
-#figure(caption: [
-  Example showing how deserialising data can result in @rce in PHP, by taking advantage of
-  inheritance and dynamic dispatch
-])[
+#figure(caption: [Example showing how deserialising data can result in #gls-shrt("rce")
+  in PHP, by taking advantage of inheritance and dynamic dispatch])[
   ```php
   <?php
   class Foo {
@@ -229,9 +225,8 @@ One great example of this is that all functions capture the scope they are defin
 in, making a reference to all global variables in that scope available
 through `__globals__`, as can be seen on @code:python-function-globals.
 
-#figure(caption: [
-  Functions in Python capture the global scope and make it available through `__globals__`
-])[
+#figure(caption: [Functions in Python capture the global scope and make
+  it available through `__globals__`])[
   ```py
   FOO = "hello world"
 
@@ -258,9 +253,7 @@ In case of an attribute, it can be accessed statically through dot-notation,
 and dynamically through the built-in `getattr` and its writing counterpart
 `setattr`, as exemplified in @code:python-access-attributes.
 
-#figure(caption: [
-  Statically and dynamically accessing attributes of Python objects
-])[
+#figure(caption: [Statically and dynamically accessing attributes of Python objects])[
   ```py
   foo = Foo()
   # access attribute `bar` of `foo`
@@ -277,9 +270,7 @@ dynamically, is done through the bracket-notation, which is once again
 syntactic sugar for calling `__getitem__` or `__setitem__`, as shown in
 @code:python-access-items-containers.
 
-#figure(caption: [
-  Accessing items inside containers, such as dictionaries and lists
-])[
+#figure(caption: [Accessing items inside containers, such as dictionaries and lists])[
   ```py
   foo = {"bar": 123}
   qux = "bar"
@@ -305,9 +296,7 @@ automatically inherits from the `object` class.
 The `object` class is special because it is immutable, hence it is
 impossible to add or change its attributes, as exemplified in @code:python-object-immutable.
 
-#figure(caption: [
-  Python classes inherit from the immutable `object` class
-])[
+#figure(caption: [Python classes inherit from the immutable `object` class])[
   ```py
   class A:
     pass
@@ -323,9 +312,7 @@ Furthermore, and perhaps intuitively, all attributes present or modified on a ba
 class are present on the subclasses if they are otherwise undeclared,
 as shown in @code:python-attribute-inheritance.
 
-#figure(caption: [
-  Classes inherit attributes from their bases
-])[
+#figure(caption: [Classes inherit attributes from their bases])[
   ```py
   class A:
     pass
@@ -378,10 +365,8 @@ Given the requirement of traversing various attributes, a vulnerable function is
 recursive, and somehow sets or merges a value into an existing object, as exemplified
 by @code:cp-merge @pp-python-blog.
 
-#figure(caption: [
-  A merge function vulnerable to class pollution, which takes two objects,
-  merging their attributes or entries recursively.
-])[
+#figure(caption: [A merge function vulnerable to class pollution, which takes two objects,
+  merging their attributes or entries recursively.])[
   #codly.codly(
     annotation-format: none,
     annotations: (
@@ -459,10 +444,8 @@ which can be traversed through `__base__`.
 An example of a gadget that works inside the same class hierarchy can be found
 in @code:gadget-getattr-only @pp-python-blog.
 
-#figure(caption: [
-  Gadget inside the same class hierarchy. Polluting `DEFAULT_CMD`
-  results in @rce
-])[
+#figure(caption: [Gadget inside the same class hierarchy. Polluting `DEFAULT_CMD`
+  results in #gls-shrt("rce")])[
   ```py
   from os import popen
 
@@ -515,9 +498,8 @@ However, the program is definitely not expecting the type of `list` to have chan
 to a string.
 The usage of these gadget is illustrated in @code:gadget-builtins.
 
-#figure(caption: [
-  How polluting a frequently used built-in can cause a @dos vulnerability
-])[
+#figure(caption: [How polluting a frequently used built-in
+  can cause a #gls-shrt("dos") vulnerability])[
   ```py
   class Foo:
     def __init__(self):
@@ -546,11 +528,9 @@ how changing the app key in a Flask application allows an attacker to
 forge any cookies, and possibly bypassing authentication, as shown
 in @code:gadget-flask-key @pp-python-blog.
 
-#figure(caption: [
-  A Flask application that contains a gadget in the form of a cookie
+#figure(caption: [A Flask application that contains a gadget in the form of a cookie
   signing key. A valid cookie can be generated using a tool like
-  #link("https://github.com/Paradoxis/Flask-Unsign")[Flask-Unsign]
-])[
+  #link("https://github.com/Paradoxis/Flask-Unsign")[Flask-Unsign]])[
   ```py
   import os
   from flask import Flask, session
@@ -589,9 +569,7 @@ able to easily achieve.
 A simplified example, where the attacker controls a file named "whoami"
 in the current directory, can be seen in @code:gadget-path-hijack.
 
-#figure(caption: [
-  Path hijacking of a `os.popen` call leads to @rce
-])[
+#figure(caption: [Path hijacking of a `os.popen` call leads to #gls-shrt("rce")])[
   ```sh
   #!/usr/bin/env bash
   echo "you've been pwned, this is not whoami!"
@@ -621,9 +599,8 @@ for the current program, as shown by @code:gadget-pythonpath-hijack.
 As for `COMSPEC`, it is only useful on Windows, where it can be used to achieve
 @rce when a call to `subprocess.Popen` is made @pp-python-blog.
 
-#figure(caption: [
-  Hijacking of Python's import path (`PYTHONPATH`/`sys.path`) leads to @rce
-])[
+#figure(caption: [Hijacking of Python's import path
+  (`PYTHONPATH`/`sys.path`) leads to #gls-shrt("rce")])[
   ```py
   import sys
   # pollute PYTHONPATH
@@ -665,9 +642,7 @@ This is illustrated by @code:gadget-umask, where it is worth noting that
 `os.popen` calls `subprocess.Popen` under the hood, which highlights that the
 program does not need to call a gadget directly for it to be effective.
 
-#figure(caption: [
-  Polluting umask of all child processes created through `subprocess.Popen`
-])[
+#figure(caption: [Polluting umask of all child processes created through `subprocess.Popen`])[
   ```py
   import os
   import subprocess
