@@ -354,6 +354,11 @@ pub enum VulnerableFeature {
     ListTupleAccess,
     /// Setting the value is done (conditionally) using __setitem__
     SupportsSetItem,
+    /// The function somehow makes it easier to access a gadget (e.g., it accesses __globals__ for
+    /// us)
+    AdditionalBenefits,
+    /// The value being set is not controlled by function inputs
+    ValueNotControlled,
     /// The final (or intermediate) attributes need to exist already
     NeedsExisting,
     /// The target or intermediate classes have constraints (e.g., a certain field needs to exist)
@@ -372,6 +377,12 @@ impl Display for VulnerableFeature {
             }
             VulnerableFeature::SupportsSetItem => {
                 "Supports __setitem__: sets the value using __setitem__".fmt(f)
+            }
+            VulnerableFeature::AdditionalBenefits => {
+                "Additional Benefits: somehow makes it easier to access a gadget".fmt(f)
+            }
+            VulnerableFeature::ValueNotControlled => {
+                "Value Not Controlled: value being set is not controlled by function inputs".fmt(f)
             }
             VulnerableFeature::NeedsExisting => {
                 "Needs Existing: the attributes need to exist already".fmt(f)

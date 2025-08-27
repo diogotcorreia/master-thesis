@@ -230,6 +230,8 @@ impl<'a> Labeling<'a> {
                 VulnerableFeature::DictAccess,
                 VulnerableFeature::ListTupleAccess,
                 VulnerableFeature::SupportsSetItem,
+                VulnerableFeature::AdditionalBenefits,
+                VulnerableFeature::ValueNotControlled,
                 VulnerableFeature::NeedsExisting,
                 VulnerableFeature::AdditionalConstraints,
             ];
