@@ -18,7 +18,7 @@ use inquire::{MultiSelect, Select, Text};
 use itertools::Itertools;
 use tracing::{debug, error, info, warn};
 
-use crate::analyse::results::{IssueLabel, NotVulnerableReason, ProcessedIssue};
+use crate::analyse::results::{IssueLabel, NotVulnerableReason, ProcessedIssue, VulnerableFeature};
 
 use super::{
     config::DatasetConfig,
@@ -219,13 +219,23 @@ impl<'a> Labeling<'a> {
 
         let options = vec![
             IssueLabel::Unlabeled,
-            IssueLabel::Vulnerable,
+            IssueLabel::Vulnerable { features: vec![] },
             IssueLabel::NotVulnerable { reasons: vec![] },
         ];
 
         let mut label = Select::new("Select label to apply to this issue:", options).prompt()?;
 
-        if let IssueLabel::NotVulnerable { reasons } = &mut label {
+        if let IssueLabel::Vulnerable { features } = &mut label {
+            let options = vec![
+                VulnerableFeature::DictAccess,
+                VulnerableFeature::ListTupleAccess,
+                VulnerableFeature::SupportsSetItem,
+                VulnerableFeature::NeedsExisting,
+                VulnerableFeature::AdditionalConstraints,
+            ];
+            *features = MultiSelect::new("What features does this vulnerability have?", options)
+                .prompt()?;
+        } else if let IssueLabel::NotVulnerable { reasons } = &mut label {
             let options = vec![
                 NotVulnerableReason::ModifiedReference,
                 NotVulnerableReason::NonRecursive,

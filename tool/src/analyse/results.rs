@@ -324,9 +324,13 @@ pub struct ProcessedIssue {
 pub enum IssueLabel {
     #[default]
     Unlabeled,
-    Vulnerable,
+    Vulnerable {
+        #[serde(default)]
+        features: Vec<VulnerableFeature>,
+    },
     // not-vulnerable:
     NotVulnerable {
+        #[serde(default)]
         reasons: Vec<NotVulnerableReason>,
     },
 }
@@ -335,8 +339,47 @@ impl Display for IssueLabel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             IssueLabel::Unlabeled => "Unlabeled (skip)".fmt(f),
-            IssueLabel::Vulnerable => "Vulnerable".fmt(f),
+            IssueLabel::Vulnerable { .. } => "Vulnerable".fmt(f),
             IssueLabel::NotVulnerable { .. } => "Not Vulnerable (false positive)".fmt(f),
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(tag = "kind")]
+pub enum VulnerableFeature {
+    /// It is possible to access the values of a dictionary
+    DictAccess,
+    /// It is possible to access the values of a list or tuple (e.g., numeric keys only)
+    ListTupleAccess,
+    /// Setting the value is done (conditionally) using __setitem__
+    SupportsSetItem,
+    /// The final (or intermediate) attributes need to exist already
+    NeedsExisting,
+    /// The target or intermediate classes have constraints (e.g., a certain field needs to exist)
+    AdditionalConstraints,
+}
+
+impl Display for VulnerableFeature {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            VulnerableFeature::DictAccess => {
+                "Dict Access: accesses the values of a dictionary".fmt(f)
+            }
+            VulnerableFeature::ListTupleAccess => {
+                "List/Tuple Access: accesses the values of a list/tuple (e.g., numeric keys only)"
+                    .fmt(f)
+            }
+            VulnerableFeature::SupportsSetItem => {
+                "Supports __setitem__: sets the value using __setitem__".fmt(f)
+            }
+            VulnerableFeature::NeedsExisting => {
+                "Needs Existing: the attributes need to exist already".fmt(f)
+            }
+            VulnerableFeature::AdditionalConstraints => {
+                "Additional Constraints: e.g., a certain field of target class needs to exist"
+                    .fmt(f)
+            }
         }
     }
 }
