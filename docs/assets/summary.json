@@ -117,13 +117,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -741,7 +743,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -1179,7 +1182,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -1458,7 +1462,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -3002,13 +3007,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -3209,19 +3216,52 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       },
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       }
     ],
@@ -3821,7 +3861,12 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalBenefits"
+            }
+          ]
         }
       }
     ],
@@ -4197,13 +4242,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -4255,7 +4302,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       }
     ],
@@ -4280,7 +4335,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -4993,13 +5049,29 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "ValueNotControlled"
+            }
+          ]
         }
       }
     ],
@@ -5660,7 +5732,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       }
     ],
@@ -6093,7 +6173,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -6361,19 +6442,49 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       }
     ],
@@ -6398,7 +6509,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -6742,13 +6854,22 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -7380,13 +7501,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -7674,7 +7797,8 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -7816,7 +7940,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -8036,7 +8161,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       }
     ],
@@ -8443,7 +8576,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -8622,7 +8756,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -8870,7 +9005,8 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -9473,7 +9609,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -10083,7 +10220,12 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       }
     ],
@@ -11432,16 +11574,10 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
+          "kind": "Vulnerable",
+          "features": [
             {
-              "kind": "ModifiedReference"
+              "kind": "AdditionalConstraints"
             }
           ]
         }
@@ -11460,31 +11596,67 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
@@ -11515,13 +11687,19 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ValueNotControlled"
+            }
+          ]
         }
       },
       {
@@ -11623,13 +11801,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -11646,71 +11826,66 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
+          "kind": "Vulnerable",
+          "features": [
             {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
+              "kind": "AdditionalConstraints"
             }
           ]
         }
       },
       {
-        "getattr_count": "One",
+        "getattr_count": "Conditional",
         "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
+          "kind": "Vulnerable",
+          "features": [
             {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
+              "kind": "AdditionalConstraints"
             }
           ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": []
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": []
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -11747,6 +11922,34 @@
           "kind": "NotVulnerable",
           "reasons": [
             {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
               "kind": "NonRecursive"
             }
           ]
@@ -11802,19 +12005,26 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       }
     ],
@@ -19791,7 +20001,12 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       }
     ],
@@ -19978,7 +20193,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -19998,13 +20214,23 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            }
+          ]
         }
       },
       {
@@ -20170,13 +20396,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -20892,7 +21120,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -21823,19 +22052,22 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -22076,7 +22308,12 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ValueNotControlled"
+            }
+          ]
         }
       },
       {
@@ -23372,13 +23609,23 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ValueNotControlled"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ValueNotControlled"
+            }
+          ]
         }
       },
       {
@@ -24064,7 +24311,12 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       }
     ],
@@ -24171,7 +24423,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -24811,7 +25064,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -25845,7 +26099,12 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            }
+          ]
         }
       }
     ],
@@ -28440,13 +28699,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -28462,7 +28723,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -28831,7 +29093,8 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -28891,7 +29154,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -29109,85 +29373,155 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       }
     ],
@@ -30825,7 +31159,8 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -31119,25 +31454,37 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
@@ -31202,25 +31549,45 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       }
     ],
@@ -31524,7 +31891,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -31615,7 +31983,18 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
         }
       }
     ],
@@ -32045,7 +32424,12 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       }
     ],
@@ -32223,19 +32607,34 @@
       {
         "getattr_count": "TwoPlus",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NonRecursive"
+            }
+          ]
         }
       },
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NonRecursive"
+            }
+          ]
         }
       },
       {
         "getattr_count": "TwoPlus",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NonRecursive"
+            }
+          ]
         }
       }
     ],
@@ -32664,13 +33063,15 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -34205,7 +34606,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -34701,7 +35103,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -34789,7 +35192,12 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            }
+          ]
         }
       }
     ],
@@ -35218,458 +35626,13 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "Conditional",
-        "label": {
-          "kind": "Vulnerable"
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
+          "kind": "Vulnerable",
+          "features": [
             {
-              "kind": "ModifiedReference"
+              "kind": "NeedsExisting"
             },
             {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "ModifiedReference"
-            },
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "NonRecursive"
-            }
-          ]
-        }
-      },
-      {
-        "getattr_count": "One",
-        "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
-            {
-              "kind": "NonRecursive"
-            },
-            {
-              "kind": "NotControlled"
+              "kind": "AdditionalConstraints"
             }
           ]
         }
@@ -35677,7 +35640,524 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
@@ -35966,7 +36446,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -36225,55 +36706,100 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       }
     ],
@@ -36838,7 +37364,8 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -37278,7 +37805,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -37375,7 +37903,12 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "ListTupleAccess"
+            }
+          ]
         }
       }
     ],
@@ -37978,7 +38511,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -38138,7 +38672,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -38471,7 +39006,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -38837,7 +39373,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -38899,7 +39436,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -38951,7 +39489,12 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            }
+          ]
         }
       }
     ],
@@ -40096,7 +40639,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       },
       {
@@ -41127,7 +41671,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -41932,7 +42477,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
@@ -42038,7 +42584,12 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NotControlled"
+            }
+          ]
         }
       }
     ],
@@ -42161,55 +42712,127 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       },
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
+            }
+          ]
         }
       }
     ],
@@ -42513,7 +43136,8 @@
       {
         "getattr_count": "Conditional",
         "label": {
-          "kind": "Vulnerable"
+          "kind": "Vulnerable",
+          "features": []
         }
       }
     ],
