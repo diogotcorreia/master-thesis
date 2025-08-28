@@ -89,7 +89,7 @@ as per @rq-causes-consequences[], will help developers avoid dangerous construct
 == Ethics & Sustainability
 
 As further outlined in @method, the designed tool has been run against various
-source-available projects that can be downloaded from @pypi.
+source-available projects that can be downloaded from @pypi and GitHub.
 All vulnerabilities found during the elaboration of this project have been
 responsibly disclosed to the respective developers and maintainers within a reasonable
 time frame, following standard disclosure procedures.

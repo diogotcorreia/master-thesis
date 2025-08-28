@@ -1,4 +1,4 @@
-#let TheTool = text(fill: red)[The Tool]
+#import "../utils/constants.typ": TheTool
 
 = #TheTool <thing>
 
