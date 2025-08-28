@@ -45,15 +45,9 @@ sampling method and size are described in more detail in
 Then, the results are used to inductively infer the prevalence
 over the entire universe of Python applications.
 
-=== Comparison with Prototype Pollution
-
-#text(fill: red, lorem(50))
-
-// TODO: compare to existing research
-
 == Data Collection <method:data-collection>
 
-In order to answer @rq-widespread[] and @rq-cmp-pp[],
+In order to answer @rq-widespread[],
 there was a need to obtain a set of Python applications
 to analyse for class pollution.
 This section describes how the list of projects was obtained

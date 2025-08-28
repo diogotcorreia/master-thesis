@@ -57,10 +57,6 @@ This degree project aims to answer the following four research questions:
   + #enum-label("rq-widespread")
     Is class pollution in Python prevalent and exploitable in
     real world applications?
-  + #enum-label("rq-cmp-pp")
-    How does class pollution in Python compare to prototype pollution
-    in JavaScript when it comes to exploitability and prevalence in
-    the real-world?
 ]
 
 These reflect the iterative process of understanding the vulnerability at
@@ -89,11 +85,6 @@ and if any of the discovered vulnerabilities are exploitable in practice,
 allowing developers to patch their respective applications.
 Additionally, a systematic investigation of the root causes of class pollution,
 as per @rq-causes-consequences[], will help developers avoid dangerous constructs.
-
-Finally, this thesis also aims to perform a quantitative and qualitative
-comparison between class pollution in Python and prototype pollution in JavaScript,
-going over how prevalent they are and what conditions are necessary for them
-to be exploitable in practice.
 
 == Ethics & Sustainability
 
