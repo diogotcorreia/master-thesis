@@ -570,10 +570,12 @@ A simplified example, where the attacker controls a file named "whoami"
 in the current directory, can be seen in @code:gadget-path-hijack.
 
 #figure(caption: [Path hijacking of a `os.popen` call leads to #gls-shrt("rce")])[
+  #codly.codly(header: box(height: 9pt)[`whoami`])
   ```sh
   #!/usr/bin/env bash
   echo "you've been pwned, this is not whoami!"
   ```
+  #codly.codly(header: box(height: 9pt)[`main.py`])
   ```py
   import os
 
@@ -601,6 +603,7 @@ As for `COMSPEC`, it is only useful on Windows, where it can be used to achieve
 
 #figure(caption: [Hijacking of Python's import path
   (`PYTHONPATH`/`sys.path`) leads to #gls-shrt("rce")])[
+  #codly.codly(header: box(height: 9pt)[`main.py`])
   ```py
   import sys
   # pollute PYTHONPATH
@@ -608,14 +611,16 @@ As for `COMSPEC`, it is only useful on Windows, where it can be used to achieve
 
   import subprocess
   ```
+  #codly.codly(header: box(height: 9pt)[`uploads/subprocess.py`])
   ```py
-  # uploads/subprocess.py
   print("pwned, hello from subprocess.py")
   ```
+  #codly.codly(number-format: none)
   ```shell
   $ python main.py
   pwned, hello from subprocess.py
   ```
+  #codly.codly(number-format: numbering.with("1"))
 ] <code:gadget-pythonpath-hijack>
 
 ==== Function Default Parameters
@@ -643,6 +648,7 @@ This is illustrated by @code:gadget-umask, where it is worth noting that
 program does not need to call a gadget directly for it to be effective.
 
 #figure(caption: [Polluting umask of all child processes created through `subprocess.Popen`])[
+  #codly.codly(header: box(height: 9pt)[`main.py`])
   ```py
   import os
   import subprocess
@@ -654,12 +660,14 @@ program does not need to call a gadget directly for it to be effective.
   os.popen("touch super-secret")
 
   ```
+  #codly.codly(number-format: none)
   ```shell
   $ python main.py
   $ ls -o before super-secret
   -rw-r--r-- 1 dtc 0 Aug 26 18:31 before
   -rw-rw-rw- 1 dtc 0 Aug 26 18:31 super-secret
   ```
+  #codly.codly(number-format: numbering.with("1"))
 ] <code:gadget-umask>
 
 === Summary // TODO: is there a better way to name this?
