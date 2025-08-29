@@ -53,7 +53,7 @@ those that are deemed safe from class pollution.
 
 === Analysis Outcome
 
-#lorem(50)
+#text(fill: red, lorem(50))
 
 == Taint Models <thing:taint-models>
 
@@ -129,6 +129,17 @@ Instructions on how to use this environment can be found on @usage.
 // - save cache, etc
 // - explain fields saved
 // - format of the dataset
+
+#set text(fill: red)
+To obtain this dataset, GitHub's Search API was used, in particular the
+`/search/repositories` endpoint.
+While this endpoint has a limit of 100 items per page, and a maximum of 10
+pages (effectively a 1000 items limit), it is possible to tweak the
+search parameters to bypass this restriction.
+In particular, one can first search for all the repositories with more
+than 1000 stars, sorted by most stars, and then search only for repositories
+with less than the star amount of the last repository in the previous query.
+#set text(fill: black)
 
 === #TheTool CLI <thing:cli>
 

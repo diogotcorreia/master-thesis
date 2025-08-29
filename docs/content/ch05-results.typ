@@ -131,7 +131,7 @@ saved on #pypi_version_date.display().
 On the other hand, as of #gh_date.display(), there were only #gh_total_count Python
 repositories with more than 1000 stars on GitHub.
 Similarly, of the #gh_total_count repositories, #gh_projects.len()
-were sampled as previously described, and their latest revision (i.e., commit)
+were sampled as previously described, and their latest revision
 information was fetched on the same date.
 
 

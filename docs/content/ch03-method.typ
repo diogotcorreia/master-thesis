@@ -73,7 +73,7 @@ same codebase.
 This is taken into account when determining the exploitability of the
 vulnerabilities found, later on.
 
-==== PyPI
+#heading(level: 4, numbering: none, outlined: false)[PyPI]
 
 While @pypi does not make the download counts for each package readily
 available, due to challenges of keeping accurate statistics, it publishes a
@@ -90,14 +90,7 @@ of the wheels (Python's binary packaging format as defined by
 of each package was immediately saved.
 If no wheel was available, the URL of source tarball was saved instead.
 
-Some packages were so old they did not provide any wheels nor source tarballs,
-but instead only provided the legacy eggs format.
-Other packages were deleted, did not follow conventional filename formats
-(#link("https://peps.python.org/pep-0625/")[PEP 625]),
-or some of their files were missing from the latest version.
-The 6 packages where that was the case were ignored for simplicity.
-
-==== GitHub
+#heading(level: 4, numbering: none, outlined: false)[GitHub]
 
 There is a vast amount of projects on GitHub, so only
 Python repositories with more than 1000 stars were taken into account
@@ -108,41 +101,27 @@ Additionally, a repository is deemed a "Python repository" if its most used
 language is Python, as per GitHub's linguist library, which determines
 language distribution by file type and size @gh-linguist.
 
-To obtain this dataset, GitHub's Search API was used, in particular the
-`/search/repositories` endpoint.
-While this endpoint has a limit of 100 items per page, and a maximum of 10
-pages (effectively a 1000 items limit), it is possible to tweak the
-search parameters to bypass this restriction.
-In particular, one can first search for all the repositories with more
-than 1000 stars, sorted by most stars, and then search only for repositories
-with less than the star amount of the last repository in the previous query.
-
 Furthermore, again to aid with reproducibility of this research,
-the last revision of the default branch of each repository was saved
-in the dataset.
-That revision will be the one analysed later by the tool described in
-@thing.
-
-For the final dataset, the GitHub Search API, as well as the latest revision
-of each repository, were queried on #datetime(year: 2025, month: 8, day: 14).display().
+the last revision (i.e., commit) of the default branch of each repository
+was saved in the dataset.
 
 === Sample Size
 
-There are 8822 Python repositories with more
-than 1000 stars on GitHub.
-Similarly, the aforementioned @pypi dataset contains #(15000 - 6) entries.
-These are too many projects, so only a subset of those
-are used for the analysis.
+Both the @pypi and GitHub datasets contain too many entries to
+be analysed in a reasonable time, given the scope of this degree project.
+For that reason, only a subset of entries in each dataset will be
+taken into account during evaluation.
 
-In order to ensure a representative population, the GitHub dataset was
-split into three cohorts: the 1000 most starred, the 1000 least
-starred, and the remaining repositories.
-Then, 500 repositories were picked randomly from each of the cohorts,
-resulting in an intermediate dataset of 1500 repositories.
-The process was again repeated for the @pypi dataset, but instead splitting into
-the 3000 most downloaded, the 3000 least downloaded, and the remaining packages.
-Similarly, 500 packages were picked randomly from each of the cohorts,
-resulting into another intermediate dataset of 1500 packages.
+In order to ensure a representative population, each dataset was sorted
+by popularity (downloads for the @pypi dataset, and stars for GitHub's),
+and then split into three cohorts: the $N$ least popular projects,
+the $N$ most popular projects, and the remaining projects.
+The value of $N$ has been picked based on the number of total entries
+for each platform, and has been fixed as #box($N = 3000$) for @pypi and
+#box($N = 1000$) for GitHub.
+Then, 500 projects were randomly sampled from each cohort,
+resulting in a total of 1500 projects for each platform,
+and a final dataset of size 3000.
 This process is pictured in @fg:dataset-cohorts.
 
 #figure(
