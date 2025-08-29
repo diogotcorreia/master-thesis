@@ -65,7 +65,7 @@ As previously mentioned, it is possible for one issue to have multiple
 labels, hence why summing the label counts might yield more than the number
 of issues for a given project.
 
-== @pypi
+== PyPI
 
 #mk_issues_table(pypi_projects, "Downloads")
 

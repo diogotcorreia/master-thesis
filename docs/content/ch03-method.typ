@@ -73,7 +73,7 @@ same codebase.
 This is taken into account when determining the exploitability of the
 vulnerabilities found, later on.
 
-==== @pypi
+==== PyPI
 
 While @pypi does not make the download counts for each package readily
 available, due to challenges of keeping accurate statistics, it publishes a
