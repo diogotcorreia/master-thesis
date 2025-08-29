@@ -3,13 +3,14 @@ use std::{
     fs::{self, File},
     io::{BufReader, Read, Write},
     path::{Path, PathBuf},
-    time::{Instant, SystemTime, UNIX_EPOCH},
+    time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 
 use anyhow::{anyhow, Result};
 use bzip2::read::BzDecoder;
 use flate2::bufread::GzDecoder;
 use itertools::Itertools;
+use reqwest::blocking::Client;
 use serde::{Deserialize, Serialize};
 use tar::Archive;
 use tracing::{debug, error, info};
@@ -35,6 +36,7 @@ pub struct Pipeline<'a> {
     dataset_config: &'a DatasetConfig,
     pyre_path: &'a Path,
     resolve_dependencies: bool,
+    reqwest_client: Client,
 }
 
 impl<'a> Pipeline<'a> {
@@ -49,6 +51,10 @@ impl<'a> Pipeline<'a> {
             dataset_config,
             pyre_path,
             resolve_dependencies,
+            reqwest_client: reqwest::blocking::Client::builder()
+                .timeout(Duration::from_secs(2 * 60))
+                .build()
+                .expect("failed to build reqwest client"),
         }
     }
 
@@ -200,7 +206,7 @@ impl<'a> Pipeline<'a> {
             "https://github.com/{}/archive/{}.tar.gz",
             src.full_name, src.rev
         );
-        let res = reqwest::blocking::get(url)?;
+        let res = self.reqwest_client.get(url).send()?;
 
         let content = res.bytes()?;
         let mut file = File::create(&dest)?;
@@ -222,7 +228,7 @@ impl<'a> Pipeline<'a> {
             return Ok(dest);
         }
         // note: we trust the input, otherwise this can download arbitrary stuff from the internet
-        let res = reqwest::blocking::get(&src.download_url)?;
+        let res = self.reqwest_client.get(&src.download_url).send()?;
 
         let content = res.bytes()?;
         let mut file = File::create(&dest)?;
