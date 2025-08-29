@@ -21,6 +21,18 @@
 #let by_is_vulnerable(project) = {
   project.at("issues").any(issue => issue.at("label").at("kind") == "Vulnerable")
 }
+#let by_is_issue_vulnerable(issue) = {
+  issue.at("label").at("kind") == "Vulnerable"
+}
+#let by_has_features(features) = {
+  issue => {
+    let feats = issue.at("label").at("features")
+    features.all(f => feats.find(f2 => f2.at("kind") == f) != none)
+  }
+}
+#let by_has_error(project) = {
+  project.at("error_stage") != none
+}
 
 #let median(list) = {
   let sortedList = list.sorted()
@@ -47,20 +59,61 @@
   )
 }
 
-#let pypi_projects = filter_list(raw_data, by_platform("PyPI"))
-#let gh_projects = filter_list(raw_data, by_platform("GitHub"))
+#let calc_error_stage_dist(list) = {
+  list.fold((:), (acc, project) => {
+    let stage = project.at("error_stage")
+    acc.insert(stage, acc.at(stage, default: 0) + 1)
+    acc
+  })
+}
+
+#let extract_issues(list) = {
+  list.map(project => project.at("issues")).flatten()
+}
+#let extract_features(issues) = {
+  issues.fold((:), (acc, issue) => {
+    let features = issue.at("label").at("features")
+    for feature in features {
+      let feature = feature.at("kind")
+      acc.insert(feature, acc.at(feature, default: 0) + 1)
+    }
+    acc
+  })
+}
+#let extract_reasons(issues) = {
+  issues.fold((:), (acc, issue) => {
+    let reasons = issue.at("label").at("reasons")
+    for reason in reasons {
+      let reason = reason.at("kind")
+      acc.insert(reason, acc.at(reason, default: 0) + 1)
+    }
+    acc
+  })
+}
+
+#let projects_error = filter_list(raw_data, by_has_error)
+#let pypi_projects_error = filter_list(projects_error, by_platform("PyPI"))
+#let gh_projects_error = filter_list(projects_error, by_platform("GitHub"))
+#let error_stage_dist = calc_error_stage_dist(projects_error)
+#let pypi_error_stage_dist = calc_error_stage_dist(pypi_projects_error)
+#let gh_error_stage_dist = calc_error_stage_dist(gh_projects_error)
+
+#let projects_success = filter_list(raw_data, by_has_error, inv: true)
+#let pypi_projects = filter_list(projects_success, by_platform("PyPI"))
+#let gh_projects = filter_list(projects_success, by_platform("GitHub"))
 
 #let pypi_popularity = calc_popularity(pypi_projects)
 #let gh_popularity = calc_popularity(gh_projects)
 
 #let total_runtime_seconds = raw_data.map(project => project.at("elapsed_seconds")).sum()
+#let success_runtime_seconds = projects_success.map(project => project.at("elapsed_seconds")).sum()
 
 #let has_issues_pypi_projects = filter_list(pypi_projects, by_has_issues)
 #let has_issues_gh_projects = filter_list(gh_projects, by_has_issues)
-#let has_issues_projects = filter_list(raw_data, by_has_issues)
+#let has_issues_projects = filter_list(projects_success, by_has_issues)
 #let no_issues_pypi_projects = filter_list(pypi_projects, by_has_issues, inv: true)
 #let no_issues_gh_projects = filter_list(gh_projects, by_has_issues, inv: true)
-#let no_issues_projects = filter_list(raw_data, by_has_issues, inv: true)
+#let no_issues_projects = filter_list(projects_success, by_has_issues, inv: true)
 
 #let vulnerable_pypi_projects = filter_list(has_issues_pypi_projects, by_is_vulnerable)
 #let vulnerable_gh_projects = filter_list(has_issues_gh_projects, by_is_vulnerable)
@@ -68,6 +121,25 @@
 #let not_vulnerable_pypi_projects = filter_list(has_issues_pypi_projects, by_is_vulnerable, inv: true)
 #let not_vulnerable_gh_projects = filter_list(has_issues_gh_projects, by_is_vulnerable, inv: true)
 #let not_vulnerable_projects = filter_list(has_issues_projects, by_is_vulnerable, inv: true)
+
+#let pyre_issue_count = projects_success.map(project => project.at("raw_issue_count")).sum()
+#let all_issues = extract_issues(projects_success)
+#let pypi_issues = extract_issues(pypi_projects)
+#let gh_issues = extract_issues(gh_projects)
+
+#let vulnerable_issues = filter_list(all_issues, by_is_issue_vulnerable)
+#let vulnerable_pypi_issues = filter_list(pypi_issues, by_is_issue_vulnerable)
+#let vulnerable_gh_issues = filter_list(gh_issues, by_is_issue_vulnerable)
+#let not_vulnerable_issues = filter_list(all_issues, by_is_issue_vulnerable, inv: true)
+#let not_vulnerable_pypi_issues = filter_list(pypi_issues, by_is_issue_vulnerable, inv: true)
+#let not_vulnerable_gh_issues = filter_list(gh_issues, by_is_issue_vulnerable, inv: true)
+
+#let vulnerable_issues_features = extract_features(vulnerable_issues)
+#let vulnerable_pypi_issues_features = extract_features(vulnerable_pypi_issues)
+#let vulnerable_gh_issues_features = extract_features(vulnerable_gh_issues)
+#let not_vulnerable_issues_reasons = extract_reasons(not_vulnerable_issues)
+#let not_vulnerable_pypi_issues_reasons = extract_reasons(not_vulnerable_pypi_issues)
+#let not_vulnerable_gh_issues_reasons = extract_reasons(not_vulnerable_gh_issues)
 
 // text
 = Evaluation <results>
@@ -190,19 +262,56 @@ Analysing the projects in the dataset using #TheTool took a total of
 by a single person. However, the runtime duration is skewed by a few
 projects that triggered a bug in Pysa and got stuck in a loop, being killed
 after a 30 minute timeout.
-// TODO: say runtime without timed out projects
+Ignoring the analysis of failed projects, the total runtime excluding manual work is
+just #format_time(success_runtime_seconds).
 During analysis, #TheTool has been run exclusively on a shared machine with an
 AMD EPYC 7742 64-core processor and 512GB of memory, although limited to
 using only 32 cores.
 
-Out of the #raw_data.len() projects analysed, a total of #no_issues_projects.len()
-(#{ (no_issues_projects.len() / raw_data.len()) * 100 }%)
+Unfortunately, #projects_error.len() projects failed to be analysed,
+mostly due to the aforementioned bug in Pysa,
+and, as such, these projects were excluded from the remaining results below.
+@tbl:error-stage shows how many projects failed in each stage of the analysis,
+discriminated by platform.
+
+#figure(caption: [Count of projects that failed in each analysis stage, by platform])[
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+
+  #table(
+    columns: 4,
+    stroke: (x, y) => if y == 0 {
+      (bottom: 0.7pt + black)
+    },
+    align: (x, y) => (
+      if x > 0 { center } else { right }
+    ),
+    table.vline(x: 1, start: 0),
+    table.vline(x: 3, start: 0, stroke: stroke(dash: "dashed")),
+    table.header([Stage], [@pypi], [GitHub], [Total]),
+    [Setup], [#pypi_error_stage_dist.at("Setup")], [#gh_error_stage_dist.at("Setup")], [#error_stage_dist.at("Setup")],
+
+    [Analysis],
+    [#pypi_error_stage_dist.at("Analysis")],
+    [#gh_error_stage_dist.at("Analysis")],
+    [#error_stage_dist.at("Analysis")],
+
+    table.hline(start: 0, stroke: stroke(dash: "dashed")),
+    [Total], [#pypi_projects_error.len()], [#gh_projects_error.len()], [#projects_error.len()],
+  )
+] <tbl:error-stage>
+
+Out of the #projects_success.len() projects successfully analysed,
+a total of #no_issues_projects.len()
+(#{ calc.round(no_issues_projects.len() / projects_success.len(), digits: 3) * 100 }%)
 did not have any issues found by #TheTool.
 Furthermore, amongst the remaining #has_issues_projects.len() projects with issues,
 only #vulnerable_projects.len() have at least one issue that was deemed vulnerable.
 As can be seen by @fg:projects-issue, the amount of vulnerable projects varies
 slightly by platform, with only #vulnerable_pypi_projects.len() @pypi projects
 being vulnerable in contrast with #vulnerable_gh_projects.len() GitHub projects.
+From a projects perspective, this means there is a Type-I error rate of
+#calc.round((not_vulnerable_projects.len() / has_issues_projects.len()) * 100, digits: 1)%.
 
 #figure(
   caption: [Visualisation of how many projects have been found to possibly
@@ -253,15 +362,272 @@ being vulnerable in contrast with #vulnerable_gh_projects.len() GitHub projects.
       .zip(y_pypi)
       .map(((x, y)) => {
         let align = if y > 200 { top } else { bottom }
-        lq.place(x - 0.2, y, pad(0.2em)[#y], align: align)
+        let color = if align == top { white } else { black }
+        lq.place(x - 0.2, y, pad(0.2em, text(fill: color, [#y])), align: align)
       }),
     ..x_gh
       .zip(y_gh)
       .map(((x, y)) => {
         let align = if y > 200 { top } else { bottom }
-        lq.place(x + 0.2, y, pad(0.2em)[#y], align: align)
+        let color = if align == top { white } else { black }
+        lq.place(x + 0.2, y, pad(0.2em, text(fill: color, [#y])), align: align)
       }),
   )
 ] <fg:projects-issue>
+
+Across all projects, there were a total of #all_issues.len() issues reported by
+#TheTool, which filtered out most of the #pyre_issue_count issues directly reported
+by Pysa.
+These #all_issues.len() issues were then manually labeled into _Vulnerable_ or
+_Not Vulnerable_, along with a feature list for the former and a reason list
+for the latter.
+Only #vulnerable_issues.len() issues have been labeled as _Vulnerable_,
+resulting in a Type-I error of
+#calc.round((not_vulnerable_issues.len() / all_issues.len()) * 100, digits: 1)%,
+from an issues perspective.
+However, it is important to highlight that, in some of the projects, there were
+many issues for the same or similar source/sink combinations, which inflates the
+number of issues, particularly when it comes for false positives.
+No grouping was applied when the source/sink was the same, since the code path
+between the two was usually different, which sometimes resulted in different
+labeling.
+The overall label classification, discriminated by platform, can be visualised in
+@fg:issue-label.
+
+#figure(
+  caption: [Visualisation of the overall label of each issue,
+    discriminated by platform of the respective project.],
+)[
+  #let x_pypi = range(2)
+  #let y_pypi = (
+    vulnerable_pypi_issues.len(),
+    not_vulnerable_pypi_issues.len(),
+  )
+  #let x_gh = range(2)
+  #let y_gh = (
+    vulnerable_gh_issues.len(),
+    not_vulnerable_gh_issues.len(),
+  )
+
+  #lq.diagram(
+    width: 10cm,
+    height: 7cm,
+    legend: (position: left + top),
+    ylabel: [Number of Issues],
+    xaxis: (
+      ticks: ("Vulnerable", "Not Vulnerable").enumerate(),
+      subticks: none,
+    ),
+    yaxis: (exponent: none),
+
+    lq.bar(
+      x_pypi,
+      y_pypi,
+      offset: -0.2,
+      width: 0.4,
+      fill: pypi_color,
+      label: [@pypi],
+    ),
+    lq.bar(
+      x_gh,
+      y_gh,
+      offset: 0.2,
+      width: 0.4,
+      fill: gh_color,
+      label: [GitHub],
+    ),
+
+    ..x_pypi
+      .zip(y_pypi)
+      .map(((x, y)) => {
+        let align = if y > 150 { top } else { bottom }
+        let color = if align == top { white } else { black }
+        lq.place(x - 0.2, y, pad(0.2em, text(fill: color, [#y])), align: align)
+      }),
+    ..x_gh
+      .zip(y_gh)
+      .map(((x, y)) => {
+        let align = if y > 150 { top } else { bottom }
+        let color = if align == top { white } else { black }
+        lq.place(x + 0.2, y, pad(0.2em, text(fill: color, [#y])), align: align)
+      }),
+  )
+] <fg:issue-label>
+
+Each vulnerable issue has additionally been labeled with a feature list, which
+helps to rank them regarding exploitability.
+Four of the features are deemed positive, that is, they increase the likelihood
+of an issue being exploitable, while three of them are deemed negative.
+All vulnerable issues were assumed to have `getattr` access and `setattr` support,
+since that is what the taint models in use by #TheTool were looking for,
+and therefore those were not included as features.
+The feature distribution can be visualised on @fg:vuln-issue-features, keeping in mind
+that an issue can have zero or more features.
+
+Across both platforms, only #vulnerable_issues_features.at("DictAccess") issues
+have _Dict Access_, that is, they allow traversing through the entries of a
+dictionary using `__getitem__`.
+Surprisingly, #vulnerable_issues_features.at("ListTupleAccess") issues have
+_List/Tuple Access_, which is really similar to _Dict Access_, but for
+numeric keys only.
+It is worth noting that this feature is not a superset of _Dict Access_, since
+it requires the key to be of type `int`, meaning the vulnerable code must perform
+the appropriate conversion.
+Furthermore, just #vulnerable_issues_features.at("SupportsSetItem") issues
+_Support `__setitem__`_, that is, it is possible to change the value of a dictionary,
+list or tuple.
+Notably, #filter_list(vulnerable_issues, by_has_features(("DictAccess", "SupportsSetItem"))).len()
+of these issues also have the _Dict Access_ feature, which is one of
+the best combinations when it comes to exploitability.
+#assert.eq(
+  vulnerable_issues_features.at("AdditionalBenefits"),
+  1,
+  message: "AdditionalBenefits is not 1 anymore",
+)
+Finally, a single issue has _Additional Benefits_, because it starts by traversing
+the globals of the current context, instead of on a local object.
+Unfortunately, the respective code is only used in a testing context with static
+paths, and is therefore not exploitable.
+
+On the other hand, when it comes to the negative features,
+#vulnerable_issues_features.at("NeedsExisting") issues have been labeled with
+_Needs Existing_, as they cannot set a new attribute or dictionary item,
+usually due to some kind of check.
+This feature does not account for checks during traversal, as most of the
+code just crashes if part of the traversal path does not exist, and because
+it is not very relevant exploitability-wise.
+Moreover, #vulnerable_issues_features.at("ValueNotControlled") issues have
+been labeled with _Value Not Controlled_, as the value being set is not
+controlled by an attacker (e.g., it is hardcoded to a specific value),
+despite the path still being controllable.
+Finally, #vulnerable_issues_features.at("AdditionalConstraints") have
+_Additional Constraints_ that prevents them from being exploitable, such
+as requiring certain fields to exist in the target object, or that the
+target object extend a certain class.
+
+#figure(
+  caption: [Visualisation of the features of the issues deemed vulnerable,
+    discriminated by platform of the respective project.],
+)[
+  #let all_features = (
+    "AdditionalConstraints": [Additional Constraints],
+    "ValueNotControlled": [Value Not Controlled],
+    "NeedsExisting": [Needs Existing],
+    "AdditionalBenefits": [Additional Benefits],
+    "SupportsSetItem": [Supports `__setitem__`],
+    "ListTupleAccess": [List/Tuple Access],
+    "DictAccess": [Dict Access],
+  )
+  #let x_pypi = all_features.keys().map(feat => vulnerable_pypi_issues_features.at(feat, default: 0))
+  #let y_pypi = range(all_features.len())
+  #let x_gh = all_features.keys().map(feat => vulnerable_gh_issues_features.at(feat, default: 0))
+  #let y_gh = range(all_features.len())
+
+  #lq.diagram(
+    width: 10cm,
+    height: 7cm,
+    legend: (position: right + horizon, dy: -1em),
+    margin: (right: 10%),
+    xlabel: [Number of Issues],
+    xaxis: (exponent: none),
+    yaxis: (
+      ticks: all_features.values().enumerate(),
+      subticks: none,
+    ),
+
+    lq.hbar(
+      x_pypi,
+      y_pypi,
+      offset: -0.2,
+      width: 0.4,
+      fill: pypi_color,
+      label: [@pypi],
+    ),
+    lq.hbar(
+      x_gh,
+      y_gh,
+      offset: 0.2,
+      width: 0.4,
+      fill: gh_color,
+      label: [GitHub],
+    ),
+
+    ..x_pypi
+      .zip(y_pypi)
+      .map(((x, y)) => {
+        lq.place(x, y - 0.2, pad(0.2em, [#x]), align: left)
+      }),
+    ..x_gh
+      .zip(y_gh)
+      .map(((x, y)) => {
+        lq.place(x, y + 0.2, pad(0.2em, [#x]), align: left)
+      }),
+  )
+] <fg:vuln-issue-features>
+
+// TODO code examples for issue features
+
+// TODO description of non-vulnerable reasons
+
+#figure(
+  caption: [Visualisation of the reasons why issues were deemed not vulnerable,
+    discriminated by platform of the respective project.],
+)[
+  #let all_features = (
+    "Other": [Other],
+    "AttrAllowList": [Attribute Allowlist],
+    "Filtered": [Filtered],
+    "NotControlled": [Not Controlled],
+    "NonRecursive": [Not Recursive],
+    "ModifiedReference": [Modified Reference],
+  )
+  #let x_pypi = all_features.keys().map(feat => not_vulnerable_pypi_issues_reasons.at(feat, default: 0))
+  #let y_pypi = range(all_features.len())
+  #let x_gh = all_features.keys().map(feat => not_vulnerable_gh_issues_reasons.at(feat, default: 0))
+  #let y_gh = range(all_features.len())
+
+  #lq.diagram(
+    width: 10cm,
+    height: 7cm,
+    legend: (position: right + bottom),
+    margin: (right: 10%),
+    xlabel: [Number of Issues],
+    xaxis: (exponent: none),
+    yaxis: (
+      ticks: all_features.values().enumerate(),
+      subticks: none,
+    ),
+
+    lq.hbar(
+      x_pypi,
+      y_pypi,
+      offset: -0.2,
+      width: 0.4,
+      fill: pypi_color,
+      label: [@pypi],
+    ),
+    lq.hbar(
+      x_gh,
+      y_gh,
+      offset: 0.2,
+      width: 0.4,
+      fill: gh_color,
+      label: [GitHub],
+    ),
+
+    ..x_pypi
+      .zip(y_pypi)
+      .map(((x, y)) => {
+        lq.place(x, y - 0.2, pad(0.2em, [#x]), align: left)
+      }),
+    ..x_gh
+      .zip(y_gh)
+      .map(((x, y)) => {
+        lq.place(x, y + 0.2, pad(0.2em, [#x]), align: left)
+      }),
+  )
+] <fg:not-vuln-issue-reaasons>
+
+// TODO code examples for non-vulnerable reasons
 
 == Case Study: Vulnerable Library <results:case-study>
