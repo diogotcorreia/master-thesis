@@ -59,10 +59,22 @@
   )
 }
 
-#let calc_error_stage_dist(list) = {
+#let calc_error_reason_dist(list) = {
   list.fold((:), (acc, project) => {
     let stage = project.at("error_stage")
-    acc.insert(stage, acc.at(stage, default: 0) + 1)
+    let reason = if stage == "Setup" {
+      "DownloadTimeout"
+    } else if stage == "Analysis" {
+      if project.at("elapsed_seconds") >= 1800 {
+        // 30 minutes
+        "AnalysisTimeout"
+      } else {
+        "AnalysisError"
+      }
+    } else {
+      "Other"
+    }
+    acc.insert(reason, acc.at(reason, default: 0) + 1)
     acc
   })
 }
@@ -94,9 +106,9 @@
 #let projects_error = filter_list(raw_data, by_has_error)
 #let pypi_projects_error = filter_list(projects_error, by_platform("PyPI"))
 #let gh_projects_error = filter_list(projects_error, by_platform("GitHub"))
-#let error_stage_dist = calc_error_stage_dist(projects_error)
-#let pypi_error_stage_dist = calc_error_stage_dist(pypi_projects_error)
-#let gh_error_stage_dist = calc_error_stage_dist(gh_projects_error)
+#let error_reason_dist = calc_error_reason_dist(projects_error)
+#let pypi_error_reason_dist = calc_error_reason_dist(pypi_projects_error)
+#let gh_error_reason_dist = calc_error_reason_dist(gh_projects_error)
 
 #let projects_success = filter_list(raw_data, by_has_error, inv: true)
 #let pypi_projects = filter_list(projects_success, by_platform("PyPI"))
@@ -271,10 +283,12 @@ using only 32 cores.
 Unfortunately, #projects_error.len() projects failed to be analysed,
 mostly due to the aforementioned bug in Pysa,
 and, as such, these projects were excluded from the remaining results below.
-@tbl:error-stage shows how many projects failed in each stage of the analysis,
+@tbl:error-reason shows how many projects failed and why,
 discriminated by platform.
 
-#figure(caption: [Count of projects that failed in each analysis stage, by platform])[
+#assert.eq(error_reason_dist.len(), 3, message: "missing error reason in table")
+#figure(caption: [Number of projects that failed being analysed for a given reason,
+  by platform])[
   #show table.cell.where(x: 0): strong
   #show table.cell.where(y: 0): strong
 
@@ -288,21 +302,26 @@ discriminated by platform.
     ),
     table.vline(x: 1, start: 0),
     table.vline(x: 3, start: 0, stroke: stroke(dash: "dashed")),
-    table.header([Stage], [@pypi], [GitHub], [Total]),
-    [Setup],
-    [#pypi_error_stage_dist.at("Setup", default: 0)],
-    [#gh_error_stage_dist.at("Setup", default: 0)],
-    [#error_stage_dist.at("Setup")],
+    table.header([Reason], [@pypi], [GitHub], [Total]),
+    [Download Timed Out],
+    [#pypi_error_reason_dist.at("DownloadTimeout", default: 0)],
+    [#gh_error_reason_dist.at("DownloadTimeout", default: 0)],
+    [#error_reason_dist.at("DownloadTimeout")],
 
-    [Analysis],
-    [#pypi_error_stage_dist.at("Analysis")],
-    [#gh_error_stage_dist.at("Analysis")],
-    [#error_stage_dist.at("Analysis")],
+    [Pysa Error],
+    [#pypi_error_reason_dist.at("AnalysisError", default: 0)],
+    [#gh_error_reason_dist.at("AnalysisError", default: 0)],
+    [#error_reason_dist.at("AnalysisError")],
+
+    [Pysa Timeout],
+    [#pypi_error_reason_dist.at("AnalysisTimeout", default: 0)],
+    [#gh_error_reason_dist.at("AnalysisTimeout", default: 0)],
+    [#error_reason_dist.at("AnalysisTimeout")],
 
     table.hline(start: 0, stroke: stroke(dash: "dashed")),
     [Total], [#pypi_projects_error.len()], [#gh_projects_error.len()], [#projects_error.len()],
   )
-] <tbl:error-stage>
+] <tbl:error-reason>
 
 Out of the #projects_success.len() projects successfully analysed,
 a total of #no_issues_projects.len()
