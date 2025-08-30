@@ -754,10 +754,6 @@
           "reasons": [
             {
               "kind": "ModifiedReference"
-            },
-            {
-              "kind": "Other",
-              "notes": "function call, and it's probably intended inside it allows any import"
             }
           ]
         }
@@ -769,10 +765,6 @@
           "reasons": [
             {
               "kind": "ModifiedReference"
-            },
-            {
-              "kind": "Other",
-              "notes": "function call, and it's probably intended inside it allows any import"
             }
           ]
         }
@@ -1855,10 +1847,10 @@
     "platform": "GitHub",
     "name": "jaakkopasanen/AutoEq",
     "popularity": 14463,
-    "error_stage": "Setup",
+    "error_stage": null,
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 62
   },
   {
     "platform": "PyPI",
@@ -2353,11 +2345,10 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "NotVulnerable",
-          "reasons": [
+          "kind": "Vulnerable",
+          "features": [
             {
-              "kind": "Other",
-              "notes": "attr whitelist"
+              "kind": "AdditionalConstraints"
             }
           ]
         }
@@ -3712,7 +3703,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7203
+    "elapsed_seconds": 1804
   },
   {
     "platform": "PyPI",
@@ -4493,7 +4484,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1170
+    "elapsed_seconds": 1200
   },
   {
     "platform": "GitHub",
@@ -4722,7 +4713,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1811
+    "elapsed_seconds": 1802
   },
   {
     "platform": "PyPI",
@@ -5064,9 +5055,6 @@
           "features": [
             {
               "kind": "DictAccess"
-            },
-            {
-              "kind": "ListTupleAccess"
             },
             {
               "kind": "ValueNotControlled"
@@ -5906,7 +5894,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1801
   },
   {
     "platform": "GitHub",
@@ -6038,10 +6026,10 @@
     "platform": "GitHub",
     "name": "YaoFANGUK/video-subtitle-remover",
     "popularity": 7230,
-    "error_stage": "Setup",
+    "error_stage": null,
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 67
   },
   {
     "platform": "PyPI",
@@ -6559,7 +6547,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1801
+    "elapsed_seconds": 1802
   },
   {
     "platform": "GitHub",
@@ -6914,7 +6902,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1801
+    "elapsed_seconds": 1802
   },
   {
     "platform": "GitHub",
@@ -6941,7 +6929,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7202
+    "elapsed_seconds": 1802
   },
   {
     "platform": "PyPI",
@@ -7714,7 +7702,7 @@
     "error_stage": "Setup",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 121
   },
   {
     "platform": "PyPI",
@@ -7856,7 +7844,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7204
+    "elapsed_seconds": 1809
   },
   {
     "platform": "GitHub",
@@ -7865,16 +7853,16 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1800
   },
   {
     "platform": "PyPI",
     "name": "onnxruntime-gpu",
     "popularity": 2415296,
-    "error_stage": "Setup",
+    "error_stage": null,
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 30
+    "elapsed_seconds": 60
   },
   {
     "platform": "GitHub",
@@ -8678,10 +8666,10 @@
     "platform": "GitHub",
     "name": "iperov/DeepFaceLive",
     "popularity": 28975,
-    "error_stage": "Setup",
+    "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 1902
   },
   {
     "platform": "GitHub",
@@ -9064,7 +9052,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1810
+    "elapsed_seconds": 1816
   },
   {
     "platform": "GitHub",
@@ -10472,7 +10460,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1800
   },
   {
     "platform": "GitHub",
@@ -10817,7 +10805,7 @@
     "error_stage": "Setup",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 121
   },
   {
     "platform": "GitHub",
@@ -20480,7 +20468,7 @@
     "error_stage": "Setup",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 121
   },
   {
     "platform": "PyPI",
@@ -20738,10 +20726,10 @@
     "platform": "GitHub",
     "name": "ytisf/theZoo",
     "popularity": 12028,
-    "error_stage": "Setup",
+    "error_stage": null,
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 53
   },
   {
     "platform": "PyPI",
@@ -21165,7 +21153,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1802
+    "elapsed_seconds": 1801
   },
   {
     "platform": "GitHub",
@@ -21264,7 +21252,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1800
   },
   {
     "platform": "GitHub",
@@ -21399,7 +21387,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1800
   },
   {
     "platform": "GitHub",
@@ -23613,6 +23601,12 @@
           "features": [
             {
               "kind": "ValueNotControlled"
+            },
+            {
+              "kind": "NeedsExisting"
+            },
+            {
+              "kind": "AdditionalConstraints"
             }
           ]
         }
@@ -23624,6 +23618,9 @@
           "features": [
             {
               "kind": "ValueNotControlled"
+            },
+            {
+              "kind": "NeedsExisting"
             }
           ]
         }
@@ -24153,10 +24150,10 @@
     "platform": "GitHub",
     "name": "chrissimpkins/codeface",
     "popularity": 6331,
-    "error_stage": "Setup",
+    "error_stage": null,
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 57
   },
   {
     "platform": "GitHub",
@@ -24255,7 +24252,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1803
+    "elapsed_seconds": 1809
   },
   {
     "platform": "GitHub",
@@ -26672,10 +26669,39 @@
     "platform": "GitHub",
     "name": "voxel51/fiftyone",
     "popularity": 9715,
-    "error_stage": "Setup",
-    "raw_issue_count": 0,
-    "issues": [],
-    "elapsed_seconds": 31
+    "error_stage": null,
+    "raw_issue_count": 20,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "ModifiedReference"
+            },
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      }
+    ],
+    "elapsed_seconds": 74
   },
   {
     "platform": "GitHub",
@@ -30743,7 +30769,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7201
+    "elapsed_seconds": 1803
   },
   {
     "platform": "GitHub",
@@ -31861,7 +31887,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1804
+    "elapsed_seconds": 1801
   },
   {
     "platform": "PyPI",
@@ -32794,7 +32820,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1800
   },
   {
     "platform": "GitHub",
@@ -32830,7 +32856,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1801
   },
   {
     "platform": "GitHub",
@@ -32979,7 +33005,7 @@
     "error_stage": "Setup",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 121
   },
   {
     "platform": "PyPI",
@@ -34027,7 +34053,7 @@
     "error_stage": "Setup",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 121
   },
   {
     "platform": "PyPI",
@@ -34977,10 +35003,10 @@
     "platform": "PyPI",
     "name": "pyspark",
     "popularity": 46066217,
-    "error_stage": "Setup",
-    "raw_issue_count": 0,
+    "error_stage": null,
+    "raw_issue_count": 11,
     "issues": [],
-    "elapsed_seconds": 30
+    "elapsed_seconds": 79
   },
   {
     "platform": "PyPI",
@@ -35034,7 +35060,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1800
   },
   {
     "platform": "GitHub",
@@ -37843,10 +37869,10 @@
     "platform": "GitHub",
     "name": "AzatAI/cs_books",
     "popularity": 1029,
-    "error_stage": "Setup",
+    "error_stage": null,
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 97
   },
   {
     "platform": "GitHub",
@@ -39806,7 +39832,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7201
+    "elapsed_seconds": 1800
   },
   {
     "platform": "GitHub",
@@ -40690,10 +40716,10 @@
     "platform": "GitHub",
     "name": "EvanLi/Github-Ranking",
     "popularity": 8599,
-    "error_stage": "Setup",
+    "error_stage": null,
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 30
+    "elapsed_seconds": 66
   },
   {
     "platform": "GitHub",
@@ -41311,10 +41337,10 @@
     "platform": "GitHub",
     "name": "cowrie/cowrie",
     "popularity": 5710,
-    "error_stage": "Setup",
+    "error_stage": null,
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 1
+    "elapsed_seconds": 13
   },
   {
     "platform": "PyPI",
@@ -42527,7 +42553,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7200
+    "elapsed_seconds": 1800
   },
   {
     "platform": "GitHub",
@@ -43204,7 +43230,7 @@
     "error_stage": "Analysis",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 7201
+    "elapsed_seconds": 1801
   },
   {
     "platform": "GitHub",
@@ -43369,7 +43395,7 @@
     "error_stage": "Setup",
     "raw_issue_count": 0,
     "issues": [],
-    "elapsed_seconds": 31
+    "elapsed_seconds": 121
   },
   {
     "platform": "PyPI",
