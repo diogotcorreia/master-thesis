@@ -289,7 +289,10 @@ discriminated by platform.
     table.vline(x: 1, start: 0),
     table.vline(x: 3, start: 0, stroke: stroke(dash: "dashed")),
     table.header([Stage], [@pypi], [GitHub], [Total]),
-    [Setup], [#pypi_error_stage_dist.at("Setup")], [#gh_error_stage_dist.at("Setup")], [#error_stage_dist.at("Setup")],
+    [Setup],
+    [#pypi_error_stage_dist.at("Setup", default: 0)],
+    [#gh_error_stage_dist.at("Setup", default: 0)],
+    [#error_stage_dist.at("Setup")],
 
     [Analysis],
     [#pypi_error_stage_dist.at("Analysis")],
@@ -411,11 +414,11 @@ The overall label classification, discriminated by platform, can be visualised i
 
   #lq.diagram(
     width: 10cm,
-    height: 7cm,
+    height: 6cm,
     legend: (position: left + top),
     ylabel: [Number of Issues],
     xaxis: (
-      ticks: ("Vulnerable", "Not Vulnerable").enumerate(),
+      ticks: ("Vulnerable", "Not Vulnerable (False Positive)").enumerate(),
       subticks: none,
     ),
     yaxis: (exponent: none),
@@ -454,8 +457,8 @@ The overall label classification, discriminated by platform, can be visualised i
   )
 ] <fg:issue-label>
 
-Each vulnerable issue has additionally been labeled with a feature list, which
-helps to rank them regarding exploitability.
+As mentioned, each vulnerable issue has additionally been labeled with
+a feature list, which helps to rank them regarding exploitability.
 Four of the features are deemed positive, that is, they increase the likelihood
 of an issue being exploitable, while three of them are deemed negative.
 All vulnerable issues were assumed to have `getattr` access and `setattr` support,
@@ -750,7 +753,34 @@ target object extend a certain class.
   kind: raw,
 )
 
-// TODO description of non-vulnerable reasons
+With regards to the _Not Vulnerable_ issues, there were many reasons for them
+to be deemed not vulnerable, as shown in @fg:not-vuln-issue-reasons.
+An issue can have one or more reasons for not being considered vulnerable,
+with the most common ones being that there was only a single call to `getattr`
+(_Not Recursive_, #not_vulnerable_issues_reasons.at("NonRecursive") issues),
+that the return value of `getattr` would be modified in some way before
+reaching `setattr`
+(_Modified Reference_, #not_vulnerable_issues_reasons.at("ModifiedReference") issues),
+or that the keys passed to `getattr` or `setattr` were not controlled by function
+inputs (_Not Controlled_, #not_vulnerable_issues_reasons.at("NotControlled") issues).
+For the purposes of this experiment, code that unconditionally performed a function
+call while traversing has been marked with _Modified Reference_,
+even if technically that could be part of a successful exploit,
+since it would be introducing too much complexity and deviating
+from the classic class pollution described in @bg:lit-review.
+
+Unsurprisingly, very few issues had already some kind of filtering in place
+to prevent accessing dunder properties such as `__globals__`
+(_Filtered_, #not_vulnerable_issues_reasons.at("Filtered") issues),
+while an even smaller number had some kind of allowlist for the properties that
+could be traversed
+(_Attribute Allowlist_, #not_vulnerable_issues_reasons.at("AttrAllowList") issues).
+
+Finally, #not_vulnerable_issues_reasons.at("Other") issues were marked with _Other_
+since they were not vulnerable but the reason did not match any of the aforementioned
+criteria.
+These issues required all traversed objects to be of a certain class or to
+contain a certain method, which would be unfeasible for class pollution.
 
 #figure(
   caption: [Visualisation of the reasons why issues were deemed not vulnerable,
@@ -809,8 +839,13 @@ target object extend a certain class.
         lq.place(x, y + 0.2, pad(0.2em, [#x]), align: left)
       }),
   )
-] <fg:not-vuln-issue-reaasons>
+] <fg:not-vuln-issue-reasons>
 
-// TODO code examples for non-vulnerable reasons
+// TODO code examples for non-vulnerable reasons (?)
+
+To sum up, #TheTool managed to detect a few vulnerable projects, and a very small
+number of them show high chance of exploitation.
+However, there was also a large number of false positives, which slows down detection
+due to the manual labor required to filter them out.
 
 == Case Study: Vulnerable Library <results:case-study>
