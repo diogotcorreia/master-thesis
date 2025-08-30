@@ -1,5 +1,5 @@
 // data analysis
-#import "../utils/global-imports.typ": lq
+#import "../utils/global-imports.typ": codly, headcount, lq, subpar
 #import "../utils/constants.typ": TheTool, gh_color, pypi_color
 
 #let raw_data = json("../assets/summary.json")
@@ -463,6 +463,8 @@ since that is what the taint models in use by #TheTool were looking for,
 and therefore those were not included as features.
 The feature distribution can be visualised on @fg:vuln-issue-features, keeping in mind
 that an issue can have zero or more features.
+Additionally, example code for each feature, taken from the obtained results,
+can be seen in @code:vulnerable-labels.
 
 Across both platforms, only #vulnerable_issues_features.at("DictAccess") issues
 have _Dict Access_, that is, they allow traversing through the entries of a
@@ -474,7 +476,8 @@ It is worth noting that this feature is not a superset of _Dict Access_, since
 it requires the key to be of type `int`, meaning the vulnerable code must perform
 the appropriate conversion.
 Furthermore, just #vulnerable_issues_features.at("SupportsSetItem") issues
-_Support `__setitem__`_, that is, it is possible to change the value of a dictionary,
+have the _Supports `__setitem__`_ feature,
+that is, it is possible to change the value of a dictionary,
 list or tuple.
 Notably, #filter_list(vulnerable_issues, by_has_features(("DictAccess", "SupportsSetItem"))).len()
 of these issues also have the _Dict Access_ feature, which is one of
@@ -565,7 +568,187 @@ target object extend a certain class.
   )
 ] <fg:vuln-issue-features>
 
-// TODO code examples for issue features
+#show <code:vulnerable-labels>: set block(breakable: true)
+#subpar.super(
+  grid(
+    columns: (1fr,),
+    rows: (auto, auto),
+    gutter: 1em,
+    figure(
+      caption: [Vulnerable code that has been labeled with features
+        _Dict Access_, _List/Tuple Access_, and _Supports `__setitem__`_],
+      [
+        #set text(size: 9pt)
+        #codly.codly(
+          skips: ((2, 12),),
+          header: box(height: 6pt)[`vendor/keypath.py`],
+          footer: [from @pypi package *pyinstrument* at version 5.1.1],
+          offset: 61,
+          highlights: (
+            (line: 78, start: 13, end: none, fill: yellow, tag: [_Dict Access_]),
+            (line: 80, start: 13, end: none, fill: blue, tag: [_List/Tuple Access_]),
+            (line: 85, start: 5, end: none, fill: green, tag: [_Supports `__setitem__`_]),
+            (line: 87, start: 5, end: none, fill: green, tag: [_Supports `__setitem__`_]),
+          ),
+        )
+        ```py
+        def set_value_at_keypath(obj: Any, keypath: str, val: Any):
+          parts = keypath.split('.')
+          for part in parts[:-1]:
+            if isinstance(obj, dict):
+              obj = obj[part]
+            elif type(obj) in [tuple, list]:
+              obj = obj[int(part)]
+            else:
+              obj = getattr(obj, part)
+          last_part = parts[-1]
+          if isinstance(obj, dict):
+            obj[last_part] = val
+          elif type(obj) in [tuple, list]:
+            obj[int(last_part)] = val
+          else:
+            setattr(obj, last_part, val)
+          return True
+        ```
+      ],
+    ),
+    figure(
+      caption: [Vulnerable code that has been labeled with
+        feature _Additional Benefits_ because it starts traversing at globals],
+      [
+        #set text(size: 9pt)
+        #codly.codly(
+          skips: ((2, 13),),
+          header: box(height: 6pt)[`examples/bespoke-stratos-data-generation/util/testing/pyext2.py`],
+          footer: [from GitHub repository *bespokelabsai/curator* at revision 3ee1710],
+          offset: 512,
+          highlights: (
+            (line: 527, start: 3, end: none, fill: purple, tag: [_Additional Benefits_]),
+          ),
+        )
+        ```py
+        def assign(varname, value):
+          fd = inspect.stack()[1][0].f_globals
+          if "." not in varname:
+              fd[varname] = value
+          else:
+              vsplit = list(map(str.strip, varname.split(".")))
+              if vsplit[0] not in fd:
+                  raise NameError("Unknown object: %s" % vsplit[0])
+              base = fd[vsplit[0]]
+              for x in vsplit[1:-1]:
+                  base = getattr(base, x)
+              setattr(base, vsplit[-1], value)
+          return value
+        ```
+      ],
+    ),
+    figure(
+      caption: [Vulnerable code that has been labeled with
+        features _Needs Existing_ and _Value Not Controlled_],
+      [
+        #set text(size: 9pt)
+        #codly.codly(
+          skips: ((2, 23), (3, 9), (4, 65), (6, 3), (19, 17)),
+          header: box(height: 6pt)[`apex/apex/reparameterization/reparameterization.py`],
+          footer: [from GitHub repository *openai/jukebox* at revision 08efbbc],
+          offset: 3,
+          highlights: (
+            (line: 142, start: 14, end: none, fill: orange, tag: [_Needs Existing_]),
+            (line: 144, start: 43, end: 83, fill: maroon, tag: [_Value Not Controlled_]),
+          ),
+        )
+        ```py
+        class Reparameterization(object):
+            def compute_weight(self, module=None, name=None):
+                raise NotImplementedError
+            @staticmethod
+            def get_module_and_name(module, name):
+                name2use = None
+                module2use = None
+                names = name.split('.')
+                if len(names) == 1 and names[0] != '':
+                    name2use = names[0]
+                    module2use = module
+                elif len(names) > 1:
+                    module2use = module
+                    name2use = names[0]
+                    for i in range(len(names)-1):
+                        module2use = getattr(module2use, name2use)
+                        name2use = names[i+1]
+                return module2use, name2use
+            def __call__(self, module, inputs):
+                """callable hook for forward pass"""
+                module2use, name2use = Reparameterization.get_module_and_name(module, self.name)
+                _w = getattr(module2use, name2use)
+                if not self.evaluated or _w is None:
+                    setattr(module2use, name2use, self.compute_weight(module2use, name2use))
+                    self.evaluated = True
+        ```
+      ],
+    ),
+    figure(
+      caption: [Vulnerable code that has been labeled with
+        features _Needs Existing_ and _Additional Constraints_],
+      [
+        #set text(size: 9pt)
+        #codly.codly(
+          skips: ((2, 142),),
+          header: box(height: 6pt)[`paddleformers/peft/vera/vera_model.py`],
+          footer: [from GitHub repository *PaddlePaddle/PaddleFormers* at revision 1e7befa],
+          offset: 32,
+          highlights: (
+            (line: 181, start: 18, end: none, fill: orange, tag: [_Needs Existing_]),
+            (line: 182, start: 55, end: 70, fill: red),
+            (line: 183, start: 60, end: 81, fill: red),
+            (line: 183, start: 97, end: 118, fill: red),
+            (line: 184, start: 34, end: none, fill: red),
+            (line: 186, start: 36, end: none, fill: red, tag: [_Additional Constraints_]),
+          ),
+        )
+        ```py
+        class VeRAModel(nn.Layer):
+            def _find_and_restore_module(self, module_name):
+                parent_module = self.model
+                attribute_chain = module_name.split(".")
+                for name in attribute_chain[:-1]:
+                    parent_module = getattr(parent_module, name)
+                module = getattr(parent_module, attribute_chain[-1])
+                original_model_class = self.restore_layer_map[module.__class__]
+                original_module = original_model_class(in_features=module.weight.shape[0], out_features=module.weight.shape[1])
+                original_module.weight = module.weight
+                if module.bias is not None:
+                    original_module.bias = module.bias
+                setattr(parent_module, attribute_chain[-1], original_module)
+        ```
+      ],
+    ),
+    figure(
+      caption: [Vulnerable code that has been not labeled with any features],
+      [
+        #set text(size: 9pt)
+        #codly.codly(
+          header: box(height: 6pt)[`pytorch_lightning/utilities/parameter_tying.py`],
+          footer: [from @pypi package *pytorch-lightning* at version 2.5.3],
+          offset: 63,
+        )
+        ```py
+        def _set_module_by_path(module: nn.Module, path: str, value: nn.Module) -> None:
+            path = path.split(".")
+            for name in path[:-1]:
+                module = getattr(module, name)
+            setattr(module, path[-1], value)
+        ```
+      ],
+    ),
+  ),
+  // subpar resets the chapter-dependent numbering, so set it again
+  numbering: headcount.dependent-numbering("1.1"),
+  caption: [Real-world examples of vulnerable functions and
+    the feature labels applied to them],
+  label: <code:vulnerable-labels>,
+  kind: raw,
+)
 
 // TODO description of non-vulnerable reasons
 

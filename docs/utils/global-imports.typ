@@ -4,5 +4,7 @@
 #import "@preview/codly-languages:0.1.8"
 #import "@preview/glossarium:0.5.9"
 #import "@preview/lilaq:0.4.0" as lq
+#import "@preview/subpar:0.2.2"
+#import "@preview/headcount:0.1.0"
 
 #let gls-shrt = glossarium.gls-short.with(link: true)
