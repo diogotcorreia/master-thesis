@@ -1,5 +1,5 @@
 // data analysis
-#import "../utils/global-imports.typ": codly, headcount, lq, subpar, gls-shrt
+#import "../utils/global-imports.typ": codly, gls-shrt, headcount, lq, subpar
 #import "../utils/constants.typ": TheTool, gh_color, pypi_color
 
 #let raw_data = json("../assets/summary.json")
@@ -1199,7 +1199,7 @@ as `bytes` and the pass it to `Delta`, as shown in @code:deepdiff-rce.
 
 #figure(
   caption: [Using a pickle to achieve #gls-shrt("rce"), bypassing protections
-  in place by deepdiff],
+    in place by deepdiff],
   [
     #set text(size: 9pt)
     #codly.codly(offset: 29)
@@ -1226,3 +1226,81 @@ as `bytes` and the pass it to `Delta`, as shown in @code:deepdiff-rce.
 To conclude, deepdiff contains both a class pollution vulnerability and
 the necessary gadgets to perform @rce, as long as two calls
 are made to `Delta` with user-controlled input.
+
+=== Vulnerable Application
+
+Upon completing a proof of concept exploit, GitHub was searched for repositories
+that used the affected `Delta` class.
+One repository, *lsst-dm/cm-service*
+#footnote(link("https://github.com/lsst-dm/cm-service"))
+immediately stood out as a potential candidate,
+as it allowed user input to flow into the `Delta` class.
+
+*cm-service* is a Python web service, built and used for the
+Rubin Observatory#footnote(link("https://rubinobservatory.org/"))
+for campaign management.
+It uses FastAPI, a modern web framework to build APIs with Python.
+
+One of the endpoints, `PATCH /cm-service/v2/manifests/{name}`, accepts
+binary data as POST data, which then flows directly into
+the `Delta` class.
+This `Delta` object is then applied to a dictionary, and saved
+into the database, as shown in @code:cm-service-http.
+
+#figure(
+  caption: [HTTP endpoint that accepts binary data, passed directly
+    into the `Delta` class],
+  [
+    #set text(size: 9pt)
+    #codly.codly(
+      skips: ((7, 4), (9, 20), (15, 25), (16, 11)),
+      header: box(height: 6pt)[`src/lsst/cmservice/routers/v2/manifests.py`],
+      footer: [from GitHub repository *lsst-dm/cm-service* at revision f551e2b],
+      offset: 185,
+      highlighted-lines: (264,),
+    )
+    ```py
+    @router.patch(
+        "/{manifest_name_or_id}",
+        summary="Update manifest detail",
+        status_code=202,
+    )
+    async def update_manifest_resource(
+        patch_data: Annotated[bytes, Body()] | Sequence[JSONPatch],
+    ) -> Manifest:
+        use_rfc6902 = False
+        use_deepdiff = False
+        if request.headers["Content-Type"] == "application/json-patch+json":
+            use_rfc6902 = True
+        elif request.headers["Content-Type"] == "application/octet-stream":
+            use_deepdiff = True
+        if use_rfc6902:
+        elif use_deepdiff:
+            if TYPE_CHECKING:
+                assert isinstance(patch_data, bytes)
+            new_manifest["spec"] += Delta(patch_data)
+    ```
+  ],
+) <code:cm-service-http>
+
+Given that `new_manifest["spec"]` is a dictionary, it would normally not
+be possible to traverse to a gadget, as outlined in @bg:cp-limitations.
+However, since `Delta` allows unpickling the aforementioned allow listed
+classes, it is possible to first assign one of those classes, and then
+use it to traverse to the `SAFE_TO_IMPORT` gadget.
+One of the available classes is `deepdiff.helper.Opcode`, defined in the
+`helper.py` file which helpfully imports the `sys` module.
+A particularity of the `sys` module is that it has a `modules`
+dictionary that contains a reference to every module already loaded by the
+application, allowing easy traversal to `deepdiff.serialization`.
+Therefore, a possible exploit, that can lead to @rce, is to first set a
+value to `Opcode` and then use that to traverse to and modify
+`SAFE_TO_IMPORT` to include `posix.system`.
+After that, another request can be made to trigger @rce via
+the pickle exploit already shown in @code:deepdiff-rce.
+For ethical reasons, the full exploit will not be shown for this production
+application.
+
+To conclude, it has become clear from the results that the vulnerability that
+was found, with the help of #TheTool, has been proven to be exploitable in
+real-world applications.

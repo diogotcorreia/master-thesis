@@ -672,6 +672,11 @@ program does not need to call a gadget directly for it to be effective.
   #codly.codly(number-format: numbering.with("1"))
 ] <code:gadget-umask>
 
+=== Limitations <bg:cp-limitations>
+
+// TODO: mention that there are no gadgets on `dict`
+#text(fill: red, lorem(20))
+
 === Summary // TODO: is there a better way to name this?
 
 The results of these literature review let us answer @rq-causes-consequences[].
