@@ -367,7 +367,9 @@ by @code:cp-merge @pp-python-blog.
 
 #figure(caption: [A merge function vulnerable to class pollution, which takes two objects,
   merging their attributes or entries recursively.])[
-  #codly.codly(
+  // FIXME: codly has a bug where setting this annotation will make code blocks
+  // later in the document fail to compile for some reason
+  /*#codly.codly(
     annotation-format: none,
     annotations: (
       (
@@ -379,7 +381,7 @@ by @code:cp-merge @pp-python-blog.
         ],
       ),
     ),
-  )
+  )*/
   ```py
   def merge(src, dst):
     for k, v in src.items():
