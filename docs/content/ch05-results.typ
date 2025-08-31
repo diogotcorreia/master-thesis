@@ -1,5 +1,5 @@
 // data analysis
-#import "../utils/global-imports.typ": codly, headcount, lq, subpar
+#import "../utils/global-imports.typ": codly, headcount, lq, subpar, gls-shrt
 #import "../utils/constants.typ": TheTool, gh_color, pypi_color
 
 #let raw_data = json("../assets/summary.json")
@@ -1090,7 +1090,7 @@ the exploit fail, as shown in @code:deepdiff-delta-string-path.
   ],
 ) <code:deepdiff-delta-string-path>
 
-Upon further investigation, it appears there is a way to bypass this restriction
+Upon further investigation, it appears that there is a way to bypass this restriction
 by providing the path in the internal representation used by `Delta` instead of
 as a string, as the parsing function has an early return if the path is already
 a list or tuple.
@@ -1105,7 +1105,8 @@ be used as keys of a dictionary, and it still works for the purposes of the
 exploit.
 
 #figure(
-  caption: [Using dunder attributes in the path given to `Delta` does not work],
+  caption: [Polluting global variables by using using
+    `Delta`'s internal path representation instead],
   [
     #set text(size: 9pt)
     #codly.codly(offset: 9)
@@ -1129,3 +1130,99 @@ exploit.
     ```
   ],
 ) <code:deepdiff-delta-tuple-path>
+
+=== Gadgets
+
+Another relevant feature of the `Delta` class is its ability to be
+serialised and deserialised via Python's `pickle`
+#footnote[#link("https://docs.python.org/3/library/pickle.html")] module.
+While this would normally be a huge security risk, as noted by Python's
+own documentation, deepdiff restricts the allowed classes and accessible
+globals to mitigate this security this.
+For that reason, deepdiff defines an allow list at
+`deepdiff.serialization.SAFE_TO_IMPORT`,
+which contains expected classes like `builtins.dict`, but also other classes
+like `re.Pattern` and `deepdiff.helper.Opcode`.
+If a class like `posix.system` is added to this allow list, the app becomes
+vulnerable to @rce through unpickling user-controlled data @pickle-rce.
+
+In addition to the already shown `values_changed` action, the `Delta` class
+also supports various other actions, such as `set_item_added`,
+`dictionary_item_added`, `attribute_added`, and many others.
+These actions are applied to the target object in a predefined order,
+with `values_changed` being the first, and the others following in the
+same order as they were presented in the previous sentence.
+For modifying the `SAFE_TO_IMPORT`, which is of type `set`, the
+`set_item_added` action must be used, as shown in
+@code:deepdiff-modifying-safe-to-import by taking advantage of the
+existing import of the `Delta` class to traverse to `SAFE_TO_IMPORT`.
+
+#figure(
+  caption: [Polluting `SAFE_TO_IMPORT` by adding `posix.system` to the
+    unpickling allow list],
+  [
+    #set text(size: 9pt)
+    #codly.codly(offset: 9)
+    ```py
+    delta = Delta(
+        {
+            "set_item_added": {
+                (
+                    ("root", "GETATTR"),
+                    ("foo", "GET"),
+                    ("__init__", "GETATTR"),
+                    ("__globals__", "GETATTR"),
+                    ("Delta", "GET"),
+                    ("__init__", "GETATTR"),
+                    ("__globals__", "GETATTR"),
+                    ("pickle_load", "GET"),
+                    ("__globals__", "GETATTR"),
+                    ("SAFE_TO_IMPORT", "GET"),
+                ): set(["posix.system"])
+            },
+        }
+    )
+    c = a + delta
+
+    from deepdiff.serialization import SAFE_TO_IMPORT
+    print("posix.system" in SAFE_TO_IMPORT) # Prints True
+    ```
+  ],
+) <code:deepdiff-modifying-safe-to-import>
+
+As previously mentioned, when `posix.system` is in the allow list,
+it becomes possible to exploit the pickle deserialiser to
+gain @rce in the system running the Python application @pickle-rce.
+Given that `Delta` also accepts input as a `bytes` object, which
+it then unpickles, it is possible to serialise a malicious class
+as `bytes` and the pass it to `Delta`, as shown in @code:deepdiff-rce.
+
+#figure(
+  caption: [Using a pickle to achieve #gls-shrt("rce"), bypassing protections
+  in place by deepdiff],
+  [
+    #set text(size: 9pt)
+    #codly.codly(offset: 29)
+    ```py
+    import os
+    import pickle
+    class RCE:
+        def __reduce__(self):
+            cmd = 'echo 1337 > /tmp/pwned'
+            return os.system, (cmd,)
+    payload = pickle.dumps({'_': RCE()})
+    print(payload) # Prints b'\x80\x04\x958\x00...'
+
+    # in the vulnerable application...
+    Delta(payload)
+    ```
+    ```sh
+    $ cat /tmp/pwned
+    1337
+    ```
+  ],
+) <code:deepdiff-rce>
+
+To conclude, deepdiff contains both a class pollution vulnerability and
+the necessary gadgets to perform @rce, as long as two calls
+are made to `Delta` with user-controlled input.

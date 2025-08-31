@@ -61,6 +61,18 @@ deepdiff-dependents:
   parent:
     type: web
     title: GitHub
+pickle-rce:
+  type: article
+  title: Exploiting Python pickles
+  date: 2020-04-05
+  author: David Hamann
+  url:
+    value: https://davidhamann.de/2020/04/05/exploiting-python-pickle/
+    visited: 2025-08-31
+  parent:
+    type: web
+    name: David Hamann's Blog
+    url: https://davidhamann.de/
 
 # From Zotero:
 ghunter:
