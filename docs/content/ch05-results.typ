@@ -153,6 +153,15 @@
 #let not_vulnerable_pypi_issues_reasons = extract_reasons(not_vulnerable_pypi_issues)
 #let not_vulnerable_gh_issues_reasons = extract_reasons(not_vulnerable_gh_issues)
 
+#let case_study_considered = vulnerable_projects.filter(p => p
+  .at("issues")
+  .any(issue => (
+    issue.at("label").at("kind") == "Vulnerable"
+      and issue.at("label").at("features").any(f => f.at("kind") == "DictAccess")
+      and issue.at("label").at("features").any(f => f.at("kind") == "SupportsSetItem")
+  )))
+
+
 // text
 = Evaluation <results>
 
@@ -868,3 +877,255 @@ However, there was also a large number of false positives, which slows down dete
 due to the manual labor required to filter them out.
 
 == Case Study: Vulnerable Library <results:case-study>
+
+#let format_project_link(project) = {
+  let platform = project.at("platform")
+  let name = project.at("name")
+  if platform == "PyPI" {
+    link("https://pypi.org/project/" + name)[#name]
+  } else if platform == "GitHub" {
+    link("https://github.com/" + name)[#name]
+  } else {
+    name
+  }
+}
+
+#let deepdiff_project = raw_data.find(project => project.at("name") == "deepdiff")
+#let deepdiff_issues = extract_issues((deepdiff_project,))
+#let deepdiff_vulnerable_issues = filter_list(deepdiff_issues, by_is_issue_vulnerable)
+#let deepdiff_not_vulnerable_issues = filter_list(deepdiff_issues, by_is_issue_vulnerable, inv: true)
+
+#box(
+  fill: red.lighten(50%),
+  stroke: 3pt + red,
+  width: 100%,
+  inset: 1em,
+)[
+  *WARNING* (2025-08-30): the vulnerabilities in this section are still being
+  responsibly disclosed.
+  For ethical (and legal) reasons, *avoid sharing this document* and spreading
+  the information below before they are made public by the affected projects.
+]
+
+Building on the results of the previous section, a few selected projects were
+manually audited to see if any of them would be exploitable.
+Since this is a very time-consuming process, only projects that had the most
+likelihood of being exploitable were considered, that is, those that had at least
+an issue with both the _Dict Access_ and _Supports `__setitem__`_ features.
+Only #case_study_considered.len() projects met this criteria:
+#case_study_considered.map(format_project_link).join(", ", last: ", and ").
+While the latter two did not reveal any obvious exploitation paths, the *deepdiff*
+package was found to be exploitable and contain an @rce gadget as well.
+
+*deepdiff* is a Python library that recursively calculates the difference between
+two objects or pieces of data, and also provides methods to apply the resulting
+diffs to existing objects.
+The project has around #format_popularity(deepdiff_project.at("popularity"))
+downloads on @pypi, 2.4k stars on GitHub, and approximately 18k dependent repositories,
+according to GitHub statistics @deepdiff-dependents.
+
+#TheTool detected #deepdiff_issues.len() issues on *deepdiff*,
+#deepdiff_vulnerable_issues.len() of which _Vulnerable_ and
+#deepdiff_not_vulnerable_issues.len() _Not Vulnerable_.
+While the issues mostly pointed to the Delta feature of the library,
+none of them actually represent the piece of exploitable code.
+Likely due to a function of the vulnerable code path being called
+through a variable, as shown in @code:deepdiff-get-nested-obj-var,
+Pysa failed to detect the exact code path that leads to class pollution.
+
+#figure(
+  caption: [Part of the exploitable code path gets assigned to the
+    `self.get_nested_obj` attribute, failing detection by Pysa],
+  [
+    #set text(size: 9pt)
+    #codly.codly(
+      skips: ((5, 44), (6, 3), (7, 17), (10, 72)),
+      header: box(height: 6pt)[`deepdiff/delta.py`],
+      footer: [from @pypi package *deepdiff* at version 8.6.0],
+      offset: 17,
+      highlighted-lines: (164, 166),
+    )
+    ```py
+    from deepdiff.path import (
+        _path_to_elements, _get_nested_obj, _get_nested_obj_and_force,
+        GET, GETATTR, parse_path, stringify_path,
+    )
+    class Delta:
+        def __init__(
+            force: bool=False,
+            fill: Any=not_found,
+        ):
+            if force:
+                self.get_nested_obj = _get_nested_obj_and_force
+            else:
+                self.get_nested_obj = _get_nested_obj
+
+    ```
+    #codly.codly(
+      header: box(height: 6pt)[`deepdiff/path.py`],
+      footer: [from @pypi package *deepdiff* at version 8.6.0],
+      offset: 117,
+    )
+    ```py
+    def _get_nested_obj(obj, elements, next_element=None):
+        for (elem, action) in elements:
+            if action == GET:
+                obj = obj[elem]
+            elif action == GETATTR:
+                obj = getattr(obj, elem)
+        return obj
+    ```
+  ],
+) <code:deepdiff-get-nested-obj-var>
+
+This `get_nested_obj` function is then called in various parts of the `Delta`
+class, and in certain cases, its return value is passed to the
+`_simple_set_elem_value` function's `value` parameter,
+which contains a `setattr` (and `__setitem__`) sink,
+as shown in @code:deepdiff-simple-set-elem-value.
+
+#figure(
+  caption: [Sink that can be used to set the value of an attribute or
+    a dictionary entry],
+  [
+    #set text(size: 9pt)
+    #codly.codly(
+      skips: ((2, 213), (21, 1), (24, 1)),
+      header: box(height: 6pt)[`deepdiff/delta.py`],
+      footer: [from @pypi package *deepdiff* at version 8.6.0],
+      offset: 65,
+      highlighted-lines: (287, 301),
+    )
+    ```py
+    class Delta:
+        def _simple_set_elem_value(self, obj, path_for_err_reporting, elem=None, value=None, action=None):
+            """
+            Set the element value directly on an object
+            """
+            try:
+                if action == GET:
+                    try:
+                        obj[elem] = value
+                    except IndexError:
+                        if elem == len(obj):
+                            obj.append(value)
+                        elif self.fill is not not_found and elem > len(obj):
+                            while len(obj) < elem:
+                                if callable(self.fill):
+                                    obj.append(self.fill(obj, value, path_for_err_reporting))
+                                else:
+                                    obj.append(self.fill)
+                            obj.append(value)
+                        else:
+                elif action == GETATTR:
+                    setattr(obj, elem, value)  # type: ignore
+                else:
+            except (KeyError, IndexError, AttributeError, TypeError) as e:
+    ```
+  ],
+) <code:deepdiff-simple-set-elem-value>
+
+Something that stands out in both of these functions is the `action`
+variable, which seems to control whether to perform the access using
+`getattr`/`setattr` or `__getitem__`/`__setitem__`.
+Reading deepdiff's documentation and examples reveals that the `Delta`
+class commonly takes a `DeepDiff` object as an argument, which provides
+it with, amongst other details, a paths in a string form, such as
+`root.['foo'].bar`.
+This information is stored internally by `Delta` in its `diff` attribute
+as a Python dictionary.
+@code:deepdiff-delta-usage shows the expected usage of the library,
+including applying the delta to an object.
+
+#figure(
+  caption: [Common usage of `Delta`, where it is given the result of `DeepDiff`
+    and then applied to an object],
+  [
+    #set text(size: 9pt)
+    ```py
+    from deepdiff import Delta, DeepDiff
+
+    class Foo:
+        def __init__(self, bar):
+            self.bar = bar
+
+    a = {"foo": Foo("qux")}
+    b = {"foo": Foo("baz")}
+    diff = DeepDiff(a, b)
+    delta = Delta(diff)
+    c = a + delta
+    assert c["foo"].bar == "baz"
+
+    print(delta.diff)
+    # {'values_changed': {"root['foo'].bar": {'new_value': 'baz'}}}
+    ```
+  ],
+) <code:deepdiff-delta-usage>
+
+Another feature of the `Delta` class is that it also accepts a dictionary
+in that same format as an argument, no `DeepDiff` class required.
+While it seems this would allow for class pollution by changing the path to
+traverse `__globals__`, it appears that the library skips
+any attributes starting with `__` when parsing the given path, making
+the exploit fail, as shown in @code:deepdiff-delta-string-path.
+
+#figure(
+  caption: [Using dunder attributes in the path given to `Delta` does not work],
+  [
+    #set text(size: 9pt)
+    #codly.codly(offset: 9)
+    ```py
+    PWNED = False
+    delta = Delta(
+        {
+          "values_changed": {
+            "root['foo'].__init__.__globals__.PWNED": {"new_value": "baz"}
+          }
+        }
+    )
+    # Fails with: Unable to get the item at root['foo'].__init__.__globals__.PWNED
+    c = a + delta
+    print(PWNED) # Prints False
+    ```
+  ],
+) <code:deepdiff-delta-string-path>
+
+Upon further investigation, it appears there is a way to bypass this restriction
+by providing the path in the internal representation used by `Delta` instead of
+as a string, as the parsing function has an early return if the path is already
+a list or tuple.
+Paths are represented by a list of tuples with 2 elements, one for the name
+of the attribute/key, and another one for the previously mentioned action.
+Therefore, it is possible to use, for example, `('__globals__', 'GETATTR')`,
+to access the `__globals__` attribute.
+@code:deepdiff-delta-tuple-path shows a working example of class pollution
+by taking advantage of this path parsing behaviour.
+It is worth noting that a tuple was used instead of a list, since lists cannot
+be used as keys of a dictionary, and it still works for the purposes of the
+exploit.
+
+#figure(
+  caption: [Using dunder attributes in the path given to `Delta` does not work],
+  [
+    #set text(size: 9pt)
+    #codly.codly(offset: 9)
+    ```py
+    PWNED = False
+    delta = Delta(
+        {
+            "values_changed": {
+                (
+                    ("root", "GETATTR"),
+                    ("foo", "GET"),
+                    ("__init__", "GETATTR"),
+                    ("__globals__", "GETATTR"),
+                    ("PWNED", "GET"),
+                ): {"new_value": "baz"}
+            }
+        }
+    )
+    c = a + delta
+    print(PWNED) # Prints baz
+    ```
+  ],
+) <code:deepdiff-delta-tuple-path>

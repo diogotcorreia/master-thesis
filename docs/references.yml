@@ -52,6 +52,15 @@ pypi-downloads:
   parent:
     type: reference
     title: Python Packaging User Guide
+deepdiff-dependents:
+  type: web
+  title: deepdiff's Dependency Graph
+  url:
+    value: https://github.com/seperman/deepdiff/network/dependents
+    visited: 2025-08-30
+  parent:
+    type: web
+    title: GitHub
 
 # From Zotero:
 ghunter:
