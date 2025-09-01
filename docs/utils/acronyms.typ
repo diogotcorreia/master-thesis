@@ -21,6 +21,11 @@
     description: "A university in Stockholm",
   ),
   (
+    key: "ml",
+    short: "ML",
+    long: "Machine Learning",
+  ),
+  (
     key: "pypi",
     short: "PyPI",
     long: "Python Package Index",

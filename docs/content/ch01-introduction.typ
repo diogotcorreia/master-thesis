@@ -41,7 +41,7 @@ The specifics of the problem are further outlined in @bg:python.
 
 == Research Questions <intro:rq>
 
-This degree project aims to answer the following four research questions:
+This degree project aims to answer the following three research questions:
 
 #[
   #set enum(numbering: wrapped-enum-numbering(
@@ -56,7 +56,7 @@ This degree project aims to answer the following four research questions:
     detect class pollution in Python?
   + #enum-label("rq-widespread")
     Is class pollution in Python prevalent and exploitable in
-    real world applications?
+    real world projects?
 ]
 
 These reflect the iterative process of understanding the vulnerability at

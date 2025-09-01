@@ -46,17 +46,26 @@
   }
 }
 
-#let calc_popularity(list) = {
-  let popularity = list.map(project => project.at("popularity"))
-  let min = calc.min(..popularity)
-  let max = calc.max(..popularity)
-  let median = median(popularity)
+#let calc_list_stats(list) = {
+  let min = calc.min(..list)
+  let max = calc.max(..list)
+  let median = median(list)
   (
-    popularity: popularity,
+    list: list,
     min: min,
     max: max,
     median: median,
   )
+}
+
+#let calc_popularity(list) = {
+  let popularity = list.map(project => project.at("popularity"))
+  calc_list_stats(popularity)
+}
+
+#let calc_elapsed_seconds(list) = {
+  let elapsed_seconds = list.map(project => project.at("elapsed_seconds"))
+  calc_list_stats(elapsed_seconds)
 }
 
 #let calc_error_reason_dist(list) = {
@@ -116,6 +125,9 @@
 
 #let pypi_popularity = calc_popularity(pypi_projects)
 #let gh_popularity = calc_popularity(gh_projects)
+#let projects_elapsed_seconds = calc_elapsed_seconds(projects_success)
+#let pypi_elapsed_seconds = calc_elapsed_seconds(pypi_projects)
+#let gh_elapsed_seconds = calc_elapsed_seconds(gh_projects)
 
 #let total_runtime_seconds = raw_data.map(project => project.at("elapsed_seconds")).sum()
 #let success_runtime_seconds = projects_success.map(project => project.at("elapsed_seconds")).sum()
@@ -244,7 +256,7 @@ information was fetched on the same date.
       xaxis: (position: top, mirror: true, format-ticks: popularity-tick-formatter),
       xscale: "log",
       xlabel: [Downloads],
-      lq.hboxplot(stroke: pypi_color, y: 0, pypi_popularity.popularity),
+      lq.hboxplot(stroke: pypi_color, y: 0, pypi_popularity.list),
     )
 
     #lq.diagram(
@@ -254,7 +266,7 @@ information was fetched on the same date.
       xaxis: (format-ticks: popularity-tick-formatter),
       xscale: "log",
       xlabel: [Stars],
-      lq.hboxplot(stroke: gh_color, y: 0, gh_popularity.popularity),
+      lq.hboxplot(stroke: gh_color, y: 0, gh_popularity.list),
     )
   ],
 ) <fg:popularity-distribution>
@@ -285,9 +297,31 @@ projects that triggered a bug in Pysa and got stuck in a loop, being killed
 after a 30 minute timeout.
 Ignoring the analysis of failed projects, the total runtime excluding manual work is
 just #format_time(success_runtime_seconds).
+Taking into account only successfully analysed projects, the automated analysis
+time for each individual project ranged
+between #projects_elapsed_seconds.min seconds and
+#calc.round(projects_elapsed_seconds.max / 60, digits: 1) minutes,
+with a median value of just #projects_elapsed_seconds.median seconds.
 During analysis, #TheTool has been run exclusively on a shared machine with an
 AMD EPYC 7742 64-core processor and 512GB of memory, although limited to
 using only 32 cores.
+
+#figure(
+  caption: [Analysis time distribution for the #projects_success.len()
+    projects that were successfully analysed],
+  [
+    #lq.diagram(
+      width: 11cm,
+      height: 4cm,
+      yaxis: (ticks: ([@pypi], [GitHub]).enumerate(), subticks: none),
+      xaxis: (exponent: none),
+      xscale: "log",
+      xlabel: [Analysis time (seconds)],
+      lq.hboxplot(stroke: pypi_color, y: 1, pypi_elapsed_seconds.list),
+      lq.hboxplot(stroke: gh_color, y: 0, gh_elapsed_seconds.list),
+    )
+  ],
+) <fg:elapsed-seconds-distribution>
 
 Unfortunately, #projects_error.len() projects failed to be analysed,
 mostly due to the aforementioned bug in Pysa,
@@ -332,6 +366,8 @@ discriminated by platform.
   )
 ] <tbl:error-reason>
 
+#let type_i_error_rate = calc.round((not_vulnerable_projects.len() / has_issues_projects.len()) * 100, digits: 1)
+
 Out of the #projects_success.len() projects successfully analysed,
 a total of #no_issues_projects.len()
 (#{ calc.round(no_issues_projects.len() / projects_success.len(), digits: 3) * 100 }%)
@@ -342,7 +378,7 @@ As can be seen by @fg:projects-issue, the amount of vulnerable projects varies
 slightly by platform, with only #vulnerable_pypi_projects.len() @pypi projects
 being vulnerable in contrast with #vulnerable_gh_projects.len() GitHub projects.
 From a projects perspective, this means there is a Type-I error rate of
-#calc.round((not_vulnerable_projects.len() / has_issues_projects.len()) * 100, digits: 1)%.
+#type_i_error_rate%.
 
 #figure(
   caption: [Visualisation of how many projects have been found to possibly
@@ -1304,3 +1340,15 @@ application.
 To conclude, it has become clear from the results that the vulnerability that
 was found, with the help of #TheTool, has been proven to be exploitable in
 real-world applications.
+
+== Tool Tweaks
+
+#text(fill: red, lorem(50))
+
+=== Installing Dependencies <results:install-deps>
+
+#text(fill: red, lorem(50))
+
+=== Calls to getattr Count <results:getattr-count>
+
+#text(fill: red, lorem(50))
