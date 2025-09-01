@@ -1,6 +1,6 @@
 = Conclusions and Future Work
 
-#lorem(50)
+#text(fill: red, lorem(50))
 
 #set text(fill: red)
 Hopefully, the results of the accompanying literature review,

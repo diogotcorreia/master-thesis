@@ -1,5 +1,3 @@
 = Usage Instructions <usage>
 
-Hmm...
-
-#lorem(1000)
+#text(fill: red, lorem(1000))

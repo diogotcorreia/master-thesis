@@ -699,7 +699,7 @@ bypass, or even @rce.
 - analyse source code directly; no execution
 - difficult in python due to dynamic/lax typing
 
-#lorem(20)
+#text(fill: red, lorem(20))
 
 === Taint Analysis
 
@@ -707,4 +707,4 @@ bypass, or even @rce.
 
 == Previous Work
 
-#lorem(50)
+#text(fill: red, lorem(50))

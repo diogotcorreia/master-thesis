@@ -25,7 +25,7 @@
   localized-info: (
     en: (
       title: "Uncovering Class Pollution In Python",
-      subtitle: lorem(7),
+      subtitle: text(fill: red, lorem(7)),
       abstract: include "./content/abstract-1-en.typ",
       keywords: (
         "python",
@@ -36,8 +36,8 @@
       ),
     ),
     sv: (
-      title: "Svenska Översättningen av Titeln",
-      subtitle: "Svenska Översättningen av Undertiteln",
+      title: text(fill: red, lorem(7)), // TODO
+      subtitle: text(fill: red, lorem(7)), // TODO
       abstract: include "./content/abstract-2-sv.typ",
       keywords: (), // TODO
     ),
