@@ -1,3 +1,4 @@
+#import "../utils/global-imports.typ": codly
 #import "../utils/constants.typ": TheTool
 #import "./ch05-results.typ": case_study_considered, projects_elapsed_seconds, projects_success, type_i_error_rate
 
@@ -5,9 +6,11 @@
 
 In this chapter, an interpretation of the results is presented with regards to
 the research questions in @discussion:rq,
-while limitations of the developed implementation and method taken are
-discussed in @discussion:limitations.
-Then, proposals and ideas for future work are laid out in @discussion:futurework.
+while mitigations to this class of vulnerabilities is discussed
+in @discussion:mitigations.
+Then, limitations of the developed implementation and method taken are
+discussed in @discussion:limitations,
+while proposals and ideas for future work are laid out in @discussion:futurework.
 
 == Research Questions <discussion:rq>
 
@@ -183,6 +186,42 @@ class pollution is not prevalent in most Python applications, it is still
 a vulnerability that needs to be accounted for.
 Notably, the obtained results show that when it is exploitable,
 the consequences can be very serious and lead to @rce.
+
+== Mitigations <discussion:mitigations>
+
+When it comes to mitigating class pollution, the solution is rather simple:
+restrict traversal on keys that start and end in `__`.
+For most applications, this change would not affect functionality and
+would prevent this vulnerability.
+An example implementation of this fix is presented in @code:cp-fix.
+
+#figure(
+  caption: [Mitigating class pollution by forbidding dunder attributes
+    during traversal],
+  [
+    #set text(size: 9pt)
+    #codly.codly(highlighted-lines: (4, 5))
+    ```py
+    def setattr_recursive(obj: any, path: str, value: any) -> None:
+      path = path.split(".")
+      for name in path[:-1]:
+        if path.starswith("__") or path.endswith("__"):
+          raise ValueError("traversing dunder attributes is not allowed")
+        module = getattr(module, name)
+      setattr(module, path[-1], value)
+    ```
+  ],
+) <code:cp-fix>
+
+However, for certain libraries or applications, that mitigation might break
+functionality as it could be necessary to traverse through other,
+benign, dunder attributes.
+One compromise solution found by the developers of *pydash* has been to forbid only
+problematic dunder attributes such as `__globals__` and `__builtins__`
+#footnote(link("https://github.com/dgilland/pydash/issues/180")).
+While this does not defend against gadgets in the same class hierarchy,
+it still defeats all the potentially dangerous gadgets that
+could be present in other parts of the application.
 
 == Limitations <discussion:limitations>
 
