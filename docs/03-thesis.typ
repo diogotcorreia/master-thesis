@@ -86,6 +86,8 @@
   school: "EECS",
   // TRITA number assigned to thesis after final examiner approval
   trita-number: "2024:0000", // TODO
+  // Host company collaborating for this thesis; may be none
+  host-company: none,
   // Names of opponents for this thesis; may be none until they're assigned
   opponents: none, // TODO
   // Thesis presentation details; may be none until it's scheduled and set.
