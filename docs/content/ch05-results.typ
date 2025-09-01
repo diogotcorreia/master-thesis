@@ -791,7 +791,7 @@ target object extend a certain class.
       ],
     ),
     figure(
-      caption: [Vulnerable code that has been not labeled with any features],
+      caption: [Vulnerable code that has not been labeled with any features],
       [
         #set text(size: 9pt)
         #codly.codly(
