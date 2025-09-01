@@ -422,8 +422,9 @@ Python implementations other than CPython.
 
 Unfortunately, both `__globals__` and `__builtins__`
 #footnote[
-  `__builtins__` might, under certain circumstances, return a module instead,
-  which can be traversed using `getattr`
+  `__builtins__` might, under certain specific circumstances, return a module instead,
+  which can be traversed using `getattr`.
+  However, most of the time, it returns a `dict`.
 ]
 return a dictionary, which
 cannot be traversed using `getattr`.
@@ -481,7 +482,7 @@ both `getattr` and `__getitem__`, and then either `setattr` or `__setitem__`.
 
 While this work is mostly focused on finding dangerous constructs rather than gadgets,
 it is still important to highlight some of them, both for the relevance of this
-degree project, as well as to aid with creating a proof-of-concept when reporting
+degree project, as well as to aid with creating a proof of concept when reporting
 vulnerabilities.
 
 ==== Mutating Built-ins
@@ -674,12 +675,20 @@ program does not need to call a gadget directly for it to be effective.
 
 === Limitations <bg:cp-limitations>
 
-// TODO: mention that there are no gadgets on `dict`
-#text(fill: red, lorem(20))
+A commonality between the gadgets in the previous section is that they
+either require access to `__globals__` to perform some kind of traversal,
+or need to exist in the same class hierarchy as the start traversal object.
+However, this does not work on classes defined natively in CPython, at the C++
+level, because those are immutable.
+Furthermore, all of their methods lack any reference to `__globals__`,
+as well as `__defaults__` and `__kwdefaults__`.
+In practice, this means that even given a function vulnerable to class
+pollution, if traversal starts in a native class, such as a `dict`,
+`list` or `tuple`, the code is not exploitable.
 
 === Summary // TODO: is there a better way to name this?
 
-The results of these literature review let us answer @rq-causes-consequences[].
+The results of this literature review let us answer @rq-causes-consequences[].
 In summary, class pollution can be exploited via recursive calls to
 `getattr` and `__getitem__`, finalised by a call to `setattr` or `__setitem__`.
 Many gadgets become accessible when it is possible to traverse through the
