@@ -1,4 +1,5 @@
 #import "../utils/constants.typ": TheTool
+#import "../utils/global-imports.typ": pep
 
 = #TheTool <thing>
 
@@ -13,13 +14,16 @@ and explains its implementation in @thing:impl.
 
 #figure(
   // TODO
-  rect(fill: red, height: 10em, lorem(5)),
+  rect(fill: red, height: 10em, [
+    ALT: A flowchart style diagram that shows all the steps taken
+    during the analysis of the full dataset.
+  ]),
   caption: [Analysis pipeline for each entry in the dataset using #TheTool],
 ) <fg:tool-flowchart>
 
-The architecture of the tool can be divided into three major steps:
+The architecture of the tool can be divided into four major steps:
 optionally resolving dependencies; running taint analysis;
-and result processing.
+result processing; and issue labeling.
 Additionally, two external tools are heavily used by #TheTool:
 *uv*#footnote[https://docs.astral.sh/uv/], a modern Python package
 manager by Astral, is used for resolving and installing dependencies;
@@ -27,37 +31,61 @@ and *Pysa*#footnote[https://pyre-check.org/docs/pysa-basics/],
 a static analyser by Meta (formerly Facebook), is used to perform
 taint analysis on a Python project.
 
-Each of these three steps plays a major role in order to obtain
-a successful analysis.
+Analysis starts with by reading the provided
+dataset file and performing actions for each project in it.
+Firstly, if not already done, the source is downloaded,
+either from PyPI or from GitHub, and the tarball saved to disk.
+Secondly, the downloaded archive is extracted to a working directory,
+where the analysis will be performed.
+Thirdly, optionally and if enabled, requirement files are searched to
+compile a list of all dependencies, and then *uv* is used to install
+them.
+Then, the Pysa configuration files are setup in the analysis directory,
+and Pysa begins running.
+Lastly, once taint analysis is done, the results from Pysa are read,
+processed to remove false positives, and saved to a report file
+in the JSON format.
+
+Then, a human has to go through all the issues raised by Pysa
+and label them as either vulnerable or not vulnerable, and why.
+This step is aided by #TheTool, by allowing a user to quickly
+inspect the issue and apply a label to it.
+
+Finally, analysis ends with the results being combined into
+a single `summary.json` file,
+which stores a high-level view of the issues found.
+
+Further information on how each of these stages is implemented
+can be found on @thing:impl.
+
+=== Dependencies
+
+As mentioned, #TheTool is able to detect which dependencies
+are needed for a given project and install them before
+performing taint analysis.
 While Pysa can work without installing the dependencies of the
 project being analysed, it benefits from more information
 in order to provide accurate taint propagation.
-Otherwise, Pysa would fallback to the so-called obscure models,
+Otherwise, Pysa would fallback to the so-called obscure models
+when reaching references to third-party code,
 which just assume that all taint from the arguments of a function
 call is propagated to its outputs.
 Furthermore, installing dependencies has the benefit that the
 dependencies of the project are also analysed for class pollution,
 therefore significantly increasing the number of projects analysed.
+
 However, installing dependencies can significantly slow down analysis,
-as well as introduce false positives, as later explored in @results.
-After the analysis is performed, there is also a need to parse
-Pysa's output, which is done by compiling the information
-present in the output into a list of taint traces that highlight
-how the taint flows from the source to the sink.
-Further information on how each of these stages is implemented
-can be found on @thing:impl.
-
-Finally, #TheTool prints a summary of the analysis, highlighting
-which projects might have class pollution, errors, warnings, and
-those that are deemed safe from class pollution.
-
-=== Analysis Outcome
-
-#text(fill: red, lorem(50))
+as well as introduce false positives, as later explored in @results:install-deps.
+For that reason, installing dependencies is optional and is
+disabled by default.
 
 == Taint Models <thing:taint-models>
 
-#TheTool ships with the following Pysa taint models that detect class pollution:
+Out of the box, #TheTool provides Pysa taint models that are able to
+identify class pollution, as can be seen in @code:pysa-taint-models.
+These models assume that class pollution can be identified by a flow from
+the return value of `getattr` (`TaintSource`) to the first argument of `setattr` (`TaintSink`),
+given the conclusion of the literature review in @bg:lit-review.
 
 #figure(caption: [Pysa taint models that detect class pollution])[
   ```py
@@ -76,10 +104,6 @@ those that are deemed safe from class pollution.
   ): ...
   ```
 ] <code:pysa-taint-models>
-
-These models assume that class pollution can be identified by a flow from
-the return value of `getattr` (`TaintSource`) to the first argument of `setattr` (`TaintSink`),
-given the conclusion of the literature review in @bg:lit-review.
 
 While class pollution can also be achieved using `__setitem__` as a sink instead of
 `setattr`, Pysa does not accurately support this due to the lack of type information,
@@ -106,6 +130,10 @@ Finally, the @cli for #TheTool has been made using Rust, as outlined
 in @thing:cli, due to its performance, correctness,
 and the author's familiarity with the language.
 
+The full source code for #TheTool can be found in the accompanying repository
+#footnote(link("https://github.com/diogotcorreia/master-thesis"))
+on GitHub.
+
 === Nix <thing:nix>
 
 While Nix is not the cornerstone of this project, it is still
@@ -123,23 +151,104 @@ Instructions on how to use this environment can be found on @usage.
 
 === Dataset Generator <thing:dataset-gen>
 
-#text(fill: red, lorem(50))
+To run #TheTool across a large number of projects,
+a `dataset.toml` file is needed,
+containing source information about each project that needs
+to be analysed.
+This TOML file contains information for each project,
+such as a unique identifier,
+information for downloading the source code,
+and some metadata such as number of starts or download count.
+In case of @pypi projects, the source information contains the package
+name, the version, an archive name,
+and a direct download URL for the respective archive.
+On the other hand, for GitHub projects, the owner and repository name
+are stored, along with a commit revision to use.
 
-// - python scripts (3 scripts + random picker)
-// - save cache, etc
-// - explain fields saved
-// - format of the dataset
+For this reason, some Python scripts have been developed to automatically
+gather a dataset matching the specifications outlined in @method:data-collection.
+These scripts gather packages from @pypi and repositories from GitHub,
+and then randomly sample 3000 projects across both datasets,
+saving them in the aforementioned TOML format.
 
-#set text(fill: red)
-To obtain this dataset, GitHub's Search API was used, in particular the
-`/search/repositories` endpoint.
-While this endpoint has a limit of 100 items per page, and a maximum of 10
+#heading(level: 4, numbering: none, outlined: false)[PyPI]
+
+Expanding on what has already been outlined in @method:sampling,
+once the list of the 15 thousand most downloaded @pypi packages
+is saved, a script is run to determine the latest version of
+each package and its download URL.
+While this seems trivial at first, not all packages provide so-called
+wheels for every operating system, requiring some decision logic to
+decide which file needs to be downloaded during analysis.
+
+To fetch information about a package, the script uses the JSON-based Simple API
+as defined by #pep(691), which provides the list of versions as
+well as a list of all downloadable archives across all versions.
+The latest version is saved, along with all the archives belonging to that version.
+
+Then, it is necessary to decide which archive is the best to perform taint analysis
+on.
+While it is unlikely this will have a significant impact since only the `.py`
+are relevant for Pysa, some projects could have a different build system
+per platform.
+For that reason, archives are sorted according to preference, and then
+the preferred archive is the one that has its download URL saved in the dataset.
+For the purposes of this experiment, binary distributions (wheels) are preferred
+over source distributions, and between binary distributions, preference is based
+on platform, opting for a universal wheel whenever possible and
+falling back to Linux, MacOS and Windows archives if not, in this order.
+Other compatibility tags of each wheel, as defined in #pep(425),
+are also taken into account, such as ABI, and implementation tags,
+where a universal archive is preferred, but accepting a CPython archive
+as well.
+If a source binary is chosen, the script prefers a `.tar.gz` archive
+as defined by #pep(625), but also accepts `.tar.bz2`, `.tgz` and `.zip`
+as long as they follow the same file name convention.
+
+#heading(level: 4, numbering: none, outlined: false)[GitHub]
+
+To obtain a list of Python GitHub repositories with more than 1000 stars,
+GitHub's Search API was used,
+namely the `/search/repositories` endpoint.
+While this endpoint has a limit of 100 items per page and a maximum of 10
 pages (effectively a 1000 items limit), it is possible to tweak the
 search parameters to bypass this restriction.
 In particular, one can first search for all the repositories with more
 than 1000 stars, sorted by most stars, and then search only for repositories
 with less than the star amount of the last repository in the previous query.
-#set text(fill: black)
+All requests made to the GitHub API respect the rate-limit and appropriately
+wait if it is exceeded, with safeguards in place in case this logic fails.
+Additionally, all responses are cached to reduce the amount of requests needed.
+
+Then, this list is passed to a separate script that fetches the latest revision
+of the default branch for each repository.
+This is implemented through the `git ls-remote` command, as GitHub claims
+it does not have a rate limit for Git operations @gh-git-operations-limit.
+This Git command fetches the latest revision for each reference (branches, tags)
+in the remote repository, and the output is then parsed and validated to ensure
+the correct reference has been fetched.
+All this data is again cached to prevent querying GitHub multiple times
+for the same data.
+
+Finally, the list of repositories and revisions is joined together in the
+same file, ready to be sampled.
+
+#heading(level: 4, numbering: none, outlined: false)[Sampling]
+
+A separate script handles sampling the 3000 projects from both sources,
+picking 1500 from each platform.
+This script has two main roles: performing the random sampling, and writing
+the final `dataset.toml` file in the format expected by #TheTool.
+The sampling is done via Python's `random.sample` function,
+ran for each cohort,
+as defined previously in @method:sample-size.
+Then, for each project,
+the script generates a unique identifier,
+in the format `pypi.<name>` for @pypi packages
+and `gh.<owner>.<repo>` for GitHub repositories,
+compiles all the required source information
+and metadata in the required format,
+and finally writes to the `dataset.toml` file.
 
 === #TheTool CLI <thing:cli>
 
@@ -170,7 +279,7 @@ and a timestamp, so that there can exist multiple directories for each project.
 Secondly, to handle resolving and installing dependencies,
 #TheTool uses uv, which has been chosen for its speed,
 ease of use, and support for modern Python features,
-such as PEP751 (`pylock.toml`).
+such as #pep(751) (`pylock.toml`).
 Another relevant feature of uv when performing batch analysis of many
 projects is that the dependencies are saved in a single place on the
 system, and then hard linked for each project, saving a lot of disk space.
@@ -186,3 +295,8 @@ so, for that reason, some common native dependencies (e.g., database drivers,
 crypto libraries, etc.) are provided via Nix.
 
 // TODO
+
+After the analysis is performed, there is also a need to parse
+Pysa's output, which is done by compiling the information
+present in the output into a list of taint traces that highlight
+how the taint flows from the source to the sink.

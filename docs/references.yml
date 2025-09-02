@@ -73,6 +73,16 @@ pickle-rce:
     type: web
     name: David Hamann's Blog
     url: https://davidhamann.de/
+gh-git-operations-limit:
+  type: post
+  title: Rate Limit on the number of Git Clones
+  date: 2023-01-27
+  url:
+    value: https://github.com/orgs/community/discussions/44515#discussioncomment-4795475
+    visited: 2025-09-02
+  parent:
+    type: web
+    name: GitHub
 
 # From Zotero:
 ghunter:

@@ -8,3 +8,7 @@
 #import "@preview/headcount:0.1.0"
 
 #let gls-shrt = glossarium.gls-short.with(link: true)
+
+#let pep(number) = {
+  [PEP #number#footnote(link("https://peps.python.org/pep-0" + str(number) + "/"))]
+}

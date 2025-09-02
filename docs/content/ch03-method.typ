@@ -1,3 +1,5 @@
+#import "../utils/global-imports.typ": pep
+
 = Methods <method>
 
 This chapter goes over over the research methods used in
@@ -57,7 +59,7 @@ Instructions on how to run the scripts to obtain the dataset
 as described below can be found in the `data` directory of the
 accompanying repository and in @usage.
 
-=== Sampling
+=== Sampling <method:sampling>
 
 When deciding what projects to analyse, both Python libraries and
 applications were considered.
@@ -86,7 +88,7 @@ package in downstream projects.
 
 Additionally, to aid with reproducibility of this research, the URL of one
 of the wheels (Python's binary packaging format as defined by
-#link("https://peps.python.org/pep-0427/")[PEP 427]) of the latest version
+#pep(427)) of the latest version
 of each package was immediately saved.
 If no wheel was available, the URL of source tarball was saved instead.
 
@@ -105,7 +107,7 @@ Furthermore, again to aid with reproducibility of this research,
 the last revision (i.e., commit) of the default branch of each repository
 was saved in the dataset.
 
-=== Sample Size
+=== Sample Size <method:sample-size>
 
 Both the @pypi and GitHub datasets contain too many entries to
 be analysed in a reasonable time, given the scope of this degree project.

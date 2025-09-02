@@ -1,5 +1,5 @@
 // data analysis
-#import "../utils/global-imports.typ": codly, gls-shrt, headcount, lq, subpar
+#import "../utils/global-imports.typ": codly, gls-shrt, headcount, lq, pep, subpar
 #import "../utils/constants.typ": TheTool, gh_color, pypi_color
 
 #let raw_data = json("../assets/summary.json")
@@ -225,7 +225,7 @@ The public @pypi download count dataset used contained a total of
 Some packages were so old they did not provide any wheels nor source tarballs,
 but instead only provided the legacy eggs format.
 Other packages were deleted, did not follow conventional filename formats
-(#link("https://peps.python.org/pep-0625/")[PEP 625]),
+(#pep(625)),
 or some of their files were missing from the latest version.
 The #pypi_excluded_count packages where that was the case were ignored for simplicity,
 resulting in #(pypi_total_count - pypi_excluded_count) valid entries.
@@ -1346,6 +1346,10 @@ real-world applications.
 #text(fill: red, lorem(50))
 
 === Installing Dependencies <results:install-deps>
+
+#text(fill: red, lorem(50))
+
+=== User Controlled Taint <results:user-controlled-taint>
 
 #text(fill: red, lorem(50))
 
