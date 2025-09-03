@@ -252,31 +252,43 @@ and finally writes to the `dataset.toml` file.
 
 === #TheTool CLI <thing:cli>
 
-// TODO explain commands
-
 The CLI contains various subcommands, of which the most important
-one is `e2e`, which runs the entire pipeline for a given dataset.
+one is `e2e`, which runs the entire automated pipeline for a given dataset.
+Then, the subcommand `label` starts prompting the user to manually label
+the issues found, while the `summary` subcommand generates the `summary.json`
+file as previously explained.
 There are also subcommands `analyse` and `results`, which run the pipeline
-for a single project and analyse results from Pysa, respectively.
-For briefness, only the implementation of `e2e` will be explained,
-as the other subcommands use parts of this implementation as well.
-This subcommand takes a mandatory dataset file in the TOML format,
-and may take an optional _workdir_, of which the default is a
-temporary directory.
+for a single project and analyse results from Pysa, respectively,
+but will not be explained here as they simply execute parts of the
+actions carried out by `e2e`.
+For usage instructions, see @usage.
+
+
+==== Automated Pipeline
+
+The automated pipeline can be triggered by providing a dataset file to
+the `e2e` subcommand.
+#TheTool will then run until completion without human interaction, and
+report on which projects contain issues, that is, code that could be
+vulnerable to class pollution.
+To achieve this, a series of steps are performed sequentially,
+for each project in the dataset.
 
 Firstly, before any analysis can be done, the tool needs to fetch
 the code it wants to analyse.
-To achieve this, it uses the GitHub repository and Git revision present in
+For @pypi repositories, it simply downloads the archive from the provided URL.
+For GitHub repositories, it uses the repository name and Git revision present in
 the dataset to download a tarball from `github.com/<repo>/archive/<rev>.tar.gz`.
 This is then saved into the `workdir/tarballs` directory,
 so if the analysis is run again, there is no need to re-download the code.
-While GitHub is the only supported source for fetching code, the implementation
+While @pypi and GitHub are the only supported source for fetching code, the implementation
 and dataset format can be easily extended to support other sources in the future.
 Then, for each analysis, this code is unpacked into the `workdir/analysis/<dir>/src`
-directory, where `<dir>` is a directory named after the project being analysed
+directory, where `<dir>` is a directory named after the ID of the project being analysed
 and a timestamp, so that there can exist multiple directories for each project.
 
 Secondly, to handle resolving and installing dependencies,
+when enabled,
 #TheTool uses uv, which has been chosen for its speed,
 ease of use, and support for modern Python features,
 such as #pep(751) (`pylock.toml`).
@@ -286,7 +298,6 @@ system, and then hard linked for each project, saving a lot of disk space.
 Before the analysis, all dependency files
 (e.g., `requirements.txt`, `pyproject.toml`, etc.) present in the repository
 are fed into uv which outputs a `pylock.toml`.
-// TODO: explain different kinds of dependency files?
 This lock file is later used to install these dependencies into the
 `workdir/analysis/<dir>/deps` directory, so Pysa can use them during analysis.
 It is frequent that some Python packages require linking against system
@@ -294,9 +305,100 @@ libraries during a build, even if that is irrelevant for the analysis,
 so, for that reason, some common native dependencies (e.g., database drivers,
 crypto libraries, etc.) are provided via Nix.
 
-// TODO
+Thirdly, #TheTool writes the necessary configuration files for Pysa
+in the analysis directory,
+namely `.pyre_configuration`, `taint.pyre_config`
+#footnote[
+  It is worth noting that the `.pyre_config` extension is a modification to
+  Pysa made for this project, since the `.config` extension sometimes collided
+  with existing files in the projects, and is implemented via a patch in the Nix
+  package.
+] and `sources_sinks.pysa`.
+Then, it executes Pysa to perform the analysis by invoking it
+via the command line and capturing its stdout.
 
 After the analysis is performed, there is also a need to parse
 Pysa's output, which is done by compiling the information
-present in the output into a list of taint traces that highlight
+present in the `pysa-results/taint-output.json` file
+into a list of taint traces that highlight
 how the taint flows from the source to the sink.
+
+Unfortunately, Pysa lacks documentation about its output format,
+as it is made to be used with their own tool,
+sapp#footnote(link("https://github.com/facebook/sapp")).
+This was an implementation challenge, as it made reconstructing entire
+flow from source to sink quite difficult.
+Fortunately, reading the source code for sapp helped with parsing
+the relevant data, and #TheTool is able to accurately reconstruct
+the appropriate traces.
+
+To reduce the amount of false positives, issues that are labeled
+by Pysa with features `tito-broadening` or `obstruct:model` are discarded.
+The former means that taint collapsing occurred on a taint-in-taint-out
+function, while the latter indicates that Pysa could not fully analyse
+the code because parts of it are missing,
+usually due to some dependencies not being installed.
+These are both strong indicators that the taint does not flow directly
+from the source to the sink,
+as in, the return value of `getattr` is modified before reaching `setattr`,
+which is a requirement to achieve class pollution,
+as outlined in @bg:lit-review.
+Hence, these issues are automatically discarded in this phase.
+
+Finally, the #TheTool finishes the automated pipeline by writing
+a JSON report for each project, which includes some information
+from the dataset, such as name, source, and popularity, but
+also the results from the analysis, namely
+the issues found,
+errors if any,
+the duration of the analysis,
+raw issue count from Pysa before filtering,
+and list of installed dependencies if any.
+
+==== Manual Labeling
+
+Once the reports have been generated for all projects in the dataset,
+a user can invoke the `label` subcommand to start a manual labeling session.
+When invoked, #TheTool will search the reports directory for all the
+reports and find the issues that are not yet labeled.
+
+Then, the user is presented with the source code of the potentially vulnerable
+package,
+annotated with the various steps of the taint trace and with the source
+and sink highlighted.
+This allows the user to quickly identify the source and sink, and look at
+the surrounding context to determine the label to apply to the issue.
+
+Once the user has decided the label to apply,
+they can select the appropriate label and reasoning in the prompt that
+shows up beneath the source code.
+This data is then saved into the same JSON report file by updating its
+contents.
+
+=== Removed Features
+
+During early development of the #TheTool, a different approach to
+taint models was taken.
+Instead of using only the models shown in @code:pysa-taint-models,
+it contained models with `UserControlled` sources
+for many popular Python frameworks and libraries,
+which then allowed it to configure Pysa to look for places where the
+`UserControlled` and `CustomGetAttr` sources reached a sink at
+the same time.
+
+This required the installation of dependencies,
+as well as keeping track of which dependencies and respective versions
+were installed,
+in order to load the appropriate taint models into Pysa.
+
+It was also necessary to manually write taint models for each popular library.
+While Pysa ships with some taint models for third-party libraries
+by default, some of them were outdated,
+and therefore had to be manually fixed.
+This would have been a significant part of the work,
+and even then it would never cover all versions of all used libraries,
+and it was one of the reasons this approach was abandoned.
+
+The full list of reasons for abandoning this approach,
+as well as related discussion, can be found in @results:user-controlled-taint
+and @discussion respectively.
