@@ -205,7 +205,7 @@ An example implementation of this fix is presented in @code:cp-fix.
     def setattr_recursive(obj: any, path: str, value: any) -> None:
       path = path.split(".")
       for name in path[:-1]:
-        if path.starswith("__") or path.endswith("__"):
+        if path.starswith("__") and path.endswith("__"):
           raise ValueError("traversing dunder attributes is not allowed")
         module = getattr(module, name)
       setattr(module, path[-1], value)
