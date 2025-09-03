@@ -6,10 +6,8 @@ This chapter goes over over the research methods used in
 this degree project, along with how they are fit for this work.
 Firstly, @method:research-process describes the research method
 used to answer the established research questions.
-Secondly, @method:data-collection goes over how the dataset used for
+Then, @method:data-collection goes over how the dataset used for
 @rq-widespread was obtained and its characteristics.
-Finally, @method:evaluation goes over how the results given by
-the accompanying tool were evaluated.
 
 == Research Process <method:research-process>
 
@@ -49,6 +47,10 @@ project configurations, and more,
 were tested against custom-built artificial benchmarks,
 as well as projects known to be vulnerable,
 in order to decide what approach to take for the final design.
+These benchmarks, while not perfect,
+model common constructs that can lead to class pollution
+and are a great replacement for the lack of a larger dataset of
+known-vulnerable packages.
 
 A major decision for the design of the tool is whether to consider
 each project's dependencies during analysis.
@@ -82,20 +84,33 @@ through `getattr` before reaching the sink.
 This can then be used to filter out code where there is only a single
 call to `getattr`.
 
-These three design ideas are tested against the aforementioned
+These three design ideas were tested against the aforementioned
 benchmarks, and the results are presented in @results:tweaks.
 
 === Vulnerability Prevalence
 
 As a means to determine the prevalence of class pollution, as
-outlined by @rq-widespread[], the designed tool, resulting from
-@rq-tool-design[], has been run against a dataset of Python
-packages and applications.
-Further details about the tool can be found in @thing, and the
-sampling method and size are described in more detail in
-@method:data-collection.
+outlined by @rq-widespread[], an empirical study is performed
+where the designed tool is tested against
+a dataset of Python libraries and applications.
+In this study, the tool will analyse each project individually
+to determine if it has any code that is vulnerable to class pollution.
+Then, to determine the accuracy of the designed tool,
+each of the reported hits is then manually tagged as either vulnerable
+or not vulnerable (i.e., a false positive).
+Additionally, the reasons for each verdict were also stored alongside it,
+as a means to help future work.
 
-Then, the results are used to inductively infer the prevalence
+Furthermore, a case study is conducted,
+where one of the packages deemed vulnerable is investigated in more detail.
+Here, the causes for detection will be highlighted,
+and, if applicable,
+a proof of concept exploit will be created to demonstrate
+the impact of the vulnerability.
+
+Finally, the results from the empirical study,
+and the case study to a lesser extent,
+are used to inductively infer the prevalence
 over the entire universe of Python applications.
 
 == Data Collection <method:data-collection>
@@ -182,15 +197,3 @@ This process is pictured in @fg:dataset-cohorts.
   rect(fill: red, height: 10em, lorem(5)),
   caption: [Splitting the intermediate datasets into cohorts to obtain the final dataset],
 ) <fg:dataset-cohorts>
-
-== Evaluation Framework <method:evaluation>
-
-As there is no public dataset of projects vulnerable to class pollution,
-evaluation has to be predominantly done manually.
-There are 5 projects known to be or have been vulnerable, and those were
-analysed separately, as none of them is present in the final dataset.
-
-Each of the hits produced by the tool manually tagged as either vulnerable
-or not vulnerable (i.e., a false positive).
-The reasons for a hit to not be vulnerable were also stored alongside
-the verdict, and are later presented in @results.
