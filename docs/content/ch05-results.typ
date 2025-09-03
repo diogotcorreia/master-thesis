@@ -299,7 +299,7 @@ The distribution for each platform can be visualised on @fg:popularity-distribut
   [#calc.round(seconds / (60 * 60), digits: 1) hours]
 }
 
-#let manual_categorisation_time_seconds = 39608 // from timewarrior
+#let manual_categorisation_time_seconds = 39809 // from timewarrior
 
 Analysing the projects in the dataset using #TheTool took a total of
 #format_time(total_runtime_seconds) of runtime, and an additional
