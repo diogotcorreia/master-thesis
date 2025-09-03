@@ -70,7 +70,7 @@ control over gadgets @pp-arteau[p.~9].
   ```
 ] <code:pollute-proto>
 
-Once the prototype has been polluted, the second step is finding a gadget, that is,
+Once the prototype has been polluted, the second step is finding a gadget, i.e.,
 a benign piece of code that given attacker-controlled properties changes its execution
 path and performs security-sensitive operations @ghunter.
 @code:pp-gadget shows an example where polluting the property `admin` with any truthy-value
@@ -79,9 +79,9 @@ would result in the program printing possibly sensitive information.
 #figure(caption: "Example gadget, granting access to admin-only information")[
   ```js
   let user = { username: "johndoe" };
-
+  // If Object.prototype.admin is polluted, this is true
   if (user.admin) {
-    printSuperSecretInformation();
+    printSuperSecretInformation(); // Oh no :(
   }
   ```
 ] <code:pp-gadget>
@@ -93,6 +93,9 @@ enumerable, meaning for-loops iterate over them as well @pp-arteau[p.~17].
 This can be very flexible for attackers, as it allows more freedom over which properties
 can be controlled, such as in the example in @code:pp-enumerable, where properties from
 an object are set on a @dom element.
+The `innerHTML` property of a @dom element contains the HTML representation
+of its children,
+which can be updated by assigning it a string containing HTML @mdn-innerhtml.
 In this example, polluting `innerHTML` would lead to @xss, as the for-loop would
 iterate over that property as well.
 
@@ -103,8 +106,11 @@ iterate over that property as well.
     href: "https://example.com",
     innerText: "this is a link"
   };
+  // element already has an innerHTML defined
   let element = document.createElement("a");
 
+  // If Object.prototype.innerHTML is polluted,
+  // this iterates over href, innerText, AND innerHTML
   for (let attr in attributes) {
     element[attr] = attributes[attr];
   }
@@ -184,7 +190,8 @@ by @code:php-oi-rce @php-object-injection.
 
 == Python <bg:python>
 
-The *Python programming language* was created in 1991 by Guido van Rossum and has since
+The *Python#footnote(link("https://www.python.org/")) programming language*
+was created in 1991 by Guido van Rossum and has since
 seen immense adoption from the programming community, with more than 50% of the respondents
 of the 2024 Stack Overflow Survey having worked with it or wanting to @stack-overflow-survey-2024-most-popular.
 It is used for many applications, such as scripting, web applications, machine learning, and much
@@ -612,6 +619,7 @@ As for `COMSPEC`, it is only useful on Windows, where it can be used to achieve
   # pollute PYTHONPATH
   sys.path[0] = "./uploads"
 
+  # simply importing runs the code
   import subprocess
   ```
   #codly.codly(header: box(height: 9pt)[`uploads/subprocess.py`])
@@ -686,7 +694,7 @@ In practice, this means that even given a function vulnerable to class
 pollution, if traversal starts in a native class, such as a `dict`,
 `list` or `tuple`, the code is not exploitable.
 
-=== Summary // TODO: is there a better way to name this?
+=== Summary
 
 The results of this literature review let us answer @rq-causes-consequences[].
 In summary, class pollution can be exploited via recursive calls to

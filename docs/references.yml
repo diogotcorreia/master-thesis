@@ -83,6 +83,13 @@ gh-git-operations-limit:
   parent:
     type: web
     name: GitHub
+mdn-innerhtml:
+  type: entry
+  title: "Element: innerHTML property"
+  url: https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
+  parent:
+    type: reference
+    title: MDN Web Docs
 
 # From Zotero:
 ghunter:
