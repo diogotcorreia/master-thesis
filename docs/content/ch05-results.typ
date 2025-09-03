@@ -184,9 +184,21 @@ detecting class pollution.
 as per @results:micro-benchmarks, and then executed on dataset
 consisting of popular @pypi and GitHub packages, as described in @results:analysis.
 
-Finally, in @results:case-study, a case study is performed on a popular
+Then, in @results:case-study, a case study is performed on a popular
 library that is vulnerable to class pollution, enabling @rce on a
 real-world application.
+
+Additionally,
+it was previously mentioned in @method:tool-design that there were certain
+design decisions that needed to be taken.
+The results in @results:micro-benchmarks and @results:analysis reflect
+the final version of the tool, where no dependencies were installed,
+a single source and sink were defined,
+and only the taint features mentioned in @thing:cli were taken into
+account during post processing.
+The results for each variant of the design,
+along with some reasoning on why they were not implemented,
+is outlined in @results:tweaks.
 
 == Micro Benchmarking <results:micro-benchmarks>
 
@@ -1341,7 +1353,7 @@ To conclude, it has become clear from the results that the vulnerability that
 was found, with the help of #TheTool, has been proven to be exploitable in
 real-world applications.
 
-== Tool Tweaks
+== Tool Tweaks <results:tweaks>
 
 #text(fill: red, lorem(50))
 

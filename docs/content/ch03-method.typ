@@ -13,13 +13,16 @@ the accompanying tool were evaluated.
 
 == Research Process <method:research-process>
 
-Each of the research questions outlined in @intro:rq are
-answered through different processes, described by each
-of subsections below.
+To answer @rq-tool-design[] and @rq-widespread[],
+different processes need to be defined, and are therefore
+described by each of the subsections below.
+Regarding @rq-causes-consequences[],
+it has already been addressed by a systematic literature review
+in @bg:lit-review, consequently it is not included in this section.
 
 Additionally, @fg:research-process provides a visual
 representation of the research process adopted in this
-thesis.
+thesis, as outlined below.
 
 #figure(
   // TODO
@@ -27,12 +30,60 @@ thesis.
   caption: "Visual representation of the research process",
 ) <fg:research-process>
 
-=== Tool Design
+=== Tool Design <method:tool-design>
 
-#text(fill: red, lorem(50))
+To fulfill @rq-tool-design[], there is the need to decide how
+to build a tool that can detect class pollution.
+Taking into account the results of the literature review,
+the cornerstone requirement is that it can find code where the
+return value of `getattr` is passed onto the arguments of `setattr`.
+As this is a classic taint analysis problem, a static taint analysis
+tool, Pysa, has been chosen as the base for this tool.
 
-// TODO: develop a tool accordingly
-// TODO: try tool on artificial dataset
+However, Pysa offers many different settings and
+approaches to configuring the project for taint analysis,
+as well as metadata alongside the results,
+revealing the need to optimally adjust settings and procedures during analysis.
+For this reason, various combinations of settings, taint modules,
+project configurations, and more,
+were tested against custom-built artificial benchmarks,
+as well as projects known to be vulnerable,
+in order to decide what approach to take for the final design.
+
+A major decision for the design of the tool is whether to consider
+each project's dependencies during analysis.
+While taking dependencies into account should, in theory,
+increase the accuracy and scope of the taint analysis,
+it comes with a trade off in complexity and execution time.
+There are also significant challenges when regarding
+the installation of those dependencies that need to be overcome,
+as the Python ecosystem is quite fragmented when it comes to
+dependency handling.
+
+Furthermore, another relevant design choice is which taint models
+to define, as in, which sources and sinks should exist.
+Evidently, the there must be a source in the return value of `getattr`,
+and a sink in the first argument of `setattr`,
+but there are other sources and sinks to consider as well.
+For instance, Pysa has functionality for partial sinks,
+where it requires two or more sources to reach the same
+sink at the same time, i.e., in the same call site.
+Using this feature, it is possible to focus on code exploitable
+using class pollution by forcing the second parameter
+of `setattr` to be tainted by user controlled input.
+
+Finally, Pysa offers the option to annotate taint flows with _features_,
+also known as breadcrumbs,
+which enables post-processing of the resulting issues to eliminate false positives.
+Recalling the literature review, a requirement for successful exploitation
+of class pollution is being able to traverse an arbitrary number of attributes.
+Therefore, an interesting feature to save is how many times the taint flows
+through `getattr` before reaching the sink.
+This can then be used to filter out code where there is only a single
+call to `getattr`.
+
+These three design ideas are tested against the aforementioned
+benchmarks, and the results are presented in @results:tweaks.
 
 === Vulnerability Prevalence
 
