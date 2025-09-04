@@ -1,6 +1,6 @@
 // data analysis
 #import "../utils/global-imports.typ": codly, gls-shrt, headcount, lq, pep, subpar
-#import "../utils/constants.typ": TheTool, gh_color, pypi_color
+#import "../utils/constants.typ": TheTool, gh_color, pypi_color, tbl_green, tbl_grey, tbl_red
 
 #let raw_data = json("../assets/summary.json")
 
@@ -202,13 +202,150 @@ is outlined in @results:tweaks.
 
 == Micro Benchmarking <results:micro-benchmarks>
 
-#text(fill: red, lorem(100))
+As there is no public dataset of projects vulnerable to class pollution,
+evaluation has to be predominantly done manually.
+For that reason, a small collection of both known-vulnerable and
+known-not-vulnerable Python programs was created
+to assess the basic functionality of #TheTool.
+
+In this small collection of synthetic benchmarks,
+there are 3 known-vulnerable programs,
+as well as 2 known-not-vulnerable programs,
+which cover basic scenarios where class pollution
+may occur.
+Namely, the former programs test if the #TheTool is able to detect
+the flow from chained `getattr` calls to a `setattr` call,
+or even through many function calls,
+while the latter programs check for common pitfalls such as
+only having a single call to `getattr`
+or having hardcoded names for the attributes in calls to `getattr`.
+The source code for these tests can be found in the `detection-benchmarks`
+directory of the accompanying repository.
+
+As shown in @tbl:results-micro-benchmark,
+#TheTool has been ran on all 5 of these tests,
+and successfully passed 4 of them,
+having failed to properly identify when the attribute
+passed to `getattr` is a static string.
+The relevant code of the failing test can be seen in @code:test-static-attr.
+
+#figure(
+  caption: [Failing test, where #TheTool fails to detect a static string in the attribute parameter of `getattr`],
+  [
+    #set text(size: 9pt)
+    #codly.codly(
+      header: box(height: 6pt)[`detection-benchmarks/negative/001-static-strings-to-getattr-setattr/main.py`],
+      offset: 11,
+      highlighted-lines: (13,),
+    )
+    ```py
+    foo = getattr(a, text1)
+    bar = getattr(foo, "FOOBAR")
+    setattr(bar, text2, text3)
+    ```
+  ],
+) <code:test-static-attr>
+
+#figure(caption: [Confusion matrix for each test in the artificial benchmark])[
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+
+  #table(
+    columns: 4,
+    stroke: none,
+    align: center + horizon,
+    fill: (x, y) => {
+      if (x, y) == (3, 3) or (x, y) == (2, 2) {
+        tbl_green
+      } else if (x, y) == (2, 3) or (x, y) == (3, 2) {
+        tbl_red
+      }
+    },
+    table.vline(x: 2),
+    [], [], table.cell(colspan: 2)[Ground Truth],
+    [], [], [Positive], [Negative],
+    table.hline(),
+    table.cell(rowspan: 2)[Results], [Positive], [3], [1],
+    [Negative], [0], [1],
+  )
+] <tbl:results-micro-benchmark>
+
+In addition to the artificial benchmarks,
+#TheTool has also been tested against 5 projects known to be or
+have been vulnerable,
+listed in @tbl:vuln-projects.
+
+#figure(caption: [List of open-source projects known-vulnerable to class pollution])[
+  #show table.cell.where(y: 0): strong
+
+  #let gh(name) = link("https://github.com/" + name, name)
+  #let cve(id) = link("https://www.cve.org/CVERecord?id=" + id, id)
+
+  #table(
+    columns: 4,
+    table.header([GitHub Repository], [Vulnerable Version], [Advisory], [Fixed Version]),
+    gh("nortikin/sverchok"), [1.3.0], cve("CVE-2025-3982"), [_none_],
+    gh("adamghill/django-unicorn"), [0.61.0], cve("CVE-2025-24370"), [0.62.0],
+    gh("mesop-dev/mesop"), [0.14.0], cve("CVE-2025-30358"), [0.14.1],
+    gh("comfyanonymous/ConfyUI"),
+    [0.3.40],
+    [_none_#footnote(link("https://github.com/comfyanonymous/ComfyUI/pull/8435"))],
+    [0.3.41],
+
+    gh("dgilland/pydash"), [5.1.2], cve("CVE-2023-26145"), [6.0.0],
+  )
+] <tbl:vuln-projects>
+
+#let raw_data_vulnerable = json("../assets/summary-vulnerable.json")
+#let all_vuln_issues = extract_issues(raw_data_vulnerable).filter(issue => issue.at("getattr_count") != "One")
+#let issues_tp = filter_list(all_vuln_issues, by_is_issue_vulnerable)
+#let issues_fp = filter_list(all_vuln_issues, by_is_issue_vulnerable, inv: true)
+
+#TheTool successfully identified the vulnerabilities in all of the projects,
+without raising any false positives.
+For two of the projects, however,
+it raised more than a single issue for the vulnerable code due to
+the presence of multiple sinks,
+but this is expected behaviour.
+The confusion matrix for these results can be seen in @tbl:results-vulnerable-pkgs,
+noting that there is no number of true negatives since that would be
+considered all the remaining code in the codebase.
+
+#figure(caption: [Confusion matrix for the issues raised by #TheTool in
+  known-vulnerable projects])[
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+
+  #table(
+    columns: 4,
+    stroke: none,
+    align: center + horizon,
+    fill: (x, y) => {
+      if (x, y) == (2, 2) {
+        tbl_green
+      } else if (x, y) == (2, 3) or (x, y) == (3, 2) {
+        tbl_red
+      } else if (x, y) == (3, 3) {
+        tbl_grey
+      }
+    },
+    table.vline(x: 2),
+    [], [], table.cell(colspan: 2)[Ground Truth],
+    [], [], [Positive], [Negative],
+    table.hline(),
+    table.cell(rowspan: 2)[Results], [Positive], [#issues_tp.len()], [#issues_fp.len()],
+    [Negative], [0], [-],
+  )
+] <tbl:results-vulnerable-pkgs>
 
 == Empirical Study <results:analysis>
 
-#text(fill: red, lorem(20))
+To validate the accuracy of #TheTool in real-world scenarios,
+it has been tested against a large dataset of open-source Python projects.
+The composition of this dataset is outlined in @results:dataset,
+and the results of this empirical study are presented in @results:analysis-results.
 
-=== Dataset
+=== Dataset <results:dataset>
 
 #let gh_total_count = 8822
 #let gh_date = datetime(year: 2025, month: 7, day: 16)
@@ -293,7 +430,11 @@ to #format_popularity(gh_popularity.max) stars, with a median of
 #format_popularity(gh_popularity.median) stars.
 The distribution for each platform can be visualised on @fg:popularity-distribution.
 
-=== Results
+Additionally, it is worth nothing that none of the vulnerable projects
+tested in the micro benchmarks from @results:micro-benchmarks
+is present in final the dataset.
+
+=== Results <results:analysis-results>
 
 #let format_time(seconds) = {
   [#calc.round(seconds / (60 * 60), digits: 1) hours]

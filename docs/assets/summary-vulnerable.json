@@ -1,0 +1,196 @@
+[
+  {
+    "platform": "GitHub",
+    "name": "dgilland/pydash",
+    "version": "7d150fe36daa6fcdbaf0e8dc928c236c54d951cb",
+    "popularity": 1390,
+    "error_stage": null,
+    "raw_issue_count": 2,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
+        }
+      }
+    ],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "adamghill/django-unicorn",
+    "version": "65f0c73456e3d55aa556c65e4e850dcb7e585cfa",
+    "popularity": 2537,
+    "error_stage": null,
+    "raw_issue_count": 19,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NonRecursive"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "ListTupleAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
+        }
+      }
+    ],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "nortikin/sverchok",
+    "version": "1717a8260245f9014272ce68a62defba99c7c689",
+    "popularity": 2340,
+    "error_stage": null,
+    "raw_issue_count": 4,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "DictAccess"
+            },
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "NotVulnerable",
+          "reasons": [
+            {
+              "kind": "NonRecursive"
+            },
+            {
+              "kind": "NotControlled"
+            }
+          ]
+        }
+      }
+    ],
+    "elapsed_seconds": 55
+  },
+  {
+    "platform": "GitHub",
+    "name": "comfyanonymous/ComfyUI",
+    "version": "d8759c772bd8ded66e08dac56bb8da636c837c9a",
+    "popularity": 82747,
+    "error_stage": null,
+    "raw_issue_count": 1,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": []
+        }
+      }
+    ],
+    "elapsed_seconds": 27
+  },
+  {
+    "platform": "GitHub",
+    "name": "mesop-dev/mesop",
+    "version": "cbab8bf0683560245d11f96581d6338b0103acc4",
+    "popularity": 6352,
+    "error_stage": null,
+    "raw_issue_count": 1,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Vulnerable",
+          "features": [
+            {
+              "kind": "SupportsSetItem"
+            }
+          ]
+        }
+      }
+    ],
+    "elapsed_seconds": 19
+  }
+]
