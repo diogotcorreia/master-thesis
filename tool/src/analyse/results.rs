@@ -469,7 +469,7 @@ impl GetAttrCount {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct TraceEntry {
     pub status: TraceEntryStatus,
     pub callable: String,
@@ -477,7 +477,7 @@ pub struct TraceEntry {
     pub location: SpanLocation,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub enum TraceEntryStatus {
     Missing,

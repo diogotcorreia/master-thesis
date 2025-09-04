@@ -12,6 +12,7 @@ pub mod config;
 pub mod labeling;
 pub mod pipeline;
 pub mod summary;
+pub mod temp;
 
 pub enum AllowedRepos {
     All,

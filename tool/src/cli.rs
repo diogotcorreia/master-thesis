@@ -37,6 +37,8 @@ pub enum Commands {
     Label(LabelArgs),
     /// Parse reports from a previous e2e run, and compile it into a JSON file that be used for charts
     Summary(SummaryArgs),
+
+    Temp(LabelArgs),
 }
 
 #[derive(Args)]

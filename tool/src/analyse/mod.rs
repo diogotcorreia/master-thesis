@@ -29,7 +29,7 @@ use crate::{
 };
 
 const SRC_DIR: &str = "src";
-const PYSA_RESULTS_DIR: &str = "pysa-results";
+pub const PYSA_RESULTS_DIR: &str = "pysa-results";
 const DEPS_DIR: &str = "deps";
 
 pub mod results;

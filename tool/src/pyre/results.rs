@@ -102,7 +102,7 @@ pub struct KindLeaf {
     pub port: String,
 }
 
-#[derive(Debug, Deserialize, Serialize, Clone)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq)]
 pub struct SpanLocation {
     pub filename: Option<String>,
     pub path: Option<String>,
