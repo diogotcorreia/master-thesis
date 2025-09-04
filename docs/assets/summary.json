@@ -3462,16 +3462,10 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable",
-          "features": [
+          "kind": "NotVulnerable",
+          "reasons": [
             {
-              "kind": "DictAccess"
-            },
-            {
-              "kind": "ListTupleAccess"
-            },
-            {
-              "kind": "SupportsSetItem"
+              "kind": "NonRecursive"
             }
           ]
         }
@@ -3479,16 +3473,10 @@
       {
         "getattr_count": "One",
         "label": {
-          "kind": "Vulnerable",
-          "features": [
+          "kind": "NotVulnerable",
+          "reasons": [
             {
-              "kind": "DictAccess"
-            },
-            {
-              "kind": "ListTupleAccess"
-            },
-            {
-              "kind": "SupportsSetItem"
+              "kind": "NonRecursive"
             }
           ]
         }
@@ -3506,6 +3494,9 @@
             },
             {
               "kind": "SupportsSetItem"
+            },
+            {
+              "kind": "ValueNotControlled"
             }
           ]
         }
