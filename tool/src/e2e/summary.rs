@@ -67,6 +67,7 @@ impl<'a> Summary<'a> {
 struct SummaryEntry {
     platform: Platform,
     name: String,
+    version: String,
     popularity: u32, // stars or downloads
     error_stage: Option<PipelineStage>,
     raw_issue_count: usize,
@@ -76,21 +77,24 @@ struct SummaryEntry {
 
 impl From<Report> for SummaryEntry {
     fn from(report: Report) -> Self {
-        let (platform, name, popularity) = match report.repository_config.src {
+        let (platform, name, version, popularity) = match report.repository_config.src {
             RepositorySrc::GitHub(github_src) => (
                 Platform::GitHub,
                 github_src.full_name,
+                github_src.rev,
                 report.repository_config.meta.stars.unwrap_or_default(),
             ),
             RepositorySrc::PyPI(pypi_src) => (
                 Platform::PyPI,
                 pypi_src.name.unwrap_or_default(),
+                pypi_src.version.unwrap_or_default(),
                 report.repository_config.meta.downloads.unwrap_or_default(),
             ),
         };
         Self {
             platform,
             name,
+            version,
             popularity,
             error_stage: report.error_stage,
             raw_issue_count: report.raw_issue_count,
