@@ -345,6 +345,16 @@ which is a requirement to achieve class pollution,
 as outlined in @bg:lit-review.
 Hence, these issues are automatically discarded in this phase.
 
+Furthermore, the tool also supports filtering out issues based on
+the presence of the `via:customgetattr` feature,
+as defined in the taint models shown in @code:pysa-taint-models.
+When this feature is present, it means there are at least two
+`getattr` calls chained together,
+which is a requirement for class pollution, in accordance with @bg:lit-review.
+Therefore, the lack of this feature tag is a strong indicator that
+the issue is a false positive,
+so the issue can be automatically discarded.
+
 Finally, the #TheTool finishes the automated pipeline by writing
 a JSON report for each project, which includes some information
 from the dataset, such as name, source, and popularity, but

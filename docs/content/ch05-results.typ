@@ -3,6 +3,11 @@
 #import "../utils/constants.typ": TheTool, gh_color, pypi_color, tbl_green, tbl_grey, tbl_red
 
 #let raw_data = json("../assets/summary.json")
+#let data_filtered = raw_data.map(project => {
+  let cloned = project + (:)
+  cloned.insert("issues", cloned.at("issues", default: ()).filter(issue => issue.at("getattr_count") != "One"))
+  cloned
+})
 
 #let filter_list(list, predicate, inv: false) = {
   if inv {
@@ -112,24 +117,27 @@
   })
 }
 
-#let projects_error = filter_list(raw_data, by_has_error)
+#let all_pypi_projects = filter_list(data_filtered, by_platform("PyPI"))
+#let all_gh_projects = filter_list(data_filtered, by_platform("GitHub"))
+
+#let projects_error = filter_list(data_filtered, by_has_error)
 #let pypi_projects_error = filter_list(projects_error, by_platform("PyPI"))
 #let gh_projects_error = filter_list(projects_error, by_platform("GitHub"))
 #let error_reason_dist = calc_error_reason_dist(projects_error)
 #let pypi_error_reason_dist = calc_error_reason_dist(pypi_projects_error)
 #let gh_error_reason_dist = calc_error_reason_dist(gh_projects_error)
 
-#let projects_success = filter_list(raw_data, by_has_error, inv: true)
+#let projects_success = filter_list(data_filtered, by_has_error, inv: true)
 #let pypi_projects = filter_list(projects_success, by_platform("PyPI"))
 #let gh_projects = filter_list(projects_success, by_platform("GitHub"))
 
-#let pypi_popularity = calc_popularity(pypi_projects)
-#let gh_popularity = calc_popularity(gh_projects)
+#let pypi_popularity = calc_popularity(all_pypi_projects)
+#let gh_popularity = calc_popularity(all_gh_projects)
 #let projects_elapsed_seconds = calc_elapsed_seconds(projects_success)
 #let pypi_elapsed_seconds = calc_elapsed_seconds(pypi_projects)
 #let gh_elapsed_seconds = calc_elapsed_seconds(gh_projects)
 
-#let total_runtime_seconds = raw_data.map(project => project.at("elapsed_seconds")).sum()
+#let total_runtime_seconds = data_filtered.map(project => project.at("elapsed_seconds")).sum()
 #let success_runtime_seconds = projects_success.map(project => project.at("elapsed_seconds")).sum()
 
 #let has_issues_pypi_projects = filter_list(pypi_projects, by_has_issues)
@@ -195,9 +203,9 @@ The results in @results:micro-benchmarks and @results:analysis reflect
 the final version of the tool, where no dependencies were installed,
 a single source and sink were defined,
 and only the taint features mentioned in @thing:cli were taken into
-account during post processing.
+account during post processing, including `via:customgetattr`.
 The results for each variant of the design,
-along with some reasoning on why they were not implemented,
+along with some reasoning on why they were or were not implemented,
 is outlined in @results:tweaks.
 
 == Micro Benchmarking <results:micro-benchmarks>
@@ -378,13 +386,13 @@ Other packages were deleted, did not follow conventional filename formats
 or some of their files were missing from the latest version.
 The #pypi_excluded_count packages where that was the case were ignored for simplicity,
 resulting in #(pypi_total_count - pypi_excluded_count) valid entries.
-Then, #pypi_projects.len() packages were sampled according to the method described in
+Then, #all_pypi_projects.len() packages were sampled according to the method described in
 @method:data-collection, and a link to their latest wheel or source tarball was
 saved on #pypi_version_date.display().
 
 On the other hand, as of #gh_date.display(), there were only #gh_total_count Python
 repositories with more than 1000 stars on GitHub.
-Similarly, of the #gh_total_count repositories, #gh_projects.len()
+Similarly, of the #gh_total_count repositories, #all_gh_projects.len()
 were sampled as previously described, and their latest revision
 information was fetched on the same date.
 
@@ -523,7 +531,7 @@ discriminated by platform.
 
 Out of the #projects_success.len() projects successfully analysed,
 a total of #no_issues_projects.len()
-(#{ calc.round(no_issues_projects.len() / projects_success.len(), digits: 3) * 100 }%)
+(#calc.round((no_issues_projects.len() / projects_success.len()) * 100, digits: 1)%)
 did not have any issues found by #TheTool.
 Furthermore, amongst the remaining #has_issues_projects.len() projects with issues,
 only #vulnerable_projects.len() have at least one issue that was deemed vulnerable.
@@ -555,6 +563,7 @@ From a projects perspective, this means there is a Type-I error rate of
     height: 7cm,
     legend: (position: left + top),
     ylabel: [Number of Projects],
+    margin: (top: 10%),
     xaxis: (
       ticks: ("Vulnerable", "Only False Positives", "No Issues").enumerate(),
       subticks: none,
@@ -581,16 +590,12 @@ From a projects perspective, this means there is a Type-I error rate of
     ..x_pypi
       .zip(y_pypi)
       .map(((x, y)) => {
-        let align = if y > 200 { top } else { bottom }
-        let color = if align == top { white } else { black }
-        lq.place(x - 0.2, y, pad(0.2em, text(fill: color, [#y])), align: align)
+        lq.place(x - 0.2, y, pad(0.2em, [#y]), align: bottom)
       }),
     ..x_gh
       .zip(y_gh)
       .map(((x, y)) => {
-        let align = if y > 200 { top } else { bottom }
-        let color = if align == top { white } else { black }
-        lq.place(x + 0.2, y, pad(0.2em, text(fill: color, [#y])), align: align)
+        lq.place(x + 0.2, y, pad(0.2em, [#y]), align: bottom)
       }),
   )
 ] <fg:projects-issue>
@@ -634,6 +639,7 @@ The overall label classification, discriminated by platform, can be visualised i
     height: 6cm,
     legend: (position: left + top),
     ylabel: [Number of Issues],
+    margin: (top: 10%),
     xaxis: (
       ticks: ("Vulnerable", "Not Vulnerable (False Positive)").enumerate(),
       subticks: none,
@@ -660,16 +666,12 @@ The overall label classification, discriminated by platform, can be visualised i
     ..x_pypi
       .zip(y_pypi)
       .map(((x, y)) => {
-        let align = if y > 150 { top } else { bottom }
-        let color = if align == top { white } else { black }
-        lq.place(x - 0.2, y, pad(0.2em, text(fill: color, [#y])), align: align)
+        lq.place(x - 0.2, y, pad(0.2em, [#y]), align: bottom)
       }),
     ..x_gh
       .zip(y_gh)
       .map(((x, y)) => {
-        let align = if y > 150 { top } else { bottom }
-        let color = if align == top { white } else { black }
-        lq.place(x + 0.2, y, pad(0.2em, text(fill: color, [#y])), align: align)
+        lq.place(x + 0.2, y, pad(0.2em, [#y]), align: bottom)
       }),
   )
 ] <fg:issue-label>
@@ -988,10 +990,7 @@ from the classic class pollution described in @bg:lit-review.
 
 Unsurprisingly, very few issues had already some kind of filtering in place
 to prevent accessing dunder properties such as `__globals__`
-(_Filtered_, #not_vulnerable_issues_reasons.at("Filtered") issues),
-while an even smaller number had some kind of allowlist for the properties that
-could be traversed
-(_Attribute Allowlist_, #not_vulnerable_issues_reasons.at("AttrAllowList") issues).
+(_Filtered_, #not_vulnerable_issues_reasons.at("Filtered") issues).
 
 Finally, #not_vulnerable_issues_reasons.at("Other") issues were marked with _Other_
 since they were not vulnerable but the reason did not match any of the aforementioned
@@ -1005,7 +1004,6 @@ contain a certain method, which would be unfeasible for class pollution.
 )[
   #let all_features = (
     "Other": [Other],
-    "AttrAllowList": [Attribute Allowlist],
     "Filtered": [Filtered],
     "NotControlled": [Not Controlled],
     "NonRecursive": [Not Recursive],
@@ -1018,7 +1016,7 @@ contain a certain method, which would be unfeasible for class pollution.
 
   #lq.diagram(
     width: 10cm,
-    height: 7cm,
+    height: 5.5cm,
     legend: (position: right + bottom),
     margin: (right: 10%),
     xlabel: [Number of Issues],

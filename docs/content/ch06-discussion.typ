@@ -42,8 +42,8 @@ While #TheTool can be considered efficient, only taking up to
 its accuracy could still be improved.
 
 The results obtained during the empirical study reveal that the Type-I error
-rate of #TheTool is very high, at #type_i_error_rate% false positives
-when considering projects, and even higher when considering issues individually.
+rate of #TheTool is acceptable, at #type_i_error_rate% false positives
+when considering projects, and but slightly higher when considering issues individually.
 These rates reflect the complexity of performing static code analysis of Python
 programs, where the lack of type annotations and complex language features
 hinder the ability of taint analysis tools such as Pysa to correctly track
@@ -279,4 +279,3 @@ goal of researching possible gadgets for class pollution.
 That is then a possible area for future research, as a complement to
 this degree project, and would unlock automating the scan for
 full-chain class pollution exploits.
-

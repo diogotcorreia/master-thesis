@@ -1,4 +1,4 @@
-#let raw_data = json("../assets/summary.json")
+#import "./ch05-results.typ": data_filtered
 
 #let mk_platform_data(list, platform) = {
   list
@@ -7,8 +7,8 @@
     .sorted(key: project => -project.at("popularity"))
 }
 
-#let pypi_projects = mk_platform_data(raw_data, "PyPI")
-#let gh_projects = mk_platform_data(raw_data, "GitHub")
+#let pypi_projects = mk_platform_data(data_filtered, "PyPI")
+#let gh_projects = mk_platform_data(data_filtered, "GitHub")
 
 #let mk_issues_table(projects, popularity_label) = {
   set text(size: 8pt)
