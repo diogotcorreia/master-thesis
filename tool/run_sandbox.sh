@@ -9,6 +9,7 @@ uv_cache="$(realpath "${UV_CACHE_DIR:-$xdg_cache/uv}")"
 workdir="$(realpath "$WORKDIR")"
 
 script="$SCRIPT_PATH"/target/release/class-pollution-detection
+benchmarks="$(realpath "$SCRIPT_PATH"/../detection-benchmarks/)"
 
 pushd "$SCRIPT_PATH"
 cargo build --release
@@ -20,6 +21,7 @@ bwrap \
   --bind "$workdir" "$workdir" \
   --bind "$uv_cache" "$uv_cache" \
   --ro-bind "$script" "$script" \
+  --ro-bind "$benchmarks" "$benchmarks" \
   --proc /proc \
   --dev /dev \
   --setenv TMP /tmp \
