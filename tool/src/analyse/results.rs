@@ -439,7 +439,6 @@ impl Display for NotVulnerableReason {
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum GetAttrCount {
-    None, // should not happen?
     One,
     TwoPlus,
     /// Possibly this is a loop or recursive function
@@ -456,21 +455,7 @@ impl GetAttrCount {
     /// least two calls to `getattr`. Otherwise, the number of calls to `getattr` could depend on a
     /// loop or recursive function.
     pub fn from_issue_data(issue_data: &TaintIssueData) -> Self {
-        let Some(forward_trace) = issue_data
-            .traces
-            .iter()
-            .find(|trace| trace.name == "forward")
-        else {
-            return Self::None;
-        };
-
-        let all_features = forward_trace.roots.iter().flat_map(|root| {
-            root.local_features()
-                .iter()
-                .chain(root.kinds().iter().flat_map(|kind| kind.features.iter()))
-        });
-
-        for feature in all_features {
+        for feature in &issue_data.features {
             if feature.always_via == Some("customgetattr".to_string()) {
                 return Self::TwoPlus;
             }
