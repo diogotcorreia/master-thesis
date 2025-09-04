@@ -43,6 +43,9 @@ impl<'a> Temp<'a> {
                     continue;
                 }
             };
+            if report.issues.is_empty() {
+                continue
+            }
             let analysis_dir = Self::find_analysis_directory(&all_analysis, id);
 
             let Some(dir) = analysis_dir else {
