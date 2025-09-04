@@ -8,7 +8,7 @@ use clap::Parser;
 use class_pollution_detection::{
     analyse::{results::UnprocessedResults, setup_project_from_external_src, AnalyseOptions},
     cli::{Cli, Commands},
-    e2e::{config::DatasetConfig, labeling::Labeling, pipeline::Pipeline, summary::Summary},
+    e2e::{config::DatasetConfig, labeling::Labeling, pipeline::Pipeline, summary::Summary, temp::Temp},
     python::deps::ResolveDependenciesOpts,
     Workdir,
 };
@@ -73,7 +73,7 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
                 .map(|path| DatasetConfig::read(path))
                 .transpose()?;
 
-            let labeling = Labeling::new(workdir, dataset_config.as_ref());
+            let labeling = Temp::new(workdir, dataset_config.as_ref());
             labeling.prompt_unlabeled()?;
         }
         Commands::Summary(summary_args) => {
