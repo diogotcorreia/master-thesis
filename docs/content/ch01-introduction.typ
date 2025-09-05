@@ -1,3 +1,5 @@
+#import "../utils/constants.typ": TheTool
+#import "../utils/global-imports.typ": cve
 #import "../utils/enum-references.typ": enum-label, wrapped-enum-numbering
 
 = Introduction <intro>
@@ -115,10 +117,36 @@ but only in general as a motivation for this work, as per @rq-causes-consequence
 // TODO: go back to research questions, provide an answer
 // say which section it is discussed in
 
-#text(fill: red, lorem(50))
+This degree project provides three major contributions,
+related to each research question.
+
+Firstly, as part of @rq-causes-consequences[],
+a comprehensive list of dangerous constructs that can lead to class pollution
+and some examples of accompanying gadgets
+have been gathered and are available in @bg:lit-review.
+
+Secondly, as a result of @rq-tool-design[],
+#TheTool has been created,
+becoming the first publicly available tool specifically built
+to detect class pollution in Python projects.
+
+Lastly, in relation to @rq-widespread[],
+an empirical study
+assessing the prevalence of class pollution
+has been conducted over 3000 popular Python packages,
+resulting in the responsible disclosure of a critical severity vulnerability,
+tracked by #cve("CVE-2025-58367").
 
 == Structure of the Thesis
 
-// TODO: to be written at the end
-
-#text(fill: red, lorem(50))
+In @bg, technical background related to code reuse attacks in other programming
+languages is presented,
+along with the results of a literature review of the causes and consequences
+of class pollution,
+and followed by an overview of taint analysis and Pysa.
+Then, in @method, the research method to be used is established,
+and followed by an overview of the implementation of #TheTool in @thing.
+After that, the evaluation and its results are presented in
+@results and discussed in @discussion.
+Finally, in @conclusion, the conclusions and reflections
+of this degree project are presented.

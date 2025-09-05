@@ -9,6 +9,8 @@
 
 #let gls-shrt = glossarium.gls-short.with(link: true)
 
+#let cve(id) = link("https://www.cve.org/CVERecord?id=" + id, id)
+#let gh(name) = link("https://github.com/" + name, name)
 #let pep(number) = {
   [PEP #number#footnote(link("https://peps.python.org/pep-0" + str(number) + "/"))]
 }

@@ -1,4 +1,4 @@
-= Conclusions and Future Work
+= Conclusion <conclusion>
 
 #text(fill: red, lorem(50))
 

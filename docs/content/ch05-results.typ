@@ -1,5 +1,5 @@
 // data analysis
-#import "../utils/global-imports.typ": codly, gls-shrt, headcount, lq, pep, subpar
+#import "../utils/global-imports.typ": codly, cve, gh, gls-shrt, headcount, lq, pep, subpar
 #import "../utils/constants.typ": TheTool, gh_color, pypi_color, tbl_green, tbl_grey, tbl_red
 
 #let raw_data = json("../assets/summary.json")
@@ -285,9 +285,6 @@ listed in @tbl:vuln-projects.
 
 #figure(caption: [List of open-source projects known-vulnerable to class pollution])[
   #show table.cell.where(y: 0): strong
-
-  #let gh(name) = link("https://github.com/" + name, name)
-  #let cve(id) = link("https://www.cve.org/CVERecord?id=" + id, id)
 
   #table(
     columns: 4,
