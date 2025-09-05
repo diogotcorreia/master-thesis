@@ -137,7 +137,7 @@ but could simply contain Python scripts for other tasks.
 One example is the *adobe-fonts/source-han-sans* repository, which mostly
 contains fonts but has two Python scripts as part of the build process.
 Another example is *sajjadium/ctf-archives*, a repository that contains
-archives for CTF competitions, and which is part of the dataset because the
+archives for @ctf competitions, and which is part of the dataset because the
 predominant language in the repository is Python.
 
 The reverse of this problem is that projects that might heavily use Python could

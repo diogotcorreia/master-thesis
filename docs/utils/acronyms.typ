@@ -5,6 +5,13 @@
     long: "Command-Line Interface",
   ),
   (
+    key: "ctf",
+    short: "CTF",
+    long: "Capture The Flag",
+    description: [A cybersecurity competition,
+      where players need to exploit systems to obtain "flags"],
+  ),
+  (
     key: "dos",
     short: "DoS",
     long: "Denial of Service",

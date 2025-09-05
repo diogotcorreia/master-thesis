@@ -377,11 +377,12 @@ and the results of this empirical study are presented in @results:analysis-resul
 As mentioned in @method:data-collection, the tool has been run on a set of
 @pypi and GitHub projects, for a total of #raw_data.len() projects.
 
-The public @pypi download count dataset used contained a total of
+The public @pypi dataset used contained a total of
 #pypi_total_count entries, as of #pypi_dataset_date.display().
 Some packages were so old they did not provide any wheels nor source tarballs,
-but instead only provided the legacy eggs format.
-Other packages were deleted, did not follow conventional filename formats
+but instead only provided the legacy eggs format
+#footnote(link("https://packaging.python.org/en/latest/discussions/package-formats/#egg-format")).
+Other packages had been deleted, did not follow conventional filename formats
 (#pep(625)),
 or some of their files were missing from the latest version.
 The #pypi_excluded_count packages where that was the case were ignored for simplicity,
@@ -462,7 +463,8 @@ Taking into account only successfully analysed projects, the automated analysis
 time for each individual project ranged
 between #projects_elapsed_seconds.min seconds and
 #calc.round(projects_elapsed_seconds.max / 60, digits: 1) minutes,
-with a median value of just #projects_elapsed_seconds.median seconds.
+with a median value of just #projects_elapsed_seconds.median seconds,
+and can be visualised in @fg:elapsed-seconds-distribution.
 During analysis, #TheTool has been run exclusively on a shared machine with an
 AMD EPYC 7742 64-core processor and 512GB of memory, although limited to
 using only 32 cores.
@@ -474,7 +476,7 @@ using only 32 cores.
     #lq.diagram(
       width: 11cm,
       height: 4cm,
-      yaxis: (ticks: ([@pypi], [GitHub]).enumerate(), subticks: none),
+      yaxis: (ticks: ([GitHub], [@pypi]).enumerate(), subticks: none),
       xaxis: (exponent: none),
       xscale: "log",
       xlabel: [Analysis time (seconds)],
@@ -1385,7 +1387,7 @@ it then unpickles, it is possible to serialise a malicious class
 as `bytes` and the pass it to `Delta`, as shown in @code:deepdiff-rce.
 
 #figure(
-  caption: [Using a pickle to achieve #gls-shrt("rce"), bypassing protections
+  caption: [Using pickle to achieve #gls-shrt("rce"), bypassing protections
     in place by deepdiff],
   [
     #set text(size: 9pt)
