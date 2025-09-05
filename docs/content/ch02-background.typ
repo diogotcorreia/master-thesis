@@ -1,4 +1,5 @@
-#import "../utils/global-imports.typ": codly, gls-shrt
+#import "../utils/global-imports.typ": codly, fletcher, gls-shrt
+#import fletcher: diagram, edge, node
 
 = Background and Root Causes <bg>
 
@@ -29,10 +30,55 @@ the JavaScript runtime will attempt to find that property in the prototype chain
 as illustrated by @fg:prototype-chain.
 
 #figure(
-  // TODO do a flowchart-style graph that shows getting the property from the root
-  // prototype when it is not set in the object
-  rect(fill: red, height: 10em, lorem(5)),
-  caption: "Property discovery through the prototype chain",
+  caption: [Property discovery through the prototype chain],
+  diagram(
+    spacing: (20mm, 0mm),
+    node-stroke: luma(80%),
+    node(
+      (0, 0),
+      [
+        *`myobj`*
+        #align(left)[
+          `a: "foobar"` \
+          `c: true`
+        ]
+      ],
+      shape: rect,
+      name: <a>,
+    ),
+    node(
+      (1, -1),
+      align(left)[
+        `a: 42` \
+        `b: 1337`
+      ],
+      name: <b>,
+    ),
+    node(
+      (2, -2),
+      [
+        *`Object.prototype`*
+        #align(left)[
+          `d: 7`
+        ]
+      ],
+      name: <c>,
+    ),
+    node(
+      (2, -0.2),
+      align(left)[
+        `myobj.a` is `"foobar"` \
+        `myobj.b` is `1337` \
+        `myobj.c` is `true` \
+        `myobj.d` is `7` \
+        `myobj.e` is `undefined`
+      ],
+      stroke: stroke(paint: black, dash: "dashed"),
+    ),
+
+    edge(<a>, <b>, "->", [`__proto__`], label-angle: right, bend: 30deg),
+    edge(<b>, <c>, "->", [`__proto__`], label-angle: right, bend: 30deg),
+  ),
 ) <fg:prototype-chain>
 
 The prototype pollution attack was first introduced by #cite(<pp-arteau>, form: "prose")
