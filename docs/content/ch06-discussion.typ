@@ -39,7 +39,7 @@ With @rq-tool-design[], the goal was to discover how to
 design a tool that can both efficiently and accurately detect class pollution.
 While #TheTool can be considered efficient, only taking up to
 #projects_elapsed_seconds.median seconds to analyse most projects,
-its accuracy could still be improved.
+its precision could still be improved.
 
 The results obtained during the empirical study reveal that the Type-I error
 rate of #TheTool is acceptable, at #type_i_error_rate% false positives
@@ -81,7 +81,7 @@ empirical study, with the goal of deciding whether to apply certain changes
 to #TheTool.
 
 The first of which, the installation of dependencies, as outlined in
-@results:install-deps, is a clear regression in both efficiency and accuracy.
+@results:install-deps, is a clear regression in both efficiency and precision.
 Due to the lack of a standard for declaring and pinning dependencies in
 the past, it is often difficult to successfully install all the dependencies
 for a project, resulting in either resolution or build errors.

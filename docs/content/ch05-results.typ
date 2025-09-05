@@ -345,7 +345,7 @@ considered all the remaining code in the codebase.
 
 == Empirical Study <results:analysis>
 
-To validate the accuracy of #TheTool in real-world scenarios,
+To validate the precision of #TheTool in real-world scenarios,
 it has been tested against a large dataset of open-source Python projects.
 The composition of this dataset is outlined in @results:dataset,
 and the results of this empirical study are presented in @results:analysis-results.

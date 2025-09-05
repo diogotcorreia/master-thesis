@@ -95,7 +95,7 @@ where the designed tool is tested against
 a dataset of Python libraries and applications.
 In this study, the tool will analyse each project individually
 to determine if it has any code that is vulnerable to class pollution.
-Then, to determine the accuracy of the designed tool,
+Then, to determine the precision of the designed tool,
 each of the reported hits is then manually tagged as either vulnerable
 or not vulnerable (i.e., a false positive).
 Additionally, the reasons for each verdict were also stored alongside it,

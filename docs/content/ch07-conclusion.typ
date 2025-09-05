@@ -15,7 +15,7 @@ it can allow escalation to severe vulnerabilities such as @rce.
 Moreover, a tool, named #TheTool,
 has been developed to aid with finding the dangerous constructs
 that can lead to class pollution,
-and it has good accuracy and performance.
+and it has good precision and performance.
 Notably, it is able to detect class pollution in all currently
 known vulnerable projects.
 
