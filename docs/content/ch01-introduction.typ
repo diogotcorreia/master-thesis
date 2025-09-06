@@ -4,17 +4,19 @@
 
 = Introduction <intro>
 
-For the past few decades, researchers have been investigating how the execution
-flow of programs can be manipulated.
-This is especially prevalent in C/C++ compiled code, which can be vulnerable to
+Research over the past few decades has shown how malicious attackers
+can take advantage of benign code in applications to manipulate its execution flow
+and, in turn, compromise systems and data.
+This manipulation has historically been prevalent in C/C++ compiled code,
+which can be vulnerable to
 memory corruption and therefore susceptible to techniques such as
 Shellcode execution and @rop @rop-payload-detection @rop-geometry.
 
 In contrast with compiled languages, the now widely used interpreted programming
 languages (such as JavaScript, Python, PHP, etc.) are generally immune against
-those techniques, since allocations are handled by the interpreter instead @meaning-memory-safety.
+those techniques, since allocations are instead handled by the interpreter @meaning-memory-safety.
 However, they open the door for different kinds of vulnerabilities not previously
-possible, such as code reuse attacks, which, in certain languages, can be easily
+possible, such as code reuse attacks, which can be easily
 overlooked by developers when iterating on a codebase.
 
 *Code reuse* attacks take advantage of existing code in an application to
@@ -27,19 +29,26 @@ While the former two have been the focus of many studies throughout the years,
 there has been little research done on class pollution in
 the Python programming language @pp-python. // TODO: consider removing this reference
 
-== Problem
+== Problem Statement
 
-There are currently no tools that can identify constructs that can lead to class
-pollution, nor any indication of how prevalent this vulnerability is across existing
+Class pollution is a novel type of vulnerability in Python,
+that allows attackers to surgically mutate variables in a Python application
+in order to alter the execution flow of said applications.
+
+Given the potentially high impact of class pollution,
+as seen by similar vulnerabilities such as prototype pollution @silent-spring @ghunter,
+it is important to be able to detect and prevent possibly unsafe code from
+being deployed in production applications.
+Unfortunately, there are currently no tools that can identify constructs that
+can lead to class pollution,
+nor any indication of how prevalent this vulnerability class is across existing
 Python applications.
-As seen with similar vulnerabilities, such as prototype pollution @silent-spring @ghunter, there
-is a possibility that the impact of class pollution could be high, leading to,
-for example, Authorization Bypass, @dos, @rce, and/or @ssti.
-For this reason, it is paramount to better understand what is the potential
-impact and prevalence of this vulnerability, as well as possible countermeasures
-to protect against it.
 
-The specifics of the problem are further outlined in @bg:python.
+As with similar code reuse attacks, class pollution can
+potentially facilitate attacks such as Authorization Bypass, @dos, @rce, and/or @ssti.
+For this reason, it is paramount to better understand what is the true
+impact and prevalence of this vulnerability class, as well as possible countermeasures
+to protect against it.
 
 == Research Questions <intro:rq>
 
@@ -57,42 +66,42 @@ This degree project aims to answer the following three research questions:
     How to design and implement a tool that can efficiently and accurately
     detect class pollution in Python?
   + #enum-label("rq-widespread")
-    Is class pollution in Python prevalent and exploitable in
-    real world projects?
+    How prevalent and exploitable is class pollution in
+    real world Python projects?
 ]
 
 These reflect the iterative process of understanding the vulnerability at
-hands, going over how to efficiently identify it, testing existing
-applications for its presence, and, finally, reaching a conclusion on
-how it compares to similar vulnerabilities.
+hand, ascertaining how to efficiently identify it,
+and, finally,
+testing existing applications for its presence.
 
-== Purpose
+== Purpose and Goals
 
-The purpose of this project is to generate awareness for this vulnerability
-in Python programs amongst the Python developer community.
+This project's primary objective is to
+uncover how widespread Python class pollution is
+and to empower developers with tooling to detect it.
+
+Furthermore, this project also aims to generate awareness for class pollution
+amongst the Python developer community.
 As previously stated, there has not been previous substantial research on this topic,
-and therefore the Python developers might not be aware of it, writing
-constructs that could lead to class pollution.
+and therefore
+the Python community is largely unaware of the dangers of this type of vulnerability.
 If developers are aware of the existence of class pollution and its countermeasures,
-they can avoid writing vulnerable programs.
+they can avoid writing vulnerable constructs that can lead to class pollution.
 
 Additionally, it hopes to inspire future research on the topic, which could improve
 the automated detection of class pollution, as outlined in @discussion:futurework.
 
-== Goals
-
-This project aims to uncover how widespread Python class pollution
-is amongst a sample of source-available Python projects,
-and if any of the discovered vulnerabilities are exploitable in practice,
-allowing developers to patch their respective applications.
-Additionally, a systematic investigation of the root causes of class pollution,
-as per @rq-causes-consequences[], will help developers avoid dangerous constructs.
-
 == Ethics & Sustainability
 
-As further outlined in @method, the designed tool has been run against various
-source-available projects that can be downloaded from @pypi and GitHub.
-All vulnerabilities found during the elaboration of this project have been
+As further outlined in @method,
+the dataset of projects utilised through this degree project
+contains only source-available projects that can be downloaded from @pypi and GitHub.
+When obtaining this dataset,
+all relevant APIs have been used sparingly and respecting the rate-limits in place,
+caching all responses to prevent unnecessary duplicate requests.
+
+Furthermore, all vulnerabilities found during the project's development have been
 responsibly disclosed to the respective developers and maintainers within a reasonable
 time frame, following standard disclosure procedures.
 
@@ -101,24 +110,22 @@ in unpatched projects, the benefits for developers far outweigh the drawbacks in
 regards to exploitability, as the vulnerability can be quickly identified and
 fixed.
 
-Moreover, while this project is not directly related to sustainability, it will serve
+Moreover, while this project is not directly related to sustainability, it serves
 an important role in securing various Python applications that could be directly related
 to sustainability.
 
 == Limitations
 
-This project is aimed at designing a tool that can identify code paths potentially vulnerable
+This project is aimed at identifying code paths potentially vulnerable
 to class pollution.
-It is, however, not aimed at identifying consequences of said pollution in specific programs,
+It is, however, not aimed at identifying the concrete consequences of said pollution
+in specific programs,
 but only in general as a motivation for this work, as per @rq-causes-consequences[].
 
 == Contributions
 
-// TODO: go back to research questions, provide an answer
-// say which section it is discussed in
-
 This degree project provides three major contributions,
-related to each research question.
+each related to one of the research questions.
 
 Firstly, as part of @rq-causes-consequences[],
 a comprehensive list of dangerous constructs that can lead to class pollution
@@ -139,14 +146,14 @@ tracked by #cve("CVE-2025-58367").
 
 == Structure of the Thesis
 
-In @bg, technical background related to code reuse attacks in other programming
-languages is presented,
+Technical background related to code reuse attacks in other programming
+languages is presented in @bg,
 along with the results of a literature review of the causes and consequences
 of class pollution,
-and followed by an overview of taint analysis and Pysa.
+and a general overview of taint analysis and Pysa.
 Then, in @method, the research method to be used is established,
-and followed by an overview of the implementation of #TheTool in @thing.
+and followed by a high-level description of the implementation of #TheTool in @thing.
 After that, the evaluation and its results are presented in
 @results and discussed in @discussion.
-Finally, in @conclusion, the conclusions and reflections
-of this degree project are presented.
+Finally, in @conclusion, this degree project's final conclusions and reflections
+are explored.

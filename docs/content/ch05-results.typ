@@ -186,10 +186,10 @@
 = Evaluation <results>
 
 As part of @rq-tool-design[] and @rq-widespread[], this degree project aims
-to evaluate the performance of #TheTool in regards to its accuracy at
+to evaluate #TheTool's performance in regards to its accuracy at
 detecting class pollution.
 #TheTool is first tested against a small set of handcrafted benchmarks,
-as per @results:micro-benchmarks, and then executed on dataset
+as per @results:micro-benchmarks, and then executed on a dataset
 consisting of popular @pypi and GitHub packages, as described in @results:analysis.
 
 Then, in @results:case-study, a case study is performed on a popular
@@ -213,7 +213,7 @@ is outlined in @results:tweaks.
 As there is no public dataset of projects vulnerable to class pollution,
 evaluation has to be predominantly done manually.
 For that reason, a small collection of both known-vulnerable and
-known-not-vulnerable Python programs was created
+known-not-vulnerable custom-made Python programs was created
 to assess the basic functionality of #TheTool.
 
 In this small collection of synthetic benchmarks,
@@ -221,10 +221,10 @@ there are 3 known-vulnerable programs,
 as well as 2 known-not-vulnerable programs,
 which cover basic scenarios where class pollution
 may occur.
-Namely, the former programs test if the #TheTool is able to detect
+In particular, the former 3 programs test if the #TheTool is able to detect
 the flow from chained `getattr` calls to a `setattr` call,
 or even through many function calls,
-while the latter programs check for common pitfalls such as
+while the latter 2 programs check for common pitfalls such as
 only having a single call to `getattr`
 or having hardcoded names for the attributes in calls to `getattr`.
 The source code for these tests can be found in the `detection-benchmarks`
@@ -278,7 +278,7 @@ The relevant code of the failing test can be seen in @code:test-static-attr.
   )
 ] <tbl:results-micro-benchmark>
 
-In addition to the artificial benchmarks,
+In addition to the artificial benchmarks described above,
 #TheTool has also been tested against 5 projects known to be or
 have been vulnerable,
 listed in @tbl:vuln-projects.
@@ -313,8 +313,8 @@ it raised more than a single issue for the vulnerable code due to
 the presence of multiple sinks,
 but this is expected behaviour.
 The confusion matrix for these results can be seen in @tbl:results-vulnerable-pkgs,
-noting that there is no number of true negatives since that would be
-considered all the remaining code in the codebase.
+noting that the number of true negatives cannot be determined
+since it consists of all the remaining code in the codebase.
 
 #figure(caption: [Confusion matrix for the issues raised by #TheTool in
   known-vulnerable projects])[
@@ -376,7 +376,7 @@ As mentioned in @method:data-collection, the tool has been run on a set of
 
 The public @pypi dataset used contained a total of
 #pypi_total_count entries, as of #pypi_dataset_date.display().
-Some packages were so old they did not provide any wheels nor source tarballs,
+Some packages were outdated to the point they did not provide any wheels nor source tarballs,
 but instead only provided the legacy eggs format
 #footnote(link("https://packaging.python.org/en/latest/discussions/package-formats/#egg-format")).
 Other packages had been deleted, did not follow conventional filename formats
@@ -399,10 +399,8 @@ information was fetched on the same date.
   ticks.map(format_popularity)
 }
 #figure(
-  caption: [
-    Popularity (downloads for @pypi, stars for GitHub) distribution for the
-    projects in the dataset
-  ],
+  caption: [Popularity (downloads for @pypi, stars for GitHub) distribution for the
+    projects in the dataset],
   [
     #lq.diagram(
       width: 11cm,
@@ -452,7 +450,7 @@ Analysing the projects in the dataset using #TheTool took a total of
 #format_time(total_runtime_seconds) of runtime, and an additional
 #format_time(manual_categorisation_time_seconds) of manual labeling work
 by a single person. However, the runtime duration is skewed by a few
-projects that triggered a bug in Pysa and got stuck in a loop, being killed
+projects that triggered a bug in Pysa and hanged, being terminated
 after a 30 minute timeout.
 Ignoring the analysis of failed projects, the total runtime excluding manual work is
 just #format_time(success_runtime_seconds).
@@ -462,8 +460,8 @@ between #projects_elapsed_seconds.min seconds and
 #calc.round(projects_elapsed_seconds.max / 60, digits: 1) minutes,
 with a median value of just #projects_elapsed_seconds.median seconds,
 and can be visualised in @fg:elapsed-seconds-distribution.
-During analysis, #TheTool has been run exclusively on a shared machine with an
-AMD EPYC 7742 64-core processor and 512GB of memory, although limited to
+During analysis, #TheTool ran exclusively on a shared machine with an
+AMD EPYC 7742 64-core processor and 512 GB of memory, although limited to
 using only 32 cores.
 
 #figure(
@@ -691,7 +689,7 @@ Across both platforms, only #vulnerable_issues_features.at("DictAccess") issues
 have _Dict Access_, that is, they allow traversing through the entries of a
 dictionary using `__getitem__`.
 Surprisingly, #vulnerable_issues_features.at("ListTupleAccess") issues have
-_List/Tuple Access_, which is really similar to _Dict Access_, but for
+_List/Tuple Access_, which is similar to _Dict Access_, but for
 numeric keys only.
 It is worth noting that this feature is not a superset of _Dict Access_, since
 it requires the key to be of type `int`, meaning the vulnerable code must perform
@@ -702,7 +700,7 @@ that is, it is possible to change the value of a dictionary,
 list or tuple.
 Notably, #filter_list(vulnerable_issues, by_has_features(("DictAccess", "SupportsSetItem"))).len()
 of these issues also have the _Dict Access_ feature, which is one of
-the best combinations when it comes to exploitability.
+the most powerful combinations when it comes to exploitability.
 #assert.eq(
   vulnerable_issues_features.at("AdditionalBenefits"),
   1,
@@ -710,7 +708,7 @@ the best combinations when it comes to exploitability.
 )
 Finally, a single issue has _Additional Benefits_, because it starts by traversing
 the globals of the current context, instead of on a local object.
-Unfortunately, the respective code is only used in a testing context with static
+However, the respective code is only used in a testing context with static
 paths, and is therefore not exploitable.
 
 On the other hand, when it comes to the negative features,
@@ -719,7 +717,7 @@ _Needs Existing_, as they cannot set a new attribute or dictionary item,
 usually due to some kind of check.
 This feature does not account for checks during traversal, as most of the
 code just crashes if part of the traversal path does not exist, and because
-it is not very relevant exploitability-wise.
+it is not very relevant for exploitability.
 Moreover, #vulnerable_issues_features.at("ValueNotControlled") issues have
 been labeled with _Value Not Controlled_, as the value being set is not
 controlled by an attacker (e.g., it is hardcoded to a specific value),
@@ -973,7 +971,8 @@ target object extend a certain class.
 
 With regards to the _Not Vulnerable_ issues, there were many reasons for them
 to be deemed not vulnerable, as shown in @fg:not-vuln-issue-reasons.
-An issue can have one or more reasons for not being considered vulnerable,
+During labeling,
+an issue can be assigned one or more reasons for not being considered vulnerable,
 with the most common ones being that there was only a single call to `getattr`
 (_Not Recursive_, #not_vulnerable_issues_reasons.at("NonRecursive") issues),
 that the return value of `getattr` would be modified in some way before
@@ -987,7 +986,7 @@ even if technically that could be part of a successful exploit,
 since it would be introducing too much complexity and deviating
 from the classic class pollution described in @bg:lit-review.
 
-Unsurprisingly, very few issues had already some kind of filtering in place
+Unsurprisingly, very few issues already had some kind of filtering in place
 to prevent accessing dunder properties such as `__globals__`
 (_Filtered_, #not_vulnerable_issues_reasons.at("Filtered") issues).
 
@@ -1057,7 +1056,7 @@ contain a certain method, which would be unfeasible for class pollution.
 
 // TODO code examples for non-vulnerable reasons (?)
 
-To sum up, #TheTool managed to detect a few vulnerable projects, and a very small
+To sum up, #TheTool successfully detected various vulnerable projects, and a very small
 number of them show high chance of exploitation.
 However, there was also a large number of false positives, which slows down detection
 due to the manual labor required to filter them out.
@@ -1067,12 +1066,11 @@ due to the manual labor required to filter them out.
 #let format_project_link(project) = {
   let platform = project.at("platform")
   let name = project.at("name")
+  name
   if platform == "PyPI" {
-    link("https://pypi.org/project/" + name)[#name]
+    footnote(link("https://pypi.org/project/" + name))
   } else if platform == "GitHub" {
-    link("https://github.com/" + name)[#name]
-  } else {
-    name
+    footnote(link("https://github.com/" + name))
   }
 }
 
@@ -1096,8 +1094,9 @@ due to the manual labor required to filter them out.
 Building on the results of the previous section, a few selected projects were
 manually audited to see if any of them would be exploitable.
 Since this is a very time-consuming process, only projects that had the most
-likelihood of being exploitable were considered, that is, those that had at least
-an issue with both the _Dict Access_ and _Supports `__setitem__`_ features.
+likelihood of being exploitable were considered.
+In particular, this was assumed to be those that had at least
+one issue marked with both the _Dict Access_ and _Supports `__setitem__`_ features.
 Only #case_study_considered.len() projects met this criteria:
 #case_study_considered.map(format_project_link).join(", ", last: ", and ").
 While the latter two did not reveal any obvious exploitation paths, the *deepdiff*
@@ -1164,7 +1163,7 @@ Pysa failed to detect the exact code path that leads to class pollution.
   ],
 ) <code:deepdiff-get-nested-obj-var>
 
-This `get_nested_obj` function is then called in various parts of the `Delta`
+This `get_nested_obj` function is called in various parts of the `Delta`
 class, and in certain cases, its return value is passed to the
 `_simple_set_elem_value` function's `value` parameter,
 which contains a `setattr` (and `__setitem__`) sink,
@@ -1216,8 +1215,8 @@ variable, which seems to control whether to perform the access using
 `getattr`/`setattr` or `__getitem__`/`__setitem__`.
 Reading deepdiff's documentation and examples reveals that the `Delta`
 class commonly takes a `DeepDiff` object as an argument, which provides
-it with, amongst other details, a paths in a string form, such as
-`root.['foo'].bar`.
+it with, amongst other details, a path in string form, such as
+`"root.['foo'].bar"`.
 This information is stored internally by `Delta` in its `diff` attribute
 as a Python dictionary.
 @code:deepdiff-delta-usage shows the expected usage of the library,
@@ -1276,7 +1275,8 @@ the exploit fail, as shown in @code:deepdiff-delta-string-path.
   ],
 ) <code:deepdiff-delta-string-path>
 
-Upon further investigation, it appears that there is a way to bypass this restriction
+Nevertheless, upon further investigation,
+it appears that there is a way to bypass this restriction
 by providing the path in the internal representation used by `Delta` instead of
 as a string, as the parsing function has an early return if the path is already
 a list or tuple.
@@ -1322,15 +1322,15 @@ exploit.
 Another relevant feature of the `Delta` class is its ability to be
 serialised and deserialised via Python's `pickle`
 #footnote[#link("https://docs.python.org/3/library/pickle.html")] module.
-While this would normally be a huge security risk, as noted by Python's
+While this would normally be a major security risk, as noted by Python's
 own documentation, deepdiff restricts the allowed classes and accessible
-globals to mitigate this security this.
+globals to mitigate this security problem.
 For that reason, deepdiff defines an allow list at
 `deepdiff.serialization.SAFE_TO_IMPORT`,
 which contains expected classes like `builtins.dict`, but also other classes
 like `re.Pattern` and `deepdiff.helper.Opcode`.
 If a class like `posix.system` is added to this allow list, the app becomes
-vulnerable to @rce through unpickling user-controlled data @pickle-rce.
+vulnerable to @rce through the unpickling of user-controlled data @pickle-rce.
 
 In addition to the already shown `values_changed` action, the `Delta` class
 also supports various other actions, such as `set_item_added`,
@@ -1338,7 +1338,7 @@ also supports various other actions, such as `set_item_added`,
 These actions are applied to the target object in a predefined order,
 with `values_changed` being the first, and the others following in the
 same order as they were presented in the previous sentence.
-For modifying the `SAFE_TO_IMPORT`, which is of type `set`, the
+To modify the `SAFE_TO_IMPORT` collection, which is of type `set`, the
 `set_item_added` action must be used, as shown in
 @code:deepdiff-modifying-safe-to-import by taking advantage of the
 existing import of the `Delta` class to traverse to `SAFE_TO_IMPORT`.
@@ -1410,19 +1410,20 @@ as `bytes` and the pass it to `Delta`, as shown in @code:deepdiff-rce.
 ) <code:deepdiff-rce>
 
 To conclude, deepdiff contains both a class pollution vulnerability and
-the necessary gadgets to perform @rce, as long as two calls
-are made to `Delta` with user-controlled input.
+the necessary gadgets to perform @rce, as long as two independent calls
+can be made to `Delta` with user-controlled input.
 
 === Vulnerable Application
 
-Upon completing a proof of concept exploit, GitHub was searched for repositories
+Upon completing a proof-of-concept exploit,
+a search was performed for GitHub repositories
 that used the affected `Delta` class.
 One repository, *lsst-dm/cm-service*
 #footnote(link("https://github.com/lsst-dm/cm-service"))
 immediately stood out as a potential candidate,
 as it allowed user input to flow into the `Delta` class.
 
-*cm-service* is a Python web service, built and used for the
+*cm-service* is a Python web service, built and used by the
 Rubin Observatory#footnote(link("https://rubinobservatory.org/"))
 for campaign management.
 It uses FastAPI, a modern web framework to build APIs with Python.
@@ -1479,7 +1480,7 @@ One of the available classes is `deepdiff.helper.Opcode`, defined in the
 A particularity of the `sys` module is that it has a `modules`
 dictionary that contains a reference to every module already loaded by the
 application, allowing easy traversal to `deepdiff.serialization`.
-Therefore, a possible exploit, that can lead to @rce, is to first set a
+Therefore, a possible exploit that can lead to @rce, is to first set a
 value to `Opcode` and then use that to traverse to and modify
 `SAFE_TO_IMPORT` to include `posix.system`.
 After that, another request can be made to trigger @rce via
@@ -1487,7 +1488,7 @@ the pickle exploit already shown in @code:deepdiff-rce.
 For ethical reasons, the full exploit will not be shown for this production
 application.
 
-To conclude, it has become clear from the results that the vulnerability that
+To conclude, it has become clear from the results above that the vulnerability that
 was found, with the help of #TheTool, has been proven to be exploitable in
 real-world applications.
 

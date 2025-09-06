@@ -11,16 +11,16 @@ pp-python-blog:
   parent:
     type: blog
     title: "Abdulrah33m's Blog"
-stack-overflow-survey-2024-most-popular:
+stack-overflow-survey-2025-most-popular:
   type: web
   title: "Most popular technologies"
   author: "Stack Overflow"
   url:
-    value: https://survey.stackoverflow.co/2024/technology/#most-popular-technologies
-    visited: 2025-03-14
+    value: https://survey.stackoverflow.co/2025/technology/#most-popular-technologies
+    visited: 2025-09-06
   parent:
     type: web
-    title: "2024 Developer Survey"
+    title: "2025 Developer Survey"
 php-magic-methods:
   type: reference
   title: "Magic Methods"
@@ -90,6 +90,59 @@ mdn-innerhtml:
   parent:
     type: reference
     title: MDN Web Docs
+reddit-written-in:
+  type: article
+  title: "What is Reddit written in?"
+  url:
+    value: https://support.reddithelp.com/hc/en-us/articles/204536739-What-is-Reddit-written-in
+    date: 2025-09-06
+  parent:
+    type: web
+    title: Reddit's Help Center
+python-at-google:
+  type: article
+  title: "Python at Google (Greg Stein - SDForum)"
+  author: Matt Harrison
+  date: 2006-02-01
+  url:
+    value: https://web.archive.org/web/20110303203844/https://panela.blog-city.com/python_at_google_greg_stein__sdforum.htm
+    date: 2011-03-03
+  parent:
+    type: blog
+    title: "Panela"
+python-at-netflix:
+  type: article
+  title: "Python at Netflix"
+  author:
+    - Amjith Ramanujam
+    - Ellen Livengood
+  date: 2019-04-19
+  url:
+    value: https://netflixtechblog.com/python-at-netflix-bba45dae649e
+    date: 2025-09-06
+  parent:
+    type: blog
+    title: "Netflix TechBlog"
+mesop-cve:
+  type: misc
+  title: "CVE-2025-30358: Mesop Class Pollution vulnerability leads to DoS and Jailbreak attacks"
+  date: 2025-03-27
+  url: https://github.com/advisories/GHSA-f3mf-hm6v-jfhh
+django-unicorn-cve:
+  type: misc
+  title: "CVE-2025-24370: Django-Unicorn Class Pollution Vulnerability, Leading to XSS, DoS and Authentication Bypass"
+  date: 2025-02-03
+  url: https://github.com/advisories/GHSA-g9wf-5777-gq43
+sverchok-cve:
+  type: misc
+  title: "CVE-2025-3982: nortikin Sverchok Set Property Mk2 Node getsetprop_mk2.py SvSetPropNodeMK2 prototype pollution"
+  date: 2025-04-27
+  url: "https://www.cve.org/CVERecord?id=CVE-2025-3982"
+pydash-cve:
+  type: misc
+  title: "CVE-2023-26145: pydash v5.1.2 Code Injection"
+  date: 2023-09-28
+  url: "https://www.cve.org/CVERecord?id=CVE-2023-26145"
 
 # From Zotero:
 ghunter:

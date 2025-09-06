@@ -1,3 +1,4 @@
+#import "../utils/constants.typ": TheTool
 #import "../utils/global-imports.typ": codly, fletcher, gls-shrt
 #import fletcher: diagram, edge, node
 
@@ -7,26 +8,29 @@ This chapter provides background on code-reuse attacks in multiple programming l
 followed by a brief explanation of relevant Python internals and the results of a
 literature review on causes and consequences of class pollution in Python.
 Given that very little research has been done on this topic -- there is only a
-blog post @pp-python-blog and two works @pp-python @pp-python-prevention that go over mostly
-the same content -- there are currently no state-of-the-art tools that can detect Python class
+blog post @pp-python-blog and two works @pp-python @pp-python-prevention
+with very similar content -- there are currently no state-of-the-art tools that can detect Python class
 pollution.
 For this reason, this chapter goes over similar vulnerabilities in other languages instead,
 such as prototype pollution in JavaScript (@bg:js-pp) and object injection in PHP (@bg:php-oi).
+
 Then, internal structures and behaviour of the Python language and interpreter will be explored
 in @bg:python, along with the results of the literature review in @bg:lit-review,
 in order to provide context for the rest of this project, where the techniques
-used in the aforementioned languages will be applied to Python, resulting in class pollution.
+used in the aforementioned languages will be applied to Python,
+showing how class pollution can be achieved.
 
-Finally, @bg:static-analysis goes over what static code analysis and taint analysis are and
-how Pysa, a tool used in this project, works.
+Finally, @bg:static-analysis goes over the concepts of static code analysis and taint analysis,
+and introduces the basic workings of Pysa, an open-source tool used by #TheTool.
 
 == JavaScript Prototype Pollution <bg:js-pp>
 
 Unlike most object-oriented languages, inheritance in JavaScript is prototype-based.
 This means that all objects in JavaScript have a `__proto__` property pointing to another
-object, and so on, until they reach the root prototype @pp-arteau[pp.~5-7].
-For this reason, when accessing a property that does not exist in a given object,
-the JavaScript runtime will attempt to find that property in the prototype chain,
+object, and so on, until the root prototype is reached @pp-arteau[pp.~5-7].
+When accessing a property that does not exist in a given object,
+the JavaScript runtime will follow this prototype chain in an attempt to find that property
+in a parent object,
 as illustrated by @fg:prototype-chain.
 
 #figure(
@@ -81,18 +85,22 @@ as illustrated by @fg:prototype-chain.
   ),
 ) <fg:prototype-chain>
 
-The prototype pollution attack was first introduced by #cite(<pp-arteau>, form: "prose")
+However, this particular language feature also opens JavaScript applications
+to new kinds of attacks, namely prototype pollution.
+This attack was first introduced by #cite(<pp-arteau>, form: "prose")
 in #cite(<pp-arteau>, form: "year"), highlighting how it could be used in real-world
 applications to obtain unauthenticated @rce and other dangerous vulnerabilities.
 The key to prototype pollution is that all objects, by default, inherit from the same,
 mutable, root prototype.
-Therefore, any property added to this prototype will be added to most objects in the
-application, which, as demonstrated by #cite(<ghunter>, form: "prose")
-#cite(<probetheproto>, form: "prose") and #cite(<silent-spring>, form: "prose"), can cause
-serious consequences.
+Critically, this means that any property added to the root prototype
+will become available to most objects in the
+application.
+This simple mechanism can lead to serious consequences,
+as demonstrated by #cite(<ghunter>, form: "prose")
+#cite(<probetheproto>, form: "prose"), and #cite(<silent-spring>, form: "prose").
 
 The exploitation of prototype pollution requires two steps: finding constructs that
-allow setting properties in the root prototype, and finding gadgets.
+allow setting properties in the root prototype, and finding gadgets to hijack.
 There are various constructs that can allow an attacker to pollute the root prototype,
 but @code:pollute-proto shows one in its most basic form, requiring three variables to
 be controlled by an attacker @pp-arteau[p.~8].
@@ -104,15 +112,17 @@ control over gadgets @pp-arteau[p.~9].
 
 #figure(caption: "Example construct that would pollute the root prototype")[
   ```js
-  let obj = {}; // some object
-  let key1 = "__proto__"; // attacker-controlled
-  let key2 = "foo"; // attacker-controlled
-  let value = "bar"; // attacker-controlled
+  const obj = {}; // some object
+  const key1 = "__proto__"; // attacker-controlled
+  const key2 = "foo"; // attacker-controlled
+  const value = "bar"; // attacker-controlled
 
   // Object.prototype points to the root prototype
   console.log(Object.prototype); // {}
   obj[key1][key2] = value;
   console.log(Object.prototype); // { foo: 'bar' }
+  const other_obj = {};
+  console.log(other_obj.foo); // 'bar'
   ```
 ] <code:pollute-proto>
 
@@ -124,7 +134,7 @@ would result in the program printing possibly sensitive information.
 
 #figure(caption: "Example gadget, granting access to admin-only information")[
   ```js
-  let user = { username: "johndoe" };
+  const user = { username: "johndoe" };
   // If Object.prototype.admin is polluted, this is true
   if (user.admin) {
     printSuperSecretInformation(); // Oh no :(
@@ -148,30 +158,31 @@ iterate over that property as well.
 #figure(caption: [Example gadget demonstrating how enumerable properties can be used to
   set arbitrary properties of #gls-shrt("dom") elements])[
   ```js
-  let attributes = {
+  const attributes = {
     href: "https://example.com",
     innerText: "this is a link"
   };
   // element already has an innerHTML defined
-  let element = document.createElement("a");
+  const element = document.createElement("a");
 
   // If Object.prototype.innerHTML is polluted,
   // this iterates over href, innerText, AND innerHTML
-  for (let attr in attributes) {
+  for (const attr in attributes) {
     element[attr] = attributes[attr];
   }
   document.body.append(element);
   ```
 ] <code:pp-enumerable>
 
-As already mentioned, there has been extensive research about JavaScript prototype
+As already mentioned, extensive research has been conducted on the topic of JavaScript prototype
 pollution, including in both server-side and client-side JavaScript.
 For instance, #cite(<ghunter>, form: "prose") and #cite(<silent-spring>, form: "prose")
-have identified various universal gadgets in NodeJS, a server-side JavaScript runtime, which
-can result in @rce, @ssrf, privilege escalation, path traversal, and more, when combined with prototype pollution.
+have identified various universal gadgets in NodeJS (a server-side JavaScript runtime) which
+when combined with prototype pollution can result in @rce, @ssrf,
+privilege escalation, path traversal, and more.
 These are called universal gadgets since they rely on built-in modules in NodeJS instead of
 third-party packages.
-When it comes to the client-side, that is, JavaScript running in browsers,
+When it comes to the client-side, that is, JavaScript running in web browsers,
 #cite(<probetheproto>, form: "prose") has found that it is possible to pollute the
 root prototype via the URL in certain websites, possibly leaving them vulnerable to @xss,
 cookie manipulation, and/or URL manipulation.
@@ -181,8 +192,8 @@ cookie manipulation, and/or URL manipulation.
 There are multiple mitigations possible, as shown by #cite(<pp-arteau>, form: "prose").
 Firstly, one could freeze the prototype using `Object.freeze(Object.prototype)`, which
 would make it immutable and disallow attackers from changing its properties.
-Alternatively, but less effectively, developers could create objects that do not inherit
-from the root prototype by using `Object.create(null)`.
+Alternatively, but less ergonomically, developers could create objects that do not inherit
+from the root prototype by using `Object.create(null)` instead of `{}`.
 
 == PHP Object Injection <bg:php-oi>
 
@@ -194,13 +205,13 @@ However, attackers can take advantage of PHP's deserialisation and serialisation
 which convert arbitrary objects into a string and vice-versa, and use them to create
 objects with types the application did not expect @php-object-injection.
 
-Another relevant language feature is magic methods, which are called by PHP on various actions
-@php-magic-methods.
+Another relevant language feature is magic methods, which are called by PHP
+during various lifetime stages @php-magic-methods.
 For instance, the `__sleep` method is called before serialisation, `__wakeup` is called after
 deserialisation, `__destruct` is called when an object is about to be destroyed because there
 is no longer any reference to it, and many more @php-object-injection @php-magic-methods.
 When used in conjunction with dynamic dispatch, an attacker can take advantage of any class
-in the application as a gadget, possibly achieving vulnerabilities like @rce, as demonstrated
+in the application as a gadget, possibly achieving vulnerabilities such as @rce, as demonstrated
 by @code:php-oi-rce @php-object-injection.
 
 #figure(caption: [Example showing how deserialising data can result in #gls-shrt("rce")
@@ -238,25 +249,28 @@ by @code:php-oi-rce @php-object-injection.
 
 The *Python#footnote(link("https://www.python.org/")) programming language*
 was created in 1991 by Guido van Rossum and has since
-seen immense adoption from the programming community, with more than 50% of the respondents
-of the 2024 Stack Overflow Survey having worked with it or wanting to @stack-overflow-survey-2024-most-popular.
+seen immense adoption from the programming community, with more than 55%
+of the 49,000+ respondents of the 2025 Stack Overflow Survey having worked
+or wanting to work with it @stack-overflow-survey-2025-most-popular.
 It is used for many applications, such as scripting, web applications, machine learning, and much
 more.
 Some high-profile open-source programs that extensively use Python are
 #link("https://github.com/home-assistant/core")[Home Assistant],
-#link("https://github.com/element-hq/synapse")[Matrix Synapse]
+#link("https://github.com/element-hq/synapse")[Matrix Synapse],
 and
 #link("https://github.com/ansible/ansible")[ansible],
-along with many companies like Netflix, Google and Reddit
+along with many companies such as Netflix @python-at-netflix,
+Google @python-at-google,
+and Reddit @reddit-written-in
 that use it for their products as well.
 For this reason, Python is a very valuable target for malicious attackers
-and therefore extremely relevant for security researchers.
+and thus also extremely relevant for security researchers.
 
 === Dunder Methods & Properties
 
 // https://docs.python.org/3/reference/datamodel.html#special-method-names
 
-In Python, most objects have double underscore (dunder) methods and
+In Python, most objects have double-underscore (dunder) methods and
 properties that are used internally by the interpreter.
 Some of these methods and properties are meant to be overridden by users,
 like `__init__()` and `__add__()`, while others are meant to aid the interpreter,
@@ -268,7 +282,7 @@ For instance, the expression `foo + bar` is interpreted by Python
 as `type(foo).__add__(foo, bar)`.
 This allows for very expressive customisability for developers, not only by
 overloading operators, but also by changing the behaviour of common constructs,
-such as, converting an object to a string (`__str__()`), subclass initialisation
+such as converting an object to a string (`__str__()`), subclass initialisation
 (`__init__subclass__()`), listing names of the object's scope (`__dir__()`),
 and much more.
 
@@ -296,9 +310,10 @@ in Python like @ssti.
 
 === Object Attributes and Item Containers
 
-In Python, data in objects can be stored in different ways;
-it can either be an attribute of an object, or it can be an item
-in a container (dictionaries, lists, and tuples are examples of containers).
+In Python, data in objects can be stored
+as either an object's attribute or as an item
+in a container, Python's name for what are commonly called collections
+(dictionaries, lists, and tuples are examples of containers).
 
 This is an important distinction because it dictates how that data
 can be accessed.
@@ -319,7 +334,7 @@ and dynamically through the built-in `getattr` and its writing counterpart
 ] <code:python-access-attributes>
 
 On the other hand, accessing items inside containers, both statically and
-dynamically, is done through the bracket-notation, which is once again
+dynamically, is accomplished with bracket notation, which is once again
 syntactic sugar for calling `__getitem__` or `__setitem__`, as shown in
 @code:python-access-items-containers.
 
@@ -331,6 +346,7 @@ syntactic sugar for calling `__getitem__` or `__setitem__`, as shown in
   foo.bar # AttributeError
   foo["bar"] # 123
   foo[qux] # 123
+  foo.__getitem__(qux) # 123
   ```
 ] <code:python-access-items-containers>
 
@@ -398,10 +414,16 @@ constructs that can result in class pollution.
 
 In total, two papers @pp-python-prevention @pp-python-blog,
 one blog post @pp-python, and The Python Reference Manual
-@python-reference-manual have been analysed in order to
+@python-reference-manual,
+along with some existing vulnerability advisories
+@mesop-cve
+@django-unicorn-cve
+@sverchok-cve
+@pydash-cve,
+have been analysed in order to
 compile the causes and consequences of class pollution.
 
-As such, the results of this literature review are presented
+The results of this literature review are presented
 in this section.
 
 === Dangerous Constructs
@@ -481,17 +503,19 @@ Unfortunately, both `__globals__` and `__builtins__`
 ]
 return a dictionary, which
 cannot be traversed using `getattr`.
-This results in a big limitation for the exploitation of class pollution:
-to traverse outside a class hierarchy, the construct needs to use not only
+This results in a significant limitation for the exploitation of class pollution:
+to traverse outside a class hierarchy, the construct needs to not only use
 `getattr`, but to fallback to `__getitem__` when it encounters a dictionary or list.
+This could be uncommon due to the use of `dataclass`es to store information instead of dictionaries.
 
-Sometimes, vulnerable constructs that use `__getitem__` only do so when the key is numeric,
+In some cases, vulnerable constructs that use `__getitem__` only do so when the key is numeric,
 presumably to traverse a list or tuple.
 This is not very useful in the context of traversing a dictionary, because there is
-no way to obtain a list from a dictionary without a function call (e.g., through `.values()`).
+no way to obtain a list from a dictionary without a function call (e.g., through `.values()`),
+which `getattr` cannot do.
 Another possible way to traverse using only attribute accesses and lists would be
 through the `__subclasses__()` method of the `object` class, which returns a list
-of all classes that extend `object` (all classes that don't explicitly declare a base),
+of all classes that extend `object` (all classes that do not explicitly declare a base),
 but that also requires a function call.
 
 In case only `getattr` and `setattr` are used in the vulnerable construct,
@@ -528,31 +552,34 @@ set the attribute to a desired value.
 Again, depending on the type of the parent, this can either be done with `setattr`
 or `__setitem__`.
 
-To sum up, for a vulnerable construct to be able to use many gadgets, it needs to use
+To sum up, for a vulnerable construct to be able to offer a wide attack surface
+with larger freedom of gadget election,
+it needs to use
 both `getattr` and `__getitem__`, and then either `setattr` or `__setitem__`.
 
 === Possible Gadgets
 
 While this work is mostly focused on finding dangerous constructs rather than gadgets,
 it is still important to highlight some of them, both for the relevance of this
-degree project, as well as to aid with creating a proof of concept when reporting
+degree project, as well as to aid with creating a proof-of-concept when reporting
 vulnerabilities.
 
 ==== Mutating Built-ins
 
-An easy way of creating a @dos is to change the value of a builtin.
+An easy way of crafting a @dos attack is to change the value of a language builtin.
 Assuming the payload can only be a string, then changing the value of
 `__builtins__.list` to e.g., `"foo"` will cause all calls to `list()`
 to crash.
-Obviously, if the payload can be a function, then it is possible to achieve @rce
+Evidently, if the payload can be a function, then it is possible to achieve @rce
 this way.
-One might argue that simply accessing an attribute that doesn't exist can
+One might argue that simply accessing an attribute that does not exist can
 already cause the program to crash, but in that case, the program might
 catch the exception (or verify that the attribute exists before accessing it)
 because it could be expected that it might not exist.
-However, the program is definitely not expecting the type of `list` to have changed
-to a string.
-The usage of these gadget is illustrated in @code:gadget-builtins.
+However, it is unlikely the developers of the program accounted for
+the type of `list` changing to a string,
+resulting in a crash when the `list()` function in invoked.
+The usage of this gadget is illustrated in @code:gadget-builtins.
 
 #figure(caption: [How polluting a frequently used built-in
   can cause a #gls-shrt("dos") vulnerability])[
@@ -579,9 +606,9 @@ in a shell.
 Changing one of these might allow an attacker to bypass authorization,
 exfiltrate data, or even achieve @rce.
 
-Apart from @code:gadget-getattr-only, a common example is showing
+Apart from @code:gadget-getattr-only, a common gadget example is showing
 how changing the app key in a Flask application allows an attacker to
-forge any cookies, and possibly bypassing authentication, as shown
+forge any cookies, thus possibly bypassing authentication, as shown
 in @code:gadget-flask-key @pp-python-blog.
 
 #figure(caption: [A Flask application that contains a gadget in the form of a cookie
@@ -615,7 +642,7 @@ in @code:gadget-flask-key @pp-python-blog.
 
 Overriding the environment variables in `os.environ` can be very powerful
 since many parts of a Python program, including the standard library,
-use it to control certain behaviour.
+use them to control their behaviour.
 A common example is hijacking `PATH`, so that shell commands executed by name
 could instead run an attacker-controlled program.
 This would require an attacker that can write to a file in a known location,
@@ -653,8 +680,8 @@ Nonetheless, it could be useful in cases when another Python program is launched
 as a child process.
 Additionally, the contents of the `sys.path` list can be directly manipulated
 using class pollution as well, which achieves the same goal as modifying `PYTHONPATH`
-for the current program, as shown by @code:gadget-pythonpath-hijack.
-As for `COMSPEC`, it is only useful on Windows, where it can be used to achieve
+for the current process, as shown by @code:gadget-pythonpath-hijack.
+As for `COMSPEC`, it is only useful on Windows systems, where it can be used to achieve
 @rce when a call to `subprocess.Popen` is made @pp-python-blog.
 
 #figure(caption: [Hijacking of Python's import path
@@ -686,8 +713,8 @@ As mentioned previously, Python relies heavily on dunder properties for its inte
 One of those cases is when handling default parameters of functions, where it stores
 the defaults in `__defaults__` (a tuple) and `__kwdefaults__` (a dictionary),
 for unnamed and named parameters respectively.
-Changing one of these values affects all future calls to the respective function,
-if they do not include a value for the given parameter.
+Changing one of these values affects all future calls to the respective function
+that omit a value for the given parameter.
 
 Modifying the values of `__defaults__` can be challenging because tuples are immutable,
 so `__defaults__` would need to be polluted in one go, as a tuple.
@@ -695,11 +722,20 @@ It is not common for user input to be converted to a tuple (e.g., during JSON de
 so this might be out of reach for most exploits, but nonetheless worth mentioning.
 However, `__kwdefaults__` is a dictionary, meaning it is possible to pollute individual
 values.
+
 It might be more attractive to pollute functions specific to a certain application,
-but one gadget available in the `subprocess` module is the `Popen` constructor,
+but there are also universal gadgets present in the Python standard library.
+For instance, one gadget available in the `subprocess` module is the `Popen` constructor,
 which takes a `umask` named parameter.
 Polluting this could be used, for example, to force all files created by child processes
-to be world-readable and world-writable.
+to be world-readable and world-writable
+#footnote[
+  As can be seen from @code:gadget-umask,
+  it might not always be possible to make files world-executable,
+  as it depends on the program that is creating the files.
+  For instance, `touch` never tries to make files executable,
+  therefore the resulting permissions for `super-secret` are 0666 instead of 0777.
+].
 This is illustrated by @code:gadget-umask, where it is worth noting that
 `os.popen` calls `subprocess.Popen` under the hood, which highlights that the
 program does not need to call a gadget directly for it to be effective.
@@ -745,7 +781,7 @@ pollution, if traversal starts in a native class, such as a `dict`,
 The results of this literature review let us answer @rq-causes-consequences[].
 In summary, class pollution can be exploited via recursive calls to
 `getattr` and `__getitem__`, finalised by a call to `setattr` or `__setitem__`.
-Many gadgets become accessible when it is possible to traverse through the
+Additionally, many gadgets become accessible when it is possible to traverse through the
 `__globals__` attribute of a function, which can result in @dos, authentication
 bypass, or even @rce.
 == Static Code Analysis <bg:static-analysis>

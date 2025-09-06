@@ -16,7 +16,7 @@ while proposals and ideas for future work are laid out in @discussion:futurework
 
 In this thesis, a tool that analyses projects in search of class pollution
 vulnerabilities has been developed.
-This resulted in a comprehensive list of projects that could be vulnerable
+This resulted in a list of projects that could be vulnerable
 to this novel attack vector.
 Furthermore, an in-depth literature study has been conducted to better
 highlight what code constructs can lead to class pollution and which
@@ -29,7 +29,7 @@ pollution were, and what were the possible consequences of a successful
 exploit.
 This research question has already been answered in @bg:lit-review, but has
 since been corroborated with the results from @results:case-study.
-The proof of concept exploits presented in the case study validate that class
+The proof-of-concept exploits presented in the case study validate that class
 pollution in Python is not just a theoretical exploit, but that it can have real
 consequences in applications deployed today.
 
@@ -43,7 +43,7 @@ its precision could still be improved.
 
 The results obtained during the empirical study reveal that the Type-I error
 rate of #TheTool is acceptable, at #type_i_error_rate% false positives
-when considering projects, and but slightly higher when considering issues individually.
+when considering projects, though slightly higher when considering issues individually.
 These rates reflect the complexity of performing static code analysis of Python
 programs, where the lack of type annotations and complex language features
 hinder the ability of taint analysis tools such as Pysa to correctly track
@@ -64,7 +64,7 @@ ensure these are correctly filtered out.
 Regarding Type-II errors, that is, false negatives, it is unfortunately not
 possible to evaluate #TheTool in that regard due to the lack of a labeled
 dataset to test against.
-Given the lack of prior work in Python class pollution research, there is no
+Given the scarcity of prior work in Python class pollution research, there is no
 exhaustive list of projects vulnerable to it, apart from the very few used in
 @results:micro-benchmarks, of which #TheTool managed to successfully identify
 all of them.
@@ -86,13 +86,13 @@ Due to the lack of a standard for declaring and pinning dependencies in
 the past, it is often difficult to successfully install all the dependencies
 for a project, resulting in either resolution or build errors.
 This has since been greatly improved with the addition of `pyproject.toml`
-and `pylock.toml`, but given that the latter has only been officially
+and `pylock.toml`, but given that the latter was only officially
 standardised in March of 2025, most projects in the dataset understandably
-did not include it in their repositories.
+did not include a dependency lockfile in their repositories.
 Furthermore, the observed analysis time increased drastically, not just because
 of dependency installation, but also due to Pysa taking significantly more
-time to analyse all dependencies as well.
-Additionally, with regards to false positive rates, the inclusion of
+time to analyse all dependencies in addition to the primary project in question.
+Moreover, with regards to false positive rates, the inclusion of
 third-party code not only increased the amount of taint broadening that occurred,
 but also reported duplicate issues for different projects that used the same
 dependencies, which were usually false positives.
@@ -103,16 +103,18 @@ On the other hand, the other experiment regarding counting the calls to
 `getattr`, as outlined in @results:getattr-count,
 #text(fill: red, lorem(50)). // TODO
 
-To conclude, as an answer to @rq-tool-design[], the results indicate that,
-while some improvements are needed to reduce the rate of false positives,
+To conclude, as an answer to @rq-tool-design[], the results indicate that
 the use of static taint analysis is a promising way of detect class
-pollution in Python.
+pollution in Python,
+despite the need for some improvements to reduce the rate of false positives.
 
 === Prevalence in Real World Projects
 
 Regarding @rq-widespread[], it has become clear from the results that not many
 projects are vulnerable to class pollution.
-This is likely due to the constructs needed, which are not frequently used when
+This is likely due to the several constructs
+that need to be present for attacks to be possible,
+which are constructs not frequently used when
 building Python applications.
 
 Even when projects were deemed vulnerable,
@@ -124,7 +126,7 @@ exploitable, since only gadgets within the same class hierarchy, and the class
 hierarchy of its attributes, can be used, as explored in @bg:lit-review.
 
 During human review of the vulnerabilities found, it stood out that many
-of the projects, particularly those from GitHub dataset, were @ml related.
+of the projects, particularly those from the GitHub dataset, were @ml related.
 For those projects, the vulnerable functions were mostly used to handle instances
 of `torch.nn.Module`, a neural network module, and set parameters and weights
 for the neural networks.
@@ -132,18 +134,18 @@ These usually made certain assumptions about the objects being traversed,
 and were frequently labeled with _Additional Constraints_.
 
 Moreover, something that became clear from the GitHub projects
-analysed, was that they were not always supposed to be used as an application,
+analysed was that they were not always supposed to be used as an application,
 but could simply contain Python scripts for other tasks.
 One example is the *adobe-fonts/source-han-sans* repository, which mostly
 contains fonts but has two Python scripts as part of the build process.
 Another example is *sajjadium/ctf-archives*, a repository that contains
-archives for @ctf competitions, and which is part of the dataset because the
+archives for @ctf competitions, and which was included in the dataset because the
 predominant language in the repository is Python.
 
 The reverse of this problem is that projects that might heavily use Python could
 be missing from the dataset because the predominant language is not Python.
 For example, a web application whose repository contains 51% HTML and 49% Python
-code, would be classified as an HTML repository by GitHub instead.
+code would be classified as an HTML repository by GitHub instead.
 For this reason, it appears that the @pypi dataset yielded better results
 when it comes to analysing relevant packages in which a vulnerability could
 have a meaningful impact.
@@ -151,12 +153,12 @@ have a meaningful impact.
 On a different note, when comparing these results to similar vulnerabilities
 in other languages, namely prototype pollution in JavaScript, it is not
 easy to determine which one is clearly more prevalent.
-A clear difference between the two languages is that prototype
+A stark difference between the two languages is that prototype
 pollution in JavaScript is usually exploitable if it exists at all, whereas
 class pollution in Python requires that the vulnerable function uses
 `__getitem__` during traversal, sometimes `__setitem__` for setting
 the values, and that the traversal does not start from a builtin type like
-a dictionary, in order to have a meaningful possibility of exploitation.
+a dictionary, in order to have any meaningful possibility of exploitation.
 
 #let prevalence_cp = case_study_considered.len()
 #let total_cp = projects_success.len()
@@ -173,7 +175,7 @@ with _Dict Access_ and _Supports `__setitem__`_ are being accounted for,
 which results in an prevalence of #prevalence_cp in #total_cp (#prevalence_rate_cp%)
 versus a prevalence of #prevalence_pp in #total_pp (#prevalence_rate_pp%) for
 prototype pollution.
-The gap is even bigger if only the single confirmed exploitable project is
+The gap is even more significant if only the single confirmed exploitable project is
 accounted for.
 However, this is not a perfect comparison, as the domain and type of applications
 is clearly different.
@@ -185,7 +187,7 @@ In conclusion, as an answer to @rq-widespread[], it has become clear that while
 class pollution is not prevalent in most Python applications, it is still
 a vulnerability that needs to be accounted for.
 Notably, the obtained results show that when it is exploitable,
-the consequences can be very serious and lead to @rce.
+the consequences can be very serious and potentially even lead to @rce.
 
 == Mitigations <discussion:mitigations>
 
@@ -229,18 +231,18 @@ While this project attempts to design and implement a tool that can detect
 class pollution, it is the first of its kind and therefore some aspects
 have been simplified, or even entirely skipped, in the name of simplicity.
 
-Additionally, it is important to recall that the goal of this thesis is
+For instance, it is important to recall that the goal of this thesis is
 simply to detect class pollution, which is just one part of the puzzle.
 To successfully exploit this vulnerability, suitable gadgets need to
-be found, which is out of the scope of this thesis.
+be found, which is out of the scope of this project.
 The gadgets that have been presented throughout this document are mostly
-already known gadgets, or in the case of the one showed during the case study,
+already known, or in the case of the one showed during the case study,
 they were immediately apparent from the surrounding context.
 These gadgets have only been used to demonstrate the possible consequences
 of class pollution.
 
 Moreover, the developed tool has only been designed for detecting the simplest
-form of class pollution, where traversal is only done through class attributes
+form of class pollution, where traversal is only performed through class attributes
 and dictionary entries.
 It is certainly possible to achieve class pollution through more complex
 traversals, which could include, for instance, function calls, but those
@@ -253,8 +255,8 @@ One such case is when the traversal does not contain `setattr`, but only
 While this is a less ideal exploitation scenario, it is still a valid
 candidate for class pollution.
 Support for detecting this situation has not been implemented due to
-some limitations of Pysa regarding its taint models.
-In particular, it is not possible to define a taint model for a class
+some limitations of Pysa regarding its taint models;
+in particular, it is not possible to define a taint model for a class
 method where the object type is `unknown`, which is often the resulting type
 of a call to `getattr` due to the lack of typing.
 An attempt was made to declare a model for `object.__setitem__`,
@@ -263,16 +265,18 @@ to the lack of typing.
 
 == Future Work <discussion:futurework>
 
-As this is a novel vulnerability, there is a lot of future work that can
-and should still be done on the topic.
+As this is a novel type of vulnerability,
+there is much future work that can
+and should still be conducted on the topic.
 
-Firstly, a second iteration of #TheTool should be done, learning from the
-results obtained in this degree project.
-This new tool could then be evaluated with the results of this project,
+Firstly, a second iteration of #TheTool should be developed,
+learning from the results obtained in this degree project.
+This new tool could then be evaluated against this project's results,
 available in @detailed-results and the accompanying repository.
 Furthermore, as Pysa has demonstrated certain limitations when it
 comes to detecting class pollution, it could be worth exploring
-other static analysis tools such as GitHub's CodeQL.
+other static analysis tools such as GitHub's CodeQL
+#footnote(link("https://codeql.github.com/")).
 
 Secondly, as has already been discussed, this thesis did not have the
 goal of researching possible gadgets for class pollution.

@@ -7,16 +7,16 @@ this degree project, along with how they are fit for this work.
 Firstly, @method:research-process describes the research method
 used to answer the established research questions.
 Then, @method:data-collection goes over how the dataset used for
-@rq-widespread was obtained and its characteristics.
+@rq-widespread[] was obtained and its characteristics.
 
 == Research Process <method:research-process>
 
 To answer @rq-tool-design[] and @rq-widespread[],
 different processes need to be defined, and are therefore
 described by each of the subsections below.
-Regarding @rq-causes-consequences[],
+@rq-causes-consequences[] is not included in this section because
 it has already been addressed by a systematic literature review
-in @bg:lit-review, consequently it is not included in this section.
+in @bg:lit-review.
 
 Additionally, @fg:research-process provides a visual
 representation of the research process adopted in this
@@ -30,10 +30,10 @@ thesis, as outlined below.
 
 === Tool Design <method:tool-design>
 
-To fulfill @rq-tool-design[], there is the need to decide how
-to build a tool that can detect class pollution.
+To fulfill @rq-tool-design[], it is necessary to decide how
+to build a tool that can effectively detect class pollution in arbitrary Python programs.
 Taking into account the results of the literature review,
-the cornerstone requirement is that it can find code where the
+the cornerstone requirement for such a detector is that it can find code where the
 return value of `getattr` is passed onto the arguments of `setattr`.
 As this is a classic taint analysis problem, a static taint analysis
 tool, Pysa, has been chosen as the base for this tool.
@@ -48,31 +48,32 @@ were tested against custom-built artificial benchmarks,
 as well as projects known to be vulnerable,
 in order to decide what approach to take for the final design.
 These benchmarks, while not perfect,
+are small custom-written Python programs that
 model common constructs that can lead to class pollution
 and are a great replacement for the lack of a larger dataset of
 known-vulnerable packages.
 
-A major decision for the design of the tool is whether to consider
+Importantly, a major design decision for such a tool is whether to consider
 each project's dependencies during analysis.
 While taking dependencies into account should, in theory,
 increase the accuracy and scope of the taint analysis,
 it comes with a trade off in complexity and execution time.
-There are also significant challenges when regarding
-the installation of those dependencies that need to be overcome,
+There are also significant challenges that need to be overcome regarding
+the installation of those dependencies,
 as the Python ecosystem is quite fragmented when it comes to
 dependency handling.
 
 Furthermore, another relevant design choice is which taint models
 to define, as in, which sources and sinks should exist.
-Evidently, the there must be a source in the return value of `getattr`,
+Evidently, there must be a source in the return value of `getattr`,
 and a sink in the first argument of `setattr`,
 but there are other sources and sinks to consider as well.
 For instance, Pysa has functionality for partial sinks,
 where it requires two or more sources to reach the same
 sink at the same time, i.e., in the same call site.
 Using this feature, it is possible to focus on code exploitable
-using class pollution by forcing the second parameter
-of `setattr` to be tainted by user controlled input.
+using class pollution by requiring the second parameter
+of `setattr` to be tainted by user controlled input for an issue to be raised.
 
 Finally, Pysa offers the option to annotate taint flows with _features_,
 also known as breadcrumbs,
@@ -87,40 +88,47 @@ call to `getattr`.
 These three design ideas were tested against the aforementioned
 benchmarks, and the results are presented in @results:tweaks.
 
-=== Vulnerability Prevalence
+=== Vulnerability Prevalence <method:vuln-prevalence>
 
-As a means to determine the prevalence of class pollution, as
-outlined by @rq-widespread[], an empirical study is performed
+As a means to determine the prevalence of class pollution,
+the primary concern of @rq-widespread[],
+this project's work includes an empirical study,
 where the designed tool is tested against
 a dataset of Python libraries and applications.
-In this study, the tool will analyse each project individually
-to determine if it has any code that is vulnerable to class pollution.
-Then, to determine the precision of the designed tool,
-each of the reported hits is then manually tagged as either vulnerable
-or not vulnerable (i.e., a false positive).
-Additionally, the reasons for each verdict were also stored alongside it,
-as a means to help future work.
+Concretely, the developed tool is used to
+analyse each project individually and
+determine if it has any code that could be vulnerable to class pollution.
+Afterwards, to determine the precision of the designed tool,
+each of the reported hits is manually tagged as either vulnerable
+(i.e., a true positive) or not vulnerable (i.e., a false positive)
+and stored together with the concrete reasons for why it was
+tagged that way (as a means to help future work).
 
-Furthermore, a case study is conducted,
-where one of the packages deemed vulnerable is investigated in more detail.
-Here, the causes for detection will be highlighted,
-and, if applicable,
-a proof of concept exploit will be created to demonstrate
-the impact of the vulnerability.
+Moreover, in order to better understand class pollution in a real-world scenario,
+one package in particular is selected from those deemed vulnerable,
+so that it can be investigated in more detail in a case study.
+Here, the package is explored in detail,
+the causes for detection are laid out,
+and a proof-of-concept exploit is presented
+to demonstrate and assess the impact of the vulnerability.
 
-Finally, the results from the empirical study,
-and the case study to a lesser extent,
-are used to inductively infer the prevalence
+Finally, the results obtained from the empirical study
+(and, to some extent, the case study),
+can be used to inductively infer the prevalence of class pollution
 over the entire universe of Python applications.
 
 == Data Collection <method:data-collection>
 
-In order to answer @rq-widespread[],
-there was a need to obtain a set of Python applications
-to analyse for class pollution.
-This section describes how the list of projects was obtained
-and how that ensures the external validity of the experiments.
+As described in @method:vuln-prevalence,
+in the course of answering @rq-widespread[],
+it became necessary to select a set of Python applications
+to analyse for potential susceptibility to class pollution.
+The present section describes how this list of projects was obtained,
+and why the selection procedure ensures the external validity of the experiments.
 
+Automated data collection was an important part of this process:
+multiple Python scripts were created to facilitate the various steps
+described in this section.
 Instructions on how to run the scripts to obtain the dataset
 as described below can be found in the `data` directory of the
 accompanying repository and in @usage.
@@ -129,9 +137,9 @@ accompanying repository and in @usage.
 
 When deciding what projects to analyse, both Python libraries and
 applications were considered.
-While @pypi contains mostly libraries, many open-source applications
-are present exclusively on GitHub.
-For this reason, both sources were equally used for this degree
+While @pypi (the most used Python package repository) contains mostly libraries,
+many open-source applications are present exclusively on GitHub,
+so both sources were equally used for this degree
 project's dataset.
 
 It is important to note that the threat model can vary between libraries
@@ -162,16 +170,17 @@ If no wheel was available, the URL of source tarball was saved instead.
 
 There is a vast amount of projects on GitHub, so only
 Python repositories with more than 1000 stars were taken into account
-for this dataset.
+for this dataset,
+accounting to around 9000 repositories.
 For the purposes of this experiment, a project's star count was deemed
 a good indicator of its real-world usefulness and its overall usage.
 Additionally, a repository is deemed a "Python repository" if its most used
 language is Python, as per GitHub's linguist library, which determines
 language distribution by file type and size @gh-linguist.
 
-Furthermore, again to aid with reproducibility of this research,
-the last revision (i.e., commit) of the default branch of each repository
-was saved in the dataset.
+Furthermore, again to aid with the reproducibility of this research,
+the last revision (i.e., git commit hash) of the default branch of
+each repository was saved in the dataset.
 
 === Sample Size <method:sample-size>
 
@@ -184,7 +193,7 @@ In order to ensure a representative population, each dataset was sorted
 by popularity (downloads for the @pypi dataset, and stars for GitHub's),
 and then split into three cohorts: the $N$ least popular projects,
 the $N$ most popular projects, and the remaining projects.
-The value of $N$ has been picked based on the number of total entries
+The value of $N$ has been chosen based on the number of total entries
 for each platform, and has been fixed as #box($N = 3000$) for @pypi and
 #box($N = 1000$) for GitHub.
 Then, 500 projects were randomly sampled from each cohort,
