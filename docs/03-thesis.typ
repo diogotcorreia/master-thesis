@@ -1,4 +1,4 @@
-#import "./utils/global-imports.typ": kthesis, codly, codly-languages, glossarium
+#import "./utils/global-imports.typ": kthesis, codly, codly-languages, glossarium, zero
 #import kthesis: kth-thesis, setup-appendices
 
 #import codly: codly-init, codly
@@ -19,6 +19,8 @@
 // IEEE style guide says it should show up for 3 or more.
 // See: https://github.com/typst/hayagriva/issues/164
 #set cite(style: "./ieee-et-al-3.csl")
+
+#zero.set-num(math: false)
 
 #show: kth-thesis.with(
   primary-lang: "en",

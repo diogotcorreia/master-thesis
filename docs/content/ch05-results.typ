@@ -1,6 +1,8 @@
 // data analysis
-#import "../utils/global-imports.typ": codly, cve, gh, gls-shrt, headcount, lq, pep, subpar
+#import "../utils/global-imports.typ": codly, cve, gh, gls-shrt, headcount, lq, pep, subpar, zero
 #import "../utils/constants.typ": TheTool, gh_color, pypi_color, tbl_green, tbl_grey, tbl_red
+
+#import zero: num
 
 #let raw_data = json("../assets/summary.json")
 #let data_filtered = raw_data.map(project => {
@@ -375,7 +377,7 @@ As mentioned in @method:data-collection, the tool has been run on a set of
 @pypi and GitHub projects, for a total of #raw_data.len() projects.
 
 The public @pypi dataset used contained a total of
-#pypi_total_count entries, as of #pypi_dataset_date.display().
+#num(pypi_total_count) entries, as of #pypi_dataset_date.display().
 Some packages were outdated to the point they did not provide any wheels nor source tarballs,
 but instead only provided the legacy eggs format
 #footnote(link("https://packaging.python.org/en/latest/discussions/package-formats/#egg-format")).
@@ -383,7 +385,7 @@ Other packages had been deleted, did not follow conventional filename formats
 (#pep(625)),
 or some of their files were missing from the latest version.
 The #pypi_excluded_count packages where that was the case were ignored for simplicity,
-resulting in #(pypi_total_count - pypi_excluded_count) valid entries.
+resulting in #num(pypi_total_count - pypi_excluded_count) valid entries.
 Then, #all_pypi_projects.len() packages were sampled according to the method described in
 @method:data-collection, and a link to their latest wheel or source tarball was
 saved on #pypi_version_date.display().

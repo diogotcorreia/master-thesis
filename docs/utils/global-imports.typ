@@ -7,6 +7,7 @@
 #import "@preview/kthesis:0.1.2"
 #import "@preview/lilaq:0.4.0" as lq
 #import "@preview/subpar:0.2.2"
+#import "@preview/zero:0.4.0"
 
 #let gls-shrt = glossarium.gls-short.with(link: true)
 

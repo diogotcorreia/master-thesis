@@ -1,6 +1,8 @@
-#import "../utils/global-imports.typ": codly
+#import "../utils/global-imports.typ": codly, zero
 #import "../utils/constants.typ": TheTool
 #import "./ch05-results.typ": case_study_considered, projects_elapsed_seconds, projects_success, type_i_error_rate
+
+#import zero: num
 
 = Discussion <discussion>
 
@@ -172,8 +174,8 @@ by #cite(form: "prose", <probetheproto>),
 prototype pollution appears to be twice as prevalent as class pollution.
 To perform a fair comparison, only the vulnerabilities found that were labeled
 with _Dict Access_ and _Supports `__setitem__`_ are being accounted for,
-which results in an prevalence of #prevalence_cp in #total_cp (#prevalence_rate_cp%)
-versus a prevalence of #prevalence_pp in #total_pp (#prevalence_rate_pp%) for
+which results in an prevalence of #num(prevalence_cp) in #num(total_cp) (#prevalence_rate_cp%)
+versus a prevalence of #num(prevalence_pp) in #num(total_pp) (#prevalence_rate_pp%) for
 prototype pollution.
 The gap is even more significant if only the single confirmed exploitable project is
 accounted for.

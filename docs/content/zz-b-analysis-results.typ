@@ -1,4 +1,7 @@
+#import "../utils/global-imports.typ": zero
 #import "./ch05-results.typ": data_filtered
+
+#import zero: num
 
 #let mk_platform_data(list, platform) = {
   list
@@ -13,6 +16,7 @@
 #let mk_issues_table(projects, popularity_label) = {
   set text(size: 8pt)
   set table.cell(breakable: false)
+  show table.cell.where(x: 1): set align(right)
   table(
     columns: (auto, auto, auto, 11.5em),
     align: horizon,
@@ -22,7 +26,7 @@
       .map(project => {
         (
           raw(project.at("name")),
-          [#project.at("popularity")],
+          num(project.at("popularity")),
           [#project.at("issues").len()],
           {
             let vulnerable_count = project
