@@ -542,7 +542,7 @@ From a projects perspective, this means there is a Type-I error rate of
 
 #figure(
   caption: [Visualisation of how many projects have been found to possibly
-    contain a class pollution vulnerability, discriminated by platform.],
+    contain a class pollution vulnerability, discriminated by platform],
 )[
   #let x_pypi = range(3)
   #let y_pypi = (
@@ -620,7 +620,7 @@ The overall label classification, discriminated by platform, can be visualised i
 
 #figure(
   caption: [Visualisation of the overall label of each issue,
-    discriminated by platform of the respective project.],
+    discriminated by platform of the respective project],
 )[
   #let x_pypi = range(2)
   #let y_pypi = (
@@ -731,7 +731,7 @@ target object extend a certain class.
 
 #figure(
   caption: [Visualisation of the features of the issues deemed vulnerable,
-    discriminated by platform of the respective project.],
+    discriminated by platform of the respective project],
 )[
   #let all_features = (
     "AdditionalConstraints": [Additional Constraints],
@@ -1000,7 +1000,7 @@ contain a certain method, which would be unfeasible for class pollution.
 
 #figure(
   caption: [Visualisation of the reasons why issues were deemed not vulnerable,
-    discriminated by platform of the respective project.],
+    discriminated by platform of the respective project],
 )[
   #let all_features = (
     "Other": [Other],

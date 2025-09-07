@@ -313,7 +313,7 @@ in Python like @ssti.
 In Python, data in objects can be stored
 as either an object's attribute or as an item
 in a container, Python's name for what are commonly called collections
-(dictionaries, lists, and tuples are examples of containers).
+(collections like dictionaries, lists, and tuples are examples of Python containers).
 
 This is an important distinction because it dictates how that data
 can be accessed.
@@ -723,7 +723,7 @@ so this might be out of reach for most exploits, but nonetheless worth mentionin
 However, `__kwdefaults__` is a dictionary, meaning it is possible to pollute individual
 values.
 
-It might be more attractive to pollute functions specific to a certain application,
+It might be more attractive to pollute userland functions specific to a certain application,
 but there are also universal gadgets present in the Python standard library.
 For instance, one gadget available in the `subprocess` module is the `Popen` constructor,
 which takes a `umask` named parameter.

@@ -7,7 +7,8 @@
 Research over the past few decades has shown how malicious attackers
 can take advantage of benign code in applications to manipulate its execution flow
 and, in turn, compromise systems and data.
-This manipulation has historically been prevalent in C/C++ compiled code,
+This control-flow manipulation has historically
+been particularly prevalent in C/C++ compiled code,
 which can be vulnerable to
 memory corruption and therefore susceptible to techniques such as
 Shellcode execution and @rop @rop-payload-detection @rop-geometry.
