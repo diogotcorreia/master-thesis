@@ -128,9 +128,14 @@ one call to `setattr`.
 Similarly, `__getitem__` is not accounted for, since taint already flows through it to
 the sink.
 
-Additionally, these models contain extra annotations (e.g., `Via`, `ViaValueOf`, `WithTag`, etc.)
+Additionally, these models contain extra directives (e.g., `Via`, `ViaValueOf`, `WithTag`, etc.)
 that instruct Pysa to collect information that can later be used to filter out
 false positives.
+For instance, the `TaintInTaintOut[Via[customgetattr]]` directive
+in @code:pysa-taint-models:3 annotates any taint flows going through
+the first parameter of `getattr` with the feature `customgetattr`,
+which is useful to know if the object being passed through `getattr`
+has come from a `getattr` function call as well.
 
 == Implementation <thing:impl>
 

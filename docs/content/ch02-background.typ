@@ -784,17 +784,97 @@ In summary, class pollution can be exploited via recursive calls to
 Additionally, many gadgets become accessible when it is possible to traverse through the
 `__globals__` attribute of a function, which can result in @dos, authentication
 bypass, or even @rce.
+
 == Static Code Analysis <bg:static-analysis>
 
-- analyse source code directly; no execution
-- difficult in python due to dynamic/lax typing
+To find dangerous constructs in a codebase it is necessary to perform
+code analysis.
+Static code analysis is the analysis of a program without
+running its code,
+in contrast with its dynamic counterpart,
+where analysis is performed at runtime.
 
-#text(fill: red, lorem(20))
+Performing static analysis has several advantages, such as
+wider coverage of the entire program
+and fast performance,
+but also some drawbacks due to the lack of runtime information,
+such as an increased rate of false positives and negatives.
+Notably, its accuracy is negatively impacted
+by the lack of strict typing information
+in programming languages such as Python,
+given that it cannot, for example,
+accurately resolve function calls of untyped objects.
+
+Despite its drawbacks,
+given the problem at hand
+it is very capable of discovering calls to the global builtins
+`getattr` and `setattr`,
+and is therefore useful for this degree project.
 
 === Taint Analysis
 
+Through taint analysis,
+it is possible to identify all flows, if any,
+from a given source A to a given sink B.
+For instance, considering `foo()` as a source and `bar(value)` as a sink,
+a taint analyser can detect if,
+in the given code,
+the return value of `foo()` can ever affect the parameter of `bar(value)`.
+
+This mechanism works by tracking what variables
+depend on each other throughout the program,
+through assignments,
+conditional branches,
+and other operations.
+
 === Pysa
 
-== Previous Work
+Pyre#footnote(link("https://pyre-check.org/"))
+is a static type checker for Python,
+created my Meta (formerly Facebook)
+for internal use but also as an open-source project.
+Pyre ships with Pysa,
+a security-focused static taint analysis tool
+that can be used to detect insecure flows of data.
 
-#text(fill: red, lorem(50))
+Pysa can be configured via a JSON file,
+defining which sources and sinks exist,
+and rules declaring which source/sink combinations should raise
+so-called issues if detected.
+Additionally, it needs taint models to be declared,
+which instruct Pysa to consider certain functions and/or variables
+as the configured sources and sinks.
+These model files have a syntax similar to Python typing files,
+but instead of specifying types for each function argument
+and return value,
+they specify sources and sinks,
+along with other more advanced directives.
+An example taint model can be found in @code:pysa-model-example.
+
+#figure(caption: [Example Pysa taint models that detect flows from `foo` to `bar`])[
+  ```py
+  def mymodule.foo() -> TaintSource[MySource]: ...
+
+  def mymodule.bar(value: TaintSink[MySink]): ...
+  ```
+] <code:pysa-model-example>
+
+In addition to `TaintSource` and `TaintSink`,
+Pysa has other directives that can be useful during analysis,
+such as the `Via` family of directives,
+which add extra information to taint flows passing through it.
+For instance, they can add an extra "feature" tag (sometimes called breadcrumbs)
+to the flow or
+can save the value of a certain function parameter,
+which can be useful information to have during post-processing.
+
+However, Pysa is not perfect.
+Due to the size and complexity of some Python programs,
+Pysa might not be able to accurately keep track of every taint flow
+in the program,
+sometimes collapsing (also known as broadening) the taint of a given object,
+that is, assuming an entire object is tainted instead of just a single field.
+For example, if `foo.a` is tainted,
+Pysa might collapse its taint and assume `foo` as whole is tainted.
+This is unwanted behaviour for detecting class pollution,
+given that the return value of `getattr` must flow unchanged to `setattr`.
