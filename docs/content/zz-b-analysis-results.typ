@@ -13,19 +13,29 @@
 #let pypi_projects = mk_platform_data(data_filtered, "PyPI")
 #let gh_projects = mk_platform_data(data_filtered, "GitHub")
 
-#let mk_issues_table(projects, popularity_label) = {
+#let get_version_fmt(project) = {
+  let version = project.at("version")
+  if project.at("platform") == "GitHub" {
+    version.slice(0, count: 10)
+  } else {
+    version
+  }
+}
+
+#let mk_issues_table(projects, version_label, popularity_label) = {
   set text(size: 8pt)
   set table.cell(breakable: false)
-  show table.cell.where(x: 1): set align(right)
+  show table.cell.where(x: 2): set align(right)
   table(
-    columns: (auto, auto, auto, 11.5em),
+    columns: (auto, auto, auto, auto, 11.5em),
     align: horizon,
     stroke: 0.5pt,
-    table.header([*Name*], [*#popularity_label*], [*Issues*], [*Issue Labels*]),
+    table.header([*Name*], [*#version_label*], [*#popularity_label*], [*Issues*], [*Issue Labels*]),
     ..projects
       .map(project => {
         (
           raw(project.at("name")),
+          raw(get_version_fmt(project)),
           num(project.at("popularity")),
           [#project.at("issues").len()],
           {
@@ -71,8 +81,8 @@ of issues for a given project.
 
 == PyPI
 
-#mk_issues_table(pypi_projects, "Downloads")
+#mk_issues_table(pypi_projects, "Version", "Downloads")
 
 == GitHub
 
-#mk_issues_table(gh_projects, "Stars")
+#mk_issues_table(gh_projects, "Commit SHA", "Stars")
