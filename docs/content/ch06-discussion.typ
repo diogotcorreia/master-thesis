@@ -103,7 +103,11 @@ detection of class pollution.
 
 On the other hand, the other experiment regarding counting the calls to
 `getattr`, as outlined in @results:getattr-count,
-#text(fill: red, lorem(50)). // TODO
+is unquestionably a success when it comes to the precision of #TheTool.
+While some issues were incorrectly filtered out,
+those had suffered taint broadening
+and it is therefore expected that Pysa might have failed to correctly
+propagate the count of calls to `getattr`.
 
 To conclude, as an answer to @rq-tool-design[], the results indicate that
 the use of static taint analysis is a promising way of detect class

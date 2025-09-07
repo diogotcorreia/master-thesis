@@ -37,6 +37,12 @@
     features.all(f => feats.find(f2 => f2.at("kind") == f) != none)
   }
 }
+#let by_has_reasons(features) = {
+  issue => {
+    let feats = issue.at("label").at("reasons")
+    features.all(f => feats.find(f2 => f2.at("kind") == f) != none)
+  }
+}
 #let by_has_error(project) = {
   project.at("error_stage") != none
 }
@@ -1508,4 +1514,150 @@ real-world applications.
 
 === Calls to getattr Count <results:getattr-count>
 
-#text(fill: red, lorem(50))
+#let unfiltered_projects_success = filter_list(raw_data, by_has_error, inv: true)
+
+#let unfiltered_pyre_issue_count = unfiltered_projects_success.map(project => project.at("raw_issue_count")).sum()
+#let unfiltered_all_issues = extract_issues(unfiltered_projects_success)
+
+#let unfiltered_vulnerable_issues = filter_list(unfiltered_all_issues, by_is_issue_vulnerable)
+#let unfiltered_not_vulnerable_issues = filter_list(unfiltered_all_issues, by_is_issue_vulnerable, inv: true)
+
+#let unfiltered_vulnerable_issues_features = extract_features(unfiltered_vulnerable_issues)
+#let unfiltered_not_vulnerable_issues_reasons = extract_reasons(unfiltered_not_vulnerable_issues)
+
+#let unfiltered_without_non_recursive_count = (
+  unfiltered_not_vulnerable_issues.len() - unfiltered_not_vulnerable_issues_reasons.at("NonRecursive")
+)
+#let without_non_recursive_count = not_vulnerable_issues.len() - not_vulnerable_issues_reasons.at("NonRecursive")
+#let incorrectly_discarded_count = unfiltered_without_non_recursive_count - without_non_recursive_count
+
+A major requirement for code to be vulnerable to class pollution
+is allowing traversal through an indefinite number of attributes,
+as outlined in @bg:lit-review.
+This requirement is commonly present through chained calls to `getattr`,
+where the return value from `getattr` is passed into the first
+attribute of another call to `getattr`.
+
+For this reason, the taint models used during analysis included a
+`Via[customgetattr]` directive,
+as shown in @thing:taint-models,
+which annotates the taint trace with a `customgetattr` feature
+if the return value of `getattr` ever reaches the first argument of
+another call to `getattr`.
+This data is then processed by #TheTool,
+which is able to flag issues if they don't contain any `customgetattr`
+feature.
+
+To assess whether this is an accurate way of filtering out issues
+without excluding potential vulnerabilities,
+all issues were manually labeled before being discarded
+for not containing the `customgetattr` feature.
+Therefore, it is possible to analyse whether this change
+was positive for the precision of #TheTool.
+
+If this method is adequate for discarding issues,
+it is expected that all issues that were deemed vulnerable
+and those deemed not vulnerable for reasons other than _Not Recursive_
+would be kept.
+Furthermore, it is also expected that all or most of issues deemed
+not vulnerable for being _Not Recursive_ would be excluded.
+
+As can be seen from the results in @fg:getattr-count-diff,
+all vulnerable issues were kept,
+but #incorrectly_discarded_count
+issues deemed not vulnerable for other reasons
+were incorrectly discarded.
+However, all of these #incorrectly_discarded_count issues were
+marked with _Modified Reference_,
+so it is likely Pysa failed to correctly count the calls to
+`getattr` for this reason.
+Expectedly, most issues that were labeled as _Not Recursive_
+were correctly discarded by #TheTool.
+
+#{
+  let issues_getattr_one = unfiltered_not_vulnerable_issues.filter(i => i.at("getattr_count") == "One")
+  let issues_without_non_recursive = filter_list(issues_getattr_one, by_has_reasons(("NonRecursive",)), inv: true)
+  assert.eq(
+    issues_without_non_recursive.len(),
+    incorrectly_discarded_count,
+    message: "failed to identify which issues have been incorrectly filtered out",
+  )
+
+  let issues_without_modified_reference = filter_list(
+    issues_without_non_recursive,
+    by_has_reasons(("ModifiedReference",)),
+    inv: true,
+  )
+  assert.eq(
+    issues_without_modified_reference.len(),
+    0,
+    message: "not all discarded issues have modified reference",
+  )
+}
+
+#figure(
+  caption: [Change in issue classification after filtering by count of `getattr` calls],
+)[
+  #let x_before = range(3)
+  #let y_before = (
+    unfiltered_vulnerable_issues.len(),
+    unfiltered_without_non_recursive_count,
+    unfiltered_not_vulnerable_issues_reasons.at("NonRecursive"),
+  )
+  #let x_after = range(3)
+  #let y_after = (
+    vulnerable_issues.len(),
+    without_non_recursive_count,
+    not_vulnerable_issues_reasons.at("NonRecursive"),
+  )
+
+  #lq.diagram(
+    width: 10cm,
+    height: 7cm,
+    legend: (position: left + top),
+    ylabel: [Number of Issues],
+    margin: (top: 10%),
+    xaxis: (
+      ticks: (
+        [Vulnerable],
+        [Not Vulnerable \ *without* \ _Not Recursive_],
+        [Not Vulnerable \ *with* \ _Not Recursive_],
+      ).enumerate(),
+      subticks: none,
+    ),
+    yaxis: (exponent: none),
+
+    lq.bar(
+      x_before,
+      y_before,
+      offset: -0.2,
+      width: 0.4,
+      label: [Before],
+    ),
+    lq.bar(
+      x_after,
+      y_after,
+      offset: 0.2,
+      width: 0.4,
+      label: [After],
+    ),
+
+    ..x_before
+      .zip(y_before)
+      .map(((x, y)) => {
+        lq.place(x - 0.2, y, pad(0.2em, [#y]), align: bottom)
+      }),
+    ..x_after
+      .zip(y_after)
+      .map(((x, y)) => {
+        lq.place(x + 0.2, y, pad(0.2em, [#y]), align: bottom)
+      }),
+  )
+] <fg:getattr-count-diff>
+
+Despite the incorrect classification of some issues,
+this functionality was deemed a success and
+therefore was made part of #TheTool
+and used for the analysis previously shown in
+@results:micro-benchmarks and
+@results:analysis.
