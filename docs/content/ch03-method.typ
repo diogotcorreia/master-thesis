@@ -1,4 +1,6 @@
-#import "../utils/global-imports.typ": pep
+#import "../utils/constants.typ": gh_color, pypi_color
+#import "../utils/global-imports.typ": fletcher, pep
+#import fletcher: diagram, edge, node, shapes
 
 = Methods <method>
 
@@ -17,16 +19,6 @@ described by each of the subsections below.
 @rq-causes-consequences[] is not included in this section because
 it has already been addressed by a systematic literature review
 in @bg:lit-review.
-
-Additionally, @fg:research-process provides a visual
-representation of the research process adopted in this
-thesis, as outlined below.
-
-#figure(
-  // TODO
-  rect(fill: red, height: 10em, lorem(5)),
-  caption: "Visual representation of the research process",
-) <fg:research-process>
 
 === Tool Design <method:tool-design>
 
@@ -189,20 +181,92 @@ be analysed in a reasonable time, given the scope of this degree project.
 For that reason, only a subset of entries in each dataset will be
 taken into account during evaluation.
 
+#let n_pypi = 3000
+#let n_github = 1000
+#let cohort_size = 500
+#let platform_size = cohort_size * 3
+#let dataset_size = platform_size * 2
+
 In order to ensure a representative population, each dataset was sorted
 by popularity (downloads for the @pypi dataset, and stars for GitHub's),
 and then split into three cohorts: the $N$ least popular projects,
 the $N$ most popular projects, and the remaining projects.
 The value of $N$ has been chosen based on the number of total entries
-for each platform, and has been fixed as #box($N = 3000$) for @pypi and
-#box($N = 1000$) for GitHub.
-Then, 500 projects were randomly sampled from each cohort,
-resulting in a total of 1500 projects for each platform,
-and a final dataset of size 3000.
+for each platform, and has been fixed as #box($N = #n_pypi$) for @pypi and
+#box($N = #n_github$) for GitHub.
+Then, #cohort_size projects were randomly sampled from each cohort,
+resulting in a total of #platform_size projects for each platform,
+and a final dataset of size #dataset_size.
 This process is pictured in @fg:dataset-cohorts.
 
 #figure(
-  // TODO
-  rect(fill: red, height: 10em, lorem(5)),
+  [
+    #set text(size: 9pt)
+    #diagram(
+      spacing: (0mm, 15mm),
+      node-stroke: luma(70%),
+      node((0, 0), [#n_pypi packages], width: 4.2cm),
+      edge("-|>", label: [_randomly pick_], label-side: center),
+      node((0, 1), [#cohort_size \ packages], width: 2cm),
+      edge("dr", "-|>"),
+      node((1, 0), [... packages], width: 4.2cm),
+      edge("-|>", label: [_randomly pick_], label-side: center),
+      node((1, 1), [#cohort_size \ packages], width: 2cm),
+      edge("d", "-|>"),
+      node((2, 0), [#n_pypi packages], width: 4.2cm),
+      edge("-|>", label: [_randomly pick_], label-side: center),
+      node((2, 1), [#cohort_size \ packages], width: 2cm),
+      edge("dl", "-|>"),
+
+      node(enclose: ((0, 2), (2, 2)), [*Final Dataset:* #dataset_size projects]),
+
+      node(
+        enclose: ((0, 0), (1, 0), (2, 0), (0, 1), (1, 1), (2, 1), (1, -1)),
+        fill: pypi_color.lighten(90%),
+        stroke: pypi_color,
+        align(center + top)[*@pypi Packages*],
+      ),
+      node(
+        enclose: ((0, 0), (1, 0), (2, 0)),
+        shape: shapes.stretched-glyph.with(
+          glyph: sym.arrow,
+          dir: top,
+          length: 100% + -2cm,
+          sep: -.2em,
+          label: [sorted by downloads],
+        ),
+      ),
+
+      node((0, 4), [#n_github repositories], width: 4.2cm),
+      edge("-|>", label: [_randomly pick_], label-side: center),
+      node((0, 3), [#cohort_size \ repositories], width: 2cm),
+      edge("ur", "-|>"),
+      node((1, 4), [... repositories], width: 4.2cm),
+      edge("-|>", label: [_randomly pick_], label-side: center),
+      node((1, 3), [#cohort_size \ repositories], width: 2cm),
+      edge("u", "-|>"),
+      node((2, 4), [#n_github repositories], width: 4.2cm),
+      edge("-|>", label: [_randomly pick_], label-side: center),
+      node((2, 3), [#cohort_size \ repositories], width: 2cm),
+      edge("ul", "-|>"),
+
+      node(
+        enclose: ((0, 3), (1, 3), (2, 3), (0, 4), (1, 4), (2, 4), (1, 5)),
+        fill: gh_color.lighten(90%),
+        stroke: gh_color,
+        align(center + bottom)[*GitHub Repositories*],
+      ),
+      node(
+        enclose: ((0, 4), (1, 4), (2, 4)),
+        shape: shapes.stretched-glyph.with(
+          glyph: sym.arrow,
+          dir: bottom,
+          length: 100% + -2cm,
+          sep: -.2em,
+          label: [sorted by stars],
+        ),
+      ),
+    )
+  ],
   caption: [Splitting the intermediate datasets into cohorts to obtain the final dataset],
 ) <fg:dataset-cohorts>

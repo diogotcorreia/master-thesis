@@ -1,5 +1,6 @@
 #import "../utils/constants.typ": TheTool
-#import "../utils/global-imports.typ": pep
+#import "../utils/global-imports.typ": fletcher, pep
+#import fletcher: diagram, edge, node, shapes
 
 = #TheTool <thing>
 
@@ -13,11 +14,31 @@ and explains the software implementation in @thing:impl.
 == Software Design <thing:design>
 
 #figure(
-  // TODO
-  rect(fill: red, height: 10em, [
-    ALT: A flowchart style diagram that shows all the steps taken
-    during the analysis of the full dataset.
-  ]),
+  [
+    #set text(size: 9pt)
+    #diagram(
+      spacing: (8mm, 10mm),
+      node-stroke: luma(80%),
+      node((0, 0), [`dataset.toml` file], shape: shapes.ellipse),
+      edge("-|>", label: [_for each project_]),
+      (
+        node((0, 1), [Download \ Source Code]),
+        node((1, 1), [_Optional_ \ Resolve & Install \ Dependencies]),
+        node((2, 1), [Run Taint \ Analysis]),
+        node((3, 1), [Process Results]),
+        node((3, 2), [Label Issues \ Manually]),
+      )
+        .intersperse(edge("-|>"))
+        .join(),
+      node(
+        enclose: ((0, 1), (1, 1), (2, 1), (3, 1)),
+        shape: shapes.hexagon,
+        align(top + right, smallcaps([Automated Analysis])),
+        fill: yellow.lighten(80%),
+        stroke: yellow.darken(20%),
+      ),
+    )
+  ],
   caption: [Analysis pipeline for each entry in the dataset using #TheTool],
 ) <fg:tool-flowchart>
 
