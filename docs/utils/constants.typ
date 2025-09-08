@@ -1,4 +1,4 @@
-#let TheTool = text(fill: red)[The Tool]
+#let TheTool = [Classa]
 
 #let pypi_color = rgb("#006dad")
 #let gh_color = rgb("#08872B")

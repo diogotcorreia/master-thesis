@@ -1,9 +1,11 @@
-#import "./utils/global-imports.typ": kthesis, codly, codly-languages, glossarium, zero
+#import "./utils/constants.typ": TheTool
+#import "./utils/global-imports.typ": codly, codly-languages, content-to-string, glossarium, kthesis, zero
+#import "./content/ch05-results.typ": raw_data
 #import kthesis: kth-thesis, setup-appendices
 
-#import codly: codly-init, codly
+#import codly: codly, codly-init
 #import codly-languages: codly-languages
-#import glossarium: make-glossary, register-glossary, print-glossary
+#import glossarium: make-glossary, print-glossary, register-glossary
 #import "./utils/acronyms.typ": acronyms
 #import "utils/enum-references.typ": setup_enum_references
 
@@ -26,8 +28,8 @@
   primary-lang: "en",
   localized-info: (
     en: (
-      title: "Uncovering Class Pollution In Python",
-      subtitle: text(fill: red, lorem(7)),
+      title: content-to-string([#TheTool: Uncovering Class Pollution In Python]),
+      subtitle: content-to-string([Measuring Class Pollution Vulnerabilities of #raw_data.len() Real-World Python Projects]),
       abstract: include "./content/abstract-1-en.typ",
       keywords: (
         "python",
@@ -38,8 +40,8 @@
       ),
     ),
     sv: (
-      title: text(fill: red, lorem(7)), // TODO
-      subtitle: text(fill: red, lorem(7)), // TODO
+      title: content-to-string(text(fill: red, lorem(7))), // TODO
+      subtitle: content-to-string(text(fill: red, lorem(7))), // TODO
       abstract: include "./content/abstract-2-sv.typ",
       keywords: (), // TODO
     ),
