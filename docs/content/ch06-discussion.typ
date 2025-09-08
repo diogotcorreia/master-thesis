@@ -289,3 +289,11 @@ goal of researching possible gadgets for class pollution.
 That is then a possible area for future research, as a complement to
 this degree project, and would unlock automating the scan for
 full-chain class pollution exploits.
+
+Lastly, but nonetheless important,
+a focus on improving the user experience for users of #TheTool
+would encourage wider adoption.
+For instance, the results are currently saved to a JSON file,
+but there is no user-friendly interface to explore them.
+Such interface would help developers and maintainers understand
+where and how their code could be vulnerable.
