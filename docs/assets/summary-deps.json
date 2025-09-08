@@ -1,0 +1,7771 @@
+[
+  {
+    "platform": "GitHub",
+    "name": "YudongGuo/AD-NeRF",
+    "version": "9fdcd7e1352aa74e26baa8e60c862f9fbd7933bf",
+    "popularity": 1059,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 21
+  },
+  {
+    "platform": "GitHub",
+    "name": "lanpa/tensorboardX",
+    "version": "ca5072b12f22143dc9cc8ec93b978e4347097677",
+    "popularity": 7958,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 694
+  },
+  {
+    "platform": "GitHub",
+    "name": "lucasjinreal/weibo_terminater",
+    "version": "1ba66c2553eac2f6fa5decba9559445c9a3cfdca",
+    "popularity": 2320,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "OneDrive/onedrive-sdk-python",
+    "version": "e5642f8cad8eea37a4f653c1a23dfcfc06c37110",
+    "popularity": 1090,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "wandb/wandb",
+    "version": "23c0d32cf7bf113b9d2033a8dc4db92cfcacb5a5",
+    "popularity": 10097,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "fighting41love/cocoNLP",
+    "version": "6c68f1ddb771de8de6fd8c7a6872554190bbd36a",
+    "popularity": 1121,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 86
+  },
+  {
+    "platform": "GitHub",
+    "name": "state-spaces/mamba",
+    "version": "a6a1dae6efbf804c9944a0c2282b437deb4886d8",
+    "popularity": 15384,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "Yelp/elastalert",
+    "version": "e0bbcb5b71e9fdb4a750c3871d365a882ff17b16",
+    "popularity": 8017,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "cysmith/neural-style-tf",
+    "version": "a2c374f9ee2938f0022e1e0b720f4eb28cf7d0a8",
+    "popularity": 3111,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "xuan32546/IOS13-SimulateTouch",
+    "version": "ca574d8b2ecf47001e2ff38f753f44c2eacc1f0b",
+    "popularity": 1367,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 28
+  },
+  {
+    "platform": "GitHub",
+    "name": "521xueweihan/HelloGitHub",
+    "version": "14b6e870b2088dac7390851e493f7f39aedd8ed9",
+    "popularity": 121696,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "facebookresearch/nougat",
+    "version": "5a92920d342fb6acf05fc9b594ccb4053dbe8e7a",
+    "popularity": 9531,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7203
+  },
+  {
+    "platform": "GitHub",
+    "name": "xonsh/xonsh",
+    "version": "c347bfbe8cbb0b34cd11d87a0ec28e6027c29121",
+    "popularity": 8889,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 317
+  },
+  {
+    "platform": "GitHub",
+    "name": "jackhawks/rectg",
+    "version": "24383c0f548d971b30beaa3a200a393789aabd70",
+    "popularity": 7863,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "tkrajina/gpxpy",
+    "version": "09fc46b3cad16b5bf49edf8e7ae873794a959620",
+    "popularity": 1072,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "DoTheEvo/ANGRYsearch",
+    "version": "a52026f1f2a75c7a5132f4f2ee163618c95652e6",
+    "popularity": 1110,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 591
+  },
+  {
+    "platform": "GitHub",
+    "name": "Rudrabha/Wav2Lip",
+    "version": "bac9a81e63ecc153202353372e5724b83d9e6322",
+    "popularity": 12181,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 5
+  },
+  {
+    "platform": "GitHub",
+    "name": "GOATmessi8/ASFF",
+    "version": "4df6f7288b7882a45b8c2dcc3e6e7b499d6cc883",
+    "popularity": 1068,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "jackzhenguo/python-small-examples",
+    "version": "aa11da6ac252f13bda7eaff976ca06446c70ef6d",
+    "popularity": 8080,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "juanmc2005/diart",
+    "version": "392d53a1b0cd67701ecc20b683bb10614df2f7fc",
+    "popularity": 1363,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 326
+  },
+  {
+    "platform": "GitHub",
+    "name": "snwfdhmp/awesome-gpt-prompt-engineering",
+    "version": "830cf7b5007faa61827f6f849a2330b17e818b40",
+    "popularity": 1339,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "RangiLyu/nanodet",
+    "version": "be9b4a9001d7f9b6fc89c2df31ae8d428e35b4f0",
+    "popularity": 6005,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7205
+  },
+  {
+    "platform": "GitHub",
+    "name": "zhayujie/chatgpt-on-wechat",
+    "version": "8c1622798bcb5d666f88699c86d59a5ed8dd7702",
+    "popularity": 38124,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "huawei-noah/trustworthyAI",
+    "version": "d8e7d2faef5d1a54c33cd72ba2357b24be608942",
+    "popularity": 1054,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "allenai/objaverse-xl",
+    "version": "6996a3861b75abb0e0bb036a0766cf3263c708cd",
+    "popularity": 1008,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 325
+  },
+  {
+    "platform": "GitHub",
+    "name": "vinayak-mehta/present",
+    "version": "a63abbb2bf8ca6783f37c59e07ab24040562ae77",
+    "popularity": 4339,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 25
+  },
+  {
+    "platform": "GitHub",
+    "name": "mategol/PySilon-malware",
+    "version": "19ec6538f61712ca68acda0b195e2eeacd66399f",
+    "popularity": 1055,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6
+  },
+  {
+    "platform": "GitHub",
+    "name": "weskerfoot/DeleteFB",
+    "version": "ed96dd7e6a71dee87a75722fa3bee2be074892b1",
+    "popularity": 2675,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6051
+  },
+  {
+    "platform": "GitHub",
+    "name": "fastmachinelearning/hls4ml",
+    "version": "e5b1f17d071aaf1f638490db27fc0e2f8423e3f1",
+    "popularity": 1538,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "python-poetry/poetry",
+    "version": "427d922a9e74a068ba68f8927460ec28a2442c8a",
+    "popularity": 33448,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 26
+  },
+  {
+    "platform": "GitHub",
+    "name": "rq/rq",
+    "version": "eda19b1578cbe1aa3f910717a4efc79817ceabb6",
+    "popularity": 10261,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 27
+  },
+  {
+    "platform": "GitHub",
+    "name": "xtekky/gpt4free",
+    "version": "36266ae5b3167c0244f96cc71df0193e3a4d6c42",
+    "popularity": 64650,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 422
+  },
+  {
+    "platform": "GitHub",
+    "name": "Doriandarko/claude-engineer",
+    "version": "0a9e4b309bf6b2eda05dcf073cf5094beb08e0c8",
+    "popularity": 11066,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "Z4nzu/hackingtool",
+    "version": "c43f290df520d886d87e9db212eb946a0799f61c",
+    "popularity": 52999,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 18
+  },
+  {
+    "platform": "GitHub",
+    "name": "theskumar/python-dotenv",
+    "version": "16f2bdad2ebbaae72790514cce713d2d22ab0f7c",
+    "popularity": 8249,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 36
+  },
+  {
+    "platform": "GitHub",
+    "name": "cemoody/lda2vec",
+    "version": "b7f4642b750c6e792c07d177bd57ad36e65bb35c",
+    "popularity": 3169,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "urschrei/pyzotero",
+    "version": "7c93e47671b1e03692e7191992056782261c3bbf",
+    "popularity": 1057,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "vietnh1009/Super-mario-bros-A3C-pytorch",
+    "version": "08ca511b82d2d8acbe93b9568136f05064ec7d0b",
+    "popularity": 1091,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 30
+  },
+  {
+    "platform": "GitHub",
+    "name": "aleju/imgaug",
+    "version": "0101108d4fed06bc5056c4a03e2bcb0216dac326",
+    "popularity": 14623,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7206
+  },
+  {
+    "platform": "GitHub",
+    "name": "kootenpv/yagmail",
+    "version": "0591606f3eb87502a6a16c42c775f66380dd72c1",
+    "popularity": 2697,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 19
+  },
+  {
+    "platform": "GitHub",
+    "name": "un33k/django-ipware",
+    "version": "32cbe48412aa8971f148dffba6d058a36d9c78b0",
+    "popularity": 1047,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "1rgs/claude-code-proxy",
+    "version": "e9c8cf8de6e8f11cf54dd677634e9796e040f2fd",
+    "popularity": 1404,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 70
+  },
+  {
+    "platform": "GitHub",
+    "name": "google/adk-samples",
+    "version": "f8366f0ceeeddd5fc6db48c139eff0173904c70b",
+    "popularity": 3470,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "vchoutas/smplx",
+    "version": "1265df7ba545e8b00f72e7c557c766e15c71632f",
+    "popularity": 2184,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 367
+  },
+  {
+    "platform": "GitHub",
+    "name": "EleutherAI/lm-evaluation-harness",
+    "version": "3102a8e4a8f3a3163a52e943f14068680753356f",
+    "popularity": 9563,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3897
+  },
+  {
+    "platform": "GitHub",
+    "name": "encode/httpx",
+    "version": "4fb9528c2f5ac000441c3634d297e77da23067cd",
+    "popularity": 14320,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 35
+  },
+  {
+    "platform": "GitHub",
+    "name": "PenseAllen/PensePython2e",
+    "version": "afa460130599dbde01620e86c38923f785023956",
+    "popularity": 1087,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "pytube/pytube",
+    "version": "a32fff39058a6f7e5e59ecd06a7467b71197ce35",
+    "popularity": 12842,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "mage-ai/mage-ai",
+    "version": "53bacd2397e5adf8594bcef29a284a241d39a2d2",
+    "popularity": 8419,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "newren/git-filter-repo",
+    "version": "e81bcf38c3bb61834c59e298ff50ff69ecce6ac6",
+    "popularity": 10178,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "haitongli/knowledge-distillation-pytorch",
+    "version": "9937528f0be0efa979c745174fbcbe9621cea8b7",
+    "popularity": 1955,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7
+  },
+  {
+    "platform": "GitHub",
+    "name": "facebookresearch/fairseq",
+    "version": "d13e14a800bb588e5a77fb4e551f554ff9b24a72",
+    "popularity": 31630,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "42school/norminette",
+    "version": "1923d74879d49bd975b92c5d557225512dc36c83",
+    "popularity": 1073,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "jzhang38/TinyLlama",
+    "version": "bf122247c486b6b897050e98cbb7bedae8eeba73",
+    "popularity": 8645,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 0
+  },
+  {
+    "platform": "GitHub",
+    "name": "ShieldMnt/invisible-watermark",
+    "version": "68d0376d94a4701ed240af0841ec12e00676e325",
+    "popularity": 1750,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 383
+  },
+  {
+    "platform": "GitHub",
+    "name": "airbytehq/airbyte",
+    "version": "29315e803649dba53555492cc215a7671fa0491d",
+    "popularity": 18864,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 50
+  },
+  {
+    "platform": "GitHub",
+    "name": "sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning",
+    "version": "cc9c7e2f4017938d414178d3781fed8dbe442852",
+    "popularity": 2857,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "CyberPunkMetalHead/Binance-volatility-trading-bot",
+    "version": "c91fcdb016987676fd803041627d966385f23249",
+    "popularity": 3464,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "GeoNode/geonode",
+    "version": "8b8a20d9717c83bba11529e2ee5116f1602caef4",
+    "popularity": 1549,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 78
+  },
+  {
+    "platform": "GitHub",
+    "name": "pipecat-ai/pipecat",
+    "version": "9931ad2ce1632d9e279d5a402656a5a2cdf43eea",
+    "popularity": 6857,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "spytensor/prepare_detection_dataset",
+    "version": "4ae42f652fd5e0ef7a5eec29b3018a4ae9e601e2",
+    "popularity": 1109,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "linyiLYi/street-fighter-ai",
+    "version": "78cb661e6ce5521fff3a2c4595fff9c597f97693",
+    "popularity": 6487,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 33
+  },
+  {
+    "platform": "GitHub",
+    "name": "pyg-team/pytorch_geometric",
+    "version": "1b6455eb84bf9f94665b9ff475c175cb0e8b8efd",
+    "popularity": 22612,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7215
+  },
+  {
+    "platform": "GitHub",
+    "name": "matrix-org/synapse",
+    "version": "be65a8ec0195955c15fdb179c9158b187638e39a",
+    "popularity": 11914,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "ray-project/ray",
+    "version": "ccdb1d517bfef22f37d1373f87895cb34461944d",
+    "popularity": 38029,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 16
+  },
+  {
+    "platform": "GitHub",
+    "name": "pytorch/extension-cpp",
+    "version": "0ec4969c7bc8e15a8456e5eb9d9ca0a7ec15bc95",
+    "popularity": 1115,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "plasma-umass/scalene",
+    "version": "b11b2871e7cc098c208a552e8ca2fe37bc374301",
+    "popularity": 12786,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 330
+  },
+  {
+    "platform": "GitHub",
+    "name": "mkdocstrings/mkdocstrings",
+    "version": "2b4ed541bc707e55d959092d950ebeecc4fbd136",
+    "popularity": 1930,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 34
+  },
+  {
+    "platform": "GitHub",
+    "name": "luuuyi/CBAM.PyTorch",
+    "version": "83d3312c8c542d71dfbb60ee3a15454ba253a2b0",
+    "popularity": 1424,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "inkstitch/inkstitch",
+    "version": "d1e84fc28332a299928e6fbbddca6b38619bdba1",
+    "popularity": 1113,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "pyecharts/pyecharts",
+    "version": "5228492426e7f7bd6d701af8ae1b130d5c14145c",
+    "popularity": 15410,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "ZQPei/deep_sort_pytorch",
+    "version": "4f910afc16860ff05c6be408b120a49524bd4f68",
+    "popularity": 2953,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 495
+  },
+  {
+    "platform": "GitHub",
+    "name": "shadowmoose/RedditDownloader",
+    "version": "ebcb791f78e5d761efcca28b5ebd5b7e1b61df85",
+    "popularity": 1130,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 5269
+  },
+  {
+    "platform": "GitHub",
+    "name": "timoschick/pet",
+    "version": "21d32de975a911bfa0261827c9bd23dc4f0e4aa2",
+    "popularity": 1627,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2320
+  },
+  {
+    "platform": "GitHub",
+    "name": "facebookresearch/CutLER",
+    "version": "cca0a270cf68399efc8fd50df426b6d806e39416",
+    "popularity": 1020,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 362
+  },
+  {
+    "platform": "GitHub",
+    "name": "yunjey/pytorch-tutorial",
+    "version": "0500d3df5a2a8080ccfccbc00aca0eacc21818db",
+    "popularity": 31494,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "GitGuardian/ggshield",
+    "version": "fe276926af8213f9a290e3cc57e64dd68da9a7b7",
+    "popularity": 1798,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 119
+  },
+  {
+    "platform": "GitHub",
+    "name": "laramies/theHarvester",
+    "version": "af33fea9c9b50af99f751c470cbf59e608ca48ff",
+    "popularity": 13013,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 75
+  },
+  {
+    "platform": "GitHub",
+    "name": "tortilla/tortilla",
+    "version": "eccc8a268307e9bea98f12f958f48bb03ff115b7",
+    "popularity": 1242,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "wangshub/Douyin-Bot",
+    "version": "399c19b662ac4ef08fcb37bb16936add3ae1faa8",
+    "popularity": 9506,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "jupyter/jupyter",
+    "version": "bebee4eb8caf551842bb3afc0101d135b421db61",
+    "popularity": 15161,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 34
+  },
+  {
+    "platform": "GitHub",
+    "name": "RL-VIG/LibFewShot",
+    "version": "e4e31b414eb4c66ea4213b5bca0bf4965e95b0c4",
+    "popularity": 1029,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 344
+  },
+  {
+    "platform": "GitHub",
+    "name": "genmoai/mochi",
+    "version": "d6e96122b77426880961153915889b138140b585",
+    "popularity": 3295,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "Ildaron/Laser_control",
+    "version": "6dbbc3b6c5beea7458a641f7b9d774cce8956877",
+    "popularity": 1384,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "sdushantha/wifi-password",
+    "version": "83c7cf1a6f3562412f47c66c6b84a9561fa160ec",
+    "popularity": 3018,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 18
+  },
+  {
+    "platform": "GitHub",
+    "name": "huggingface/peft",
+    "version": "f3b97c370489ff480d00aaebda86bfbbf927a728",
+    "popularity": 19057,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 411
+  },
+  {
+    "platform": "GitHub",
+    "name": "psf/black",
+    "version": "bbc36ea205292e213b0c9a448f630d19726605e4",
+    "popularity": 40637,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 278
+  },
+  {
+    "platform": "GitHub",
+    "name": "microsoft/JARVIS",
+    "version": "c62e0faac76c4a2907cabe2cfe4bbe5f2e613400",
+    "popularity": 24225,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "nagadomi/nunif",
+    "version": "bedce31ab9ec56568fe6149e108872e912301a70",
+    "popularity": 2344,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "trailbehind/DeepOSM",
+    "version": "4361273723ba271105e2401ecc1707556816f20c",
+    "popularity": 1324,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6
+  },
+  {
+    "platform": "GitHub",
+    "name": "Owez/yark",
+    "version": "e9a6164245274b6cfa60a501d33e3c77069a4a8e",
+    "popularity": 2164,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 994
+  },
+  {
+    "platform": "GitHub",
+    "name": "neozhaoliang/surround-view-system-introduction",
+    "version": "4d13f5d74d0566d4b6cb479d1ce8894818ae8c7b",
+    "popularity": 1120,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "lijiejie/BBScan",
+    "version": "29b9f11b1a33a18e6d755a80e3fefa6a01aa48f2",
+    "popularity": 2322,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3885
+  },
+  {
+    "platform": "GitHub",
+    "name": "Tencent/TencentPretrain",
+    "version": "ed7984355235d35b19c9770e35c3c763b36434df",
+    "popularity": 1076,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 345
+  },
+  {
+    "platform": "GitHub",
+    "name": "dbcli/pgcli",
+    "version": "435cf7f2843c1a161ad63d72b75b91d1ccba8200",
+    "popularity": 12537,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 25
+  },
+  {
+    "platform": "GitHub",
+    "name": "eralchemy/eralchemy",
+    "version": "f5ad577f14a8cfc52d7ec021cc332b23004824dc",
+    "popularity": 1250,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "anchore/anchore-engine",
+    "version": "f5ffac25aea536016dd08734b4a2aa2746be1f1d",
+    "popularity": 1586,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "bfelbo/DeepMoji",
+    "version": "3edf6bb9b5e1096a64abe55a6a909aa05854969f",
+    "popularity": 1550,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "THUDM/ChatGLM2-6B",
+    "version": "cb8e8b43c0951b32614f25c03e1ab593a0603a1c",
+    "popularity": 15721,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7205
+  },
+  {
+    "platform": "GitHub",
+    "name": "pallets/flask",
+    "version": "85c5d93cbd049c4bd0679c36fd1ddcae8c37b642",
+    "popularity": 69966,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 55
+  },
+  {
+    "platform": "GitHub",
+    "name": "robocorp/rpaframework",
+    "version": "70233655c5f95b1af6c9c723e3f9f95a585718dd",
+    "popularity": 1354,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "Amulet-Team/Amulet-Map-Editor",
+    "version": "4889915b0f7a30416b9994929241dc657f6848b4",
+    "popularity": 2013,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 24
+  },
+  {
+    "platform": "GitHub",
+    "name": "josonle/Coding-Now",
+    "version": "32b963ff23af1e957099d03cb9f935a32cbc9373",
+    "popularity": 1033,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "QwenLM/Qwen",
+    "version": "528817ac8e6690b08094c89dddc012fa0c518524",
+    "popularity": 18715,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7205
+  },
+  {
+    "platform": "GitHub",
+    "name": "saltstack/salt",
+    "version": "5c86f6d0d45fc22bf3900fba854ede5816879538",
+    "popularity": 14595,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 40
+  },
+  {
+    "platform": "GitHub",
+    "name": "ashishb/adb-enhanced",
+    "version": "65d2784c17943e5db3e4ac26ac17c51877ffed48",
+    "popularity": 1303,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 24
+  },
+  {
+    "platform": "GitHub",
+    "name": "google/skywater-pdk",
+    "version": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "popularity": 3202,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "ring04h/wydomain",
+    "version": "7f69140fbea14049495ca441e53c3f4f2b64a23b",
+    "popularity": 1481,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "OpenBMB/ChatDev",
+    "version": "cb19e8c7e94eaa77336c97ab50015788ec2f68c2",
+    "popularity": 27155,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 108
+  },
+  {
+    "platform": "GitHub",
+    "name": "Chia-Network/chia-blockchain",
+    "version": "018c3fe46e9c0a57323ee2e915c32565bf07f6c9",
+    "popularity": 10856,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 60
+  },
+  {
+    "platform": "GitHub",
+    "name": "J535D165/recordlinkage",
+    "version": "b93d97641952f8c85106be5794ca93b1f1298fbc",
+    "popularity": 1015,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 348
+  },
+  {
+    "platform": "GitHub",
+    "name": "chrisconlan/algorithmic-trading-with-python",
+    "version": "ebe01087c7d9172db72bc3c9adc1eee5e882ac49",
+    "popularity": 3018,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "hako-mikan/sd-webui-regional-prompter",
+    "version": "be623452203b396ed87b85583a3cfd56e8157214",
+    "popularity": 1726,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "datadreamer-dev/DataDreamer",
+    "version": "4d232497a17b4e5f7392c1b06e2f8a7ad289ecd4",
+    "popularity": 1033,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 881
+  },
+  {
+    "platform": "GitHub",
+    "name": "YaoFANGUK/video-subtitle-remover",
+    "version": "2bb2d543144cd98a2b83cd59725e2c3074998fe0",
+    "popularity": 7230,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 31
+  },
+  {
+    "platform": "GitHub",
+    "name": "dellis23/ispy",
+    "version": "465568d7928d596b3d031a1c25649c7e13796276",
+    "popularity": 1013,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "yjxiong/tsn-pytorch",
+    "version": "2f0468e049760530b4995bf72c8a512623929c39",
+    "popularity": 1074,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "deepinsight/insightface",
+    "version": "cf2a79c10dd3944d417ad4af96a99b8c469c7a94",
+    "popularity": 25882,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 309
+  },
+  {
+    "platform": "GitHub",
+    "name": "ycm-core/YouCompleteMe",
+    "version": "131b1827354871a4e984c1660b6af0fefca755c3",
+    "popularity": 25813,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "sibears/IDAGolangHelper",
+    "version": "eb470e378e0ff0292b105a339e706876cee9f98a",
+    "popularity": 1052,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "django/django",
+    "version": "8499fba0e18826a77fe32cbc13a3d951d9ca8924",
+    "popularity": 84238,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 31
+  },
+  {
+    "platform": "GitHub",
+    "name": "lss233/kirara-ai",
+    "version": "8295a5deda0b289a3f70d946064b6c9a3e1b0753",
+    "popularity": 15785,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 120
+  },
+  {
+    "platform": "GitHub",
+    "name": "MatthewJA/Inverse-Reinforcement-Learning",
+    "version": "954508bcfb30bc356f71a0646e767d1703a8c753",
+    "popularity": 1030,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "FoundationAgents/OpenManus",
+    "version": "be1e22c79c39f88ad5f7844e2efdc761eadc2719",
+    "popularity": 48023,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "Parsely/pykafka",
+    "version": "e7665bf36bfe521050fdcb017c68e92365bd89ed",
+    "popularity": 1116,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 5
+  },
+  {
+    "platform": "GitHub",
+    "name": "zenml-io/zenml",
+    "version": "125c4cb154b11665e66f0a69b529104b78b2e0df",
+    "popularity": 4707,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 270
+  },
+  {
+    "platform": "GitHub",
+    "name": "trustedsec/social-engineer-toolkit",
+    "version": "43a5702025877acf3482b52c4ba824ece87b02a2",
+    "popularity": 12124,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 29
+  },
+  {
+    "platform": "GitHub",
+    "name": "quantopian/qgrid",
+    "version": "877b420d3bd83297bbcc97202b914001a85afff2",
+    "popularity": 3073,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 373
+  },
+  {
+    "platform": "GitHub",
+    "name": "ytongbai/LVM",
+    "version": "b6de939ef0eb1ee6593445a7f5268145f338749b",
+    "popularity": 1830,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "thomasahle/sunfish",
+    "version": "bd5ef7b508e8d87a1bb3404b1151f65343964caf",
+    "popularity": 3118,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "jhao104/proxy_pool",
+    "version": "e0fa4de1f59aaf3e287e6d166cee7b020bbe1578",
+    "popularity": 22595,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 20
+  },
+  {
+    "platform": "GitHub",
+    "name": "ranger/ranger",
+    "version": "7e38143eaa91c82bed8f309aa167b1e6f2607576",
+    "popularity": 16337,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 26
+  },
+  {
+    "platform": "GitHub",
+    "name": "sec-edgar/sec-edgar",
+    "version": "0ab0b623a6bbb0f8b5a0b090d138215c31563bc9",
+    "popularity": 1244,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 33
+  },
+  {
+    "platform": "GitHub",
+    "name": "FoldingAtHome/coronavirus",
+    "version": "19f9f08f66368b565710d501604ce95e1fb6ca98",
+    "popularity": 1090,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 30
+  },
+  {
+    "platform": "GitHub",
+    "name": "pytorch/captum",
+    "version": "4fc093e2cef508baf1fdcad9624848c403419d35",
+    "popularity": 5312,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7217
+  },
+  {
+    "platform": "GitHub",
+    "name": "ymcui/Chinese-LLaMA-Alpaca-2",
+    "version": "a1a5203ddb7fdf8ccb96534f77e5e4d3fddf1530",
+    "popularity": 7164,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 293
+  },
+  {
+    "platform": "GitHub",
+    "name": "AppScale/gts",
+    "version": "46f909cf5dc5ba81faf9d81dc9af598dcf8a82a9",
+    "popularity": 2429,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7209
+  },
+  {
+    "platform": "GitHub",
+    "name": "nextstrain/ncov",
+    "version": "41cf6470d3140963ff3e02c29241f80ae8ed9c33",
+    "popularity": 1353,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7201
+  },
+  {
+    "platform": "GitHub",
+    "name": "ShareGPT4Omni/ShareGPT4Video",
+    "version": "7e02ee61506d2104b85d1e301a2fde4a637ffe1f",
+    "popularity": 1068,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7262
+  },
+  {
+    "platform": "GitHub",
+    "name": "yuchenlin/rebiber",
+    "version": "f5e7a2b4b4bac7c8b111c1b75080c1bcb5c8b08d",
+    "popularity": 2872,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "project-baize/baize-chatbot",
+    "version": "4fae6c4e550f087958c1f60746f0e6290e6b9f02",
+    "popularity": 3168,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7240
+  },
+  {
+    "platform": "GitHub",
+    "name": "mxrch/GHunt",
+    "version": "c3252b9f10fff599728650076fa44ff8ea9193a9",
+    "popularity": 16683,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 311
+  },
+  {
+    "platform": "GitHub",
+    "name": "keras-team/keras",
+    "version": "503bcf56180d49641db2afcd3d57c4c20e3be3bf",
+    "popularity": 63212,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "tensorflow/tensor2tensor",
+    "version": "bafdc1b67730430d38d6ab802cbd51f9d053ba2e",
+    "popularity": 16301,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2332
+  },
+  {
+    "platform": "GitHub",
+    "name": "tmux-python/libtmux",
+    "version": "1d4a13d9b8d88211d9f40ed79060bedf9f2cb8ab",
+    "popularity": 1086,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 30
+  },
+  {
+    "platform": "GitHub",
+    "name": "Tylous/SniffAir",
+    "version": "3dfbc2db650ff47cf10d8cbf089881405f08e6f4",
+    "popularity": 1212,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 307
+  },
+  {
+    "platform": "GitHub",
+    "name": "Kismuz/btgym",
+    "version": "7fb3316e67f1d7a17c620630fb62fb29428b2cec",
+    "popularity": 1008,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "python-hyper/hyper",
+    "version": "b77e758f472f00b098481e3aa8651b0808524d84",
+    "popularity": 1051,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "lengstrom/fast-style-transfer",
+    "version": "0d3d981f7ab948253d355585bdbdfa914247b4d0",
+    "popularity": 10963,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 30
+  },
+  {
+    "platform": "GitHub",
+    "name": "deepchem/deepchem",
+    "version": "e5ddc5c08fcfb796f0c6e90e95d7e9aa2953ab0d",
+    "popularity": 6100,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 140
+  },
+  {
+    "platform": "GitHub",
+    "name": "lucidrains/denoising-diffusion-pytorch",
+    "version": "1d9d8dffb72e02172da8a77bee039b1c72b7c6d5",
+    "popularity": 9661,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 437
+  },
+  {
+    "platform": "GitHub",
+    "name": "MaybeShewill-CV/CRNN_Tensorflow",
+    "version": "44072509021f7f1ef48e35cc50d6bf50cb5793d8",
+    "popularity": 1035,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7
+  },
+  {
+    "platform": "GitHub",
+    "name": "lutris/lutris",
+    "version": "96779137fe8ac684c89f4090e60fb8f9f8839d38",
+    "popularity": 8807,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6
+  },
+  {
+    "platform": "GitHub",
+    "name": "huggingface/transformers",
+    "version": "e68ebb695f9d1d990462397e284e79d8729aafea",
+    "popularity": 147032,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "roboflow/maestro",
+    "version": "f394fce0b2c2fe98b3f457ad5abb61a9c7e88c7b",
+    "popularity": 2593,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7
+  },
+  {
+    "platform": "GitHub",
+    "name": "locuslab/convmixer",
+    "version": "47048118e95721a00385bfe3122519f4b583b26e",
+    "popularity": 1075,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "faif/python-patterns",
+    "version": "879ac0107f7f0005767d0e67c1555f54515c10ae",
+    "popularity": 41676,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 25
+  },
+  {
+    "platform": "GitHub",
+    "name": "netbox-community/devicetype-library",
+    "version": "ed48a447b2e2e3905f29aebe62f1f6337eadf0a3",
+    "popularity": 1144,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 46
+  },
+  {
+    "platform": "GitHub",
+    "name": "streamlink/streamlink",
+    "version": "c2e2a07d20c06b5ea61d6c047951644d17316bc6",
+    "popularity": 10673,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7202
+  },
+  {
+    "platform": "GitHub",
+    "name": "LeonLok/Multi-Camera-Live-Object-Tracking",
+    "version": "d604b75862f0941e85508f4c3e1a939518e0effe",
+    "popularity": 1052,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "disclose/diodb",
+    "version": "1a759cb8fd600af2d0dcca34a19fce9285094a3e",
+    "popularity": 1023,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1268
+  },
+  {
+    "platform": "GitHub",
+    "name": "firebase/firebase-admin-python",
+    "version": "dfaceecf27a2a7402c6589799e595e1f92803966",
+    "popularity": 1098,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 27
+  },
+  {
+    "platform": "GitHub",
+    "name": "langchain-ai/langgraph-supervisor-py",
+    "version": "9dacf15857a356806a764ac6e3884bbb3cead9ee",
+    "popularity": 1112,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 70
+  },
+  {
+    "platform": "GitHub",
+    "name": "kivy/kivy",
+    "version": "8d103908e6381471858684b28d46a7f66bb8caf7",
+    "popularity": 18476,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 39
+  },
+  {
+    "platform": "GitHub",
+    "name": "snowby666/poe-api-wrapper",
+    "version": "2fa779345033805528638b000180c460f0abb6c3",
+    "popularity": 1106,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 5
+  },
+  {
+    "platform": "GitHub",
+    "name": "xillwillx/skiptracer",
+    "version": "fbc1f8c88907db3014c6c64d08b7ded814a9c172",
+    "popularity": 1099,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 0
+  },
+  {
+    "platform": "GitHub",
+    "name": "jacobian/djangobook.com",
+    "version": "e39a02a405c2f7fad1164bbd0b88b1b6c39bd587",
+    "popularity": 1068,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "unitaryai/detoxify",
+    "version": "8f56f302bf8cf2673c2132fc2c2f5b2ca804815f",
+    "popularity": 1079,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 493
+  },
+  {
+    "platform": "GitHub",
+    "name": "jianchang512/pyvideotrans",
+    "version": "a1195dc6941a61b3470f6d28bc5372e4ab83dba7",
+    "popularity": 13243,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "NVIDIA/FastPhotoStyle",
+    "version": "af0c8fecce58aa71f76488546231214f6684be02",
+    "popularity": 11185,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "ocrmypdf/OCRmyPDF",
+    "version": "d6b069d3fadf0db2c372cbc8d6fcc84f6fbfd571",
+    "popularity": 30362,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 368
+  },
+  {
+    "platform": "GitHub",
+    "name": "yahoo-finance/yahoo-finance",
+    "version": "6924d75c1aadb2144b1cccedd0bc70c0509b9913",
+    "popularity": 1404,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 16
+  },
+  {
+    "platform": "GitHub",
+    "name": "TauricResearch/TradingAgents",
+    "version": "a438acdbbd622a4d3c112d23f7462651f8f9aeee",
+    "popularity": 15483,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7205
+  },
+  {
+    "platform": "GitHub",
+    "name": "SakanaAI/continuous-thought-machines",
+    "version": "f659febd3019640366d1af47e836fae0d976311b",
+    "popularity": 1183,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "fastapi/sqlmodel",
+    "version": "92e7bdbf6d96550095bf790a80fc72343cbf4900",
+    "popularity": 16354,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "jx-sec/jxwaf",
+    "version": "08e3155518cc6befa3b8fbd35d834630c9e40d4a",
+    "popularity": 1164,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "postmanlabs/httpbin",
+    "version": "f8ec666b4d1b654e4ff6aedd356f510dcac09f83",
+    "popularity": 13197,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "jonbakerfish/TweetScraper",
+    "version": "739b604b811f96c260597e10bcd0427fdf315e49",
+    "popularity": 1044,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 38
+  },
+  {
+    "platform": "GitHub",
+    "name": "XX-net/XX-Net",
+    "version": "55c7697f2379035f9c2ba3c053bd940c87ffde18",
+    "popularity": 33281,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 26
+  },
+  {
+    "platform": "GitHub",
+    "name": "elastic/ecs",
+    "version": "9b0461a3e9c9021ee5f2189c69747d6ceaf5557c",
+    "popularity": 1071,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "EleutherAI/math-lm",
+    "version": "9575d138bc0ca06fce07d6537b05854339ec2b62",
+    "popularity": 1084,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 277
+  },
+  {
+    "platform": "GitHub",
+    "name": "albumentations-team/albumentations",
+    "version": "66212d77a44927a29d6a0e81621d3c27afbd929c",
+    "popularity": 15051,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 440
+  },
+  {
+    "platform": "GitHub",
+    "name": "opentensor/bittensor",
+    "version": "71d74f153deb88e5ee21c978a7cb6987fbb6f811",
+    "popularity": 1188,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7205
+  },
+  {
+    "platform": "GitHub",
+    "name": "opendilab/DI-engine",
+    "version": "f6ee768d135b189ca1a4736d4179db36dae019ad",
+    "popularity": 3483,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "freqtrade/freqtrade",
+    "version": "23bbbddcdb0181c2b96059a00697fdddaa754f4f",
+    "popularity": 40481,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "ydataai/ydata-profiling",
+    "version": "c3ce66ca4cc9564e013f71cbb96ed7b3d8fa5c72",
+    "popularity": 13026,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7221
+  },
+  {
+    "platform": "GitHub",
+    "name": "c0ny1/upload-fuzz-dic-builder",
+    "version": "4c0f79e86efe1c77747b52912541eb47d7864637",
+    "popularity": 1257,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "netease-youdao/BCEmbedding",
+    "version": "15bd45517d9d8b1fba450b3b3e1bbd2d45ec5341",
+    "popularity": 1800,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 224
+  },
+  {
+    "platform": "GitHub",
+    "name": "jwyang/faster-rcnn.pytorch",
+    "version": "f9d984d27b48a067b29792932bcb5321a39c1f09",
+    "popularity": 7814,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 433
+  },
+  {
+    "platform": "GitHub",
+    "name": "netease-youdao/QAnything",
+    "version": "65de10426b99d5945b8c616a4814afa5a92826cb",
+    "popularity": 13398,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 74
+  },
+  {
+    "platform": "GitHub",
+    "name": "farzaa/gemini-bball",
+    "version": "1141d8268c1c2bc623b622403fe27dae9ee1ab66",
+    "popularity": 1071,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "Tencent-Hunyuan/Hunyuan3D-2",
+    "version": "9bcf3028145311cbea5c127aed19717833b3a35f",
+    "popularity": 10868,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 117
+  },
+  {
+    "platform": "GitHub",
+    "name": "mlflow/mlflow",
+    "version": "5f46f54f3de876a738b46535cd07f2e16bf0482f",
+    "popularity": 21242,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 28
+  },
+  {
+    "platform": "GitHub",
+    "name": "wzhe06/Ad-papers",
+    "version": "c840cfce75cf0cc0c3216f82ae7ac216e57421ef",
+    "popularity": 4327,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 18
+  },
+  {
+    "platform": "GitHub",
+    "name": "microsoft/markitdown",
+    "version": "da7bcea527ed04cf6027cc8ece1e1aad9e08a9a1",
+    "popularity": 64574,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "open-cmdb/cmdb",
+    "version": "5dd433692d85001b6e09bc8ec976a133ba5df6ed",
+    "popularity": 1012,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "chubin/cheat.sh",
+    "version": "139f8c2fb348a7028a9bac5474ca20ea00b13543",
+    "popularity": 39624,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "mangdangroboticsclub/QuadrupedRobot",
+    "version": "5e9a5c49b457d9bc13a923ab2c73200593399e09",
+    "popularity": 1023,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 19
+  },
+  {
+    "platform": "GitHub",
+    "name": "yuval-alaluf/restyle-encoder",
+    "version": "5e80276228cc5d9e0a39a16119210ee49ce2c975",
+    "popularity": 1041,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "QuantEcon/QuantEcon.py",
+    "version": "6fd8955b8c2ded3bcc8032bd61e2a13c4afcfa43",
+    "popularity": 2156,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6917
+  },
+  {
+    "platform": "GitHub",
+    "name": "alandtse/alexa_media_player",
+    "version": "fdc3a22fdaabe3a650af83ec23fa19ccb931f40c",
+    "popularity": 1734,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "XiangLi1999/Diffusion-LM",
+    "version": "759889d58ef38e2eed41a8c34db8032e072826f4",
+    "popularity": 1164,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 48
+  },
+  {
+    "platform": "GitHub",
+    "name": "ictnlp/StreamSpeech",
+    "version": "220273fd13aaae648f7aaae83282df1f60246f93",
+    "popularity": 1116,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 26
+  },
+  {
+    "platform": "GitHub",
+    "name": "haoheliu/versatile_audio_super_resolution",
+    "version": "855e744c5b0e3fadb0dcb19222f040b0f60c3196",
+    "popularity": 1482,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 43
+  },
+  {
+    "platform": "GitHub",
+    "name": "moloch--/RootTheBox",
+    "version": "aa53eb2500187c8ba58ccc6ed87ed2d43cd35c8b",
+    "popularity": 1016,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "crazyhottommy/RNA-seq-analysis",
+    "version": "2c2fdafd3eba27996397ba2aa99c7adbd7b19ac0",
+    "popularity": 1016,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "Activision/caldera",
+    "version": "03feaa1886c0a39bc50ca0df86c321f74ed4eee6",
+    "popularity": 1128,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 64
+  },
+  {
+    "platform": "GitHub",
+    "name": "RimoChan/Vtuber_Tutorial",
+    "version": "c12fb0b8c32e4daef223f81a032aac3f72dd2d82",
+    "popularity": 1122,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 144
+  },
+  {
+    "platform": "GitHub",
+    "name": "bravekingzhang/text2video",
+    "version": "9f512b4f65557a1f638495b069c3f1bad37cc428",
+    "popularity": 1030,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 316
+  },
+  {
+    "platform": "GitHub",
+    "name": "Stability-AI/stable-fast-3d",
+    "version": "ff21fc491b4dc5314bf6734c7c0dabd86b5f5bb2",
+    "popularity": 1496,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "xingyizhou/ExtremeNet",
+    "version": "e3b12f3237e91735ae50d8ac19453db76837b8d0",
+    "popularity": 1032,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "averagesecurityguy/scripts",
+    "version": "54660525f36e3e97d23fbd259ceb9b10823f2ee2",
+    "popularity": 1009,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "mikel-brostrom/boxmot",
+    "version": "b9b01fb6a5ccde5630578a0e4455827e500d446e",
+    "popularity": 7536,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7234
+  },
+  {
+    "platform": "GitHub",
+    "name": "wgsxm/PartCrafter",
+    "version": "2d826093cce4fdd8eb1431fb57e109781b6ba59e",
+    "popularity": 1830,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "weewx/weewx",
+    "version": "49def127b917af5cdfaee2b075f30d920466a812",
+    "popularity": 1077,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 19
+  },
+  {
+    "platform": "GitHub",
+    "name": "Blockstream/satellite",
+    "version": "5ebcdd2f4295be19490358c0e462d1dafc14632e",
+    "popularity": 1009,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "WankkoRee/eaio",
+    "version": "12d2ca7fb701ba7cf41ea1b308d974cddbeef74b",
+    "popularity": 1032,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "benoitc/gunicorn",
+    "version": "a86ea1e4e6c271d1cd1823c7e14490123f9238fe",
+    "popularity": 10192,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 26
+  },
+  {
+    "platform": "GitHub",
+    "name": "hiroi-sora/Umi-OCR",
+    "version": "63636c13a1628e54877eb48edb47216f3663dde4",
+    "popularity": 35523,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "spragunr/deep_q_rl",
+    "version": "34202491f5d8c219f52410d19cd0e91d44c37ecc",
+    "popularity": 1090,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "THUDM/GLM",
+    "version": "4f61ed7237a3b0187f4d62062429348276a78c84",
+    "popularity": 3238,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 455
+  },
+  {
+    "platform": "GitHub",
+    "name": "mailpile/Mailpile",
+    "version": "741e610f3e765f03bd0c452c92c6758280e7f99f",
+    "popularity": 8849,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "pypyjs/pypyjs",
+    "version": "4532320849881093635075db929240052300a844",
+    "popularity": 1853,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 106
+  },
+  {
+    "platform": "GitHub",
+    "name": "python/cpython",
+    "version": "180b3eb697bf5bb0088f3f35ef2d3675f9fff04f",
+    "popularity": 67891,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 42
+  },
+  {
+    "platform": "GitHub",
+    "name": "ClementPinard/SfmLearner-Pytorch",
+    "version": "6f3d0e1f18d678ec7cfb9f92ced938853879c98a",
+    "popularity": 1032,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 446
+  },
+  {
+    "platform": "GitHub",
+    "name": "oumi-ai/oumi",
+    "version": "0dc0c06989f8fad14664eca7b1647ec9c5a69157",
+    "popularity": 8283,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6
+  },
+  {
+    "platform": "GitHub",
+    "name": "AngeLouCN/Min_Max_Similarity",
+    "version": "07571ea6d98ab16a84aead7dca4756bf5cf2979f",
+    "popularity": 1052,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "angr/angr-management",
+    "version": "c716b5b645fa98c1304f992c9b2e1e6cb045511a",
+    "popularity": 1026,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 28
+  },
+  {
+    "platform": "GitHub",
+    "name": "microsoft/human-pose-estimation.pytorch",
+    "version": "49f3f4458c9d5917c75c37a6db48c6a0d7cd89a1",
+    "popularity": 2988,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "alibaba/ROLL",
+    "version": "9b85e63ad4c715aa6602ba2a43657e25217c7732",
+    "popularity": 1474,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "laramies/metagoofil",
+    "version": "823b1146eb13a6e5c4f72b33461af5289b191abb",
+    "popularity": 1122,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "duckdb/dbt-duckdb",
+    "version": "f8219eda80e267641faa8e9420251cf437e4a219",
+    "popularity": 1111,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 82
+  },
+  {
+    "platform": "GitHub",
+    "name": "3b1b/manim",
+    "version": "41613db7eca9eabbb40aa830631e5206c9282f0f",
+    "popularity": 78889,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "unclecode/crawl4ai",
+    "version": "bde1bba6a249ebdea83229953bb9c4cce44ffe37",
+    "popularity": 48044,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7215
+  },
+  {
+    "platform": "GitHub",
+    "name": "PySimpleGUI/PySimpleGUI",
+    "version": "2e3830b2e44308254613aa5fab163dc50ebbf4a5",
+    "popularity": 13643,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "Henry-23/VideoChat",
+    "version": "3d6700c5f2c4e49220501898f96049579b39345e",
+    "popularity": 1017,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 46
+  },
+  {
+    "platform": "GitHub",
+    "name": "fossasia/meilix-systemlock",
+    "version": "a0c8a77ae436b88e006f192ec6512bfb90836d9e",
+    "popularity": 1556,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "meta-llama/llama",
+    "version": "689c7f261b9c5514636ecc3c5fefefcbb3e6eed7",
+    "popularity": 58518,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 419
+  },
+  {
+    "platform": "GitHub",
+    "name": "NVIDIA-Merlin/NVTabular",
+    "version": "52de1b264164ddae25d1cb3fa7f3cd7b13e78a33",
+    "popularity": 1094,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 218
+  },
+  {
+    "platform": "GitHub",
+    "name": "pyeventsourcing/eventsourcing",
+    "version": "d93d583cdace5f904547248bc68da712c519b39b",
+    "popularity": 1564,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "OFA-Sys/OFA",
+    "version": "a36b91ce86ff105ac8d9e513aa88f42b85e33479",
+    "popularity": 2506,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "adambielski/siamese-triplet",
+    "version": "0c719f9e8f59fa386e8c59d10b2ddde9fac46276",
+    "popularity": 3145,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "LmeSzinc/AzurLaneAutoScript",
+    "version": "627d69876332910e8115215a9d6b24980e9df4f1",
+    "popularity": 7937,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "LandGrey/pydictor",
+    "version": "4a77f0ab1536efa691d1de3035864ab22f4335e2",
+    "popularity": 3484,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "ping/instagram_private_api",
+    "version": "0fda0369ac02bc03d56f5f3f99bc9de2cc25ffaa",
+    "popularity": 3130,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 23
+  },
+  {
+    "platform": "GitHub",
+    "name": "Gameye98/Lazymux",
+    "version": "3b4e747e1bdd10f1240f78018ac8ee6fff6d0379",
+    "popularity": 3132,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "tianweiy/CenterPoint",
+    "version": "3cf7d870537e287c99b43b68636ea392a5e6f519",
+    "popularity": 2007,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "eriklindernoren/ML-From-Scratch",
+    "version": "a2806c6732eee8d27762edd6d864e0c179d8e9e8",
+    "popularity": 26646,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "psf/requests",
+    "version": "91a3eabd3dcc4d7f36dd8249e4777a90ef9b4305",
+    "popularity": 53044,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 27
+  },
+  {
+    "platform": "GitHub",
+    "name": "alex04072000/ObstructionRemoval",
+    "version": "cff4e2b6a9983b6cdcd7e8e940e2d0885c77a4a5",
+    "popularity": 1005,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 41
+  },
+  {
+    "platform": "GitHub",
+    "name": "jacobgil/pytorch-grad-cam",
+    "version": "781dbc0d16ffa95b6d18b96b7b829840a82d93d1",
+    "popularity": 11921,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 364
+  },
+  {
+    "platform": "GitHub",
+    "name": "twitter/the-algorithm-ml",
+    "version": "b85210863f7a94efded0ef5c5ccf4ff42767876c",
+    "popularity": 10294,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "AntonOsika/gpt-engineer",
+    "version": "a90fcd543eedcc0ff2c34561bc0785d2ba83c47e",
+    "popularity": 54482,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 110
+  },
+  {
+    "platform": "GitHub",
+    "name": "kjtsune/embyToLocalPlayer",
+    "version": "f8780ca9aa487d257df34e85a9a60777705b6b6b",
+    "popularity": 1012,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "0xInfection/XSRFProbe",
+    "version": "b051d782fa8911721ef15aaecf1f924c28e019f4",
+    "popularity": 1220,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 18
+  },
+  {
+    "platform": "GitHub",
+    "name": "unit8co/darts",
+    "version": "2391d8bb1c8290c9b940d5658c47072fe3de0ca8",
+    "popularity": 8754,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7220
+  },
+  {
+    "platform": "GitHub",
+    "name": "nalepae/pandarallel",
+    "version": "261a652cddb219ac353ff803e81646c08b72fc6f",
+    "popularity": 3776,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 319
+  },
+  {
+    "platform": "GitHub",
+    "name": "mampfes/hacs_waste_collection_schedule",
+    "version": "ff569cdca7a943d3bdad91123489ca2165930986",
+    "popularity": 1512,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 60
+  },
+  {
+    "platform": "GitHub",
+    "name": "KeepSafe/android-resource-remover",
+    "version": "f2b4fb5a6822da79c9b166e3250ca6bdc6ee06e8",
+    "popularity": 1286,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 28
+  },
+  {
+    "platform": "GitHub",
+    "name": "lastmile-ai/aiconfig",
+    "version": "f5e1713ed7f1beeba4f4d82021bd09b4a47f267d",
+    "popularity": 1036,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 577
+  },
+  {
+    "platform": "GitHub",
+    "name": "saulpw/visidata",
+    "version": "aad595dc5dceaabfd9ec716428c6c00ffe91e625",
+    "popularity": 8357,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 0
+  },
+  {
+    "platform": "GitHub",
+    "name": "eth-sri/lmql",
+    "version": "fc8edd4457dc5a5e4e595302166bec797582bf53",
+    "popularity": 3993,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7
+  },
+  {
+    "platform": "GitHub",
+    "name": "EntilZha/PyFunctional",
+    "version": "78bc7c29e936200072a4b4708c6e4ea4587e848b",
+    "popularity": 2459,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 319
+  },
+  {
+    "platform": "GitHub",
+    "name": "joelgrus/data-science-from-scratch",
+    "version": "d5d0f117f41b3ccab3b07f1ee1fa21cfcf69afa1",
+    "popularity": 9128,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7202
+  },
+  {
+    "platform": "GitHub",
+    "name": "blacklanternsecurity/bbot",
+    "version": "3b41155a79926d89bc5b4d1a0d462f50fb4047e3",
+    "popularity": 8767,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 75
+  },
+  {
+    "platform": "GitHub",
+    "name": "facebookresearch/cc_net",
+    "version": "bda555bd1cf1ee2e0b925363e62a61cd46c8b60d",
+    "popularity": 1017,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "patroni/patroni",
+    "version": "29532763284b8776e0fc7960f875f2835fb96a07",
+    "popularity": 7488,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 34
+  },
+  {
+    "platform": "GitHub",
+    "name": "hubert3/iSniff-GPS",
+    "version": "38dafe454553038eb4c0568b729e96491df8842b",
+    "popularity": 1243,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 28
+  },
+  {
+    "platform": "GitHub",
+    "name": "dgtlmoon/changedetection.io",
+    "version": "011fa3540e8de533a9fe01f7f5eae1d4eabe8e14",
+    "popularity": 24766,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 37
+  },
+  {
+    "platform": "GitHub",
+    "name": "google/ssl_logger",
+    "version": "babefc905d27e6d4da0c74408f4762547021eedd",
+    "popularity": 1112,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "Embedding/Chinese-Word-Vectors",
+    "version": "3096a475f79f218dde7b413dcc6b507d302b7f46",
+    "popularity": 12050,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "inducer/pyopencl",
+    "version": "ebd80cd14e9a0be0f31d309ecfc6dfb55bf3ce53",
+    "popularity": 1106,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7210
+  },
+  {
+    "platform": "GitHub",
+    "name": "fofapro/Hosts_scan",
+    "version": "e1e09d7c71354ea3219c6f480370de73f599f1e3",
+    "popularity": 1171,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "Lightning-AI/pytorch-lightning",
+    "version": "4e3cf67337cbde346865a3bd7b1322fab710fbf3",
+    "popularity": 29793,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7219
+  },
+  {
+    "platform": "GitHub",
+    "name": "infstellar/genshin_impact_assistant",
+    "version": "9d3357bbe6c50b5aff410d5695da4bd52e0dc26e",
+    "popularity": 2808,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "JonathonLuiten/TrackEval",
+    "version": "12c8791b303e0a0b50f753af204249e622d0281a",
+    "popularity": 1114,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "alexgand/springer_free_books",
+    "version": "029f1ac475b946cc000039d4f3a765acc083233f",
+    "popularity": 1640,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7203
+  },
+  {
+    "platform": "GitHub",
+    "name": "SabyasachiRana/WebMap",
+    "version": "91555c93ab083a02bd347f1ca0fd262229696c02",
+    "popularity": 1023,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "zim-desktop-wiki/zim-desktop-wiki",
+    "version": "e0f94978f8cc85c7e7da1997966e9cc223c9d519",
+    "popularity": 2050,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "cyrus-and/gdb-dashboard",
+    "version": "616ed5100d3588bb70e3b86737ac0609ce0635cc",
+    "popularity": 11796,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "adamchainz/django-upgrade",
+    "version": "fbe7b73bc83ad2c57161b0ffb885f3e47f5d8c61",
+    "popularity": 1107,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 23
+  },
+  {
+    "platform": "GitHub",
+    "name": "huggingface/open-r1",
+    "version": "7e700c6218e8105af730785f070f4aa6506b1f43",
+    "popularity": 25060,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6
+  },
+  {
+    "platform": "GitHub",
+    "name": "awslabs/gluonts",
+    "version": "7bb6800a149a6caac7ec1725132c73bf06a57e2b",
+    "popularity": 4946,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7
+  },
+  {
+    "platform": "GitHub",
+    "name": "shidenggui/easytrader",
+    "version": "917be0e2e351f3dc2f41ef6a1e42f00a0dd007a1",
+    "popularity": 8650,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 144
+  },
+  {
+    "platform": "GitHub",
+    "name": "PlayVoice/whisper-vits-svc",
+    "version": "b95a84954d74f651982c0ecea5f7eb67f9c02d46",
+    "popularity": 2808,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "meolu/walle-web",
+    "version": "f96dc41ed882782d52ec62fddbe0213b8b9158ec",
+    "popularity": 12024,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 0
+  },
+  {
+    "platform": "GitHub",
+    "name": "fossasia/knitpat",
+    "version": "0b2e1137f937cebd2069d1b59ab0a7564dff69a4",
+    "popularity": 1535,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "allenzren/open-pi-zero",
+    "version": "c3df7fb062175c16f69d7ca4ce042958ea238fb7",
+    "popularity": 1025,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7225
+  },
+  {
+    "platform": "GitHub",
+    "name": "broamski/aws-mfa",
+    "version": "5334deb170204c14922b25b22617c2b1e909d0f6",
+    "popularity": 1049,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "Rapptz/discord.py",
+    "version": "13dc9c9d1600691ea74e253cc739c563c117410e",
+    "popularity": 15523,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 33
+  },
+  {
+    "platform": "GitHub",
+    "name": "natanielruiz/deep-head-pose",
+    "version": "f7bbb9981c2953c2eca67748d6492a64c8243946",
+    "popularity": 1629,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "voxel51/fiftyone",
+    "version": "67f9846d646d05bbc66f65298f23c20912e9c54b",
+    "popularity": 9715,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 31
+  },
+  {
+    "platform": "GitHub",
+    "name": "fossasia/pslab-python",
+    "version": "b97ee9a506ecbbeca8132e52b63bbf96c672890b",
+    "popularity": 1646,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 302
+  },
+  {
+    "platform": "GitHub",
+    "name": "Mindwerks/worldengine",
+    "version": "000a2ac82d8971c13011c030b4923dbfeaeb380c",
+    "popularity": 1012,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "Upsonic/Upsonic",
+    "version": "effa78111a232079492b3fb689a5d7920380dc09",
+    "popularity": 7582,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7205
+  },
+  {
+    "platform": "GitHub",
+    "name": "shadowsocks/shadowsocks",
+    "version": "938bba32a4008bdde9c064dda6a0597987ddef54",
+    "popularity": 33631,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "MasterGroosha/aiogram-3-guide",
+    "version": "6cb3283981b1f4d18a52de9cb7f3c954cf60e3d7",
+    "popularity": 1035,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 24
+  },
+  {
+    "platform": "GitHub",
+    "name": "Yelp/dumb-init",
+    "version": "5ccca9cb0498d8a4cb7579a43c8d3ee8c41469c5",
+    "popularity": 7107,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "rail-berkeley/rlkit",
+    "version": "ac45a9db24b89d97369bef302487273bcc3e3d84",
+    "popularity": 2725,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "kivy/python-for-android",
+    "version": "6f3ab805972e0d9531e3a207a6bc51c0effd8eb9",
+    "popularity": 8649,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1531
+  },
+  {
+    "platform": "GitHub",
+    "name": "lotus-data/lotus",
+    "version": "daaf2765b9af6d752943015a1d5cef416a35f7da",
+    "popularity": 1244,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "psf/requests-html",
+    "version": "075ac162dc62fc532037df0d98954ab840a97516",
+    "popularity": 13830,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 16
+  },
+  {
+    "platform": "GitHub",
+    "name": "PaddlePaddle/PaddleHelix",
+    "version": "153d8018ee83598585c86bf1235e2387bca14fab",
+    "popularity": 1078,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "Acly/krita-ai-diffusion",
+    "version": "4cf869ec11682590cd136ddf08119ae0e14ac45d",
+    "popularity": 8860,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 323
+  },
+  {
+    "platform": "GitHub",
+    "name": "DSE-MSU/DeepRobust",
+    "version": "92ad433645fef68c8e3d74458451842323809bf6",
+    "popularity": 1046,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "admintony/Prepare-for-AWD",
+    "version": "7f74fd85428eb14e4881002d9c9098c1a5048670",
+    "popularity": 1022,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "facebookresearch/hiera",
+    "version": "b12b842542ee5c757fcfec8c41f6b56fcbe89b65",
+    "popularity": 1003,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 350
+  },
+  {
+    "platform": "GitHub",
+    "name": "openai/evals",
+    "version": "cdb8ce9547e68b8e5e4520b6a162294c06865c0f",
+    "popularity": 16565,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 590
+  },
+  {
+    "platform": "GitHub",
+    "name": "qdrant/qdrant-client",
+    "version": "ac6f6cd2ce26714491964e1803bfb7446e59e0b2",
+    "popularity": 1030,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 343
+  },
+  {
+    "platform": "GitHub",
+    "name": "Shougo/denite.nvim",
+    "version": "055dd686c274a293dc4b7365be07c159148c31dd",
+    "popularity": 2066,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "version": "dc7c259cbadabd5ea49d96eaa0d1e1503ddb8a91",
+    "popularity": 10464,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4274
+  },
+  {
+    "platform": "GitHub",
+    "name": "ptoomey3/evilarc",
+    "version": "f561268a690a96f507798e19af6c570ea3a4cd76",
+    "popularity": 1012,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "qiwsir/StarterLearningPython",
+    "version": "635e5a974d3fc16bcc43a2b3b12232e1f3fce01d",
+    "popularity": 1848,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "asweigart/pyperclip",
+    "version": "e16fa9c336454be8e73378f50498780b777a4247",
+    "popularity": 1769,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "jarun/imgp",
+    "version": "00b2b520964f22ca5b6e0c7d7cb07ce7a755cea7",
+    "popularity": 1078,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 20
+  },
+  {
+    "platform": "GitHub",
+    "name": "jmschrei/pomegranate",
+    "version": "e9162731f4f109b7b17ecffde768734cacdb839b",
+    "popularity": 3464,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 384
+  },
+  {
+    "platform": "GitHub",
+    "name": "mindverse/Second-Me",
+    "version": "179c52ec18422102ad12b078c171feb294a512ba",
+    "popularity": 13266,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7209
+  },
+  {
+    "platform": "GitHub",
+    "name": "dfm/osrc",
+    "version": "7f07ac5cac184d48c0b04e2e5098970a13d3cc15",
+    "popularity": 1031,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "luka1199/geo-heatmap",
+    "version": "fc253685d8f918eafbc7e5f47d2257f69873202a",
+    "popularity": 2060,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 300
+  },
+  {
+    "platform": "GitHub",
+    "name": "chubin/wttr.in",
+    "version": "e673586f1add6bb542a98910e6c141db1a5bf696",
+    "popularity": 26561,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "MasterBin-IIAU/UNINEXT",
+    "version": "5ab03865d05d61c23799ae0bd3305b160ceb3f34",
+    "popularity": 1274,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "crewAIInc/crewAI",
+    "version": "9b67e5a15f02ffbd0535bc148667e08887fad97b",
+    "popularity": 34305,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7213
+  },
+  {
+    "platform": "GitHub",
+    "name": "pwndbg/pwndbg",
+    "version": "0abe0a8066e66abecb912c54cabf372a64fa1629",
+    "popularity": 8924,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 145
+  },
+  {
+    "platform": "GitHub",
+    "name": "quantum-visualizations/qmsolve",
+    "version": "c69277da03bb360c7279b0f9662c2f52213071a9",
+    "popularity": 1044,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 310
+  },
+  {
+    "platform": "GitHub",
+    "name": "VerbalExpressions/PythonVerbalExpressions",
+    "version": "f8119bbc9b62ce34c8a4838822fb91328f404604",
+    "popularity": 1641,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "uber/fiber",
+    "version": "ad6faf02b8e94dee498990e9fd9c588234666725",
+    "popularity": 1044,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 94
+  },
+  {
+    "platform": "GitHub",
+    "name": "mariostoev/finviz",
+    "version": "bc02ca9bb980151c33fc7000276bbb0a0c729577",
+    "popularity": 1128,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 185
+  },
+  {
+    "platform": "GitHub",
+    "name": "Ericsson/codechecker",
+    "version": "1bd2383d0aa03a0b0c7b6480da7755543d89cd6d",
+    "popularity": 2417,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "deepzec/Bad-Pdf",
+    "version": "a8149eea8bdc2b136a5c19d327ab3bf729e6c6b4",
+    "popularity": 1117,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "trotsky1997/MathBlackBox",
+    "version": "7768f9deb4b509725d08b3cde64a56e074641975",
+    "popularity": 1027,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 313
+  },
+  {
+    "platform": "GitHub",
+    "name": "kubeflow/trainer",
+    "version": "705cdbfa031aee299926a0c0b2378a31310fc97d",
+    "popularity": 1847,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "mathialo/bython",
+    "version": "6e2e9acdb29f4d5dfe085beccecd9f24e2459bb0",
+    "popularity": 2426,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 919
+  },
+  {
+    "platform": "GitHub",
+    "name": "Pythagora-io/gpt-pilot",
+    "version": "186f98e3a75cc0b5e33c266b0ceccce176dc43ee",
+    "popularity": 33188,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 70
+  },
+  {
+    "platform": "GitHub",
+    "name": "ct-Open-Source/tuya-convert",
+    "version": "a34b2c91862ed855542e8a32a14a9ab7573c4de9",
+    "popularity": 4851,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "kazuto1011/deeplab-pytorch",
+    "version": "4219467fa5de07985f834f1bd8c04c186dc8f6d8",
+    "popularity": 1100,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "Abacus-Group-RTO/legion",
+    "version": "ea40ce5e0ebe2dcb02e10822957ff29e1d12adae",
+    "popularity": 1046,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 325
+  },
+  {
+    "platform": "GitHub",
+    "name": "hanzhanggit/StackGAN",
+    "version": "5db79d099ef2c13e7a8f40d1e2cf9647bc956a1a",
+    "popularity": 1863,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "Eugeny/tabby-web",
+    "version": "16847cea93f730814c1855241d8ebdea20b1ff6e",
+    "popularity": 1106,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "NopeCHALLC/nopecha-python",
+    "version": "17da40ca00184f81c977d89f5dc9d0abc56a720f",
+    "popularity": 1088,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "ml-explore/mlx-examples",
+    "version": "4b2a0df23756b2c7b8470e0a7b26978b1ee81066",
+    "popularity": 7649,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 873
+  },
+  {
+    "platform": "GitHub",
+    "name": "black-forest-labs/flux",
+    "version": "1371b2bc70ac80e1078446308dd5b9a2ebc68c87",
+    "popularity": 23511,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7288
+  },
+  {
+    "platform": "GitHub",
+    "name": "huggingface/text-generation-inference",
+    "version": "fc2405c549bab24081055d12791aaef7ac8a7566",
+    "popularity": 10331,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 16
+  },
+  {
+    "platform": "GitHub",
+    "name": "laixintao/flameshow",
+    "version": "d29e8567e4df0b337b9aaeb35253976e1282614d",
+    "popularity": 1092,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "theAIGuysCode/yolov4-deepsort",
+    "version": "24e675f59d556e13c680df125918ec031c4bd683",
+    "popularity": 1391,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6
+  },
+  {
+    "platform": "GitHub",
+    "name": "mhallsmoore/qstrader",
+    "version": "4c59e1584e83fcc2be644b820f827c0dd1b45c02",
+    "popularity": 3161,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 323
+  },
+  {
+    "platform": "GitHub",
+    "name": "chengaopan/AutoMergePublicNodes",
+    "version": "2449a37d4f1fa84bcef4b89ee71a4e38db0b2376",
+    "popularity": 4831,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "svanoort/pyresttest",
+    "version": "f92acf8e838c4623ddd8e12e880f31046ff9317f",
+    "popularity": 1163,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "naver/mast3r",
+    "version": "f5209afc300cec36239a7ac992263f36847bbba0",
+    "popularity": 2357,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 304
+  },
+  {
+    "platform": "GitHub",
+    "name": "hanmq/MachineLearning_Zhouzhihua_ProblemSets",
+    "version": "00935f4216bc2441886a2d2abde5b90100910763",
+    "popularity": 1592,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "langflow-ai/langflow",
+    "version": "c65ed4559e1d1ba9d6bd3e5d9f22d31ffa7d20a9",
+    "popularity": 86531,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 538
+  },
+  {
+    "platform": "GitHub",
+    "name": "davidhalter/jedi-vim",
+    "version": "344814c214391368674813e3a11143448e73e749",
+    "popularity": 5316,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 0
+  },
+  {
+    "platform": "GitHub",
+    "name": "THU-MIG/yolov10",
+    "version": "453c6e38a51e9d1d5a2aa5fb7f1014a711913397",
+    "popularity": 10851,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 39
+  },
+  {
+    "platform": "GitHub",
+    "name": "Tautulli/Tautulli",
+    "version": "76f6a2da6b3b394765203b7317cd97e7701a3067",
+    "popularity": 6040,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 47
+  },
+  {
+    "platform": "GitHub",
+    "name": "RUCAIBox/RecSysDatasets",
+    "version": "a6b1f4b1585a043332b2dda1bd56ac7ff9846c6b",
+    "popularity": 1014,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1435
+  },
+  {
+    "platform": "GitHub",
+    "name": "MatthieuCourbariaux/BinaryNet",
+    "version": "d7d45aefd2ada203575b29ebb148fb2c4d925e6d",
+    "popularity": 1054,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "Zephery/weiboanalysis",
+    "version": "bee35996ffdf9f6c4bb9af349f6d4dce6666b6ab",
+    "popularity": 1029,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "Dod-o/Statistical-Learning-Method_Code",
+    "version": "cd1d28337d223bc164e4949c167958634f409939",
+    "popularity": 11406,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "a16z-infra/llama2-chatbot",
+    "version": "ce2201265e94eac95f65574b888dd7315f7e77ae",
+    "popularity": 1409,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 135
+  },
+  {
+    "platform": "GitHub",
+    "name": "JJTech0130/TrollRestore",
+    "version": "082f2520556b9aa8e2b8d6661b81a954ee35966b",
+    "popularity": 1129,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 99
+  },
+  {
+    "platform": "GitHub",
+    "name": "cuemacro/findatapy",
+    "version": "54c3971bf73c96214abef00cf67532f9a5028e1e",
+    "popularity": 1873,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4034
+  },
+  {
+    "platform": "GitHub",
+    "name": "loganmarchione/homelab-svg-assets",
+    "version": "400154aeeb699182b6a681097a89a9999efd326c",
+    "popularity": 1078,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "Evil0ctal/Douyin_TikTok_Download_API",
+    "version": "8c98fb70328a5b12bae519c04c3d64520a8bc90a",
+    "popularity": 13450,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 324
+  },
+  {
+    "platform": "GitHub",
+    "name": "scrapy/scrapy",
+    "version": "e225d0dea4d70598441807dda8c8866cf0243f19",
+    "popularity": 57608,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 29
+  },
+  {
+    "platform": "GitHub",
+    "name": "Lightning-AI/litgpt",
+    "version": "67b0496325cdba9640710a5315f155d94c6fe861",
+    "popularity": 12495,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 544
+  },
+  {
+    "platform": "GitHub",
+    "name": "pyinstaller/pyinstaller",
+    "version": "6966b11767d1074fa3acd7fc7a66f4336d8aa54c",
+    "popularity": 12505,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 26
+  },
+  {
+    "platform": "GitHub",
+    "name": "microsoft/autogen",
+    "version": "b2cef7f47c3271bcd1a6f1bfe011eb224852e3ee",
+    "popularity": 47377,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "OpenGeoscience/geonotebook",
+    "version": "a20a86909677ab02dc3e59c302f056ecb906b0e4",
+    "popularity": 1088,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "hfaran/slack-export-viewer",
+    "version": "a18063a50b8669cfea7f9faef1fdeb413236cf4f",
+    "popularity": 1039,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "IronLanguages/ironpython2",
+    "version": "d834e174b8e4f75eb98c9f185cc66d094b2dd42c",
+    "popularity": 1079,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7204
+  },
+  {
+    "platform": "GitHub",
+    "name": "seemoo-lab/opendrop",
+    "version": "ae5ac821fb3b233df3ac800e4eb47f287f4422cf",
+    "popularity": 9091,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 25
+  },
+  {
+    "platform": "GitHub",
+    "name": "bmaltais/kohya_ss",
+    "version": "4161d1d80ad554f7801c584632665d6825994062",
+    "popularity": 11065,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 0
+  },
+  {
+    "platform": "GitHub",
+    "name": "URenko/Accesser",
+    "version": "1862753f7c4201ef0e708e67939995d08c64f186",
+    "popularity": 1045,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 19
+  },
+  {
+    "platform": "GitHub",
+    "name": "paarthneekhara/text-to-image",
+    "version": "b5475c140ecb254096c493850ae09c1bc9da8f7a",
+    "popularity": 2169,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 812
+  },
+  {
+    "platform": "GitHub",
+    "name": "JefferyHcool/BiliNote",
+    "version": "880f745718a0ddf6be0ffecce6b6ac35176bb309",
+    "popularity": 2926,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "bentoml/BentoML",
+    "version": "519f67d7c8caf6473691abcc5069064783029958",
+    "popularity": 7903,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 740
+  },
+  {
+    "platform": "GitHub",
+    "name": "pedroCabrera/PyFlow",
+    "version": "4edba796e6e40565e46ce718ca52eeb5c84219cd",
+    "popularity": 2884,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 35
+  },
+  {
+    "platform": "GitHub",
+    "name": "octotools/octotools",
+    "version": "5d09964f6cebb5b2d0783fd32ecd864f31135daa",
+    "popularity": 1225,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7244
+  },
+  {
+    "platform": "GitHub",
+    "name": "DreamSourceLab/DSView",
+    "version": "2e9e2c8e726df4ef5687d39b83d4f797cc44b574",
+    "popularity": 1244,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "benedekrozemberczki/awesome-gradient-boosting-papers",
+    "version": "6d89978fc5c98c89d4c09fbbfd3caaf60ef9c2b0",
+    "popularity": 1021,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "m4ll0k/SecretFinder",
+    "version": "d06119dedd9c1505137d1ec4792d5d5b65c7425d",
+    "popularity": 2223,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "sibtc/django-beginners-guide",
+    "version": "cb376b927f764c3a2c3bac8ed72a536f379f5d55",
+    "popularity": 1242,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4195
+  },
+  {
+    "platform": "GitHub",
+    "name": "doraemonext/wechat-python-sdk",
+    "version": "bf6f6f3d4a5440feb73a51937059d7feddc335a0",
+    "popularity": 1356,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 34
+  },
+  {
+    "platform": "GitHub",
+    "name": "AlexxIT/SonoffLAN",
+    "version": "0837c19a835a9eda624019beaa1d4de630876701",
+    "popularity": 2967,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "StuffAnThings/qbit_manage",
+    "version": "3fa5fcee3b46efb2e0e61f9b88882d2b8a0f7d9f",
+    "popularity": 1095,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "mildsunrise/protobuf-inspector",
+    "version": "3211be9c2fb1d24e788ff492571cd0ba895c519a",
+    "popularity": 1052,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 136
+  },
+  {
+    "platform": "GitHub",
+    "name": "RUC-NLPIR/FlashRAG",
+    "version": "08ced47cf3fcd0ef518fe1e3ff7a4d2b38895acc",
+    "popularity": 2519,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7230
+  },
+  {
+    "platform": "GitHub",
+    "name": "chenriwei/DeepFace",
+    "version": "36717f1b18e6dc6c423d1601a41d39030f304749",
+    "popularity": 1505,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3059
+  },
+  {
+    "platform": "GitHub",
+    "name": "conan-io/conan",
+    "version": "0e1d92ddfd23b0f8ec28beceb05bd6f0e7badc90",
+    "popularity": 8843,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 29
+  },
+  {
+    "platform": "GitHub",
+    "name": "wangzheng0822/algo",
+    "version": "b2c1228ff915287ad7ebeae4355fa26854ea1557",
+    "popularity": 23123,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "doccano/doccano",
+    "version": "23d23c3c04efaea2d167488834c4b21566007fe7",
+    "popularity": 10146,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1319
+  },
+  {
+    "platform": "GitHub",
+    "name": "nashsu/FreeAskInternet",
+    "version": "3fa58d17e9080171f4686c128df9f61b3265a4d9",
+    "popularity": 8710,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 55
+  },
+  {
+    "platform": "GitHub",
+    "name": "deepspeedai/DeepSpeed-MII",
+    "version": "8abdd987421988a9d50d8b1dfa71ca6283a30f6c",
+    "popularity": 2035,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 272
+  },
+  {
+    "platform": "GitHub",
+    "name": "dbcli/mycli",
+    "version": "8afbe742cf42f220d01686b73ebc0c618b159191",
+    "popularity": 11676,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 31
+  },
+  {
+    "platform": "GitHub",
+    "name": "PantsuDango/Dango-Translator",
+    "version": "7c08fd3d3e43204b1fee8169da08838cf1ba6a28",
+    "popularity": 7697,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 5
+  },
+  {
+    "platform": "GitHub",
+    "name": "reddit-archive/reddit",
+    "version": "753b17407e9a9dca09558526805922de24133d53",
+    "popularity": 16917,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "spandanb/learndb-py",
+    "version": "242884e2418a09f480f17eac65e9c88e518bab1a",
+    "popularity": 1308,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "probonopd/irdb",
+    "version": "5d1340e4f8338c3f534b6db36d6ebc3bdeb97a17",
+    "popularity": 1039,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "openai/openai-python",
+    "version": "35df552d032873b62c2ae127a0efce60947dbed0",
+    "popularity": 27383,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 336
+  },
+  {
+    "platform": "GitHub",
+    "name": "nbedos/termtosvg",
+    "version": "258a3fdb17faf06d4f1525603185ef18b4ab7920",
+    "popularity": 9729,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 23
+  },
+  {
+    "platform": "GitHub",
+    "name": "sshaoshuai/PointRCNN",
+    "version": "1d0dee91262b970f460135252049112d80259ca0",
+    "popularity": 1776,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "wpeebles/gangealing",
+    "version": "ffa6387c7ffd3f7de76bdc693dc2272e274e9bfd",
+    "popularity": 1012,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "VectifyAI/PageIndex",
+    "version": "6c9732ad5a281ece2a4e9f6ebedc70e95893a614",
+    "popularity": 1108,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 104
+  },
+  {
+    "platform": "GitHub",
+    "name": "ShoufaChen/DiffusionDet",
+    "version": "1efb36d4b0b721f2d509bc72656235a94d73ab02",
+    "popularity": 2188,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "Qix-/better-exceptions",
+    "version": "f7f1476e57129dc74d241b4377b0df39c37bc8a7",
+    "popularity": 4655,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "humphd/have-fun-with-machine-learning",
+    "version": "d0418772e744593b4d587f2bbaada9a3b0d78b60",
+    "popularity": 5113,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "python/typing",
+    "version": "2d88da2a407b556f5b52b4c6ad1bd659873bb9ac",
+    "popularity": 1665,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1438
+  },
+  {
+    "platform": "GitHub",
+    "name": "kurogai/100-redteam-projects",
+    "version": "8dede0001c2a146e5f5d5858292235cf3db06800",
+    "popularity": 2588,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "matthewearl/deep-anpr",
+    "version": "db823ebe283f4e226a80dbbe4cb5b45867bf0485",
+    "popularity": 1854,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "cdhigh/KindleEar",
+    "version": "fe70208c85b68df6e53705f8ca5ff36251fdb5fe",
+    "popularity": 2800,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1157
+  },
+  {
+    "platform": "GitHub",
+    "name": "khoj-ai/khoj",
+    "version": "99ed796c00d3b6f278065cf54c9d0aee7b4ec240",
+    "popularity": 30552,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7262
+  },
+  {
+    "platform": "GitHub",
+    "name": "cool-RR/PySnooper",
+    "version": "0561a89c0ec88d11f38c6ef815d12c0423300fe1",
+    "popularity": 16508,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 18
+  },
+  {
+    "platform": "GitHub",
+    "name": "PrefectHQ/prefect",
+    "version": "cd38a518b6c5431504b2a30e71fd43f39782cdd0",
+    "popularity": 19795,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 598
+  },
+  {
+    "platform": "GitHub",
+    "name": "open-mmlab/Amphion",
+    "version": "d3de90f02e7f1c7dbc24b04d52fe1b8ef438effe",
+    "popularity": 9243,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 27
+  },
+  {
+    "platform": "GitHub",
+    "name": "ansible/ansible-runner",
+    "version": "69227d24f43b0ac530f440acc7c5ff4698da04bf",
+    "popularity": 1020,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "dgunning/edgartools",
+    "version": "837d228e0908c437c44cf2f80fab917282a3c770",
+    "popularity": 1072,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 405
+  },
+  {
+    "platform": "GitHub",
+    "name": "mherrmann/helium",
+    "version": "a7cd98503b926004594ab4aa3dd46961579f4c0a",
+    "popularity": 7934,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 21
+  },
+  {
+    "platform": "GitHub",
+    "name": "mwaskom/seaborn",
+    "version": "7001ebe72423238e99c0434a2ef0a0ebc9cb55c1",
+    "popularity": 13284,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 426
+  },
+  {
+    "platform": "GitHub",
+    "name": "brain-research/self-attention-gan",
+    "version": "ad9612e60f6ba2b5ad3d3340ebae60f724636d75",
+    "popularity": 1010,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 144
+  },
+  {
+    "platform": "GitHub",
+    "name": "MustardChef/WSABuilds",
+    "version": "758c96e3baa363f0353b24f25299b332602c5c6e",
+    "popularity": 10782,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4395
+  },
+  {
+    "platform": "GitHub",
+    "name": "zllrunning/face-parsing.PyTorch",
+    "version": "d2e684cf1588b46145635e8fe7bcc29544e5537e",
+    "popularity": 2481,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "long2ice/fastapi-cache",
+    "version": "b2143ef85e2868dace363e432a0683675577bf81",
+    "popularity": 1594,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 68
+  },
+  {
+    "platform": "GitHub",
+    "name": "RameshAditya/asciify",
+    "version": "33d697642baf04902e80ce5bc7c7f539e0a08613",
+    "popularity": 1155,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3361
+  },
+  {
+    "platform": "GitHub",
+    "name": "showlab/Show-o",
+    "version": "4f7753eb2ef0894223c7b176dd9b2fae89c4c537",
+    "popularity": 1596,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 274
+  },
+  {
+    "platform": "GitHub",
+    "name": "ahujasid/blender-mcp",
+    "version": "a3e53a9933f974113f2b35f8bc4f52356b51a303",
+    "popularity": 12432,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 62
+  },
+  {
+    "platform": "GitHub",
+    "name": "tonybeltramelli/pix2code",
+    "version": "eab4816e397e7491b92bdcb78d9d7195afa412b3",
+    "popularity": 12036,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 21
+  },
+  {
+    "platform": "GitHub",
+    "name": "meta-llama/llama-stack",
+    "version": "b57db11bed112cbad8885d9e9a9c0b17612c5f11",
+    "popularity": 7911,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "selfboot/LeetCode",
+    "version": "473c0c5451651140d75cbd143309c51cd8fe1cf1",
+    "popularity": 1123,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "Kr1s77/Python-crawler-tutorial-starts-from-zero",
+    "version": "ddcd547fed69265e16141226e6ae07b3902f69cf",
+    "popularity": 4498,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "tencent-ailab/persona-hub",
+    "version": "72bf19b886312041b32f7cae12c02dab8653c6fa",
+    "popularity": 1231,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 342
+  },
+  {
+    "platform": "GitHub",
+    "name": "ParthJadhav/Tkinter-Designer",
+    "version": "631017b677161af00f08b38b318f3c3762564c27",
+    "popularity": 9876,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 635
+  },
+  {
+    "platform": "GitHub",
+    "name": "nlpinaction/learning-nlp",
+    "version": "d59fd75bdbbc0f4d1ef0d741065ab86639608924",
+    "popularity": 1044,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 44
+  },
+  {
+    "platform": "GitHub",
+    "name": "tatsu-lab/stanford_alpaca",
+    "version": "761dc5bfbdeeffa89b8bff5d038781a4055f796a",
+    "popularity": 30080,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 376
+  },
+  {
+    "platform": "GitHub",
+    "name": "matplotlib/matplotlib",
+    "version": "b766c96c36bed6bdea83c61d272d12fb19ac3126",
+    "popularity": 21439,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 313
+  },
+  {
+    "platform": "GitHub",
+    "name": "spotDL/spotify-downloader",
+    "version": "3fe482829ead109e66e28b64b4666df19bf625cd",
+    "popularity": 20629,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 5361
+  },
+  {
+    "platform": "GitHub",
+    "name": "PrincetonML/SIF",
+    "version": "84b5b4c1c1ca20b6af19fc78cae005a1818ec571",
+    "popularity": 1087,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "clips/pattern",
+    "version": "d25511f9ca7ed9356b801d8663b8b5168464e68f",
+    "popularity": 8825,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "moonshine-ai/moonshine",
+    "version": "89981f1ba33fc471ecb2e7a64531ee44f05e7de6",
+    "popularity": 2793,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 354
+  },
+  {
+    "platform": "GitHub",
+    "name": "opengeos/leafmap",
+    "version": "6060791f1f953af5770b2be96a8d1bcf7b816f12",
+    "popularity": 3402,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "pmaupin/pdfrw",
+    "version": "6c892160e7e976b243db0c12c3e56ed8c78afc5a",
+    "popularity": 1898,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "thieu1995/mealpy",
+    "version": "7a7a2cb7ff682c77d338ee389bcf9e24a43c22d9",
+    "popularity": 1049,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 331
+  },
+  {
+    "platform": "GitHub",
+    "name": "yu4u/noise2noise",
+    "version": "c25d5a81cd2c7077e801b42e1dd05442fd19d8c2",
+    "popularity": 1091,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7217
+  },
+  {
+    "platform": "GitHub",
+    "name": "openai/InfoGAN",
+    "version": "6e41232332672844f539c9fbf46d230f3d5b0699",
+    "popularity": 1063,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2457
+  },
+  {
+    "platform": "GitHub",
+    "name": "ThilinaRajapakse/simpletransformers",
+    "version": "eb29aa241cf89a1e5f11ba76e73a695fb831932f",
+    "popularity": 4198,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7214
+  },
+  {
+    "platform": "GitHub",
+    "name": "VikParuchuri/texify",
+    "version": "53e052eda4e09f16fa3b4898b81a54491fe1ca0c",
+    "popularity": 1066,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 444
+  },
+  {
+    "platform": "GitHub",
+    "name": "scoder/lupa",
+    "version": "69634072694308ac4c928c6d5defcbb04ed3f267",
+    "popularity": 1085,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "huangjunsen0406/py-xiaozhi",
+    "version": "4597721a031f1469464eea9b4c139d736f1f9595",
+    "popularity": 2044,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7
+  },
+  {
+    "platform": "GitHub",
+    "name": "JaidedAI/EasyOCR",
+    "version": "c4f3cd7225efd4f85451bd8b4a7646ae9a092420",
+    "popularity": 27285,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 467
+  },
+  {
+    "platform": "GitHub",
+    "name": "lucidrains/mlp-mixer-pytorch",
+    "version": "b102a9b25cb8bd2360db36cbd252dc4e670fd5e4",
+    "popularity": 1030,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1092
+  },
+  {
+    "platform": "GitHub",
+    "name": "natewong1313/bird-bot",
+    "version": "0a76dca2157c021c6cd5734928b1ffcf46a2b3b2",
+    "popularity": 1181,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "RealmTeam/django-rest-framework-social-oauth2",
+    "version": "21b795866d87ca5471ed9bd37d2fce64fce0a993",
+    "popularity": 1067,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "Stonesjtu/pytorch_memlab",
+    "version": "d7ed8e0f75abaaac197c0f9271085a40f2c9083b",
+    "popularity": 1063,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 462
+  },
+  {
+    "platform": "GitHub",
+    "name": "pyexcel/pyexcel",
+    "version": "9dc95a10a368ffbd2035c11639b45c11a0b5fd46",
+    "popularity": 1251,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "samshadwell/TrumpScript",
+    "version": "3793b905925b55c0296b066586c7d612c7220ca0",
+    "popularity": 7597,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "gunthercox/ChatterBot",
+    "version": "8d27a8bb40ea7cd374616ddf5a1f4551fcc4d861",
+    "popularity": 14365,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 425
+  },
+  {
+    "platform": "GitHub",
+    "name": "voicepaw/so-vits-svc-fork",
+    "version": "0f015e32aada5cf7481f91bbe6758e574c9c5f39",
+    "popularity": 9066,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "Textualize/toolong",
+    "version": "5aa22ee878026f46d4d265905c4e1df4d37842ae",
+    "popularity": 3505,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7202
+  },
+  {
+    "platform": "GitHub",
+    "name": "magmax/python-inquirer",
+    "version": "3726b61ea7948d1ee5ad94cf6cf49d39ccd97f71",
+    "popularity": 1089,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "lyuwenyu/RT-DETR",
+    "version": "a80dee362b5444c1af3e8bfcb965a8892112bfe2",
+    "popularity": 3910,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "Kanaries/pygwalker",
+    "version": "986d47e0f62178389a6a6b7e8d5b6fd712547825",
+    "popularity": 15020,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "openai/summarize-from-feedback",
+    "version": "700967448d10004279f138666442bf1497d0e705",
+    "popularity": 1033,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "simonw/llm",
+    "version": "0bf655a1feabb8a57497d920dfe20f04df895668",
+    "popularity": 8963,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 310
+  },
+  {
+    "platform": "GitHub",
+    "name": "pallets/click",
+    "version": "834e04a75c5693be55f3cd8b8d3580f74086a353",
+    "popularity": 16633,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 51
+  },
+  {
+    "platform": "GitHub",
+    "name": "piskvorky/gensim",
+    "version": "15bcb5752ca073c6fa2387a7563ebf279165c6f1",
+    "popularity": 16101,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "PaddlePaddle/PaddleNLP",
+    "version": "e042ac12e1fa1812cb3da42787baa130a6f0eb1f",
+    "popularity": 12686,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7205
+  },
+  {
+    "platform": "GitHub",
+    "name": "JiehangXie/PaddleBoBo",
+    "version": "cea4447747ef75ece7fda0add7c82a880fec6831",
+    "popularity": 1068,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "Khrylx/PyTorch-RL",
+    "version": "72069237b4d86bcb9675b899ea94228019a4f003",
+    "popularity": 1229,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "nodejs/node-gyp",
+    "version": "7d883b5cf4c26e76065201f85b0be36d5ebdcc0e",
+    "popularity": 10278,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "scottrogowski/code2flow",
+    "version": "c2c22afe5e12f969cc256373bf8f4eec592dc762",
+    "popularity": 4345,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "taynaud/python-louvain",
+    "version": "def91793772c3e77ab4167d175903a5365c24b4b",
+    "popularity": 1009,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 297
+  },
+  {
+    "platform": "GitHub",
+    "name": "OmkarPathak/Python-Programs",
+    "version": "ed96a4f7b2ddcad5be6c6a0f13cff89975731b77",
+    "popularity": 1104,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1191
+  },
+  {
+    "platform": "GitHub",
+    "name": "vinta/awesome-python",
+    "version": "0d5468cf112132e8d1fab3ecf1aa714444d604cf",
+    "popularity": 250470,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 203
+  },
+  {
+    "platform": "GitHub",
+    "name": "ymcui/Chinese-LLaMA-Alpaca",
+    "version": "090475fbebcca06af2ae52c5227fe1617e22072a",
+    "popularity": 18879,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 404
+  },
+  {
+    "platform": "GitHub",
+    "name": "trekhleb/learn-python",
+    "version": "52c3a655cc2efd5ac01004f6f529c3262812a84e",
+    "popularity": 17066,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "uunicorn/python-validity",
+    "version": "a6bbc21dce7b8b3c3cd92378a0b2579a2fb45920",
+    "popularity": 1094,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 779
+  },
+  {
+    "platform": "GitHub",
+    "name": "fogleman/Minecraft",
+    "version": "65c759c1f43798278e13f6c1a0e038aeeac77656",
+    "popularity": 5354,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "benedekrozemberczki/karateclub",
+    "version": "cb46a91df8dcbeb2570debcf6a9d0c518107a2de",
+    "popularity": 2241,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 106
+  },
+  {
+    "platform": "GitHub",
+    "name": "BlinkDL/ChatRWKV",
+    "version": "c1aee1e9721ab497630041332e4357d80a1a5ac0",
+    "popularity": 9502,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "refraction-ray/xalpha",
+    "version": "8a2a9b6317ae66f0d1cf4e2d6762b3694cea9806",
+    "popularity": 2221,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 160
+  },
+  {
+    "platform": "GitHub",
+    "name": "django-ses/django-ses",
+    "version": "305933dd9cc225c726dba102d2fd4308a2eb0168",
+    "popularity": 1057,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "alessandro-zomparelli/tissue",
+    "version": "b044a04d3c398310049527083d9bc4bda0613aa7",
+    "popularity": 1041,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "modelscope/3D-Speaker",
+    "version": "263cbfaca03d6f3084bd2285feee486f909de0b8",
+    "popularity": 2200,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 777
+  },
+  {
+    "platform": "GitHub",
+    "name": "hotshotco/Hotshot-XL",
+    "version": "cc01f7f82acff985a45f6214152c4a0ba033759f",
+    "popularity": 1102,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1640
+  },
+  {
+    "platform": "GitHub",
+    "name": "cipher387/python-for-OSINT-21-days",
+    "version": "dd9d700368eecb6b5f7481887303f091efcf2fae",
+    "popularity": 1014,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "traverseda/pycraft",
+    "version": "24d6b97cd0c1c4649b86d91d4bb419834a03bdad",
+    "popularity": 1092,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 166
+  },
+  {
+    "platform": "GitHub",
+    "name": "LeapLabTHU/cooragent",
+    "version": "bb856b4551becbdef0a1bf87f29600928c475860",
+    "popularity": 2223,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "letta-ai/letta",
+    "version": "8fe15bee504640dcf8f9f00f53766a697178a5fb",
+    "popularity": 17342,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7203
+  },
+  {
+    "platform": "GitHub",
+    "name": "ludwig-ai/ludwig",
+    "version": "00c51e0a286c3fa399a07a550e48d0f3deadc57d",
+    "popularity": 11528,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 285
+  },
+  {
+    "platform": "GitHub",
+    "name": "intel/ipex-llm",
+    "version": "f0b600da77c2830d3cabd9991aae74743471512a",
+    "popularity": 8119,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "e3nn/e3nn",
+    "version": "774ec58d92b8ae3e438994fb69bebf6b91b8bd34",
+    "popularity": 1114,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 371
+  },
+  {
+    "platform": "GitHub",
+    "name": "budtmo/docker-android",
+    "version": "1f1224599e1be9060a58d03124a603b99d6585b4",
+    "popularity": 11087,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "carlini/yet-another-applied-llm-benchmark",
+    "version": "2ae8abd911b593f515f025b3cb8fa3b10ac193fe",
+    "popularity": 1021,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 517
+  },
+  {
+    "platform": "GitHub",
+    "name": "googlefonts/noto-emoji",
+    "version": "b3e3051a088047d19fd4d49b1c3ac42fb8c3aaf8",
+    "popularity": 4195,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 40
+  },
+  {
+    "platform": "GitHub",
+    "name": "arsaboo/homeassistant-config",
+    "version": "949a0ef28911f0bd3832e61365e5b58731915b4b",
+    "popularity": 1922,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 16
+  },
+  {
+    "platform": "GitHub",
+    "name": "vega/altair",
+    "version": "78a57f2d9e973930fbc859175ac6c2d3f16c2881",
+    "popularity": 9894,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 425
+  },
+  {
+    "platform": "GitHub",
+    "name": "volatilityfoundation/volatility",
+    "version": "328a178edeecaf8d2abf96618ecfcb14a7b0c860",
+    "popularity": 7748,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 155
+  },
+  {
+    "platform": "GitHub",
+    "name": "jadore801120/attention-is-all-you-need-pytorch",
+    "version": "132907dd272e2cc92e3c10e6c4e783a87ff8893d",
+    "popularity": 9288,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "kkroening/ffmpeg-python",
+    "version": "df129c7ba30aaa9ffffb81a48f53aa7253b0b4e6",
+    "popularity": 10617,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 5
+  },
+  {
+    "platform": "GitHub",
+    "name": "Neeky/mysqltools",
+    "version": "701c5b96bf16fa8ab0d933b4d6c8584a1efae5ab",
+    "popularity": 1072,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "tdamdouni/Pythonista",
+    "version": "3e082d53b6b9b501a3c8cf3251a8ad4c8be9c2ad",
+    "popularity": 1118,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 41
+  },
+  {
+    "platform": "GitHub",
+    "name": "allenai/allennlp",
+    "version": "80fb6061e568cb9d6ab5d45b661e86eb61b92c82",
+    "popularity": 11859,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "senguptaumd/Background-Matting",
+    "version": "90765850422621f38ec9f912059cfcad1a8a592b",
+    "popularity": 4785,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "sgrvinod/a-PyTorch-Tutorial-to-Object-Detection",
+    "version": "5d5b75968c3cf1ffd2718bf828a7560b7ee8e8b5",
+    "popularity": 3109,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 14
+  },
+  {
+    "platform": "GitHub",
+    "name": "searxng/searxng",
+    "version": "62fac1c6a9db94682f8ef686f0424a482663b288",
+    "popularity": 20445,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 40
+  },
+  {
+    "platform": "GitHub",
+    "name": "nnaisense/evotorch",
+    "version": "cebcac4f20979078becf8b908016cd8e5e6714a4",
+    "popularity": 1069,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 427
+  },
+  {
+    "platform": "GitHub",
+    "name": "ultrafunkamsterdam/undetected-chromedriver",
+    "version": "757ed6a22052f0674bb7c9f765ca884d15dcb780",
+    "popularity": 11449,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 20
+  },
+  {
+    "platform": "GitHub",
+    "name": "michaelliao/sinaweibopy",
+    "version": "eb5298ad84ea774bf2006f28b6158a9a05d723e5",
+    "popularity": 1274,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "san089/Udacity-Data-Engineering-Projects",
+    "version": "c26bd834294cda2f4f2dfbf68c4c326635c55a93",
+    "popularity": 1676,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "singingwolfboy/flask-dance",
+    "version": "70f79fd9b633cea7b9742219888fac08069edc22",
+    "popularity": 1018,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 27
+  },
+  {
+    "platform": "GitHub",
+    "name": "allwefantasy/auto-coder",
+    "version": "bf7af36ab69a6458f298fdec694cff999082f1b1",
+    "popularity": 1126,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 245
+  },
+  {
+    "platform": "GitHub",
+    "name": "gratipay/gratipay.com",
+    "version": "dc4e953a8a5b96908e2f3ea7f8fef779217ba2b6",
+    "popularity": 1119,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 3
+  },
+  {
+    "platform": "GitHub",
+    "name": "trycua/cua",
+    "version": "4674651770275e53f91a3f49a6430f48ac7918a1",
+    "popularity": 8984,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "elaine-zheng/summer2020internships",
+    "version": "83bc66cdb3684d874cc1bc6749a7217a0f50b4b5",
+    "popularity": 1795,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "city96/ComfyUI-GGUF",
+    "version": "b3ec875a68d94b758914fd48d30571d953bb7a54",
+    "popularity": 2202,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 296
+  },
+  {
+    "platform": "GitHub",
+    "name": "caogang/wgan-gp",
+    "version": "ae47a185ed2e938c39cf3eb2f06b32dc1b6a2064",
+    "popularity": 1533,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "vercel/geist-font",
+    "version": "2d00e8e0be75923c8fed0ff5deb559f5b2a16a5d",
+    "popularity": 2909,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "facebookresearch/mbrl-lib",
+    "version": "3f93cccfc8d635f74e335a2f07aab6e9a48fc021",
+    "popularity": 1008,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 341
+  },
+  {
+    "platform": "GitHub",
+    "name": "THU-LYJ-Lab/T3Bench",
+    "version": "6367462cfd04467af772c168c5cd8570964b9df3",
+    "popularity": 1100,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6
+  },
+  {
+    "platform": "GitHub",
+    "name": "klen/pylama",
+    "version": "53ad214de0aa9534e59bcd5f97d9d723d16cfdb8",
+    "popularity": 1054,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 34
+  },
+  {
+    "platform": "GitHub",
+    "name": "TencentARC/GFPGAN",
+    "version": "7552a7791caad982045a7bbe5634bbf1cd5c8679",
+    "popularity": 36918,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 684
+  },
+  {
+    "platform": "GitHub",
+    "name": "OWASP/CheatSheetSeries",
+    "version": "a38d33654a6258a8363114bcab40b0d8413eae3a",
+    "popularity": 29901,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 21
+  },
+  {
+    "platform": "GitHub",
+    "name": "sokolovstas/SublimeWebInspector",
+    "version": "e808d12956f115ea2b37bdf46fbfdb20b4e5ec13",
+    "popularity": 2346,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "AcademySoftwareFoundation/rez",
+    "version": "dac6bcb1fd73a4b711ec182558a9051b553d6582",
+    "popularity": 1020,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 22
+  },
+  {
+    "platform": "GitHub",
+    "name": "joshpxyne/gpt-migrate",
+    "version": "262cabb5e8dae57f03e80a7c06cf0edfbc67d410",
+    "popularity": 6967,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 75
+  },
+  {
+    "platform": "GitHub",
+    "name": "swz30/Restormer",
+    "version": "df766d5521afd21cce56e24159f300b30ebf3fb0",
+    "popularity": 2140,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "m-bain/whisperX",
+    "version": "2d9ce44329ae73af2520196d31cd14b6192ace44",
+    "popularity": 16780,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 350
+  },
+  {
+    "platform": "GitHub",
+    "name": "opsschool/curriculum",
+    "version": "1def41ee2486f3d4b5ff10a0bb617e9069c069f5",
+    "popularity": 1625,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 20
+  },
+  {
+    "platform": "GitHub",
+    "name": "julien-duponchelle/python-mysql-replication",
+    "version": "b7605bec80dacce4731838a6c2f01c45069851a5",
+    "popularity": 2389,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "lllyasviel/sd-forge-layerdiffuse",
+    "version": "b1e66511e3a405a9e671da0755fc5356e033e97f",
+    "popularity": 4074,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "1-Sisyphe/youCanCodeAGif",
+    "version": "e2b65b3f84466bbc708d4f0a7e1fc80dd7077e08",
+    "popularity": 1108,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "mre/the-coding-interview",
+    "version": "3dae86e66e18b3847e93a5647d69c60609014a2f",
+    "popularity": 1729,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "Totoro97/NeuS",
+    "version": "6e0a2309d3f8d62d95c749183a965813558662ef",
+    "popularity": 1689,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 30
+  },
+  {
+    "platform": "GitHub",
+    "name": "mikeroyal/Photogrammetry-Guide",
+    "version": "ebeebd58093f537352f301d861c4c6897ba3684d",
+    "popularity": 1329,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "cleanlab/cleanvision",
+    "version": "5eefe7e90c595e89274eb8e453b6e6229f497bf5",
+    "popularity": 1102,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 465
+  },
+  {
+    "platform": "GitHub",
+    "name": "mli/autocut",
+    "version": "ba2bb3bfbd57454727780eafad2861d66af58567",
+    "popularity": 7306,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 435
+  },
+  {
+    "platform": "GitHub",
+    "name": "oracle/graalpython",
+    "version": "a5374e56f722e1bb9da9e7c3322fbdedd49e1844",
+    "popularity": 1426,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7
+  },
+  {
+    "platform": "GitHub",
+    "name": "cupy/cupy",
+    "version": "3ce2a11076db8ec26bd2a9ec617d0a1806b69951",
+    "popularity": 10344,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 399
+  },
+  {
+    "platform": "GitHub",
+    "name": "Kyubyong/dc_tts",
+    "version": "8b38110875920923343778ff959d01501323765e",
+    "popularity": 1163,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "astral-sh/ty",
+    "version": "03f35a4908bfe4d3ff201293beb3aa1fb1e52f05",
+    "popularity": 10756,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "jeffffffli/HybrIK",
+    "version": "c281eeeb3c0689a4d619a06ed0c4488e791eda76",
+    "popularity": 1451,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "TMElyralab/MusePose",
+    "version": "61c52bd937224a614b3951419b735b639397cb62",
+    "popularity": 2570,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7222
+  },
+  {
+    "platform": "GitHub",
+    "name": "swisskyrepo/PayloadsAllTheThings",
+    "version": "dc33caaceb31b1b3b66e1792d636003b985d6955",
+    "popularity": 68439,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 12
+  },
+  {
+    "platform": "GitHub",
+    "name": "THUDM/CogView4",
+    "version": "1f21551ad1a00fec276c01e8bbf98b38d9590108",
+    "popularity": 1077,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 804
+  },
+  {
+    "platform": "GitHub",
+    "name": "python-diamond/Diamond",
+    "version": "e1e4b5a52120c1e8b70b9c61e1eff3a14470be65",
+    "popularity": 1758,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "Stability-AI/generative-models",
+    "version": "0ad7de9a5cb53fd63d6d30a4f385485e72e08597",
+    "popularity": 26181,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 16
+  },
+  {
+    "platform": "GitHub",
+    "name": "vzhd1701/evernote-backup",
+    "version": "94193e68ebd7553fbe6c9ad6d752ffb795fbdd5c",
+    "popularity": 1212,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 28
+  },
+  {
+    "platform": "GitHub",
+    "name": "robusta-dev/holmesgpt",
+    "version": "436a0d83afa0638e6e3387b449626241864e2834",
+    "popularity": 1088,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7207
+  },
+  {
+    "platform": "GitHub",
+    "name": "baowenbo/DAIN",
+    "version": "7c727aca56760f8f1a57ffb603c8c0b0fd1b1349",
+    "popularity": 8316,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "dottxt-ai/outlines",
+    "version": "222ca17254ca0a4de1961e16872efe917b8e3498",
+    "popularity": 12098,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "THUDM/GLM-130B",
+    "version": "212215c54f8a9da2deed51455868305235664370",
+    "popularity": 7682,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7208
+  },
+  {
+    "platform": "GitHub",
+    "name": "qiyeboy/IPProxyPool",
+    "version": "127827829535641d57a1a05e20523cb0a192170b",
+    "popularity": 4235,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 4
+  },
+  {
+    "platform": "GitHub",
+    "name": "nishiwen1214/ChatReviewer",
+    "version": "da15dc4179dcf6c18c2ff27bafb759adae6c6d0f",
+    "popularity": 1355,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7201
+  },
+  {
+    "platform": "GitHub",
+    "name": "vitalik/django-ninja",
+    "version": "1b46ff1a661a5dca030009b3e793437a7bf9b9b5",
+    "popularity": 8369,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 93
+  },
+  {
+    "platform": "GitHub",
+    "name": "omnilib/aiosqlite",
+    "version": "895fd9183b43cecce89310d8ef00f9f632b9afe9",
+    "popularity": 1400,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 33
+  },
+  {
+    "platform": "GitHub",
+    "name": "great-expectations/great_expectations",
+    "version": "55604c796af92050e40c9777c6288d01fdce7a76",
+    "popularity": 10570,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 15
+  },
+  {
+    "platform": "GitHub",
+    "name": "PyDMD/PyDMD",
+    "version": "557cbece4f94ef139fb68af22581465622e72b59",
+    "popularity": 1010,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 420
+  },
+  {
+    "platform": "GitHub",
+    "name": "taehoonlee/tensornets",
+    "version": "c9b1d78f806892193efdebee2789a47fd148b984",
+    "popularity": 1003,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "minivision-ai/photo2cartoon",
+    "version": "6204e27a71620500c2f5b2ffd36646b0e2e5c110",
+    "popularity": 4011,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "johnwmillr/LyricsGenius",
+    "version": "1e1ecbc7e021ee358140b940626ef8abadaa1ea6",
+    "popularity": 1008,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 25
+  },
+  {
+    "platform": "GitHub",
+    "name": "rashevskyv/dbi",
+    "version": "ba104f1701d0284e626a4c99e55d2353a4369aa2",
+    "popularity": 2496,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 835
+  },
+  {
+    "platform": "GitHub",
+    "name": "sanic-org/sanic",
+    "version": "a64d7fe6edb65ac60537f91d4d6c34fe7bc224b9",
+    "popularity": 18438,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7204
+  },
+  {
+    "platform": "GitHub",
+    "name": "agronholm/anyio",
+    "version": "65fe287039e2ded48752e1111a82c29d07725e36",
+    "popularity": 2119,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "nottelabs/notte",
+    "version": "2ddb119a58280e2253bf432b05ea8e012ab1081f",
+    "popularity": 1097,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 8
+  },
+  {
+    "platform": "GitHub",
+    "name": "quodlibet/quodlibet",
+    "version": "36a32cb9287546764b34d88f1d1967dc6c1383a8",
+    "popularity": 1547,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7
+  },
+  {
+    "platform": "GitHub",
+    "name": "dfir-iris/iris-web",
+    "version": "a4bfedaae11033005d61ece9d82a5af677c43512",
+    "popularity": 1218,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "TeamWiseFlow/wiseflow",
+    "version": "4123e73846c2a9fad28be62f60cb0934cafa0f2f",
+    "popularity": 7702,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 331
+  },
+  {
+    "platform": "GitHub",
+    "name": "cchen156/Learning-to-See-in-the-Dark",
+    "version": "607d8d6b9321a6af28312167e3793bc5b94b7742",
+    "popularity": 5509,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "hacksider/Deep-Live-Cam",
+    "version": "2b70131e6a92a1ca28391f63984a9d7f9e1b1515",
+    "popularity": 71796,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 6
+  },
+  {
+    "platform": "GitHub",
+    "name": "MiniGlome/Archive.org-Downloader",
+    "version": "d9cd9e51539b63dbf2fa7c8b20f4b17f37200dd8",
+    "popularity": 1125,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 18
+  },
+  {
+    "platform": "GitHub",
+    "name": "rushter/MLAlgorithms",
+    "version": "8fb8bb4282f37ad797052930dc12d0faace7bdb6",
+    "popularity": 10865,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 324
+  },
+  {
+    "platform": "GitHub",
+    "name": "alerta/alerta",
+    "version": "b7111d23ae9aefb5064ef107976f62e3836217b6",
+    "popularity": 2447,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 56
+  },
+  {
+    "platform": "GitHub",
+    "name": "wpzzz/blocked-sites-in-south-korea",
+    "version": "4eaba93608d74004ec507f765ad011bdd08b672d",
+    "popularity": 1109,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "kijai/ComfyUI-IC-Light",
+    "version": "22811d903af8a90100dccef1c4b579526649a6ab",
+    "popularity": 1063,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 233
+  },
+  {
+    "platform": "GitHub",
+    "name": "cloneofsimo/minDiffusion",
+    "version": "00a3c8066d25a34d3d472ef6c87c7b6b238ea444",
+    "popularity": 1078,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "bottlepy/bottle",
+    "version": "0207a34f0c5716cd292dd4480253ad35d3da49f3",
+    "popularity": 8631,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 25
+  },
+  {
+    "platform": "GitHub",
+    "name": "Vincentqyw/image-matching-webui",
+    "version": "9c1474f42eb7ef60a3e98638210b7cf104f7cfdf",
+    "popularity": 1074,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7225
+  },
+  {
+    "platform": "GitHub",
+    "name": "autonomousvision/stylegan-t",
+    "version": "36ab80ce76237fefe03e65e9b3161c040ae888e3",
+    "popularity": 1185,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 51
+  },
+  {
+    "platform": "GitHub",
+    "name": "yanyan-li/SLAM-BOOK",
+    "version": "b2431525ef9a21ffffa540fe062e5913a8156abf",
+    "popularity": 1072,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 10
+  },
+  {
+    "platform": "GitHub",
+    "name": "AUTOMATIC1111/stable-diffusion-webui",
+    "version": "82a973c04367123ae98bd9abdf80d9eda9b910e2",
+    "popularity": 154559,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 1
+  },
+  {
+    "platform": "GitHub",
+    "name": "hpcaitech/ColossalAI",
+    "version": "edd65a84dd1ab995f24bbe7cf9c60d40bc4c4f81",
+    "popularity": 41042,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "One",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "TwoPlus",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      },
+      {
+        "getattr_count": "Conditional",
+        "label": {
+          "kind": "Unlabeled"
+        }
+      }
+    ],
+    "elapsed_seconds": 411
+  },
+  {
+    "platform": "GitHub",
+    "name": "agermanidis/autosub",
+    "version": "d32389cb76e63ec6959111c3f989a72f36f726fe",
+    "popularity": 4191,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 19
+  },
+  {
+    "platform": "GitHub",
+    "name": "jmcarp/nplusone",
+    "version": "2f1e25d8f52c691519c528c4ed583a315bc1ccf9",
+    "popularity": 1037,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "angusshire/greenhat",
+    "version": "f9ec68ae671cdb196cebab4d47d01eab7d495514",
+    "popularity": 1561,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 9
+  },
+  {
+    "platform": "GitHub",
+    "name": "wangshub/wechat_jump_game",
+    "version": "3cbbb07957901821542fcfc231a09b4f3c9318c9",
+    "popularity": 13864,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "Zy143L/wskey",
+    "version": "4aacac95cf0b44e6433dbbf7a456da1cd3caae2c",
+    "popularity": 1233,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 13
+  },
+  {
+    "platform": "GitHub",
+    "name": "whittlem/pycryptobot",
+    "version": "1fa9aaef141725623899230daa585e17fa7ba007",
+    "popularity": 2034,
+    "error_stage": "InstallingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 5
+  },
+  {
+    "platform": "GitHub",
+    "name": "architv/soccer-cli",
+    "version": "04932b677eed1fef032eaccffebabfcaeec2d48b",
+    "popularity": 1106,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 2
+  },
+  {
+    "platform": "GitHub",
+    "name": "jookies/jasmin",
+    "version": "8455c1b875d5f22069759e8fbefcb7437c47db4b",
+    "popularity": 1113,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7204
+  },
+  {
+    "platform": "GitHub",
+    "name": "mozman/ezdxf",
+    "version": "cb72e61ce7207edec86e4ebc044c7127fd0a383a",
+    "popularity": 1075,
+    "error_stage": "Analysis",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 7207
+  },
+  {
+    "platform": "GitHub",
+    "name": "1e0ng/simhash",
+    "version": "78f3b8d5b810d93443269b6e227cae7b95e67316",
+    "popularity": 1019,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 291
+  },
+  {
+    "platform": "GitHub",
+    "name": "Vector-Wangel/XLeRobot",
+    "version": "52bef1ddcb7984c2d006222ed7daf8911011c521",
+    "popularity": 1049,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 27
+  },
+  {
+    "platform": "GitHub",
+    "name": "soxoj/maigret",
+    "version": "c3cf589aedfe3294c14143d549604c5c2ac08f57",
+    "popularity": 15644,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 49
+  },
+  {
+    "platform": "GitHub",
+    "name": "AirtestProject/Airtest",
+    "version": "667896944d7c76f349a75c01133d532a99de4762",
+    "popularity": 8781,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 81
+  },
+  {
+    "platform": "GitHub",
+    "name": "yfeng95/DECA",
+    "version": "a11554ae2a2b0f3998cf1fa94dd4db03babb34a2",
+    "popularity": 2318,
+    "error_stage": "ResolvingDependencies",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 17
+  },
+  {
+    "platform": "GitHub",
+    "name": "open-mmlab/playground",
+    "version": "f5f5e80eb9bb1ab73c9699c551a5a51ea0ebc2e6",
+    "popularity": 1207,
+    "error_stage": "Setup",
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 197
+  },
+  {
+    "platform": "GitHub",
+    "name": "qwj/python-proxy",
+    "version": "c3a8446c415d53a7a8addfbc5ea37ea27de80504",
+    "popularity": 2136,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 18
+  },
+  {
+    "platform": "GitHub",
+    "name": "hoochanlon/hamulete",
+    "version": "02f877c95fe6d9aa5d62f1c1a56b2ad4b3f0ed90",
+    "popularity": 9170,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 11
+  },
+  {
+    "platform": "GitHub",
+    "name": "fortra/impacket",
+    "version": "b6ff7ac61c4ac765b6a13f1f6c67f5186d8d846c",
+    "popularity": 14552,
+    "error_stage": null,
+    "raw_issue_count": 0,
+    "issues": [],
+    "elapsed_seconds": 71
+  }
+]

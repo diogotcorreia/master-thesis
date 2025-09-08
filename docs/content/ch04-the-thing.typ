@@ -409,7 +409,7 @@ shows up beneath the source code.
 This data is then saved into the same JSON report file by updating its
 contents.
 
-=== Removed Features
+=== Removed Features <thing:removed-features>
 
 During early development of the #TheTool, a different approach to
 taint models was taken.

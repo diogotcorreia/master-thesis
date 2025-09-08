@@ -86,6 +86,10 @@
     let stage = project.at("error_stage")
     let reason = if stage == "Setup" {
       "DownloadTimeout"
+    } else if stage == "ResolvingDependencies" {
+      "ResolveDeps"
+    } else if stage == "InstallingDependencies" {
+      "InstallDeps"
     } else if stage == "Analysis" {
       if project.at("elapsed_seconds") >= 1800 {
         // 30 minutes
@@ -528,7 +532,13 @@ discriminated by platform.
     [#error_reason_dist.at("AnalysisTimeout")],
 
     table.hline(start: 0, stroke: stroke(dash: "dashed")),
-    [Total], [#pypi_projects_error.len()], [#gh_projects_error.len()], [#projects_error.len()],
+    [Total],
+    [#pypi_projects_error.len()],
+    [#gh_projects_error.len()],
+    [
+      #projects_error.len()
+      (#calc.round((projects_error.len() / data_filtered.len()) * 100, digits: 1)%)
+    ],
   )
 ] <tbl:error-reason>
 
@@ -1502,15 +1512,175 @@ real-world applications.
 
 == Tool Tweaks <results:tweaks>
 
-#text(fill: red, lorem(50))
+During the development of #TheTool,
+as per @method:tool-design,
+various strategies for the design of #TheTool were tested
+in order to decide which design was the best.
+The present section describes three important design decisions made,
+supported by small-scale experiments to determine their viability.
 
 === Installing Dependencies <results:install-deps>
 
-#text(fill: red, lorem(50))
+#let with_deps_raw_data = json("../assets/summary-deps.json").filter(project => project.at("error_stage") != "Setup")
+
+#let with_deps_projects_error = filter_list(with_deps_raw_data, by_has_error)
+#let with_deps_error_reason_dist = calc_error_reason_dist(with_deps_projects_error)
+
+#let with_deps_projects_success = filter_list(with_deps_raw_data, by_has_error, inv: true)
+
+#let with_deps_projects_elapsed_seconds = calc_elapsed_seconds(with_deps_projects_success)
+
+#let with_deps_total_runtime_seconds = with_deps_raw_data.map(project => project.at("elapsed_seconds")).sum()
+#let with_deps_success_runtime_seconds = with_deps_projects_success.map(project => project.at("elapsed_seconds")).sum()
+#let with_deps_elapsed_seconds = calc_elapsed_seconds(with_deps_projects_success)
+
+#let uv_errors_count = with_deps_error_reason_dist.at("ResolveDeps") + with_deps_error_reason_dist.at("InstallDeps")
+
+As previously outlined in @thing:design,
+#TheTool supports installing dependencies for the projects it is analysing.
+To determine if this was a viable approach,
+a subset of #with_deps_raw_data.len() GitHub repositories
+were analysed using #TheTool with the dependency installation step enabled.
+This experiment was conducted before @pypi projects were included in the dataset,
+and therefore only GitHub repositories have been included in this experiment.
+
+The results immediately reveal major problems with successfully
+resolving and installing dependencies for arbitrary packaging,
+with #uv_errors_count
+(#calc.round((uv_errors_count / with_deps_raw_data.len()) * 100, digits: 1)%)
+of the packages failing to either resolve or install dependencies,
+as can be seen in @tbl:with-deps-error-reason.
+There were also a significant number of errors caused by Pysa running for too long,
+even with an increased timeout of 2 hours.
+
+#assert.eq(with_deps_error_reason_dist.len(), 4, message: "missing error reason in table")
+#figure(caption: [Number of projects that failed being analysed for a given reason,
+  when #TheTool was configured to install dependencies])[
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+
+  #table(
+    columns: 2,
+    stroke: (x, y) => if y == 0 {
+      (bottom: 0.7pt + black)
+    },
+    align: (x, y) => (
+      if x > 0 { center } else { right }
+    ),
+    table.vline(x: 1, start: 0),
+    table.header([Reason], [Project Count]),
+
+    [Failed to Resolve Dependencies],
+    [#with_deps_error_reason_dist.at("ResolveDeps")],
+
+    [Failed to Install Dependencies],
+    [#with_deps_error_reason_dist.at("InstallDeps")],
+
+    [Pysa Error],
+    [#with_deps_error_reason_dist.at("AnalysisError")],
+
+    [Pysa Timeout],
+    [#with_deps_error_reason_dist.at("AnalysisTimeout")],
+
+    table.hline(start: 0, stroke: stroke(dash: "dashed")),
+    [Total],
+    [
+      #with_deps_projects_error.len()
+      (#calc.round((with_deps_projects_error.len() / with_deps_raw_data.len()) * 100, digits: 1)%)
+    ],
+  )
+] <tbl:with-deps-error-reason>
+
+#let format_time_h_min(seconds) = {
+  let hours = calc.div-euclid(with_deps_projects_elapsed_seconds.max, (60 * 60))
+  let mins = calc.round(calc.rem-euclid(with_deps_projects_elapsed_seconds.max, (60 * 60)) / 60)
+  [#hours ]
+  if hours == 1 {
+    [hour]
+  } else {
+    [hours]
+  }
+  if hours > 0 {
+    [ and ]
+  }
+  [#mins ]
+  if mins == 1 {
+    [minute]
+  } else {
+    [minutes]
+  }
+}
+
+Furthermore,
+when dependencies were installed,
+Pysa took significantly longer to run across all projects.
+Concretely, the runtime across the #with_deps_raw_data.len() analysed repositories was
+#format_time(with_deps_total_runtime_seconds),
+but it was only #format_time(with_deps_success_runtime_seconds) when
+considering only successful analyses.
+As can be seen in @fg:with-deps-elapsed-seconds-distribution,
+the automated analysis time for each individual successfully analysed project ranged
+between #with_deps_projects_elapsed_seconds.min seconds and
+#format_time_h_min(with_deps_projects_elapsed_seconds.max),
+with a median value of just #with_deps_projects_elapsed_seconds.median seconds,
+and can be visualised in @fg:elapsed-seconds-distribution.
+
+#figure(
+  caption: [Analysis time distribution for the #with_deps_projects_success.len()
+    projects that were successfully analysed,
+    when #TheTool was configured to install dependencies],
+  [
+    #lq.diagram(
+      width: 11cm,
+      height: 2cm,
+      yaxis: (ticks: none, subticks: none),
+      xaxis: (exponent: none),
+      xscale: "log",
+      xlabel: [Analysis time (seconds)],
+      lq.hboxplot(y: 0, with_deps_elapsed_seconds.list),
+    )
+  ],
+) <fg:with-deps-elapsed-seconds-distribution>
+
+While issues were not manually labeled during this experiment,
+a brief inspection highlighted that the taint trace of some of them was
+located exclusively in dependencies
+and that these issues were duplicated across the analysed repositories.
+This would have meant a significant increase in manual labour
+to correctly label all the issues raised by Pysa and #TheTool.
+
+For these reasons, this approach was deemed unviable
+and was not used for the empirical study.
 
 === User Controlled Taint <results:user-controlled-taint>
 
-#text(fill: red, lorem(50))
+As briefly described in @thing:removed-features,
+a previous version of #TheTool required more complex taint models
+to detect class pollution.
+These taint models were specific to each Python library/framework,
+rendering this approach extremely unscalable.
+The goal was to detect only flows that could be readily exploited,
+by requiring calls to `setattr` to be tainted with user controlled input
+in addition to the existing requirements.
+
+Unfortunately, due to the lack of strict typing in most Python packages,
+this approach failed as Pysa was not able to accurately keep track
+of taint from the source to the sink.
+Testing of this approach was performed in the vulnerable projects
+presented in @tbl:vuln-projects,
+where #TheTool failed to successfully identify all of them.
+For example, in the *mesop-dev/mesop* project,
+even with the appropriate taint models for a Flask application,
+Pysa failed to find a flow from the HTTP request to the vulnerable
+function due to the use of protobuf to deserialise the request data.
+
+While it could be possible to fix this specific issue,
+it highlights that this approach is not scalable across the universe of Python projects.
+Furthermore,
+this approach also requires the installation of dependencies,
+which comes with all the challenges outlined in the previous subsection.
+For these reasons,
+this approach was abandoned in favour of the current one.
 
 === Calls to getattr Count <results:getattr-count>
 
