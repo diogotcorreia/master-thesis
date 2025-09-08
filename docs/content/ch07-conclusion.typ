@@ -32,7 +32,8 @@ Additionally, a case study has been conducted in one vulnerable project,
 showing how it was detected by #TheTool,
 and how to approach its potentially vulnerable code
 in order to build a successful exploit.
-This resulted in #cve("CVE-2025-58367") being published for the affected project,
+This resulted in #cve("CVE-2025-58367") with CVSS4 10.0 critical severity
+being published for the affected project,
 showing that class pollution is not just a theoretical vulnerability,
 but it can severely affect production code.
 
