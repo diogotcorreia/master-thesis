@@ -4,7 +4,7 @@
 
 = Methods <method>
 
-This chapter goes over over the research methods used in
+This chapter goes over the research methods used in
 this degree project, along with how they are fit for this work.
 Firstly, @method:research-process describes the research method
 used to answer the established research questions.

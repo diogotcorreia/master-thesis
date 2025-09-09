@@ -283,6 +283,96 @@ that use it for their products as well.
 For this reason, Python is a very valuable target for malicious attackers
 and thus also extremely relevant for security researchers.
 
+=== Language Fundamentals
+
+Python is an interpreted programming language that is easy to learn and use,
+which is reflected in its popularity.
+While the present subsection does not aim to be a complete introduction
+to the language,
+it provides important background for readers not yet familiar with Python.
+
+The Python language supports multiple programming paradigms,
+including procedural, object-oriented, and functional programming.
+It is possible to write statements outside of functions, which will be
+executed as soon as the file is loaded by the interpreter,
+but developers can also use functions and classes to organise their code.
+Additionally, Python is dynamically typed language,
+meaning it does not require explicit type declarations from developers,
+nor does it enforce typing of variables during runtime,
+but rather of values.
+Nevertheless, developers are still allowed to provide types for variables
+and function arguments,
+but those are not checked at runtime and are used for static analysis only.
+
+There are a few built-in types in the language,
+including primitives such as integers, strings, booleans,
+but also more complex types such as lists, dictionaries, and functions.
+Internally, all of these types extend the `object` type,
+either directly or indirectly.
+
+Given its object-oriented paradigm,
+it is possible to define new types by declaring classes,
+which inherit from `object` by default
+but can extend other existing classes instead.
+The constructor of a class is called `__init__`,
+and can be customised to accept additional parameters.
+
+@code:python-101 shows a simple Python program
+which demonstrates how to use the just described languages constructs.
+In particular, it declares a class `Car` with a constructor that
+takes seat count and color,
+along with a function that compares two cars.
+
+#figure(caption: [Simple Python code showcasing the basic functionality
+  of the language])[
+  #set text(size: 10.2pt)
+  ```py
+  class Vehicle:
+      def __init__(self, seats: int):
+          self.seats = seats
+
+  class Car(Vehicle):  # Car extends Vehicle
+      def __init__(self, seats: int, color: str, extra: dict):
+          super().__init__(seats)
+          self.color = color
+          self.extra = extra
+
+      def is_passenger_van(self) -> bool:
+          return self.seats == 9
+
+      # Overriding __str__ allows customising the string
+      # representation of this object
+      def __str__(self):
+          return f"Car of color {self.color} with {self.seats} seats"
+
+  # Variables can change type
+  BEST_COLOR = 123456
+  print(type(BEST_COLOR)) # <class 'int'>
+  BEST_COLOR = "#e83d84"
+  print(type(BEST_COLOR)) # <class 'str'>
+
+  def pick_best_car(cars):
+      for car in cars:
+          if car.is_passenger_van() and car.color == BEST_COLOR:
+              return car
+      return None
+
+  # Dictionaries contain key-value pairs
+  # and can be created using curly braces
+  car1_extra = {"owner": "Datasektionen"}
+
+  car1 = Car(9, BEST_COLOR, car1_extra)
+  car2 = Car(5, "#ffffff", {})
+  # A list can be created using square brackets
+  cars = [car1, car2]
+
+  best_car = pick_best_car(cars)
+  print(f"The best car is: {best_car}")
+  # The best car is: Car of color #e83d84 with 9 seats
+  ```
+] <code:python-101>
+
+
 === Dunder Methods & Properties
 
 // https://docs.python.org/3/reference/datamodel.html#special-method-names
@@ -383,6 +473,7 @@ The `object` class is special because it is immutable, hence it is
 impossible to add or change its attributes, as exemplified in @code:python-object-immutable.
 
 #figure(caption: [Python classes inherit from the immutable `object` class])[
+  #set text(size: 10pt)
   ```py
   class A:
     pass
@@ -399,6 +490,7 @@ class are present on the subclasses if they are otherwise undeclared,
 as shown in @code:python-attribute-inheritance.
 
 #figure(caption: [Classes inherit attributes from their bases])[
+  #set text(size: 10pt)
   ```py
   class A:
     pass
@@ -418,6 +510,17 @@ as shown in @code:python-attribute-inheritance.
 ] <code:python-attribute-inheritance>
 
 == Class Pollution in Python <bg:lit-review>
+
+Class pollution is a type of vulnerability
+where a malicious actor modifies a specific variable in a program
+with the goal of modifying its execution flow.
+This action is usually achieved by traversing through the aforementioned
+dunder methods and variables,
+as those provide a larger attack surface.
+Similarly to prototype pollution, it requires two steps:
+finding a vulnerable function that allows mutating arbitrary variables;
+and finding gadgets that can be hijacked by modifying the value of a variable.
+
 
 To answer @rq-causes-consequences[], a literature review has been performed
 that unveils which constructs can lead to class pollution and under which
@@ -551,6 +654,7 @@ in @code:gadget-getattr-only @pp-python-blog.
 
 #figure(caption: [Gadget inside the same class hierarchy. Polluting `DEFAULT_CMD`
   results in #gls-shrt("rce")])[
+  #set text(size: 10pt)
   ```py
   from os import popen
 
@@ -608,6 +712,7 @@ The usage of this gadget is illustrated in @code:gadget-builtins.
 
 #figure(caption: [How polluting a frequently used built-in
   can cause a #gls-shrt("dos") vulnerability])[
+  #set text(size: 9.8pt)
   ```py
   class Foo:
     def __init__(self):
