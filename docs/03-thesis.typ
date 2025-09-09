@@ -28,15 +28,15 @@
   primary-lang: "en",
   localized-info: (
     en: (
-      title: content-to-string([#TheTool: Uncovering Class Pollution In Python]),
+      title: content-to-string([#TheTool: Uncovering Class Pollution in Python]),
       subtitle: content-to-string([Measuring Class Pollution Vulnerabilities of #raw_data.len() Real-World Python Projects]),
       abstract: include "./content/abstract-1-en.typ",
       keywords: (
         "python",
-        "taint analysis",
         "code reuse",
         "class pollution",
         "static analysis",
+        "taint analysis",
       ),
     ),
     sv: (
