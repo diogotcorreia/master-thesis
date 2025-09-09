@@ -143,6 +143,17 @@ pydash-cve:
   title: "CVE-2023-26145: pydash v5.1.2 Code Injection"
   date: 2023-09-28
   url: "https://www.cve.org/CVERecord?id=CVE-2023-26145"
+equifax-breach:
+  type: article
+  title: "Failure to patch two-month-old bug led to massive Equifax breach"
+  author: Dan Goodin
+  date: 2017-09-14
+  url:
+    value: https://arstechnica.com/information-technology/2017/09/massive-equifax-breach-caused-by-failure-to-patch-two-month-old-bug/
+    date: 2025-09-09
+  parent:
+    type: periodical
+    title: Ars Technica
 
 # From Zotero:
 ghunter:

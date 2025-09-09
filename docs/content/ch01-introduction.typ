@@ -4,7 +4,19 @@
 
 = Introduction <intro>
 
-Research over the past few decades has shown how malicious attackers
+Over the past few decades,
+cybersecurity has become a preeminent concern for developers, users,
+and even regulators,
+in part due to the rise in major threats
+from malicious actors to the infrastructure we use every day.
+This is evidenced by recent cyberattacks
+such as Equifax's data breach,
+which exposed sensitive data of many US consumers,
+and was caused by an unpatched insecure deserialisation
+vulnerability in a dependency @equifax-breach.
+
+In light of these threats,
+past research has shown how malicious attackers
 can take advantage of benign code in applications to manipulate its execution flow
 and, in turn, compromise systems and data.
 This control-flow manipulation has historically
@@ -13,10 +25,10 @@ which can be vulnerable to
 memory corruption and therefore susceptible to techniques such as
 Shellcode execution and @rop @rop-payload-detection @rop-geometry.
 
-In contrast with compiled languages, the now widely used interpreted programming
+In contrast with unmanaged languages, the now widely used managed programming
 languages (such as JavaScript, Python, PHP, etc.) are generally immune against
-those techniques, since allocations are instead handled by the interpreter @meaning-memory-safety.
-However, they open the door for different kinds of vulnerabilities not previously
+those techniques, since allocations are instead handled by a runtime engine @meaning-memory-safety.
+However, they open the door to different kinds of vulnerabilities not previously
 possible, such as code reuse attacks, which can be easily
 overlooked by developers when iterating on a codebase.
 
@@ -28,13 +40,21 @@ prototype pollution @pp-yinzhi-cao, class pollution, and more, depending
 on language-specific features.
 While the former two have been the focus of many studies throughout the years,
 there has been little research done on class pollution in
-the Python programming language @pp-python. // TODO: consider removing this reference
+the Python programming language @pp-python.
 
 == Problem Statement
 
 Class pollution is a novel type of vulnerability in Python,
 that allows attackers to surgically mutate variables in a Python application
 in order to alter the execution flow of said applications.
+To successfully exploit a class pollution vulnerability,
+two steps are needed:
+changing the value of a variable, called the pollution step;
+and finding a suitable gadget,
+that is, code that changes its behaviour based on that mutation.
+For example, a class pollution vulnerability in a Flask
+application could enable an attacker to change the application’s secret key (pollution),
+allowing them to forge any cookies and bypass authentication (gadget).
 
 Given the potentially high impact of class pollution,
 as seen by similar vulnerabilities such as prototype pollution @silent-spring @ghunter,
@@ -119,9 +139,10 @@ to sustainability.
 
 This project is aimed at identifying code paths potentially vulnerable
 to class pollution.
-It is, however, not aimed at identifying the concrete consequences of said pollution
-in specific programs,
-but only in general as a motivation for this work, as per @rq-causes-consequences[].
+However, it does not focus on the detection of gadgets
+that can be used as part of a class pollution exploit.
+While some gadgets are described when answering @rq-causes-consequences[],
+they are used only as motivation for this work.
 
 == Contributions
 

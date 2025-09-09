@@ -195,10 +195,17 @@ would make it immutable and disallow attackers from changing its properties.
 Alternatively, but less ergonomically, developers could create objects that do not inherit
 from the root prototype by using `Object.create(null)` instead of `{}`.
 
+Furthermore, #cite(<ghunter>, form: "prose")
+also show that it is possible to protect against prototype pollution
+by explicitly verifying each access to properties
+to ensure they are owned by the object itself and not by the prototype.
+This verification can be achieved by calling `Object.hasOwn(obj, 'prop')`,
+which returns true if and only if the property exists in the given object.
+
 == PHP Object Injection <bg:php-oi>
 
 In PHP, inheritance can be achieved through the use of classes, similarly to Java and C++.
-Notably, the language does not have a root class, which means that, unlike JavaScript,
+Notably, the PHP language does not have a root class, which means that, unlike JavaScript,
 it is not possible to pollute a root object that affects every object in the application.
 
 However, attackers can take advantage of PHP's deserialisation and serialisation features,
@@ -211,8 +218,17 @@ For instance, the `__sleep` method is called before serialisation, `__wakeup` is
 deserialisation, `__destruct` is called when an object is about to be destroyed because there
 is no longer any reference to it, and many more @php-object-injection @php-magic-methods.
 When used in conjunction with dynamic dispatch, an attacker can take advantage of any class
-in the application as a gadget, possibly achieving vulnerabilities such as @rce, as demonstrated
-by @code:php-oi-rce @php-object-injection.
+in the application as a gadget, possibly achieving vulnerabilities such as @rce @php-object-injection.
+
+For example, the code in @code:php-oi-rce shows how
+insecure deserialisation can lead to @rce
+by taking advantage of the class hierarchy of
+`Foo` and `Bar` already present in the program.
+While the program is expecting to deserialise an object of type `Foo`,
+an attacker provides a payload that results in an object of type `Bar`.
+Since `Foo` is a superclass of `Bar`,
+the program continue running without any issues,
+but it has unexpectedly executed potentially malicious code.
 
 #figure(caption: [Example showing how deserialising data can result in #gls-shrt("rce")
   in PHP, by taking advantage of inheritance and dynamic dispatch])[
@@ -234,7 +250,8 @@ by @code:php-oi-rce @php-object-injection.
     public string $cmd;
 
     public function foobar() {
-      return shell_exec($this->cmd); // can be abused if attacker controls cmd
+      // can be abused if attacker controls cmd
+      return shell_exec($this->cmd);
     }
   }
 
@@ -437,11 +454,18 @@ functions capture the global scope they are declared in, allowing an attacker
 to move laterally throughout the program.
 
 Given the requirement of traversing various attributes, a vulnerable function is usually
-recursive, and somehow sets or merges a value into an existing object, as exemplified
-by @code:cp-merge @pp-python-blog.
+recursive, and somehow sets or merges a value into an existing object @pp-python-blog.
+Such function is exemplified by `merge` in @code:cp-merge,
+which merges two objects recursively,
+using `__getitem__`/`__setitem__` if the object is a dictionary,
+or `getattr`/`setattr` otherwise.
+In this example,
+this function is then used to traverse the properties of an object of type `A`
+in order to pollute the `MY_VAR` global variable.
 
 #figure(caption: [A merge function vulnerable to class pollution, which takes two objects,
-  merging their attributes or entries recursively.])[
+  merging their attributes or entries recursively])[
+  #set text(size: 10pt)
   // FIXME: codly has a bug where setting this annotation will make code blocks
   // later in the document fail to compile for some reason
   /*#codly.codly(
@@ -475,6 +499,7 @@ by @code:cp-merge @pp-python-blog.
     def __init__(self):
       pass
 
+  # exploit
   merge(
     {
       "__init__": {
@@ -590,9 +615,11 @@ The usage of this gadget is illustrated in @code:gadget-builtins.
 
   foo = Foo()
 
+  # polluting the builtin "list"
   glbs = getattr(getattr(foo, "__init__"), "__globals__")
   glbs["__builtins__"]["list"] = "foobar"
 
+  # DoS gadget by having changed the type of "list"
   list([1, 2, 3]) # TypeError: 'str' object is not callable
   ```
 ] <code:gadget-builtins>
