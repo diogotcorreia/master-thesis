@@ -1097,18 +1097,6 @@ due to the manual labor required to filter them out.
 #let deepdiff_vulnerable_issues = filter_list(deepdiff_issues, by_is_issue_vulnerable)
 #let deepdiff_not_vulnerable_issues = filter_list(deepdiff_issues, by_is_issue_vulnerable, inv: true)
 
-#box(
-  fill: red.lighten(50%),
-  stroke: 3pt + red,
-  width: 100%,
-  inset: 1em,
-)[
-  *WARNING* (2025-08-30): the vulnerabilities in this section are still being
-  responsibly disclosed.
-  For ethical (and legal) reasons, *avoid sharing this document* and spreading
-  the information below before they are made public by the affected projects.
-]
-
 Building on the results of the previous section, a few selected projects were
 manually audited to see if any of them would be exploitable.
 Since this is a very time-consuming process, only projects that had the most
