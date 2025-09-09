@@ -1,0 +1,19 @@
+@SkipObscure
+def getattr(
+    __o: TaintInTaintOut[Via[customgetattr]],
+    __name,
+    __default: TaintInTaintOut[LocalReturn],
+) -> TaintSource[CustomGetAttr, ViaValueOf[__name, WithTag["get-name"]]]: ...
+
+@SkipObscure
+def setattr(
+    __o: PartialSink[CustomSetAttr],
+    __name: PartialSink[UserControlledSink],
+    __value,
+): ...
+
+# Extra source for input
+def input(prompt, /) -> TaintSource[UserControlled]: ...
+
+# Filesystem
+def open() -> TaintSource[UserControlled]: ...

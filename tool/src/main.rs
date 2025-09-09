@@ -39,17 +39,24 @@ fn handle_command(workdir: &Path, cli: &Cli) -> Result<()> {
                 pyre_path: &pyre_path,
                 resolve_dependencies: analyse_args.use_deps,
                 resolve_dependencies_opts: &ResolveDependenciesOpts::default(),
+                require_user_controlled: analyse_args.require_user_controlled,
             };
             options.run_analysis().map_err(|e| e.error)?;
         }
         Commands::E2E(e2e_args) => {
             let dataset_config = DatasetConfig::read(&e2e_args.dataset)?;
 
-            let pipeline = Pipeline::new(workdir, &dataset_config, &pyre_path, e2e_args.use_deps);
+            let pipeline = Pipeline::new(
+                workdir,
+                &dataset_config,
+                &pyre_path,
+                e2e_args.use_deps,
+                e2e_args.require_user_controlled,
+            );
             pipeline.run()?;
         }
         Commands::Results(results_args) => {
-            let results = UnprocessedResults::from_results_dir(&results_args.results_dir)
+            let results = UnprocessedResults::from_results_dir(&results_args.results_dir, false)
                 .context("failed to parse results")?;
 
             let results = results.process();

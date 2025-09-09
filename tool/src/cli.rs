@@ -44,6 +44,10 @@ pub struct AnalyseArgs {
     #[arg(long)]
     /// Whether to install dependencies before performing the analysis
     pub use_deps: bool,
+    #[arg(long, requires = "use_deps")]
+    /// Whether to only find vulnerable functions that can be reached from user-controlled code
+    /// (requires --use-deps)
+    pub require_user_controlled: bool,
     #[arg()]
     /// Path to the project to analyse
     pub dir: PathBuf,
@@ -54,6 +58,10 @@ pub struct E2EArgs {
     #[arg(long)]
     /// Whether to install dependencies before performing the analysis
     pub use_deps: bool,
+    #[arg(long, requires = "use_deps")]
+    /// Whether to only find vulnerable functions that can be reached from user-controlled code
+    /// (requires --use-deps)
+    pub require_user_controlled: bool,
     #[arg()]
     /// Path to a TOML file containing dataset information
     pub dataset: PathBuf,

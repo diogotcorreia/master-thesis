@@ -36,6 +36,7 @@ pub struct Pipeline<'a> {
     dataset_config: &'a DatasetConfig,
     pyre_path: &'a Path,
     resolve_dependencies: bool,
+    require_user_controlled: bool,
     reqwest_client: Client,
 }
 
@@ -45,12 +46,14 @@ impl<'a> Pipeline<'a> {
         dataset_config: &'a DatasetConfig,
         pyre_path: &'a Path,
         resolve_dependencies: bool,
+        require_user_controlled: bool,
     ) -> Self {
         Self {
             work_dir,
             dataset_config,
             pyre_path,
             resolve_dependencies,
+            require_user_controlled,
             reqwest_client: reqwest::blocking::Client::builder()
                 .timeout(Duration::from_secs(2 * 60))
                 .build()
@@ -161,6 +164,7 @@ impl<'a> Pipeline<'a> {
             resolve_dependencies_opts: resolve_dependencies_opts
                 .as_ref()
                 .unwrap_or(&self.dataset_config.resolve_dependencies_opts),
+            require_user_controlled: self.require_user_controlled,
         };
         let results = options.run_analysis()?;
         let has_issues = !results.issues.is_empty();
