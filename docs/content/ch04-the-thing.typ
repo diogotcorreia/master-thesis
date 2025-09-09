@@ -430,7 +430,7 @@ shows up beneath the source code.
 This data is then saved into the same JSON report file by updating its
 contents.
 
-=== Removed Features <thing:removed-features>
+=== Deprecated Features <thing:removed-features>
 
 During early development of the #TheTool, a different approach to
 taint models was taken.
@@ -458,3 +458,6 @@ since it was neither scalable nor sustainable.
 The full reasoning for abandoning this approach,
 as well as related discussion, can be found in @results:user-controlled-taint
 and @discussion respectively.
+Nevertheless,
+this functionality is still available in #TheTool via a @cli flag
+to aid future work.
