@@ -8,7 +8,7 @@ xdg_cache="${XDG_CACHE_HOME:-$HOME/.cache}"
 uv_cache="$(realpath "${UV_CACHE_DIR:-$xdg_cache/uv}")"
 workdir="$(realpath "$WORKDIR")"
 
-script="$SCRIPT_PATH"/target/release/class-pollution-detection
+script="$SCRIPT_PATH"/target/release/classa
 benchmarks="$(realpath "$SCRIPT_PATH"/../detection-benchmarks/)"
 
 pushd "$SCRIPT_PATH"

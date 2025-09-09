@@ -5,7 +5,7 @@ use std::{
 
 use anyhow::{Context, Result};
 use clap::Parser;
-use class_pollution_detection::{
+use classa::{
     analyse::{results::UnprocessedResults, setup_project_from_external_src, AnalyseOptions},
     cli::{Cli, Commands},
     e2e::{config::DatasetConfig, labeling::Labeling, pipeline::Pipeline, summary::Summary},

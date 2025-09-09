@@ -1,5 +1,5 @@
 [package]
-name = "class-pollution-detection"
+name = "classa"
 description = "Find class pollution in Python programs"
 version = "0.1.0"
 edition = "2021"
