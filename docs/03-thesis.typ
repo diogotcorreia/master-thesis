@@ -29,7 +29,9 @@
   localized-info: (
     en: (
       title: content-to-string([#TheTool: Uncovering Class Pollution in Python]),
-      subtitle: content-to-string([Measuring Class Pollution Vulnerabilities of #raw_data.len() Real-World Python Projects]),
+      subtitle: content-to-string(
+        [Measuring Class Pollution Vulnerabilities of #raw_data.len() Real-World Python Projects],
+      ),
       abstract: include "./content/abstract-1-en.typ",
       keywords: (
         "python",
@@ -40,8 +42,8 @@
       ),
     ),
     sv: (
-      title: content-to-string(text(fill: red, lorem(7))), // TODO
-      subtitle: content-to-string(text(fill: red, lorem(7))), // TODO
+      title: content-to-string([#TheTool: Avslöja klassföroreningar i Python]),
+      subtitle: content-to-string([Mätning av sårbarheter i klassföroreningar hos #raw_data.len() verkliga Python-projekt]),
       abstract: include "./content/abstract-2-sv.typ",
       keywords: (), // TODO
     ),
