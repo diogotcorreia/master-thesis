@@ -14,7 +14,7 @@ pollution.
 For this reason, this chapter goes over similar vulnerabilities in other languages instead,
 such as prototype pollution in JavaScript (@bg:js-pp) and object injection in PHP (@bg:php-oi).
 
-Then, internal structures and behaviour of the Python language and interpreter will be explored
+Then, internal structures and behaviour of the Python language and interpreter are explored
 in @bg:python, along with the results of the literature review in @bg:lit-review,
 in order to provide context for the rest of this project, where the techniques
 used in the aforementioned languages will be applied to Python,
@@ -99,16 +99,17 @@ This simple mechanism can lead to serious consequences,
 as demonstrated by #cite(<ghunter>, form: "prose")
 #cite(<probetheproto>, form: "prose"), and #cite(<silent-spring>, form: "prose").
 
-The exploitation of prototype pollution requires two steps: finding constructs that
-allow setting properties in the root prototype, and finding gadgets to hijack.
+The exploitation of prototype pollution requires two steps:
+(1) finding constructs that allow setting properties in the root prototype,
+and (2) finding gadgets to hijack.
 There are various constructs that can allow an attacker to pollute the root prototype,
 but @code:pollute-proto shows one in its most basic form, requiring three variables to
 be controlled by an attacker @pp-arteau[p.~8].
 In this example, the prototype is accessed through the `__proto__` property of `obj`,
 and then the property `foo` is set to the value `"bar"`.
-Other more advanced constructs can include recursive functions, which can allow setting
-multiple properties at various depths in the prototype, allowing for even more
-control over gadgets @pp-arteau[p.~9].
+Other more advanced constructs include, for instance, recursive functions,
+which enable setting multiple properties at various depths in the prototype,
+allowing for even more control over gadgets @pp-arteau[p.~9].
 
 #figure(caption: "Example construct that would pollute the root prototype")[
   ```js
@@ -129,8 +130,8 @@ control over gadgets @pp-arteau[p.~9].
 Once the prototype has been polluted, the second step is finding a gadget, i.e.,
 a benign piece of code that given attacker-controlled properties changes its execution
 path and performs security-sensitive operations @ghunter.
-@code:pp-gadget shows an example where polluting the property `admin` with any truthy-value
-would result in the program printing possibly sensitive information.
+@code:pp-gadget shows an example where polluting the property `admin` with any truthy value
+would result in the program outputting possibly sensitive information.
 
 #figure(caption: "Example gadget, granting access to admin-only information")[
   ```js
@@ -142,8 +143,8 @@ would result in the program printing possibly sensitive information.
   ```
 ] <code:pp-gadget>
 
-Apart from accessing specific properties, another powerful type of gadgets are those
-composed of for-loops.
+Apart from the accessing of specific properties,
+another powerful type of gadgets are that make use of for-loops.
 These take advantage of the fact that the properties added to the prototype are
 enumerable, meaning for-loops iterate over them as well @pp-arteau[p.~17].
 This can be very flexible for attackers, as it allows more freedom over which properties
@@ -151,8 +152,8 @@ can be controlled, such as in the example in @code:pp-enumerable, where properti
 an object are set on a @dom element.
 The `innerHTML` property of a @dom element contains the HTML representation
 of its children,
-which can be updated by assigning it a string containing HTML @mdn-innerhtml.
-In this example, polluting `innerHTML` would lead to @xss, as the for-loop would
+which can be updated by assigning it a string containing HTML code @mdn-innerhtml.
+In the example below (@code:pp-enumerable), polluting `innerHTML` would lead to @xss, as the for-loop would
 iterate over that property as well.
 
 #figure(caption: [Example gadget demonstrating how enumerable properties can be used to
@@ -185,12 +186,12 @@ third-party packages.
 When it comes to the client-side, that is, JavaScript running in web browsers,
 #cite(<probetheproto>, form: "prose") has found that it is possible to pollute the
 root prototype via the URL in certain websites, possibly leaving them vulnerable to @xss,
-cookie manipulation, and/or URL manipulation.
+cookie hijacking, and/or URL manipulation.
 
 === Mitigations
 
 There are multiple mitigations possible, as shown by #cite(<pp-arteau>, form: "prose").
-Firstly, one could freeze the prototype using `Object.freeze(Object.prototype)`, which
+Firstly, one could freeze the root prototype using `Object.freeze(Object.prototype)`, which
 would make it immutable and disallow attackers from changing its properties.
 Alternatively, but less ergonomically, developers could create objects that do not inherit
 from the root prototype by using `Object.create(null)` instead of `{}`.
@@ -200,7 +201,7 @@ also show that it is possible to protect against prototype pollution
 by explicitly verifying each access to properties
 to ensure they are owned by the object itself and not by the prototype.
 This verification can be achieved by calling `Object.hasOwn(obj, 'prop')`,
-which returns true if and only if the property exists in the given object.
+which returns true if and only if the property exists directly in the given object.
 
 == PHP Object Injection <bg:php-oi>
 
@@ -216,7 +217,7 @@ Another relevant language feature is magic methods, which are called by PHP
 during various lifetime stages @php-magic-methods.
 For instance, the `__sleep` method is called before serialisation, `__wakeup` is called after
 deserialisation, `__destruct` is called when an object is about to be destroyed because there
-is no longer any reference to it, and many more @php-object-injection @php-magic-methods.
+are no longer any references to it, and many more @php-object-injection @php-magic-methods.
 When used in conjunction with dynamic dispatch, an attacker can take advantage of any class
 in the application as a gadget, possibly achieving vulnerabilities such as @rce @php-object-injection.
 
@@ -227,7 +228,7 @@ by taking advantage of the class hierarchy of
 While the program is expecting to deserialise an object of type `Foo`,
 an attacker provides a payload that results in an object of type `Bar`.
 Since `Foo` is a superclass of `Bar`,
-the program continue running without any issues,
+the program continues running without any issues,
 but it has unexpectedly executed potentially malicious code.
 
 #figure(caption: [Example showing how deserialising data can result in #gls-shrt("rce")
@@ -269,7 +270,7 @@ was created in 1991 by Guido van Rossum and has since
 seen immense adoption from the programming community, with more than 55%
 of the 49,000+ respondents of the 2025 Stack Overflow Survey having worked
 or wanting to work with it @stack-overflow-survey-2025-most-popular.
-It is used for many applications, such as scripting, web applications, machine learning, and much
+It is used for many use cases, such as scripting, web applications, machine learning, and much
 more.
 Some high-profile open-source programs that extensively use Python are
 #link("https://github.com/home-assistant/core")[Home Assistant],
@@ -296,13 +297,13 @@ including procedural, object-oriented, and functional programming.
 It is possible to write statements outside of functions, which will be
 executed as soon as the file is loaded by the interpreter,
 but developers can also use functions and classes to organise their code.
-Additionally, Python is dynamically typed language,
-meaning it does not require explicit type declarations from developers,
+Additionally, Python is a dynamically typed language,
+meaning it does not require explicit type declarations,
 nor does it enforce typing of variables during runtime,
 but rather of values.
-Nevertheless, developers are still allowed to provide types for variables
+Nevertheless, developers can still optionally specify types for variables
 and function arguments,
-but those are not checked at runtime and are used for static analysis only.
+but those are not checked at runtime and are only used for static analysis.
 
 There are a few built-in types in the language,
 including primitives such as integers, strings, booleans,
@@ -313,15 +314,18 @@ either directly or indirectly.
 Given its object-oriented paradigm,
 it is possible to define new types by declaring classes,
 which inherit from `object` by default
-but can extend other existing classes instead.
+but can also extend other existing classes.
 The constructor of a class is called `__init__`,
 and can be customised to accept additional parameters.
 
 @code:python-101 shows a simple Python program
-which demonstrates how to use the just described languages constructs.
+which demonstrates how to use the just-described languages constructs.
 In particular, it declares a class `Car` with a constructor that
 takes seat count and color,
 along with a function that compares two cars.
+Note that all type hints (such as `seats: int`) are optional
+and ignored by the interpreter;
+they are only included here for readability.
 
 #figure(caption: [Simple Python code showcasing the basic functionality
   of the language])[
@@ -338,7 +342,7 @@ along with a function that compares two cars.
           self.extra = extra
 
       def is_passenger_van(self) -> bool:
-          return self.seats == 9
+          return self.seats >= 7
 
       # Overriding __str__ allows customising the string
       # representation of this object
@@ -351,7 +355,7 @@ along with a function that compares two cars.
   BEST_COLOR = "#e83d84"
   print(type(BEST_COLOR)) # <class 'str'>
 
-  def pick_best_car(cars):
+  def find_best_car(cars):
       for car in cars:
           if car.is_passenger_van() and car.color == BEST_COLOR:
               return car
@@ -359,14 +363,14 @@ along with a function that compares two cars.
 
   # Dictionaries contain key-value pairs
   # and can be created using curly braces
-  car1_extra = {"owner": "Datasektionen"}
+  car1_extra = {"vin": "VNVJ4000X61163499"}
 
   car1 = Car(9, BEST_COLOR, car1_extra)
   car2 = Car(5, "#ffffff", {})
   # A list can be created using square brackets
   cars = [car1, car2]
 
-  best_car = pick_best_car(cars)
+  best_car = find_best_car(cars)
   print(f"The best car is: {best_car}")
   # The best car is: Car of color #e83d84 with 9 seats
   ```
@@ -397,7 +401,7 @@ Additionally, some of the dunder methods and properties can be used to traverse
 the data stored by a Python program.
 One great example of this is that all functions capture the scope they are defined
 in, making a reference to all global variables in that scope available
-through `__globals__`, as can be seen on @code:python-function-globals.
+through `__globals__`, as can be seen in @code:python-function-globals.
 
 #figure(caption: [Functions in Python capture the global scope and make
   it available through `__globals__`])[
@@ -417,12 +421,13 @@ in Python like @ssti.
 
 === Object Attributes and Item Containers
 
-In Python, data in objects can be stored
-as either an object's attribute or as an item
-in a container, Python's name for what are commonly called collections
-(collections like dictionaries, lists, and tuples are examples of Python containers).
+Besides simple variables,
+in Python data can be stored as either an *object's attribute*,
+or as an *item in a container*.
+Common containers (Python's term for what are commonly called collections)
+include dictionaries, lists, and tuples.
 
-This is an important distinction because it dictates how that data
+This attribute/item distinction is important because it dictates how that data
 can be accessed.
 In case of an attribute, it can be accessed statically through dot-notation,
 and dynamically through the built-in `getattr` and its writing counterpart
@@ -457,14 +462,12 @@ syntactic sugar for calling `__getitem__` or `__setitem__`, as shown in
   ```
 ] <code:python-access-items-containers>
 
-This will be an important distinction later on.
-
 === Class Inheritance
 
 // https://docs.python.org/3/tutorial/classes.html
 
 Contrary to JavaScript's prototype-based inheritance described in @bg:js-pp,
-Python uses a class-based approach to inheritance.
+Python uses a class-based approach.
 Like in C++, classes may have one or more superclasses, called bases.
 
 If a class is defined without explicitly declaring a base class, it
@@ -518,8 +521,8 @@ This action is usually achieved by traversing through the aforementioned
 dunder methods and variables,
 as those provide a larger attack surface.
 Similarly to prototype pollution, it requires two steps:
-finding a vulnerable function that allows mutating arbitrary variables;
-and finding gadgets that can be hijacked by modifying the value of a variable.
+(1) finding a vulnerable function that allows mutating arbitrary variables;
+and (2) finding gadgets that can be hijacked by modifying the value of a variable.
 
 
 To answer @rq-causes-consequences[], a literature review has been performed
@@ -548,16 +551,16 @@ in this section.
 
 === Dangerous Constructs
 
-The classic way to achieve class pollution is accessing the properties
+The classic way to achieve class pollution is accessing the property
 `__init__.__globals__` of an object (i.e., not a primitive)
 through `getattr`, and then using a combination of `getattr` and `__getitem__`
-(commonly used through subscription, `[]`, of dictionary and lists).
-This is possible because, as shown previously by @code:python-function-globals,
+(this last one commonly invoked through subscription, `[]`, of dictionary and lists).
+This is possible because, as previously shown in @code:python-function-globals,
 functions capture the global scope they are declared in, allowing an attacker
 to move laterally throughout the program.
 
 Given the requirement of traversing various attributes, a vulnerable function is usually
-recursive, and somehow sets or merges a value into an existing object @pp-python-blog.
+recursive, and in some way sets or merges a value into an existing object @pp-python-blog.
 Such function is exemplified by `merge` in @code:cp-merge,
 which merges two objects recursively,
 using `__getitem__`/`__setitem__` if the object is a dictionary,
@@ -623,18 +626,20 @@ construct to be executed on a module instead of on an object.
 Additionally, it is an implementation detail and might not be available in
 Python implementations other than CPython.
 
-Unfortunately, both `__globals__` and `__builtins__`
+Unfortunately, both `__globals__` and `__builtins__` return a dictionary
 #footnote[
   `__builtins__` might, under certain specific circumstances, return a module instead,
   which can be traversed using `getattr`.
   However, most of the time, it returns a `dict`.
-]
-return a dictionary, which
-cannot be traversed using `getattr`.
+],
+which cannot be traversed using `getattr`.
 This results in a significant limitation for the exploitation of class pollution:
 to traverse outside a class hierarchy, the construct needs to not only use
-`getattr`, but to fallback to `__getitem__` when it encounters a dictionary or list.
-This could be uncommon due to the use of `dataclass`es to store information instead of dictionaries.
+`getattr`, but to fall back to `__getitem__` when it encounters a dictionary or list.
+This could be uncommon due to the conventional usage of `dataclass`es
+#footnote(link("https://docs.python.org/3/library/dataclasses.html"))
+to store information instead of dictionaries,
+in strongly-typed modern Python applications.
 
 In some cases, vulnerable constructs that use `__getitem__` only do so when the key is numeric,
 presumably to traverse a list or tuple.
@@ -643,7 +648,7 @@ no way to obtain a list from a dictionary without a function call (e.g., through
 which `getattr` cannot do.
 Another possible way to traverse using only attribute accesses and lists would be
 through the `__subclasses__()` method of the `object` class, which returns a list
-of all classes that extend `object` (all classes that do not explicitly declare a base),
+of all classes that extend `object` (i.e., every class that does not explicitly declare a base),
 but that also requires a function call.
 
 In case only `getattr` and `setattr` are used in the vulnerable construct,
@@ -684,14 +689,14 @@ or `__setitem__`.
 To sum up, for a vulnerable construct to be able to offer a wide attack surface
 with larger freedom of gadget election,
 it needs to use
-both `getattr` and `__getitem__`, and then either `setattr` or `__setitem__`.
+both `getattr` and `__getitem__`, and then also either `setattr` or `__setitem__`.
 
 === Possible Gadgets
 
 While this work is mostly focused on finding dangerous constructs rather than gadgets,
-it is still important to highlight some of them, both for the relevance of this
-degree project, as well as to aid with creating a proof-of-concept when reporting
-vulnerabilities.
+it is still important to highlight some of them,
+both as motivation for this degree project,
+and to aid with creating a proof-of-concept when reporting vulnerabilities.
 
 ==== Mutating Built-ins
 
@@ -900,8 +905,11 @@ program does not need to call a gadget directly for it to be effective.
 A commonality between the gadgets in the previous section is that they
 either require access to `__globals__` to perform some kind of traversal,
 or need to exist in the same class hierarchy as the start traversal object.
-However, this does not work on classes defined natively in CPython, at the C++
-level, because those are immutable.
+However, this does not work on classes defined natively in CPython
+#footnote[CPython is one of many Python interpreter implementations, and is written in C.
+Given its status as the reference implementation, it is the most widely used.],
+at the C level,
+because those are immutable.
 Furthermore, all of their methods lack any reference to `__globals__`,
 as well as `__defaults__` and `__kwdefaults__`.
 In practice, this means that even given a function vulnerable to class
@@ -914,8 +922,8 @@ The results of this literature review let us answer @rq-causes-consequences[].
 In summary, class pollution can be exploited via recursive calls to
 `getattr` and `__getitem__`, finalised by a call to `setattr` or `__setitem__`.
 Additionally, many gadgets become accessible when it is possible to traverse through the
-`__globals__` attribute of a function, which can result in @dos, authentication
-bypass, or even @rce.
+`__globals__` attribute of a function, which can result in @dos,
+Authorization Bypass, or even @rce.
 
 == Static Code Analysis <bg:static-analysis>
 
@@ -967,7 +975,7 @@ created my Meta (formerly Facebook)
 for internal use but also as an open-source project.
 Pyre ships with Pysa,
 a security-focused static taint analysis tool
-that can be used to detect insecure flows of data.
+that can be used to detect insecure data flows.
 
 Pysa can be configured via a JSON file,
 defining which sources and sinks exist,
@@ -1000,8 +1008,8 @@ to the flow or
 can save the value of a certain function parameter,
 which can be useful information to have during post-processing.
 
-However, Pysa is not perfect.
-Due to the size and complexity of some Python programs,
+However, Pysa is not perfect:
+due to the size and complexity of some Python programs,
 Pysa might not be able to accurately keep track of every taint flow
 in the program,
 sometimes collapsing (also known as broadening) the taint of a given object,

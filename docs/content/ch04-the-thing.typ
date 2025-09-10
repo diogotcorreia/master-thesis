@@ -23,7 +23,7 @@ and explains the software implementation in @thing:impl.
       edge("-|>", label: [_for each project_]),
       (
         node((0, 1), [Download \ Source Code]),
-        node((1, 1), [_Optional_ \ Resolve & Install \ Dependencies]),
+        node((1, 1), [_(Optional)_ \ Resolve & Install \ Dependencies]),
         node((2, 1), [Run Taint \ Analysis]),
         node((3, 1), [Process Results]),
         node((3, 2), [Label Issues \ Manually]),
@@ -59,8 +59,8 @@ as illustrated in @fg:tool-flowchart:
 + running taint analysis
   by configuring and invoking Pysa with the appropriate taint models;
 + result processing
-  by ingesting Pysa's output and filtering out potential false positives;
-+ and issue labeling with the help of a human operator.
+  by ingesting Pysa's output and filtering out potential false positives; and
++ issue labeling with the help of a human operator.
 
 Analysis starts with reading the provided
 dataset file and performing actions for each project described in it:
@@ -103,7 +103,7 @@ performing taint analysis.
 While Pysa can work without installing the dependencies of the
 project being analysed, it benefits from more information
 in order to provide accurate taint propagation.
-Otherwise, Pysa would fallback to the so-called obscure models
+Otherwise, Pysa would fall back to the so-called obscure models
 when reaching references to third-party code,
 which just assume that all taint from the arguments of a function
 call is propagated to its outputs.
@@ -182,7 +182,7 @@ Nix is a package manager that provides a consistent
 and reproducible development environment,
 simplifying the setup of an otherwise complex set of dependencies.
 
-While Nix is not the cornerstone of this project, it is still
+While the Nix setup is not the centrepiece of this project, it is still
 nonetheless important for ensuring the reproducibility of the
 results.
 Due to its build sandbox and pinned inputs, using Nix ensures the
@@ -192,8 +192,8 @@ This is especially important given that this project uses an unstable
 version of Pysa, with some patches applied, and Nix allows this
 setup to be easily reproduced at any point in time.
 Additionally, other programs necessary for building and running
-#TheTool, such as Python and the Rust compiler, are also pinned.
-Instructions on how to use this environment can be found on @usage.
+#TheTool, such as the Python interpreter and the Rust compiler, are also pinned.
+Instructions on how to use this environment can be found in @usage.
 
 === Dataset Generator <thing:dataset-gen>
 
@@ -235,14 +235,14 @@ The latest version is saved, along with all the archives belonging to that versi
 Then, it is necessary to decide which archive is the best to perform taint analysis
 on.
 While it is unlikely this will have a significant impact since only Python source files
-are relevant for Pysa, some projects could have a different build system
-per platform.
+are relevant for Pysa (and these should largely be platform-agnostic),
+some projects could have a different build system per platform.
 For that reason, archives are sorted according to preference, and then
 the preferred archive is the one that has its download URL saved in the dataset.
 For the purposes of this experiment, binary distributions (wheels) are preferred
 over source distributions, and between binary distributions, preference is based
 on platform, opting for a universal wheel whenever possible and
-falling back to Linux, MacOS and Windows archives if not, in this order.
+falling back to Linux, MacOS and Windows archives when not, in this order.
 Other compatibility tags of each wheel, as defined in #pep(425),
 are also taken into account, such as ABI, and implementation tags,
 where a universal archive is preferred, but accepting a CPython archive
@@ -400,7 +400,7 @@ This means that the lack of this feature tag is a strong indicator that
 the issue is a false positive,
 so the issue can be automatically discarded.
 
-Finally, the #TheTool finishes the automated pipeline by writing
+Finally, #TheTool finishes the automated pipeline by writing
 a JSON report for each project, which includes some information
 from the dataset, such as name, source, and popularity,
 coupled with the respective analysis results, namely
@@ -457,7 +457,7 @@ since it was neither scalable nor sustainable.
 
 The full reasoning for abandoning this approach,
 as well as related discussion, can be found in @results:user-controlled-taint
-and @discussion respectively.
+and @discussion:tool-design respectively.
 Nevertheless,
-this functionality is still available in #TheTool via a @cli flag
+this functionality is still available in #TheTool behind a @cli flag
 to aid future work.

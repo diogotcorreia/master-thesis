@@ -4,11 +4,10 @@
 
 = Introduction <intro>
 
-Over the past few decades,
-cybersecurity has become a preeminent concern for developers, users,
+Cybersecurity has increasingly become a preeminent concern for developers, users,
 and even regulators,
 in part due to the rise in major threats
-from malicious actors to the infrastructure we use every day.
+from malicious actors to the infrastructure supports our everyday life.
 This is evidenced by recent cyberattacks
 such as Equifax's data breach,
 which exposed sensitive data of many US consumers,
@@ -44,7 +43,7 @@ the Python programming language @pp-python.
 
 == Problem Statement
 
-Class pollution is a novel type of vulnerability in Python,
+Class pollution is a novel type of vulnerability in Python
 that allows attackers to surgically mutate variables in a Python application
 in order to alter the execution flow of said applications.
 To successfully exploit a class pollution vulnerability,
@@ -65,11 +64,11 @@ can lead to class pollution,
 nor any indication of how prevalent this vulnerability class is across existing
 Python applications.
 
-As with similar code reuse attacks, class pollution can
+As with similar code reuse vectors, class pollution can
 potentially facilitate attacks such as Authorization Bypass, @dos, @rce, and/or @ssti.
 For this reason, it is paramount to better understand what is the true
-impact and prevalence of this vulnerability class, as well as possible countermeasures
-to protect against it.
+impact and prevalence of this vulnerability class,
+as well as what possible countermeasures can prove to be effective mitigations.
 
 == Research Questions <intro:rq>
 
@@ -100,7 +99,7 @@ testing existing applications for its presence.
 
 This project's primary objective is to
 uncover how widespread Python class pollution is
-and to empower developers with tooling to detect it.
+and to empower developers with tooling to detect vulnerable code.
 
 Furthermore, this project also aims to generate awareness for class pollution
 amongst the Python developer community.
@@ -110,17 +109,21 @@ the Python community is largely unaware of the dangers of this type of vulnerabi
 If developers are aware of the existence of class pollution and its countermeasures,
 they can avoid writing vulnerable constructs that can lead to class pollution.
 
-Additionally, it hopes to inspire future research on the topic, which could improve
-the automated detection of class pollution, as outlined in @discussion:futurework.
+Additionally, it hopes to inspire future research on the topic,
+which could, for instance,
+improve the automated detection of class pollution,
+as outlined in @discussion:futurework.
 
 == Ethics & Sustainability
 
 As further outlined in @method,
-the dataset of projects utilised through this degree project
-contains only source-available projects that can be downloaded from @pypi and GitHub.
-When obtaining this dataset,
-all relevant APIs have been used sparingly and respecting the rate-limits in place,
-caching all responses to prevent unnecessary duplicate requests.
+the dataset of projects utilised throughout this work
+contains only source-available packages and repositories
+that can be downloaded from @pypi and GitHub.
+When compiling this dataset from the aforementioned repositories,
+all their relevant APIs were used sparingly
+and in conformance with their respective stated rate-limits,
+with all responses being cached to prevent unnecessary duplicate requests.
 
 Furthermore, all vulnerabilities found during the project's development have been
 responsibly disclosed to the respective developers and maintainers within a reasonable
@@ -131,9 +134,9 @@ in unpatched projects, the benefits for developers far outweigh the drawbacks in
 regards to exploitability, as the vulnerability can be quickly identified and
 fixed.
 
-Moreover, while this project is not directly related to sustainability, it serves
-an important role in securing various Python applications that could be directly related
-to sustainability.
+Moreover, while this project is not directly related to sustainability,
+it serves an important role in securing various Python applications
+that could in turn directly promote sustainability.
 
 == Limitations
 
@@ -147,7 +150,7 @@ they are used only as motivation for this work.
 == Contributions
 
 This degree project provides three major contributions,
-each related to one of the research questions.
+each related to one of the previously stated research questions.
 
 Firstly, as part of @rq-causes-consequences[],
 a comprehensive list of dangerous constructs that can lead to class pollution
@@ -155,7 +158,7 @@ and some examples of accompanying gadgets
 have been gathered and are available in @bg:lit-review.
 
 Secondly, as a result of @rq-tool-design[],
-#TheTool has been created,
+#TheTool was developed,
 becoming the first publicly available tool specifically built
 to detect class pollution in Python projects.
 

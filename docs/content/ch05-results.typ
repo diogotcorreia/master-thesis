@@ -243,7 +243,7 @@ The source code for these tests can be found in the `detection-benchmarks`
 directory of the accompanying repository.
 
 As shown in @tbl:results-micro-benchmark,
-#TheTool has been ran on all 5 of these tests,
+#TheTool has been run on all 5 of these tests,
 and successfully passed 4 of them,
 having failed to properly identify when the attribute
 passed to `getattr` is a static string.
@@ -462,8 +462,9 @@ Analysing the projects in the dataset using #TheTool took a total of
 #format_time(total_runtime_seconds) of runtime, and an additional
 #format_time(manual_categorisation_time_seconds) of manual labeling work
 by a single person. However, the runtime duration is skewed by a few
-projects that triggered a bug in Pysa and hanged, being terminated
-after a 30 minute timeout.
+projects that triggered a bug in Pysa and hanged
+#footnote(link("https://github.com/facebook/pyre-check/issues/915")),
+being terminated after a 30 minute timeout.
 Ignoring the analysis of failed projects, the total runtime excluding manual work is
 just #format_time(success_runtime_seconds).
 Taking into account only successfully analysed projects, the automated analysis
@@ -482,7 +483,7 @@ using only 32 cores.
   [
     #lq.diagram(
       width: 11cm,
-      height: 4cm,
+      height: 3.5cm,
       yaxis: (ticks: ([GitHub], [@pypi]).enumerate(), subticks: none),
       xaxis: (exponent: none),
       xscale: "log",
@@ -575,7 +576,7 @@ From a projects perspective, this means there is a Type-I error rate of
 
   #lq.diagram(
     width: 10cm,
-    height: 7cm,
+    height: 5cm,
     legend: (position: left + top),
     ylabel: [Number of Projects],
     margin: (top: 10%),
@@ -651,7 +652,7 @@ The overall label classification, discriminated by platform, can be visualised i
 
   #lq.diagram(
     width: 10cm,
-    height: 6cm,
+    height: 5cm,
     legend: (position: left + top),
     ylabel: [Number of Issues],
     margin: (top: 10%),
@@ -1670,7 +1671,7 @@ which comes with all the challenges outlined in the previous subsection.
 For these reasons,
 this approach was abandoned in favour of the current one.
 
-=== Calls to getattr Count <results:getattr-count>
+=== Counting Calls to getattr <results:getattr-count>
 
 #let unfiltered_projects_success = filter_list(raw_data, by_has_error, inv: true)
 

@@ -1,4 +1,4 @@
-#import "../utils/global-imports.typ": codly, zero
+#import "../utils/global-imports.typ": codly, pep, zero
 #import "../utils/constants.typ": TheTool
 #import "./ch05-results.typ": case_study_considered, projects_elapsed_seconds, projects_success, type_i_error_rate
 
@@ -35,7 +35,7 @@ The proof-of-concept exploits presented in the case study validate that class
 pollution in Python is not just a theoretical exploit, but that it can have real
 consequences in applications deployed today.
 
-=== Tool Design and Implementation
+=== Tool Design and Implementation <discussion:tool-design>
 
 With @rq-tool-design[], the goal was to discover how to
 design a tool that can both efficiently and accurately detect class pollution.
@@ -89,7 +89,7 @@ the past, it is often difficult to successfully install all the dependencies
 for a project, resulting in either resolution or build errors.
 This has since been greatly improved with the addition of `pyproject.toml`
 and `pylock.toml`, but given that the latter was only officially
-standardised in March of 2025, most projects in the dataset understandably
+standardised in March of 2025 in #pep(751), most projects in the dataset understandably
 did not include a dependency lockfile in their repositories.
 Furthermore, the observed analysis time increased drastically, not just because
 of dependency installation, but also due to Pysa taking significantly more
@@ -175,7 +175,7 @@ a dictionary, in order to have any meaningful possibility of exploitation.
 
 When performing a purely quantitative comparison against the results obtained
 by #cite(form: "prose", <probetheproto>),
-prototype pollution appears to be twice as prevalent as class pollution.
+prototype pollution appears to be thrice as prevalent as class pollution.
 To perform a fair comparison, only the vulnerabilities found that were labeled
 with _Dict Access_ and _Supports `__setitem__`_ are being accounted for,
 which results in an prevalence of #num(prevalence_cp) in #num(total_cp) (#prevalence_rate_cp%)
@@ -277,6 +277,8 @@ and should still be conducted on the topic.
 
 Firstly, a second iteration of #TheTool should be developed,
 learning from the results obtained in this degree project.
+For example, it would beneficial to be able to automatically assign features
+to each detected issue instead of relying on manual labeling.
 This new tool could then be evaluated against this project's results,
 available in @detailed-results and the accompanying repository.
 Furthermore, as Pysa has demonstrated certain limitations when it

@@ -4,7 +4,7 @@
 
 = Methods <method>
 
-This chapter goes over the research methods used in
+This chapter goes over the research methods and dataset used in
 this degree project, along with how they are fit for this work.
 Firstly, @method:research-process describes the research method
 used to answer the established research questions.
@@ -28,7 +28,7 @@ Taking into account the results of the literature review,
 the cornerstone requirement for such a detector is that it can find code where the
 return value of `getattr` is passed onto the arguments of `setattr`.
 As this is a classic taint analysis problem, a static taint analysis
-tool, Pysa, has been chosen as the base for this tool.
+tool, Pysa, has been chosen as the base for this higher-order tool.
 
 However, Pysa offers many different settings and
 approaches to configuring the project for taint analysis,
@@ -38,7 +38,7 @@ For this reason, various combinations of settings, taint modules,
 project configurations, and more,
 were tested against custom-built artificial benchmarks,
 as well as projects known to be vulnerable,
-in order to decide what approach to take for the final design.
+in order to decide what approach to use for the final design.
 These benchmarks, while not perfect,
 are small custom-written Python programs that
 model common constructs that can lead to class pollution
@@ -72,7 +72,7 @@ also known as breadcrumbs,
 which enables post-processing of the resulting issues to eliminate false positives.
 Recalling the literature review, a requirement for successful exploitation
 of class pollution is being able to traverse an arbitrary number of attributes.
-Therefore, an interesting feature to save is how many times the taint flows
+Therefore, an interesting feature to record is how many times the taint flows
 through `getattr` before reaching the sink.
 This can then be used to filter out code where there is only a single
 call to `getattr`.
@@ -136,7 +136,7 @@ project's dataset.
 
 It is important to note that the threat model can vary between libraries
 and applications, as code in libraries can be used in many ways by downstream
-projects, while code in applications is usually exclusively used within the
+projects, while code in end-user applications is usually exclusively used within the
 same codebase.
 This is taken into account when determining the exploitability of the
 vulnerabilities found, later on.
@@ -166,19 +166,19 @@ for this dataset,
 accounting to around 9000 repositories.
 For the purposes of this experiment, a project's star count was deemed
 a good indicator of its real-world usefulness and its overall usage.
-Additionally, a repository is deemed a "Python repository" if its most used
+Additionally, a repository is considered a "Python repository" if its most used
 language is Python, as per GitHub's linguist library, which determines
 language distribution by file type and size @gh-linguist.
 
 Furthermore, again to aid with the reproducibility of this research,
 the last revision (i.e., git commit hash) of the default branch of
-each repository was saved in the dataset.
+each repository was also saved in the dataset.
 
 === Sample Size <method:sample-size>
 
 Both the @pypi and GitHub datasets contain too many entries to
 be analysed in a reasonable time, given the scope of this degree project.
-For that reason, only a subset of entries in each dataset will be
+For that reason, only a subset of entries in each dataset is
 taken into account during evaluation.
 
 #let n_pypi = 3000
