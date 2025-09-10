@@ -321,9 +321,9 @@ listed in @tbl:vuln-projects.
 #TheTool successfully identified the vulnerabilities in all of the projects,
 without raising any false positives.
 For two of the projects, however,
-it raised more than a single issue for the vulnerable code due to
-the presence of multiple sinks,
-but this is expected behaviour.
+it raised two issues for the vulnerable code due to
+the presence of multiple sinks in the same function (i.e., two calls to `setattr`),
+but this is expected behaviour in those cases.
 The confusion matrix for these results can be seen in @tbl:results-vulnerable-pkgs,
 noting that the number of true negatives cannot be determined
 since it consists of all the remaining code in the codebase.
@@ -446,9 +446,12 @@ to #format_popularity(gh_popularity.max) stars, with a median of
 #format_popularity(gh_popularity.median) stars.
 The distribution for each platform can be visualised on @fg:popularity-distribution.
 
-Additionally, it is worth nothing that none of the vulnerable projects
+Additionally, it is worth noting that none of the vulnerable projects
 tested in the micro benchmarks from @results:micro-benchmarks
-is present in final the dataset.
+is present in the final dataset,
+as they were not picked as part of the random sampling,
+despite meeting the popularity thresholds.
+This explains why they are not present in the results in the next subsection.
 
 === Results <results:analysis-results>
 
@@ -554,7 +557,7 @@ only #vulnerable_projects.len() have at least one issue that was deemed vulnerab
 As can be seen by @fg:projects-issue, the amount of vulnerable projects varies
 slightly by platform, with only #vulnerable_pypi_projects.len() @pypi projects
 being vulnerable in contrast with #vulnerable_gh_projects.len() GitHub projects.
-From a projects perspective, this means there is a Type-I error rate of
+From a projects perspective, this means there is a Type-I error (false positive) rate of
 #type_i_error_rate%.
 
 #figure(
@@ -622,8 +625,9 @@ by Pysa.
 These #all_issues.len() issues were then manually labeled into _Vulnerable_ or
 _Not Vulnerable_, along with a feature list for the former and a reason list
 for the latter.
+Both of these lists were also manually assigned during the labeling stage.
 Only #vulnerable_issues.len() issues have been labeled as _Vulnerable_,
-resulting in a Type-I error of
+resulting in a Type-I error (false positive) rate of
 #calc.round((not_vulnerable_issues.len() / all_issues.len()) * 100, digits: 1)%,
 from an issues perspective.
 However, it is important to highlight that, in some of the projects, there were
@@ -692,7 +696,7 @@ The overall label classification, discriminated by platform, can be visualised i
   )
 ] <fg:issue-label>
 
-As mentioned, each vulnerable issue has additionally been labeled with
+As mentioned, each vulnerable issue has additionally been manually labeled with
 a feature list, which helps to rank them regarding exploitability.
 Four of the features are deemed positive, that is, they increase the likelihood
 of an issue being exploitable, while three of them are deemed negative.
@@ -990,7 +994,7 @@ target object extend a certain class.
 
 With regards to the _Not Vulnerable_ issues, there were many reasons for them
 to be deemed not vulnerable, as shown in @fg:not-vuln-issue-reasons.
-During labeling,
+During manual labeling,
 an issue can be assigned one or more reasons for not being considered vulnerable,
 with the most common ones being that there was only a single call to `getattr`
 (_Not Recursive_, #not_vulnerable_issues_reasons.at("NonRecursive") issues),
@@ -1093,7 +1097,7 @@ due to the manual labor required to filter them out.
   }
 }
 
-#let deepdiff_project = raw_data.find(project => project.at("name") == "deepdiff")
+#let deepdiff_project = data_filtered.find(project => project.at("name") == "deepdiff")
 #let deepdiff_issues = extract_issues((deepdiff_project,))
 #let deepdiff_vulnerable_issues = filter_list(deepdiff_issues, by_is_issue_vulnerable)
 #let deepdiff_not_vulnerable_issues = filter_list(deepdiff_issues, by_is_issue_vulnerable, inv: true)
@@ -1116,14 +1120,22 @@ The project has around #format_popularity(deepdiff_project.at("popularity"))
 downloads on @pypi, 2.4k stars on GitHub, and approximately 18k dependent repositories,
 according to GitHub statistics @deepdiff-dependents.
 
-#TheTool detected #deepdiff_issues.len() issues on *deepdiff*,
-#deepdiff_vulnerable_issues.len() of which _Vulnerable_ and
-#deepdiff_not_vulnerable_issues.len() _Not Vulnerable_.
-While the issues mostly pointed to the Delta feature of the library,
-none of them actually represent the piece of exploitable code.
+#assert.eq(deepdiff_issues.len(), 1, message: "expected 1 issue on deepdiff")
+#assert.eq(deepdiff_not_vulnerable_issues.len(), 0, message: "expected no false positives on deepdiff")
+#TheTool detected a single issue on *deepdiff*,
+which was deemed _Vulnerable_ during manual labeling.
+This issue pointed to the `_get_nested_obj_and_force` function in `path.py`,
+which despite not allowing an attacker to control the value to pollute with,
+is susceptible to class pollution.
+However, upon manual inspection,
+this function was also part of a greater exploit chain
+in the Delta feature of the library
+that allowed full control of both the variable to pollute
+and the value to be set.
 Likely due to a function of the vulnerable code path being called
 through a variable, as shown in @code:deepdiff-get-nested-obj-var,
-Pysa failed to detect the exact code path that leads to class pollution.
+Pysa failed to detect the exact code path that leads to class pollution
+in the Delta class.
 
 #figure(
   caption: [Part of the exploitable code path gets assigned to the
