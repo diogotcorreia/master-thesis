@@ -43,9 +43,17 @@
     ),
     sv: (
       title: content-to-string([#TheTool: Avslöja klassföroreningar i Python]),
-      subtitle: content-to-string([Mätning av sårbarheter i klassföroreningar hos #raw_data.len() verkliga Python-projekt]),
+      subtitle: content-to-string(
+        [Mätning av sårbarheter i klassföroreningar hos #raw_data.len() verkliga Python-projekt],
+      ),
       abstract: include "./content/abstract-2-sv.typ",
-      keywords: (), // TODO
+      keywords: (
+        "python",
+        "återanvändning av kod",
+        "klassföroreningar",
+        "statisk analys",
+        "föroreningsanalys",
+      ),
     ),
   ),
   authors: (
