@@ -130,7 +130,7 @@
       body: print-glossary(acronyms, disable-back-references: true),
     ),
   ),
-  doc-date: datetime.today(),
+  doc-date: datetime(year: 2025, month: 09, day: 11),
   doc-city: "Stockholm",
   doc-extra-keywords: ("master thesis",),
   // Whether to include trailing "For DiVA" metadata structure section
