@@ -128,7 +128,7 @@ allowing for even more control over gadgets @pp-arteau[p.~9].
 ] <code:pollute-proto>
 
 Once the prototype has been polluted, the second step is finding a gadget, i.e.,
-a benign piece of code that given attacker-controlled properties changes its execution
+a benign piece of code that, given attacker-controlled properties, changes its execution
 path and performs security-sensitive operations @ghunter.
 @code:pp-gadget shows an example where polluting the property `admin` with any truthy value
 would result in the program outputting possibly sensitive information.
@@ -144,7 +144,7 @@ would result in the program outputting possibly sensitive information.
 ] <code:pp-gadget>
 
 Apart from the accessing of specific properties,
-another powerful type of gadgets are that make use of for-loops.
+another powerful type of gadgets are those that make use of for-loops.
 These take advantage of the fact that the properties added to the prototype are
 enumerable, meaning for-loops iterate over them as well @pp-arteau[p.~17].
 This can be very flexible for attackers, as it allows more freedom over which properties

@@ -1,10 +1,10 @@
 Over the past few decades,
-code reuse attacks have shown how malicious parties
-can alter a program's normal execution flow
+code reuse attacks have shown how malicious actors
+can alter a program's intended execution flow
 by taking advantage of benign code already present in the application.
 Class Pollution in the Python programming language
 is a novel variant of a code reuse attack,
-which can enable a malicious actor to surgically mutate a variable
+which can enable a malicious party to surgically mutate a variable
 in any part of the application
 in order to trigger a change in its execution flow.
 
