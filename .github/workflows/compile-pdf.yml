@@ -27,15 +27,17 @@ jobs:
       env:
         TYPST_VERSION: v0.13.1
 
-    - name: Compile thesis with Typst
+    - name: Compile thesis and presentation with Typst
       shell: bash
       working-directory: ./docs
       run: |
         typst compile ./03-thesis.typ
+        typst compile ./04-presentation.typ
 
     - name: Move PDF
       run: |
         cp docs/03-thesis.pdf diogo-correia-thesis.pdf
+        cp docs/04-presentation.pdf diogo-correia-presentation.pdf
 
     - name: GitHub Release
       run: |
@@ -44,8 +46,8 @@ jobs:
         git tag compiled-pdf
         git push origin compiled-pdf
         gh release delete ${{ env.VERSION }} -y || true
-        gh release create ${{ env.VERSION }} -p -t "Compiled PDF" -n "Compiled PDF of thesis (commit ${{ github.sha }})" ${{ env.FILES }}
+        gh release create ${{ env.VERSION }} -p -t "Compiled PDF" -n "Compiled PDF of thesis/presentation (commit ${{ github.sha }})" ${{ env.FILES }}
       env:
         GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         VERSION: 'compiled-pdf'
-        FILES: diogo-correia-thesis.pdf
+        FILES: diogo-correia-thesis.pdf diogo-correia-presentation.pdf
