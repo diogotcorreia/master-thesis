@@ -17,6 +17,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+    - name: Download Figtree font
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      with:
+        repository: erikdkennedy/figtree
+        ref: be6cb018f2f93a9b1195f3dfd077123f718c65f8 # v2.0.3
+        path: figtree
 
     - name: Install Typst Compilation
       shell: bash
@@ -31,6 +37,7 @@ jobs:
       shell: bash
       working-directory: ./docs
       run: |
+        export TYPST_FONT_PATHS="$GITHUB_WORKSPACE/figtree/fonts/otf"
         typst compile ./03-thesis.typ
         typst compile ./04-presentation.typ
 
