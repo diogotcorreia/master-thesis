@@ -48,5 +48,6 @@ in
       shellHook = ''
         export UV_NO_MANAGED_PYTHON=1
         export UV_PYTHON="${pkgs.python310}/bin/python"
+        export TYPST_FONT_PATHS="${mypkgs.figtree}"
       '';
     }
