@@ -266,44 +266,45 @@
 
 
 /// Focus on some content.
-///
-/// Example: `#focus-slide[Wake up!]`
-///
-/// - config (dictionary): is the configuration of the slide. Use `config-xxx` to set individual configurations for the slide. To apply multiple configurations, use `utils.merge-dicts` to combine them.
-///
-/// - background-color (color, none): is the background color of the slide. Default is the primary color.
-///
-/// - background-img (string, none): is the background image of the slide. Default is none.
 #let focus-slide(
   config: (:),
-  background-color: none,
-  background-img: none,
+  level: 1,
+  numbered: true,
   body,
 ) = touying-slide-wrapper(self => {
-  let background-color = if (
-    background-img == none and background-color == none
-  ) {
-    rgb(self.colors.primary)
-  } else {
-    background-color
-  }
-  let args = (:)
-  if background-color != none {
-    args.fill = background-color
-  }
-  if background-img != none {
-    args.background = {
-      set image(fit: "stretch", width: 100%, height: 100%)
-      background-img
-    }
-  }
   self = utils.merge-dicts(
     self,
-    config-common(freeze-slide-counter: true),
-    config-page(margin: 1em, ..args),
+    config,
+    config-common(
+      show-strong-with-alert: false,
+    ),
+    config-page(
+      fill: self.colors.secondary-lighter,
+      background: context {
+        let f = page.width / 1920
+        place(top + right, scale(x: -100%, curve(
+          stroke: self.colors.secondary,
+          curve.move((-5.5 * f, 213.5 * f)),
+          curve.line((213.5 * f, 213.5 * f)),
+          curve.line((-4.5 * f, 648.5 * f)),
+          curve.move((426.12 * f, -6.5 * f)),
+          curve.line((426.12 * f, 215.07 * f)),
+          curve.cubic((426.12 * f, 332.11 * f), (331.24 * f, 427 * f), (214.19 * f, 427 * f)),
+          curve.line((-5.5 * f, 427 * f)),
+        )))
+      },
+    ),
   )
-  set text(fill: self.colors.neutral-lightest, weight: "bold", size: 2em)
-  touying-slide(self: self, std.align(horizon, body))
+  let slide-body = {
+    if self.info.logo != none {
+      place(top + left, text(fill: self.colors.neutral-lightest, box(width: 3em, self.info.logo)))
+    }
+    set std.align(horizon + center)
+    show: pad.with(x: 15%)
+    set text(size: 2em, fill: self.colors.tertiary, weight: "bold")
+    body
+  }
+  touying-slide(self: self, slide-body)
 })
 
 
@@ -402,6 +403,7 @@
       ),
     )
   },
+  bib: none,
   ..args,
   body,
 ) = {
