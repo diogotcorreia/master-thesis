@@ -1,11 +1,29 @@
-#import "./utils/global-imports.typ": cve, touying
+#import "./utils/global-imports.typ": codly, codly-languages, cve, touying
 #import touying: *
 #import "./utils/slides-template.typ": *
 #import "./utils/constants.typ": TheTool
+#import "./content/ch02-background.typ": js_pp_gadget, js_pp_pollute, js_proto_chain
 #import "./content/ch05-results.typ": raw_data
+#import codly: codly, codly-init
+#import codly-languages: codly-languages
+
+#show: codly-init
+#codly(languages: codly-languages, zebra-fill: none)
+
+// typst query --root . ./04-presentation.typ --field value --one "<pdfpc-file>" > ./04-presentation.pdfpc
+#let pdfpc-config = pdfpc.config(
+  duration-minutes: 25,
+  last-minutes: 5,
+  note-font-size: 16,
+  disable-markdown: false,
+)
 
 #show: university-theme.with(
   aspect-ratio: "16-9",
+  config-common(
+    preamble: pdfpc-config,
+    show-bibliography-as-footnote: bibliography(title: none, "./references.yml"),
+  ),
   config-info(
     title: [#TheTool: Uncovering Class Pollution in Python],
     subtitle: [Measuring Class Pollution Vulnerabilities of #raw_data.len() Real-World Python Projects],
@@ -17,25 +35,54 @@
   ),
 )
 
-#pdfpc.config(
-  duration-minutes: 25,
-  last-minutes: 5,
-  note-font-size: 16,
-  disable-markdown: false,
-)
+#set footnote.entry(gap: 0.3em, separator: none)
+#show footnote.entry: set text(size: 0.5em, fill: black.lighten(20%))
+#show figure.caption: set text(size: 15pt)
 
 #title-slide()
 
 = Background &\ Root Causes
 
-== Code Reuse Attacks (Motivation)
+== JavaScript Prototype Pollution
 
-- JavaScript Prototype Pollution
+=== Background
 
-Can we do the same with Python?
+- Novel type of vulnerability: introduced in 2018 by Arteau@pp-arteau
+- Takes advantage of JavaScript's prototype-based inheritance
+- Can lead to Cross-Site Scripting (XSS), Remote Code Execution,
+  Denial of Service, etc.@ghunter@probetheproto@silent-spring
 
-// show numbers like amount of CVEs
-// and results from papers (e.g., prototype pollution)
+---
+
+=== Prototype-based Inheritance
+
+#{
+  set text(size: 0.9em)
+  js_proto_chain
+}
+
+---
+
+=== Pollution
+
+#{
+  set text(size: 0.7em)
+  js_pp_pollute
+}
+
+---
+
+=== Gadget
+
+#{
+  set text(size: 0.9em)
+  js_pp_gadget
+}
+
+
+#focus-slide()[
+  Can we do the same with Python?
+]
 
 == Python Language Fundamentals
 
@@ -97,7 +144,11 @@ Can we do the same with Python?
 
 #lorem(10)
 
-= Limitations &\ Future Work
+= Discussion &\ Future Work
+
+== Mitigations
+
+- #lorem(10)
 
 == Limitations
 
@@ -125,3 +176,5 @@ Can we do the same with Python?
 - Not widespread
 
 #title-slide()
+
+=

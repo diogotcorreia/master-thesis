@@ -33,7 +33,7 @@ the JavaScript runtime will follow this prototype chain in an attempt to find th
 in a parent object,
 as illustrated by @fg:prototype-chain.
 
-#figure(
+#let js_proto_chain = [#figure(
   caption: [Property discovery through the prototype chain],
   diagram(
     spacing: (20mm, 0mm),
@@ -78,12 +78,14 @@ as illustrated by @fg:prototype-chain.
         `myobj.e` is `undefined`
       ],
       stroke: stroke(paint: black, dash: "dashed"),
+      shape: rect,
     ),
 
     edge(<a>, <b>, "->", [`__proto__`], label-angle: right, bend: 30deg),
     edge(<b>, <c>, "->", [`__proto__`], label-angle: right, bend: 30deg),
   ),
-) <fg:prototype-chain>
+) <fg:prototype-chain>]
+#js_proto_chain
 
 However, this particular language feature also opens JavaScript applications
 to new kinds of attacks, namely prototype pollution.
@@ -111,7 +113,7 @@ Other more advanced constructs include, for instance, recursive functions,
 which enable setting multiple properties at various depths in the prototype,
 allowing for even more control over gadgets @pp-arteau[p.~9].
 
-#figure(caption: "Example construct that would pollute the root prototype")[
+#let js_pp_pollute = [#figure(caption: "Example construct that would pollute the root prototype")[
   ```js
   const obj = {}; // some object
   const key1 = "__proto__"; // attacker-controlled
@@ -125,7 +127,8 @@ allowing for even more control over gadgets @pp-arteau[p.~9].
   const other_obj = {};
   console.log(other_obj.foo); // 'bar'
   ```
-] <code:pollute-proto>
+] <code:pollute-proto>]
+#js_pp_pollute
 
 Once the prototype has been polluted, the second step is finding a gadget, i.e.,
 a benign piece of code that, given attacker-controlled properties, changes its execution
@@ -133,7 +136,7 @@ path and performs security-sensitive operations @ghunter.
 @code:pp-gadget shows an example where polluting the property `admin` with any truthy value
 would result in the program outputting possibly sensitive information.
 
-#figure(caption: "Example gadget, granting access to admin-only information")[
+#let js_pp_gadget = [#figure(caption: "Example gadget, granting access to admin-only information")[
   ```js
   const user = { username: "johndoe" };
   // If Object.prototype.admin is polluted, this is true
@@ -141,7 +144,8 @@ would result in the program outputting possibly sensitive information.
     printSuperSecretInformation(); // Oh no :(
   }
   ```
-] <code:pp-gadget>
+] <code:pp-gadget>]
+#js_pp_gadget
 
 Apart from the accessing of specific properties,
 another powerful type of gadgets are those that make use of for-loops.
@@ -907,7 +911,7 @@ either require access to `__globals__` to perform some kind of traversal,
 or need to exist in the same class hierarchy as the start traversal object.
 However, this does not work on classes defined natively in CPython
 #footnote[CPython is one of many Python interpreter implementations, and is written in C.
-Given its status as the reference implementation, it is the most widely used.],
+  Given its status as the reference implementation, it is the most widely used.],
 at the C level,
 because those are immutable.
 Furthermore, all of their methods lack any reference to `__globals__`,
