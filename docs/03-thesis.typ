@@ -96,33 +96,32 @@
   // National subject category codes; mandatory for DiVA classification.
   // One or more 3-to-5 digit codes, with preference for 5-digit codes, from:
   // https://www.scb.se/contentassets/10054f2ef27c437884e8cde0d38b9cc4/standard-for-svensk-indelning--av-forskningsamnen-2011-uppdaterad-aug-2016.pdf
-  national-subject-categories: ("10201", "10206", "10299"), // TODO
+  national-subject-categories: ("10201", "10206", "10299"),
   school: "EECS",
   // TRITA number assigned to thesis after final examiner approval
-  trita-number: "2024:0000", // TODO
+  trita-number: "2025:0000", // TODO
   // Host company collaborating for this thesis; may be none
   host-company: none,
   // Names of opponents for this thesis; may be none until they're assigned
-  opponents: none, // TODO
+  opponents: ("Yamini Balannagari",),
   // Thesis presentation details; may be none until it's scheduled and set.
   // Either "online" or "location" fields may be none, but not both.
-  presentation: none, /* (
+  presentation: (
     language: "en",
     slot: datetime(
       year: 2025,
-      month: 6,
-      day: 14,
-      hour: 13,
+      month: 10,
+      day: 22,
+      hour: 15,
       minute: 0,
       second: 0,
     ),
-    online: (service: "Zoom", link: "https://kth-se.zoom.us/j/111222333"),
     location: (
-      room: "F1 (Alfvénsalen)",
-      address: "Lindstedtsvägen 22",
+      room: "Stefan Arnborg (room 4523)",
+      address: "Lindstedtsvägen 5",
       city: "Stockholm",
     ),
-  ), */
+  ),
   acknowledgements: include "content/acknowledgements.typ",
   extra-preambles: (
     (
