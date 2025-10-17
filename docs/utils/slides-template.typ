@@ -251,7 +251,7 @@
       place(top + left, text(fill: self.colors.neutral-lightest, box(width: 3em, self.info.logo-white)))
     }
     set std.align(bottom + left)
-    show: pad.with(right: 25%)
+    show: pad.with(right: 30%)
     set text(size: 2em, fill: self.colors.neutral-lightest, weight: "bold")
     stack(
       dir: ttb,

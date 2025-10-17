@@ -1,14 +1,16 @@
-#import "./utils/global-imports.typ": codly, codly-languages, cve, touying
+#import "./utils/global-imports.typ": codly, codly-languages, cve, fletcher, touying
 #import touying: *
 #import "./utils/slides-template.typ": *
 #import "./utils/constants.typ": TheTool
-#import "./content/ch02-background.typ": js_pp_gadget, js_pp_pollute, js_proto_chain
+#import "./content/ch02-background.typ": js_pp_gadget, js_pp_pollute, js_proto_chain, py_attrs, py_fn_globals, py_items
 #import "./content/ch05-results.typ": raw_data
 #import codly: codly, codly-init
 #import codly-languages: codly-languages
+#import fletcher: edge, node
+
+#let diagram = touying-reducer.with(reduce: fletcher.diagram, cover: fletcher.hide)
 
 #show: codly-init
-#codly(languages: codly-languages, zebra-fill: none)
 
 // typst query --root . ./04-presentation.typ --field value --one "<pdfpc-file>" > ./04-presentation.pdfpc
 #let pdfpc-config = pdfpc.config(
@@ -21,7 +23,10 @@
 #show: university-theme.with(
   aspect-ratio: "16-9",
   config-common(
-    preamble: pdfpc-config,
+    preamble: {
+      pdfpc-config
+      codly(languages: codly-languages, zebra-fill: none)
+    },
     show-bibliography-as-footnote: bibliography(title: none, "./references.yml"),
   ),
   config-info(
@@ -41,7 +46,14 @@
 
 #title-slide()
 
-= Background &\ Root Causes
+---
+
+#{
+  set text(size: 0.8em)
+  components.adaptive-columns(outline(indent: 1em, depth: 1))
+}
+
+= Background & Root#(sym.space.nobreak)Causes
 
 == JavaScript Prototype Pollution
 
@@ -60,6 +72,20 @@
   set text(size: 0.9em)
   js_proto_chain
 }
+
+---
+
+#components.side-by-side()[
+  *Pollution*
+
+  - Abuse existing code to set a value on the root prototype
+][
+  *Gadget*
+
+  - Change behaviour of benign code in the application when certain properties are set
+
+  - Property to pollute depends on gadget
+]
 
 ---
 
@@ -84,9 +110,120 @@
   Can we do the same with Python?
 ]
 
+== Why Python?
+
+- Wide adoption in various fields
+- Known by many programmers of various skill levels
+- Used by high profile applications and companies
+
+#pause
+
+#v(3em)
+
+#align(center, text(size: 1.3em)[*Valuable target for attackers!*])
+
 == Python Language Fundamentals
 
-- #lorem(6)
+=== Class-based Inheritance
+
+#figure(
+  caption: [Inheritance in Python is class-based, with most classes inheriting from `object`],
+  diagram(
+    spacing: (15mm, 20mm),
+    node-stroke: luma(80%),
+    node-shape: rect,
+    node-inset: 0.5em,
+    node-corner-radius: 0.5em,
+    node((0, 0), `object`, name: <obj>),
+
+    node((-1, 1), `Animal`),
+    edge(<obj>, "-|>"),
+    node((-0.5, 2), `Mammal`),
+    edge(auto, (-1, 1), "-|>"),
+    node((-1.5, 2), `Reptile`),
+    edge(auto, (-1, 1), "-|>"),
+
+    node((1, 1), `int`),
+    edge(auto, <obj>, "-|>"),
+    edge("<|-"),
+    node((1, 2), `bool`),
+    node((2, 1), `str`),
+    edge(auto, <obj>, "-|>", bend: -5deg),
+    node((3, 1), `list`),
+    edge(auto, <obj>, "-|>", bend: -10deg),
+    node((4, 1), [...]),
+    edge(auto, <obj>, "-|>", bend: -20deg),
+
+    pause,
+
+    node(
+      (-0.2, -0.2),
+      rotate(-20deg, text(fill: red, stroke: 1pt + black, size: 1.2em, weight: "bold")[Immutable!]),
+      stroke: none,
+      layer: 1,
+    ),
+  ),
+) <fg:prototype-chain>
+
+---
+
+=== Dunder Attributes
+
+#figure(
+  caption: [Some operators in Python are syntactic sugar for dunder methods],
+  [
+    #codly(number-format: none, display-name: false)
+    #grid(
+      columns: (2fr, 3fr),
+      gutter: 1em,
+      ```py
+      1 + 2
+      ```,
+      ```py
+      int.__add__(1, 2)
+      ```,
+    )
+  ],
+)
+
+#pause
+
+#codly(number-format: numbering.with("1"), display-name: true)
+#{
+  set text(size: 0.75em)
+  py_fn_globals
+}
+
+---
+
+=== Object Attributes
+
+#py_attrs
+
+---
+
+=== Item Containers
+
+#py_items
+
+---
+
+#components.side-by-side()[
+  *Object Attributes*
+
+  - Used in classes and objects
+  - Accessed statically through the dot notation
+  - Getter: `getattr`
+  - Setter: `setattr`
+][
+  *Item Containers*
+
+  - Used in dictionaries, lists, tuples, etc.
+  - Accessed through square bracket notation
+  - Getter: `__getitem__`
+  - Setter: `__setitem__`
+  - Containers are still objects and can have attributes
+]
 
 == Python Class Pollution
 
@@ -94,7 +231,7 @@
 - #lorem(7)
 - #lorem(8)
 
-= Goals &\ Research Questions
+= Goals & Research#(sym.space.nobreak)Questions
 
 == Research Questions
 
@@ -106,7 +243,7 @@
 
 // list research questions
 
-= Contributions &\ System Design
+= Contributions & System#(sym.space.nobreak)Design
 
 == Contributions
 
@@ -123,7 +260,7 @@
 
 #lorem(10)
 
-= Methodology &\ Results
+= Methodology & Results
 
 == Methodology Overview
 
@@ -144,7 +281,7 @@
 
 #lorem(10)
 
-= Discussion &\ Future Work
+= Discussion & Future#(sym.space.nobreak)Work
 
 == Mitigations
 
@@ -176,5 +313,3 @@
 - Not widespread
 
 #title-slide()
-
-=

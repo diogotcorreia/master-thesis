@@ -407,7 +407,7 @@ One great example of this is that all functions capture the scope they are defin
 in, making a reference to all global variables in that scope available
 through `__globals__`, as can be seen in @code:python-function-globals.
 
-#figure(caption: [Functions in Python capture the global scope and make
+#let py_fn_globals = [#figure(caption: [Functions in Python capture the global scope and make
   it available through `__globals__`])[
   ```py
   FOO = "hello world"
@@ -418,7 +418,8 @@ through `__globals__`, as can be seen in @code:python-function-globals.
   print(bar.__globals__)
   # {'FOO': 'hello world', 'bar': <function bar at 0x7f4b144c9800>, ...}
   ```
-] <code:python-function-globals>
+] <code:python-function-globals>]
+#py_fn_globals
 
 This behaviour can be extremely useful for attackers when exploiting vulnerabilities
 in Python like @ssti.
@@ -437,7 +438,7 @@ In case of an attribute, it can be accessed statically through dot-notation,
 and dynamically through the built-in `getattr` and its writing counterpart
 `setattr`, as exemplified in @code:python-access-attributes.
 
-#figure(caption: [Statically and dynamically accessing attributes of Python objects])[
+#let py_attrs = [#figure(caption: [Statically and dynamically accessing attributes of Python objects])[
   ```py
   foo = Foo()
   # access attribute `bar` of `foo`
@@ -447,14 +448,15 @@ and dynamically through the built-in `getattr` and its writing counterpart
   # access attribute `bar` of `foo` as well
   getattr(foo, qux)
   ```
-] <code:python-access-attributes>
+] <code:python-access-attributes>]
+#py_attrs
 
 On the other hand, accessing items inside containers, both statically and
 dynamically, is accomplished with bracket notation, which is once again
 syntactic sugar for calling `__getitem__` or `__setitem__`, as shown in
 @code:python-access-items-containers.
 
-#figure(caption: [Accessing items inside containers, such as dictionaries and lists])[
+#let py_items = [#figure(caption: [Accessing items inside containers, such as dictionaries and lists])[
   ```py
   foo = {"bar": 123}
   qux = "bar"
@@ -464,7 +466,8 @@ syntactic sugar for calling `__getitem__` or `__setitem__`, as shown in
   foo[qux] # 123
   foo.__getitem__(qux) # 123
   ```
-] <code:python-access-items-containers>
+] <code:python-access-items-containers>]
+#py_items
 
 === Class Inheritance
 
