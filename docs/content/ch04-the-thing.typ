@@ -13,12 +13,13 @@ and explains the software implementation in @thing:impl.
 
 == Software Design <thing:design>
 
-#figure(
+#let classa_design = [#figure(
   [
-    #set text(size: 9pt)
+    #set text(size: 0.75em)
     #diagram(
-      spacing: (8mm, 10mm),
+      spacing: (2.5em, 3.15em),
       node-stroke: luma(80%),
+      node-inset: 0.67em,
       node((0, 0), [`dataset.toml` file], shape: shapes.ellipse),
       edge("-|>", label: [_for each project_]),
       (
@@ -40,7 +41,8 @@ and explains the software implementation in @thing:impl.
     )
   ],
   caption: [Analysis pipeline for each entry in the dataset using #TheTool],
-) <fg:tool-flowchart>
+) <fg:tool-flowchart>]
+#classa_design
 
 In order to analyse Python projects,
 #TheTool heavily relies on two external dependencies:

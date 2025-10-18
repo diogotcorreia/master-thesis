@@ -998,13 +998,14 @@ they specify sources and sinks,
 along with other more advanced directives.
 An example taint model can be found in @code:pysa-model-example.
 
-#figure(caption: [Example Pysa taint models that detect flows from `foo` to `bar`])[
+#let pysa_taint_models = [#figure(caption: [Example Pysa taint models that detect flows from `foo` to `bar`])[
   ```py
   def mymodule.foo() -> TaintSource[MySource]: ...
 
   def mymodule.bar(value: TaintSink[MySink]): ...
   ```
-] <code:pysa-model-example>
+] <code:pysa-model-example>]
+#pysa_taint_models
 
 In addition to `TaintSource` and `TaintSink`,
 Pysa has other directives that can be useful during analysis,

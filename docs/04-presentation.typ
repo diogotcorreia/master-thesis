@@ -2,7 +2,11 @@
 #import touying: *
 #import "./utils/slides-template.typ": *
 #import "./utils/constants.typ": TheTool
-#import "./content/ch02-background.typ": js_pp_gadget, js_pp_pollute, js_proto_chain, py_attrs, py_fn_globals, py_items
+#import "./utils/enum-references.typ": enum-label, wrapped-enum-numbering
+#import "./content/ch02-background.typ": (
+  js_pp_gadget, js_pp_pollute, js_proto_chain, py_attrs, py_fn_globals, py_items, pysa_taint_models,
+)
+#import "./content/ch04-the-thing.typ": classa_design
 #import "./content/ch05-results.typ": raw_data
 #import codly: codly, codly-init
 #import codly-languages: codly-languages
@@ -163,7 +167,7 @@
       layer: 1,
     ),
   ),
-) <fg:prototype-chain>
+)
 
 ---
 
@@ -227,21 +231,89 @@
 
 == Python Class Pollution
 
-- #lorem(6)
-- #lorem(7)
-- #lorem(8)
+=== Classic Example
+
+
+#figure(
+  caption: [Traversing attributes and `__globals__` to reach Flask's secret key],
+  diagram(
+    spacing: (15mm, 20mm),
+    node-stroke: luma(80%),
+    node-shape: rect,
+    node-inset: 0.5em,
+    node-corner-radius: 0.5em,
+    node((0, 0), `animal`),
+    pause,
+    edge("-|>", bend: 45deg, label: `getattr`),
+    node((1, 0), `myfunc`),
+    pause,
+    edge("-|>", bend: 45deg, label: `getattr`),
+    node((2, 0), `__globals__`),
+    pause,
+    edge("-|>", bend: 45deg, label: `__getitem__`),
+    node((1.5, 1), `app`),
+    pause,
+    edge("-|>", bend: 45deg, label: `getattr`),
+    node((0.5, 1), `secret_key`),
+  ),
+)
+
+---
+
+#figure(
+  caption: [Example function vulnerable to class pollution],
+  [
+    #set text(size: 0.8em)
+    #codly(
+      highlights: (
+        (line: 7, start: 19, end: 25, fill: green),
+        (line: 11, start: 9, end: 15, fill: purple),
+      ),
+    )
+    ```py
+    def setattr_recursive(obj, path, value):
+        parts = path.split(".")
+        for part in parts[:-1]:
+            if isinstance(obj, dict):
+                obj = obj[part]
+            else:
+                obj = getattr(obj, part)
+        if isinstance(obj, dict):
+            obj[parts[-1]] = value
+        else:
+            setattr(obj, parts[-1], value)
+
+    ```
+  ],
+)
 
 = Goals & Research#(sym.space.nobreak)Questions
 
 == Research Questions
 
-+ #lorem(10)
+#[
+  #set enum(numbering: wrapped-enum-numbering(
+    ref-numbering: (..nums) => [*RQ#numbering("1.1", ..nums)*],
+    (..nums) => [*RQ#numbering("1.1.", ..nums)*],
+  ))
+  + #enum-label("rq-causes-consequences")
+    What are the root causes and possible consequences of class pollution
+    in a Python application?
+  #pause
+
+  + #enum-label("rq-tool-design")
+    How to design and implement a tool that can efficiently and accurately
+    detect class pollution in Python?
+  #pause
+
+  + #enum-label("rq-widespread")
+    How prevalent and exploitable is class pollution in
+    real world Python projects?
+]
 
 // speaker notes:
 // - uncover how widespread class pollution is
 // - generate awareness and inspire future research
-
-// list research questions
 
 = Contributions & System#(sym.space.nobreak)Design
 
@@ -254,11 +326,22 @@
 
 == Pysa
 
-#lorem(10)
+- Security-focused Python taint analysis tool
+- Easy to configure models
+
+#pause
+
+#{
+  set text(size: 0.9em)
+  pysa_taint_models
+}
 
 == Classa
 
-#lorem(10)
+#{
+  set text(size: 0.9em)
+  classa_design
+}
 
 = Methodology & Results
 
