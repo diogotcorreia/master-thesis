@@ -36,10 +36,13 @@
 #show: university-theme.with(
   aspect-ratio: "16-9",
   config-common(
+    enable-frozen-states-and-counters: false,
     preamble: {
       pdfpc-config
       codly(languages: codly-languages, zebra-fill: none)
       register-glossary(acronyms)
+      // needs to exist so that acronyms work
+      print-glossary(acronyms, disable-back-references: true, show-all: true, invisible: true)
     },
     show-bibliography-as-footnote: bibliography(title: none, "./references.yml"),
   ),
@@ -65,9 +68,6 @@
 #{
   set text(size: 0.8em)
   components.adaptive-columns(outline(indent: 1em, depth: 1))
-
-  // needs to exist so that acronyms work
-  hide(print-glossary(acronyms, disable-back-references: true))
 }
 
 = Background & Root#(sym.space.nobreak)Causes
@@ -387,7 +387,6 @@
 
 ---
 
-=== Feature
 - #no_issues_projects.len()
   (#calc.round((no_issues_projects.len() / projects_success.len()) * 100, digits: 1)%)
   projects without issues
