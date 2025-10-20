@@ -1143,36 +1143,37 @@ through a variable, as shown in @code:deepdiff-get-nested-obj-var,
 Pysa failed to detect the exact code path that leads to class pollution
 in the Delta class.
 
-#figure(
+#let deepdiff_source_code(long: true) = [#figure(
   caption: [Part of the exploitable code path gets assigned to the
     `self.get_nested_obj` attribute, failing detection by Pysa],
   [
-    #set text(size: 9pt)
-    #codly.codly(
-      skips: ((5, 44), (6, 3), (7, 17), (10, 72)),
-      header: box(height: 6pt)[`deepdiff/delta.py`],
-      footer: [from @pypi package *deepdiff* at version 8.6.0],
-      offset: 17,
-      highlighted-lines: (164, 166),
-    )
-    ```py
-    from deepdiff.path import (
-        _path_to_elements, _get_nested_obj, _get_nested_obj_and_force,
-        GET, GETATTR, parse_path, stringify_path,
-    )
-    class Delta:
-        def __init__(
-            force: bool=False,
-            fill: Any=not_found,
-        ):
-            if force:
-                self.get_nested_obj = _get_nested_obj_and_force
-            else:
-                self.get_nested_obj = _get_nested_obj
+    #set text(size: 0.75em)
+    #if (long) [
+      #codly.codly(
+        skips: ((5, 44), (6, 3), (7, 17), (10, 72)),
+        header: box(height: 0.835em)[`deepdiff/delta.py`],
+        footer: [from @pypi package *deepdiff* at version 8.6.0],
+        offset: 17,
+        highlighted-lines: (164, 166),
+      )
+      ```py
+      from deepdiff.path import (
+          _path_to_elements, _get_nested_obj, _get_nested_obj_and_force,
+          GET, GETATTR, parse_path, stringify_path,
+      )
+      class Delta:
+          def __init__(
+              force: bool=False,
+              fill: Any=not_found,
+          ):
+              if force:
+                  self.get_nested_obj = _get_nested_obj_and_force
+              else:
+                  self.get_nested_obj = _get_nested_obj
 
-    ```
+      ```]
     #codly.codly(
-      header: box(height: 6pt)[`deepdiff/path.py`],
+      header: box(height: 0.835em)[`deepdiff/path.py`],
       footer: [from @pypi package *deepdiff* at version 8.6.0],
       offset: 117,
     )
@@ -1186,7 +1187,8 @@ in the Delta class.
         return obj
     ```
   ],
-) <code:deepdiff-get-nested-obj-var>
+) <code:deepdiff-get-nested-obj-var>]
+#deepdiff_source_code()
 
 This `get_nested_obj` function is called in various parts of the `Delta`
 class, and in certain cases, its return value is passed to the

@@ -203,11 +203,11 @@ For most applications, this change would not affect functionality and
 would prevent this vulnerability.
 An example implementation of this fix is presented in @code:cp-fix.
 
-#figure(
+#let mitigation_example = [#figure(
   caption: [Mitigating class pollution by forbidding dunder attributes
     during traversal],
   [
-    #set text(size: 9pt)
+    #set text(size: 0.75em)
     #codly.codly(highlighted-lines: (4, 5))
     ```py
     def setattr_recursive(obj: any, path: str, value: any) -> None:
@@ -219,7 +219,8 @@ An example implementation of this fix is presented in @code:cp-fix.
       setattr(module, path[-1], value)
     ```
   ],
-) <code:cp-fix>
+) <code:cp-fix>]
+#mitigation_example
 
 However, for certain libraries or applications, that mitigation might break
 functionality as it could be necessary to traverse through other,

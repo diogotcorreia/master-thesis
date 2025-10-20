@@ -9,9 +9,11 @@
 )
 #import "./content/ch04-the-thing.typ": classa_design
 #import "./content/ch05-results.typ": (
-  errors_table, features_graph, micro_bench_fail, no_issues_projects, project_results_graph, projects_elapsed_seconds,
-  projects_error, projects_success, raw_data, reasons_graph, type_i_error_rate,
+  deepdiff_issues, deepdiff_project, deepdiff_source_code, errors_table, features_graph, format_popularity,
+  micro_bench_fail, no_issues_projects, project_results_graph, projects_elapsed_seconds, projects_error,
+  projects_success, raw_data, reasons_graph, type_i_error_rate,
 )
+#import "./content/ch06-discussion.typ": mitigation_example
 #import glossarium: make-glossary, print-glossary, register-glossary
 
 #import codly: codly, codly-init
@@ -413,13 +415,83 @@
 
 == Case Study
 
-#lorem(10)
+=== DeepDiff
+
+- Manually audited: *deepdiff* v8.6.0
+  - #format_popularity(deepdiff_project.at("popularity")) downloads on @pypi
+  - 2.4k stars on GitHub
+  - 18k dependent repositories
+#pause
+
+- #TheTool detected #deepdiff_issues.len() _Vulnerable_ issue on *deepdiff*
+- Vulnerability in `Delta` module
+
+---
+
+=== Detected Class Pollution Source
+
+#deepdiff_source_code(long: false)
+
+---
+
+=== Impact
+
+How can this be used?
+
+#pause
+
+- Pollute `deepdiff.serialization.SAFE_TO_IMPORT` to allow usage of `posix.system`
+#pause
+- Use `Delta`'s pickle constructor to run arbitrary code (@rce)
+
+---
+
+=== Affected Applications
+
+#figure(
+  caption: [HTTP endpoint that accepts binary data, passed directly
+    into the `Delta` class],
+  [
+    #set text(size: 0.85em)
+    #set text(size: 0.75em)
+    #codly(
+      skips: ((7, 4), (9, 66)),
+      header: box(height: 0.835em)[`src/lsst/cmservice/routers/v2/manifests.py`],
+      footer: [from GitHub repository *lsst-dm/cm-service* at revision f551e2b],
+      offset: 185,
+      highlighted-lines: (264,),
+    )
+    ```py
+    @router.patch(
+        "/{manifest_name_or_id}",
+        summary="Update manifest detail",
+        status_code=202,
+    )
+    async def update_manifest_resource(
+        patch_data: Annotated[bytes, Body()] | Sequence[JSONPatch],
+    ) -> Manifest:
+            new_manifest["spec"] += Delta(patch_data)
+    ```
+  ],
+)
+
+---
+
+=== CVE
+
+#figure(
+  caption: [Security advisory for *deepdiff* as a result of the findings of #TheTool],
+  image("./assets/cve.svg", width: 30cm),
+)
+
 
 = Discussion & Future#(sym.space.nobreak)Work
 
 == Mitigations
 
-- #lorem(10)
+- Prevent traversal through dunder attributes
+
+#mitigation_example
 
 == Limitations
 
@@ -430,7 +502,7 @@
 === Shortcomings
 
 - Complex traversals (e.g., through functions)
-- Requires presence of `setattr` // TODO show example code block
+- Requires presence of `setattr`
 
 == Future Work
 
@@ -444,6 +516,6 @@
 
 - Dangerous consequences
 - Exploitable in real-world scenarios (*#cve("CVE-2025-58367")*)
-- Not widespread
+- Uncommon vulnerability
 
 #title-slide()
