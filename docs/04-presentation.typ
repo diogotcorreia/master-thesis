@@ -38,7 +38,10 @@
 #show: university-theme.with(
   aspect-ratio: "16-9",
   config-common(
-    enable-frozen-states-and-counters: false,
+    // This would fix non-convergence, but they counters are wrong
+    // enable-frozen-states-and-counters: false,
+
+    // handout: true,
     preamble: {
       pdfpc-config
       codly(languages: codly-languages, zebra-fill: none)
@@ -47,6 +50,10 @@
       print-glossary(acronyms, disable-back-references: true, show-all: true, invisible: true)
     },
     show-bibliography-as-footnote: bibliography(title: none, "./references.yml"),
+
+    frozen-counters: (
+      counter(figure.where(kind: raw)),
+    ),
   ),
   config-info(
     title: [#TheTool: Uncovering Class Pollution in Python],
@@ -323,7 +330,7 @@
 
   + #enum-label("rq-widespread")
     How prevalent and exploitable is class pollution in
-    real world Python projects?
+    real-world Python projects?
 ]
 
 // speaker notes:
@@ -365,7 +372,6 @@
 - Micro Benchmarking
 - Empirical Study
 - Case Study
-- Tool Tweaks?
 
 == Micro Benchmarking
 
