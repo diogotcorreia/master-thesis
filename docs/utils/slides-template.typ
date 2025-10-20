@@ -446,6 +446,7 @@
     config-common(
       slide-fn: slide,
       new-section-slide-fn: new-section-slide,
+      show-strong-with-alert: false,
     ),
     config-methods(
       init: (self: none, body) => {

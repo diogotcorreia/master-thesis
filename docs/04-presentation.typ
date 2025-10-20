@@ -1,13 +1,19 @@
-#import "./utils/global-imports.typ": codly, codly-languages, cve, fletcher, touying
+#import "./utils/global-imports.typ": codly, codly-languages, cve, fletcher, glossarium, touying
 #import touying: *
 #import "./utils/slides-template.typ": *
 #import "./utils/constants.typ": TheTool
 #import "./utils/enum-references.typ": enum-label, wrapped-enum-numbering
+#import "./utils/acronyms.typ": acronyms
 #import "./content/ch02-background.typ": (
   js_pp_gadget, js_pp_pollute, js_proto_chain, py_attrs, py_fn_globals, py_items, pysa_taint_models,
 )
 #import "./content/ch04-the-thing.typ": classa_design
-#import "./content/ch05-results.typ": raw_data
+#import "./content/ch05-results.typ": (
+  errors_table, features_graph, micro_bench_fail, no_issues_projects, project_results_graph, projects_elapsed_seconds,
+  projects_error, projects_success, raw_data, reasons_graph, type_i_error_rate,
+)
+#import glossarium: make-glossary, print-glossary, register-glossary
+
 #import codly: codly, codly-init
 #import codly-languages: codly-languages
 #import fletcher: edge, node
@@ -15,6 +21,9 @@
 #let diagram = touying-reducer.with(reduce: fletcher.diagram, cover: fletcher.hide)
 
 #show: codly-init
+#show: make-glossary.with(always-long: false)
+
+#let cve = it => alert(cve(it))
 
 // typst query --root . ./04-presentation.typ --field value --one "<pdfpc-file>" > ./04-presentation.pdfpc
 #let pdfpc-config = pdfpc.config(
@@ -30,6 +39,7 @@
     preamble: {
       pdfpc-config
       codly(languages: codly-languages, zebra-fill: none)
+      register-glossary(acronyms)
     },
     show-bibliography-as-footnote: bibliography(title: none, "./references.yml"),
   ),
@@ -55,6 +65,9 @@
 #{
   set text(size: 0.8em)
   components.adaptive-columns(outline(indent: 1em, depth: 1))
+
+  // needs to exist so that acronyms work
+  hide(print-glossary(acronyms, disable-back-references: true))
 }
 
 = Background & Root#(sym.space.nobreak)Causes
@@ -124,7 +137,7 @@
 
 #v(3em)
 
-#align(center, text(size: 1.3em)[*Valuable target for attackers!*])
+#align(center, alert(text(size: 1.3em)[*Valuable target for attackers!*]))
 
 == Python Language Fundamentals
 
@@ -354,11 +367,50 @@
 
 == Micro Benchmarking
 
-#lorem(10)
+- 5 synthetic benchmarks
+  - 3 known-vulnerable, 2 known-not-vulnerable
+- 5 known-vulnerable real-world projects
+
+#pause
+
+#micro_bench_fail
+
 
 == Empirical Study
 
-#lorem(10)
+- 3000 popular real-world projects (GitHub, PyPI)
+- Median runtime of #projects_elapsed_seconds.median seconds (successful projects)
+#pause
+- #projects_error.len() projects failed analysis
+
+#errors_table
+
+---
+
+=== Feature
+- #no_issues_projects.len()
+  (#calc.round((no_issues_projects.len() / projects_success.len()) * 100, digits: 1)%)
+  projects without issues
+- False positive rate of #type_i_error_rate% (projects)
+
+#{
+  set text(size: 0.6em)
+  project_results_graph(width: 18cm, height: 8cm)
+}
+
+---
+
+#{
+  set text(size: 0.65em)
+  features_graph(width: 18cm, height: 10cm)
+}
+
+---
+
+#{
+  set text(size: 0.65em)
+  reasons_graph(width: 18cm, height: 10cm)
+}
 
 == Case Study
 

@@ -249,12 +249,12 @@ having failed to properly identify when the attribute
 passed to `getattr` is a static string.
 The relevant code of the failing test can be seen in @code:test-static-attr.
 
-#figure(
+#let micro_bench_fail = [#figure(
   caption: [Failing test, where #TheTool fails to detect a static string in the attribute parameter of `getattr`],
   [
-    #set text(size: 9pt)
+    #set text(size: 0.75em)
     #codly.codly(
-      header: box(height: 6pt)[`detection-benchmarks/negative/001-static-strings-to-getattr-setattr/main.py`],
+      header: box(height: 0.835em)[`detection-benchmarks/negative/001-static-strings-to-getattr-setattr/main.py`],
       offset: 11,
       highlighted-lines: (13,),
     )
@@ -264,7 +264,8 @@ The relevant code of the failing test can be seen in @code:test-static-attr.
     setattr(bar, text2, text3)
     ```
   ],
-) <code:test-static-attr>
+) <code:test-static-attr>]
+#micro_bench_fail
 
 #figure(caption: [Confusion matrix for each test in the artificial benchmark])[
   #show table.cell.where(x: 0): strong
@@ -504,15 +505,16 @@ and, as such, these projects were excluded from the remaining results below.
 discriminated by platform.
 
 #assert.eq(error_reason_dist.len(), 3, message: "missing error reason in table")
-#figure(caption: [Number of projects that failed being analysed for a given reason,
+#let errors_table = [#figure(caption: [Number of projects that failed being analysed for a given reason,
   by platform])[
   #show table.cell.where(x: 0): strong
   #show table.cell.where(y: 0): strong
 
   #table(
     columns: 4,
+    inset: 0.417em,
     stroke: (x, y) => if y == 0 {
-      (bottom: 0.7pt + black)
+      (bottom: 0.06em + black)
     },
     align: (x, y) => (
       if x > 0 { center } else { right }
@@ -544,7 +546,8 @@ discriminated by platform.
       (#calc.round((projects_error.len() / data_filtered.len()) * 100, digits: 1)%)
     ],
   )
-] <tbl:error-reason>
+] <tbl:error-reason>]
+#errors_table
 
 #let type_i_error_rate = calc.round((not_vulnerable_projects.len() / has_issues_projects.len()) * 100, digits: 1)
 
@@ -560,7 +563,7 @@ being vulnerable in contrast with #vulnerable_gh_projects.len() GitHub projects.
 From a projects perspective, this means there is a Type-I error (false positive) rate of
 #type_i_error_rate%.
 
-#figure(
+#let project_results_graph(width: 10cm, height: 5cm) = [#figure(
   caption: [Visualisation of how many projects have been found to possibly
     contain a class pollution vulnerability, discriminated by platform],
 )[
@@ -578,8 +581,8 @@ From a projects perspective, this means there is a Type-I error (false positive)
   )
 
   #lq.diagram(
-    width: 10cm,
-    height: 5cm,
+    width: width,
+    height: height,
     legend: (position: left + top),
     ylabel: [Number of Projects],
     margin: (top: 10%),
@@ -617,7 +620,8 @@ From a projects perspective, this means there is a Type-I error (false positive)
         lq.place(x + 0.2, y, pad(0.2em, [#y]), align: bottom)
       }),
   )
-] <fg:projects-issue>
+] <fg:projects-issue>]
+#project_results_graph()
 
 Across all projects, there were a total of #all_issues.len() issues reported by
 #TheTool, which filtered out most of the #pyre_issue_count issues directly reported
@@ -750,7 +754,7 @@ _Additional Constraints_ that prevents them from being exploitable, such
 as requiring certain fields to exist in the target object, or that the
 target object extend a certain class.
 
-#figure(
+#let features_graph(width: 10cm, height: 7cm) = [#figure(
   caption: [Visualisation of the features of the issues deemed vulnerable,
     discriminated by platform of the respective project],
 )[
@@ -769,8 +773,8 @@ target object extend a certain class.
   #let y_gh = range(all_features.len())
 
   #lq.diagram(
-    width: 10cm,
-    height: 7cm,
+    width: width,
+    height: height,
     legend: (position: right + horizon, dy: -1em),
     margin: (right: 10%),
     xlabel: [Number of Issues],
@@ -808,7 +812,8 @@ target object extend a certain class.
         lq.place(x, y + 0.2, pad(0.2em, [#x]), align: left)
       }),
   )
-] <fg:vuln-issue-features>
+] <fg:vuln-issue-features>]
+#features_graph()
 
 #show <code:vulnerable-labels>: set block(breakable: true)
 #subpar.super(
@@ -1019,7 +1024,7 @@ criteria.
 These issues required all traversed objects to be of a certain class or to
 contain a certain method, which would be unfeasible for class pollution.
 
-#figure(
+#let reasons_graph(width: 10cm, height: 5.5cm) = [#figure(
   caption: [Visualisation of the reasons why issues were deemed not vulnerable,
     discriminated by platform of the respective project],
 )[
@@ -1036,8 +1041,8 @@ contain a certain method, which would be unfeasible for class pollution.
   #let y_gh = range(all_features.len())
 
   #lq.diagram(
-    width: 10cm,
-    height: 5.5cm,
+    width: width,
+    height: height,
     legend: (position: right + bottom),
     margin: (right: 10%),
     xlabel: [Number of Issues],
@@ -1075,7 +1080,8 @@ contain a certain method, which would be unfeasible for class pollution.
         lq.place(x, y + 0.2, pad(0.2em, [#x]), align: left)
       }),
   )
-] <fg:not-vuln-issue-reasons>
+] <fg:not-vuln-issue-reasons>]
+#reasons_graph()
 
 // TODO code examples for non-vulnerable reasons (?)
 
