@@ -10,8 +10,8 @@
 #import "./content/ch04-the-thing.typ": classa_design
 #import "./content/ch05-results.typ": (
   deepdiff_issues, deepdiff_project, deepdiff_source_code, errors_table, features_graph, format_popularity,
-  micro_bench_fail, no_issues_projects, project_results_graph, projects_elapsed_seconds, projects_error,
-  projects_success, raw_data, reasons_graph, type_i_error_rate,
+  has_issues_projects, micro_bench_fail, no_issues_projects, project_results_graph, projects_elapsed_seconds,
+  projects_error, projects_success, raw_data, reasons_graph, type_i_error_rate, vulnerable_projects,
 )
 #import "./content/ch06-discussion.typ": mitigation_example
 #import glossarium: make-glossary, print-glossary, register-glossary
@@ -100,6 +100,8 @@
 }
 
 ---
+
+=== Exploitation
 
 #components.side-by-side()[
   *Pollution*
@@ -220,29 +222,29 @@
   py_fn_globals
 }
 
----
-
-=== Object Attributes
-
-#py_attrs
 
 ---
 
-=== Item Containers
-
-#py_items
-
----
 
 #components.side-by-side()[
-  *Object Attributes*
+  === Object Attributes
 
   - Used in classes and objects
   - Accessed statically through the dot notation
   - Getter: `getattr`
   - Setter: `setattr`
 ][
-  *Item Containers*
+  #py_attrs
+]
+
+---
+
+#components.side-by-side()[
+  #codly(display-name: false)
+  #py_items
+  #codly(display-name: true)
+][
+  === Container Items
 
   - Used in dictionaries, lists, tuples, etc.
   - Accessed through square bracket notation
@@ -254,7 +256,6 @@
 == Python Class Pollution
 
 === Classic Example
-
 
 #figure(
   caption: [Traversing attributes and `__globals__` to reach Flask's secret key],
@@ -314,20 +315,21 @@
 == Research Questions
 
 #[
-  #set enum(numbering: wrapped-enum-numbering(
-    ref-numbering: (..nums) => [*RQ#numbering("1.1", ..nums)*],
-    (..nums) => [*RQ#numbering("1.1.", ..nums)*],
-  ))
+  #set enum(
+    numbering: wrapped-enum-numbering(
+      ref-numbering: (..nums) => [*RQ#numbering("1.1", ..nums)*],
+      (..nums) => box(width: 2.3em)[*RQ#numbering("1.1.", ..nums)*],
+    ),
+    number-align: start + top,
+  )
   + #enum-label("rq-causes-consequences")
     What are the root causes and possible consequences of class pollution
     in a Python application?
-  #pause
-
+    #pause
   + #enum-label("rq-tool-design")
     How to design and implement a tool that can efficiently and accurately
     detect class pollution in Python?
-  #pause
-
+    #pause
   + #enum-label("rq-widespread")
     How prevalent and exploitable is class pollution in
     real-world Python projects?
@@ -497,7 +499,10 @@ How can this be used?
 
 - Prevent traversal through dunder attributes
 
-#mitigation_example
+#{
+  set text(0.96em)
+  mitigation_example
+}
 
 == Limitations
 
