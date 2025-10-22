@@ -101,7 +101,7 @@ This project's primary objective is to
 uncover how widespread Python class pollution is
 and to empower developers with tooling to detect vulnerable code.
 
-Furthermore, this project also aims to generate awareness for class pollution
+Furthermore, this project also aims to raise awareness for class pollution
 amongst the Python developer community.
 As previously stated, there has not been previous substantial research on this topic,
 and therefore

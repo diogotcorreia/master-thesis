@@ -476,21 +476,22 @@
 #pause
 
 #{
-  set text(size: 0.9em)
+  set text(size: 0.87em)
+  codly(display-name: false)
   figure(caption: [Simplified Pysa taint models that detect flows from `getattr` to `setattr`])[
     ```py
-    def getattr() -> TaintSource[GetAttrSource]: ...
+    def getattr(obj, key) -> TaintSource[GetAttrSource]: ...
 
-    def setattr(value: TaintSink[SetAttrSink]): ...
+    def setattr(obj: TaintSink[SetAttrSink], key, value): ...
     ```
   ]
+  codly(display-name: true)
 }
 
 #speaker-note[
   - let's now look at the design and implementation of Classa
   - under the hood, Classa uses Pysa, a `<read slides>`
   - its models can be configured using a python-like syntax
-  // TODO: change the code to actually use getattr/setattr?
   - in this example, we can see a pattern that resembles code vulnerable to class pollution,
     where the return value of one function flows into the argument of another
 ]
@@ -610,7 +611,7 @@
 
 ---
 
-=== Detected Class Pollution Source
+=== Class Pollution Source
 
 #{
   codly(highlighted-lines: (121, 123))

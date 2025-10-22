@@ -39,7 +39,7 @@ but it can severely affect production code.
 
 As a final note,
 the results of the accompanying literature review and this thesis as a whole
-will hopefully generate awareness for
+will hopefully raise awareness for
 developers to be careful when using the `getattr`/`setattr` constructs,
 and for researchers to further investigate this topic,
 particularly ways to detect and prevent class pollution in Python.
