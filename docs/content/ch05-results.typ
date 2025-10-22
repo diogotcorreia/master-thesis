@@ -754,18 +754,19 @@ _Additional Constraints_ that prevents them from being exploitable, such
 as requiring certain fields to exist in the target object, or that the
 target object extend a certain class.
 
-#let features_graph(width: 10cm, height: 7cm) = [#figure(
+#let features_graph(width: 10cm, height: 7cm, annotate: false) = [#figure(
   caption: [Visualisation of the features of the issues deemed vulnerable,
     discriminated by platform of the respective project],
 )[
+  #let show_cond(content) = if annotate { content } else []
   #let all_features = (
     "AdditionalConstraints": [Additional Constraints],
     "ValueNotControlled": [Value Not Controlled],
     "NeedsExisting": [Needs Existing],
     "AdditionalBenefits": [Additional Benefits],
-    "SupportsSetItem": [Supports `__setitem__`],
+    "SupportsSetItem": [#show_cond(strong(text([#sym.arrow.long ], fill: red)))Supports `__setitem__`],
     "ListTupleAccess": [List/Tuple Access],
-    "DictAccess": [Dict Access],
+    "DictAccess": [#show_cond(strong(text([#sym.arrow.long ], fill: red)))Dict Access],
   )
   #let x_pypi = all_features.keys().map(feat => vulnerable_pypi_issues_features.at(feat, default: 0))
   #let y_pypi = range(all_features.len())
