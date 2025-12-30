@@ -74,7 +74,7 @@ dataset file and performing actions for each project described in it:
   requirement files are searched to compile a list of all dependencies
   that are saved to a lock file,
   and then uv is used to install them;
-- Then, the Pysa configuration files are setup in the analysis directory,
+- Then, the Pysa configuration files are set up in the analysis directory,
   and Pysa begins running;
 - Lastly, once taint analysis is done,
   the results from Pysa are read,
@@ -95,7 +95,7 @@ a single `summary.json` file,
 which stores a high-level view of the issues found.
 
 Further information on how each of these stages is implemented
-can be found on @thing:impl.
+can be found in @thing:impl.
 
 === Dependencies
 
@@ -185,7 +185,7 @@ and reproducible development environment,
 simplifying the setup of an otherwise complex set of dependencies.
 
 While the Nix setup is not the centrepiece of this project, it is still
-nonetheless important for ensuring the reproducibility of the
+nonetheless relevant for ensuring the reproducibility of the
 results.
 Due to its build sandbox and pinned inputs, using Nix ensures the
 environment is the same regardless of the underlying Linux distribution,
@@ -206,11 +206,11 @@ to be analysed.
 This TOML file contains information for each project,
 such as a unique identifier,
 information for downloading the source code,
-and some metadata such as number of GitHub stars or download count.
-In case of @pypi projects, the source information contains the package
+and some metadata, such as the number of GitHub stars or the download count.
+In the case of @pypi projects, the source information contains the package
 name, the version, an archive name,
 and a direct download URL for the respective archive.
-On the other hand, for GitHub projects, the owner and repository name
+On the other hand, for GitHub projects, the owner, and repository name
 are stored, along with a commit revision hash to use.
 
 To facilitate this, some Python scripts have been developed to automatically
@@ -267,7 +267,7 @@ with less than the star amount of the last repository in the previous query.
 All requests made to the GitHub API respect the rate-limit and appropriately
 suspend execution if it is exceeded, with safeguards in place to kill the process
 in case this logic fails.
-Additionally, all responses are cached to reduce the amount of requests needed.
+Additionally, all responses are cached to reduce the number of requests needed.
 
 Then, this list is passed to a separate script that fetches the latest revision
 of the default branch returned by the GitHub API for each repository.
@@ -289,7 +289,7 @@ picking 1500 from each platform.
 This script has two main roles: performing the random sampling, and writing
 the final `dataset.toml` file in the format expected by #TheTool.
 The sampling is done via Python's `random.sample` function,
-ran for each cohort,
+run for each cohort,
 as defined previously in @method:sample-size.
 Then, for each project,
 the script generates a unique identifier,
@@ -380,7 +380,7 @@ Fortunately, reading the source code for sapp helped with parsing
 the relevant data, and #TheTool is able to accurately reconstruct
 the appropriate traces.
 
-To reduce the amount of false positives, issues that are labeled
+To reduce the number of false positives, issues that are labeled
 by Pysa with features `tito-broadening` or `obstruct:model` are discarded.
 The former means that taint collapsing occurred on a taint-in-taint-out
 function, while the latter indicates that Pysa could not fully analyse
@@ -407,7 +407,7 @@ a JSON report for each project, which includes some information
 from the dataset, such as name, source, and popularity,
 coupled with the respective analysis results, namely
 the issues found,
-errors if any,
+errors (if any),
 the duration of the analysis,
 raw issue count from Pysa before filtering,
 and a list of installed dependencies (if any).

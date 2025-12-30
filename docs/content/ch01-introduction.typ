@@ -7,7 +7,7 @@
 Cybersecurity has increasingly become a preeminent concern for developers, users,
 and even regulators,
 in part due to the rise in major threats
-from malicious actors to the infrastructure supports our everyday life.
+from malicious actors to the infrastructure that supports our everyday life.
 This is evidenced by recent cyberattacks
 such as Equifax's data breach,
 which exposed sensitive data of many US consumers,
@@ -66,8 +66,8 @@ Python applications.
 
 As with similar code reuse vectors, class pollution can
 potentially facilitate attacks such as Authorization Bypass, @dos, @rce, and/or @ssti.
-For this reason, it is paramount to better understand what is the true
-impact and prevalence of this vulnerability class,
+For this reason, it is paramount to better understand what the true
+impact and prevalence of this vulnerability class are,
 as well as what possible countermeasures can prove to be effective mitigations.
 
 == Research Questions <intro:rq>
@@ -131,7 +131,7 @@ time frame, following standard disclosure procedures.
 
 Additionally, while this tool could be used maliciously to detect class pollution
 in unpatched projects, the benefits for developers far outweigh the drawbacks in
-regards to exploitability, as the vulnerability can be quickly identified and
+regard to exploitability, as the vulnerability can be quickly identified and
 fixed.
 
 Moreover, while this project is not directly related to sustainability,
@@ -165,7 +165,7 @@ to detect class pollution in Python projects.
 Lastly, in relation to @rq-widespread[],
 an empirical study
 assessing the prevalence of class pollution
-has been conducted over 3000 popular Python packages,
+has been conducted on 3000 popular Python packages,
 resulting in the responsible disclosure of a critical severity vulnerability,
 tracked by #cve("CVE-2025-58367").
 

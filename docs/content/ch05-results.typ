@@ -198,7 +198,7 @@
 = Evaluation <results>
 
 As part of @rq-tool-design[] and @rq-widespread[], this degree project aims
-to evaluate #TheTool's performance in regards to its accuracy at
+to evaluate #TheTool's performance in regard to its accuracy at
 detecting class pollution.
 #TheTool is first tested against a small set of handcrafted benchmarks,
 as per @results:micro-benchmarks, and then executed on a dataset
@@ -218,7 +218,7 @@ and only the taint features mentioned in @thing:cli were taken into
 account during post processing, including `via:customgetattr`.
 The results for each variant of the design,
 along with some reasoning on why they were or were not implemented,
-is outlined in @results:tweaks.
+are outlined in @results:tweaks.
 
 == Micro Benchmarking <results:micro-benchmarks>
 
@@ -293,7 +293,7 @@ The relevant code of the failing test can be seen in @code:test-static-attr.
 
 In addition to the artificial benchmarks described above,
 #TheTool has also been tested against 5 projects known to be or
-have been vulnerable,
+to have been vulnerable,
 listed in @tbl:vuln-projects.
 
 #figure(caption: [List of open-source projects known-vulnerable to class pollution])[
@@ -319,7 +319,7 @@ listed in @tbl:vuln-projects.
 #let issues_tp = filter_list(all_vuln_issues, by_is_issue_vulnerable)
 #let issues_fp = filter_list(all_vuln_issues, by_is_issue_vulnerable, inv: true)
 
-#TheTool successfully identified the vulnerabilities in all of the projects,
+#TheTool successfully identified the vulnerabilities in all the projects,
 without raising any false positives.
 For two of the projects, however,
 it raised two issues for the vulnerable code due to
@@ -445,7 +445,7 @@ to #format_popularity(pypi_popularity.max) downloads, with a median of
 For GitHub packages, the star count ranges from #format_popularity(gh_popularity.min)
 to #format_popularity(gh_popularity.max) stars, with a median of
 #format_popularity(gh_popularity.median) stars.
-The distribution for each platform can be visualised on @fg:popularity-distribution.
+The distribution for each platform can be visualised in @fg:popularity-distribution.
 
 Additionally, it is worth noting that none of the vulnerable projects
 tested in the micro benchmarks from @results:micro-benchmarks
@@ -560,7 +560,7 @@ only #vulnerable_projects.len() have at least one issue that was deemed vulnerab
 As can be seen by @fg:projects-issue, the amount of vulnerable projects varies
 slightly by platform, with only #vulnerable_pypi_projects.len() @pypi projects
 being vulnerable in contrast with #vulnerable_gh_projects.len() GitHub projects.
-From a projects perspective, this means there is a Type-I error (false positive) rate of
+From a projects' perspective, this means there is a Type-I error (false positive) rate of
 #type_i_error_rate%.
 
 #let project_results_graph(width: 10cm, height: 5cm) = [#figure(
@@ -626,17 +626,17 @@ From a projects perspective, this means there is a Type-I error (false positive)
 Across all projects, there were a total of #all_issues.len() issues reported by
 #TheTool, which filtered out most of the #pyre_issue_count issues directly reported
 by Pysa.
-These #all_issues.len() issues were then manually labeled into _Vulnerable_ or
+These #all_issues.len() issues were then manually labeled as _Vulnerable_ or
 _Not Vulnerable_, along with a feature list for the former and a reason list
 for the latter.
 Both of these lists were also manually assigned during the labeling stage.
 Only #vulnerable_issues.len() issues have been labeled as _Vulnerable_,
 resulting in a Type-I error (false positive) rate of
 #calc.round((not_vulnerable_issues.len() / all_issues.len()) * 100, digits: 1)%,
-from an issues perspective.
-However, it is important to highlight that, in some of the projects, there were
+from an issues' perspective.
+However, it is important to highlight that, in some projects, there were
 many issues for the same or similar source/sink combinations, which inflates the
-number of issues, particularly when it comes for false positives.
+number of issues, particularly when it comes to false positives.
 No grouping was applied when the source/sink was the same, since the code path
 between the two was usually different, which sometimes resulted in different
 labeling.
@@ -707,7 +707,7 @@ of an issue being exploitable, while three of them are deemed negative.
 All vulnerable issues were assumed to have `getattr` access and `setattr` support,
 since that is what the taint models in use by #TheTool were looking for,
 and therefore those were not included as features.
-The feature distribution can be visualised on @fg:vuln-issue-features, keeping in mind
+The feature distribution can be visualised in @fg:vuln-issue-features, keeping in mind
 that an issue can have zero or more features.
 Additionally, example code for each feature, taken from the obtained results,
 can be seen in @code:vulnerable-labels.
@@ -734,7 +734,7 @@ the most powerful combinations when it comes to exploitability.
   message: "AdditionalBenefits is not 1 anymore",
 )
 Finally, a single issue has _Additional Benefits_, because it starts by traversing
-the globals of the current context, instead of on a local object.
+the globals of the current context, instead of a local object.
 However, the respective code is only used in a testing context with static
 paths, and is therefore not exploitable.
 
@@ -750,7 +750,7 @@ been labeled with _Value Not Controlled_, as the value being set is not
 controlled by an attacker (e.g., it is hardcoded to a specific value),
 despite the path still being controllable.
 Finally, #vulnerable_issues_features.at("AdditionalConstraints") have
-_Additional Constraints_ that prevents them from being exploitable, such
+_Additional Constraints_ that prevent them from being exploitable, such
 as requiring certain fields to exist in the target object, or that the
 target object extend a certain class.
 
@@ -998,7 +998,7 @@ target object extend a certain class.
   kind: raw,
 )
 
-With regards to the _Not Vulnerable_ issues, there were many reasons for them
+With regard to the _Not Vulnerable_ issues, there were many reasons for them
 to be deemed not vulnerable, as shown in @fg:not-vuln-issue-reasons.
 During manual labeling,
 an issue can be assigned one or more reasons for not being considered vulnerable,
@@ -1087,8 +1087,8 @@ contain a certain method, which would be unfeasible for class pollution.
 // TODO code examples for non-vulnerable reasons (?)
 
 To sum up, #TheTool successfully detected various vulnerable projects, and a very small
-number of them show high chance of exploitation.
-However, there was also a large number of false positives, which slows down detection
+number of them show a high chance of exploitation.
+However, there was also a large number of false positives, which slowed down detection
 due to the manual labor required to filter them out.
 
 == Case Study: Vulnerable Library <results:case-study>
@@ -1132,7 +1132,7 @@ according to GitHub statistics @deepdiff-dependents.
 #TheTool detected a single issue on *deepdiff*,
 which was deemed _Vulnerable_ during manual labeling.
 This issue pointed to the `_get_nested_obj_and_force` function in `path.py`,
-which despite not allowing an attacker to control the value to pollute with,
+which, despite not allowing an attacker to control the value to pollute with,
 is susceptible to class pollution.
 However, upon manual inspection,
 this function was also part of a greater exploit chain
@@ -1409,7 +1409,7 @@ it becomes possible to exploit the pickle deserialiser to
 gain @rce in the system running the Python application @pickle-rce.
 Given that `Delta` also accepts input as a `bytes` object, which
 it then unpickles, it is possible to serialise a malicious class
-as `bytes` and the pass it to `Delta`, as shown in @code:deepdiff-rce.
+as `bytes` and then pass it to `Delta`, as shown in @code:deepdiff-rce.
 
 #figure(
   caption: [Using pickle to achieve #gls-shrt("rce"), bypassing protections
@@ -1454,7 +1454,7 @@ as it allowed user input to flow into the `Delta` class.
 *cm-service* is a Python web service, built and used by the
 Rubin Observatory#footnote(link("https://rubinobservatory.org/"))
 for campaign management.
-It uses FastAPI, a modern web framework to build APIs with Python.
+It uses FastAPI, a modern web framework, to build APIs with Python.
 
 One of the endpoints, `PATCH /cm-service/v2/manifests/{name}`, accepts
 binary data as POST data, which then flows directly into
@@ -1504,7 +1504,7 @@ However, since `Delta` allows unpickling the aforementioned allow listed
 classes, it is possible to first assign one of those classes, and then
 use it to traverse to the `SAFE_TO_IMPORT` gadget.
 One of the available classes is `deepdiff.helper.Opcode`, defined in the
-`helper.py` file which helpfully imports the `sys` module.
+`helper.py` file, which helpfully imports the `sys` module.
 A particularity of the `sys` module is that it has a `modules`
 dictionary that contains a reference to every module already loaded by the
 application, allowing easy traversal to `deepdiff.serialization`.
@@ -1739,7 +1739,7 @@ If this method is adequate for discarding issues,
 it is expected that all issues that were deemed vulnerable
 and those deemed not vulnerable for reasons other than _Not Recursive_
 would be kept.
-Furthermore, it is also expected that all or most of issues deemed
+Furthermore, it is also expected that all or most of the issues deemed
 not vulnerable for being _Not Recursive_ would be excluded.
 
 As can be seen from the results in @fg:getattr-count-diff,

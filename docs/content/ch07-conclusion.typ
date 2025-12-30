@@ -28,7 +28,7 @@ it is possible for it to go unnoticed in many projects.
 Also, its results provide a list of potentially vulnerable projects
 that can serve as a stepping stone for future work.
 
-Additionally, a case study has been conducted in one vulnerable project,
+Additionally, a case study has been conducted on one vulnerable project,
 showing how it was detected by #TheTool,
 and how to approach its potentially vulnerable code
 in order to build a successful exploit.

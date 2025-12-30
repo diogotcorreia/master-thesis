@@ -14,7 +14,7 @@ pollution.
 For this reason, this chapter goes over similar vulnerabilities in other languages instead,
 such as prototype pollution in JavaScript (@bg:js-pp) and object injection in PHP (@bg:php-oi).
 
-Then, internal structures and behaviour of the Python language and interpreter are explored
+Then, the internal structures and behaviour of the Python language and interpreter are explored
 in @bg:python, along with the results of the literature review in @bg:lit-review,
 in order to provide context for the rest of this project, where the techniques
 used in the aforementioned languages will be applied to Python,
@@ -182,7 +182,7 @@ iterate over that property as well.
 As already mentioned, extensive research has been conducted on the topic of JavaScript prototype
 pollution, including in both server-side and client-side JavaScript.
 For instance, #cite(<ghunter>, form: "prose") and #cite(<silent-spring>, form: "prose")
-have identified various universal gadgets in NodeJS (a server-side JavaScript runtime) which
+have identified various universal gadgets in NodeJS (a server-side JavaScript runtime) that
 when combined with prototype pollution can result in @rce, @ssrf,
 privilege escalation, path traversal, and more.
 These are called universal gadgets since they rely on built-in modules in NodeJS instead of
@@ -280,7 +280,7 @@ Some high-profile open-source programs that extensively use Python are
 #link("https://github.com/home-assistant/core")[Home Assistant],
 #link("https://github.com/element-hq/synapse")[Matrix Synapse],
 and
-#link("https://github.com/ansible/ansible")[ansible],
+#link("https://github.com/ansible/ansible")[Ansible],
 along with many companies such as Netflix @python-at-netflix,
 Google @python-at-google,
 and Reddit @reddit-written-in
@@ -310,7 +310,7 @@ and function arguments,
 but those are not checked at runtime and are only used for static analysis.
 
 There are a few built-in types in the language,
-including primitives such as integers, strings, booleans,
+including primitives such as integers, strings, and booleans,
 but also more complex types such as lists, dictionaries, and functions.
 Internally, all of these types extend the `object` type,
 either directly or indirectly.
@@ -323,7 +323,7 @@ The constructor of a class is called `__init__`,
 and can be customised to accept additional parameters.
 
 @code:python-101 shows a simple Python program
-which demonstrates how to use the just-described languages constructs.
+which demonstrates how to use the just-described language constructs.
 In particular, it declares a class `Car` with a constructor that
 takes seat count and color,
 along with a function that compares two cars.
@@ -401,7 +401,7 @@ such as converting an object to a string (`__str__()`), subclass initialisation
 (`__init__subclass__()`), listing names of the object's scope (`__dir__()`),
 and much more.
 
-Additionally, some of the dunder methods and properties can be used to traverse
+Additionally, some dunder methods and properties can be used to traverse
 the data stored by a Python program.
 One great example of this is that all functions capture the scope they are defined
 in, making a reference to all global variables in that scope available
@@ -434,7 +434,7 @@ include dictionaries, lists, and tuples.
 
 This attribute/item distinction is important because it dictates how that data
 can be accessed.
-In case of an attribute, it can be accessed statically through dot-notation,
+In the case of an attribute, it can be accessed statically through dot-notation,
 and dynamically through the built-in `getattr` and its writing counterpart
 `setattr`, as exemplified in @code:python-access-attributes.
 
@@ -561,7 +561,7 @@ in this section.
 The classic way to achieve class pollution is accessing the property
 `__init__.__globals__` of an object (i.e., not a primitive)
 through `getattr`, and then using a combination of `getattr` and `__getitem__`
-(this last one commonly invoked through subscription, `[]`, of dictionary and lists).
+(this last one commonly invoked through subscription, `[]`, of dictionaries and lists).
 This is possible because, as previously shown in @code:python-function-globals,
 functions capture the global scope they are declared in, allowing an attacker
 to move laterally throughout the program.
@@ -633,7 +633,7 @@ construct to be executed on a module instead of on an object.
 Additionally, it is an implementation detail and might not be available in
 Python implementations other than CPython.
 
-Unfortunately, both `__globals__` and `__builtins__` return a dictionary
+However, both `__globals__` and `__builtins__` return a dictionary
 #footnote[
   `__builtins__` might, under certain specific circumstances, return a module instead,
   which can be traversed using `getattr`.
@@ -642,7 +642,7 @@ Unfortunately, both `__globals__` and `__builtins__` return a dictionary
 which cannot be traversed using `getattr`.
 This results in a significant limitation for the exploitation of class pollution:
 to traverse outside a class hierarchy, the construct needs to not only use
-`getattr`, but to fall back to `__getitem__` when it encounters a dictionary or list.
+`getattr`, but also to fall back to `__getitem__` when it encounters a dictionary or list.
 This could be uncommon due to the conventional usage of `dataclass`es
 #footnote(link("https://docs.python.org/3/library/dataclasses.html"))
 to store information instead of dictionaries,
@@ -709,7 +709,7 @@ and to aid with creating a proof-of-concept when reporting vulnerabilities.
 
 An easy way of crafting a @dos attack is to change the value of a language builtin.
 Assuming the payload can only be a string, then changing the value of
-`__builtins__.list` to e.g., `"foo"` will cause all calls to `list()`
+`__builtins__.list` to, e.g., `"foo"` will cause all calls to `list()`
 to crash.
 Evidently, if the payload can be a function, then it is possible to achieve @rce
 this way.
@@ -719,7 +719,7 @@ catch the exception (or verify that the attribute exists before accessing it)
 because it could be expected that it might not exist.
 However, it is unlikely the developers of the program accounted for
 the type of `list` changing to a string,
-resulting in a crash when the `list()` function in invoked.
+resulting in a crash when the `list()` function is invoked.
 The usage of this gadget is illustrated in @code:gadget-builtins.
 
 #figure(caption: [How polluting a frequently used built-in
@@ -856,7 +856,7 @@ As for `COMSPEC`, it is only useful on Windows systems, where it can be used to 
 As mentioned previously, Python relies heavily on dunder properties for its internals.
 One of those cases is when handling default parameters of functions, where it stores
 the defaults in `__defaults__` (a tuple) and `__kwdefaults__` (a dictionary),
-for unnamed and named parameters respectively.
+for unnamed and named parameters, respectively.
 Changing one of these values affects all future calls to the respective function
 that omit a value for the given parameter.
 
@@ -921,7 +921,7 @@ Furthermore, all of their methods lack any reference to `__globals__`,
 as well as `__defaults__` and `__kwdefaults__`.
 In practice, this means that even given a function vulnerable to class
 pollution, if traversal starts in a native class, such as a `dict`,
-`list` or `tuple`, the code is not exploitable.
+`list`, or `tuple`, the code is not exploitable.
 
 === Summary
 
@@ -934,7 +934,7 @@ Authorization Bypass, or even @rce.
 
 == Static Code Analysis <bg:static-analysis>
 
-To find dangerous constructs in a codebase it is necessary to perform
+To find dangerous constructs in a codebase, it is necessary to perform
 code analysis.
 Static code analysis is the analysis of a program without
 running its code,
@@ -953,7 +953,7 @@ given that it cannot, for example,
 accurately resolve function calls of untyped objects.
 
 Despite its drawbacks,
-given the problem at hand
+given the problem at hand,
 it is very capable of discovering calls to the global builtins
 `getattr` and `setattr`,
 and is therefore useful for this degree project.
@@ -978,7 +978,7 @@ and other operations.
 
 Pyre#footnote(link("https://pyre-check.org/"))
 is a static type checker for Python,
-created my Meta (formerly Facebook)
+created by Meta (formerly Facebook)
 for internal use but also as an open-source project.
 Pyre ships with Pysa,
 a security-focused static taint analysis tool
@@ -1023,6 +1023,6 @@ in the program,
 sometimes collapsing (also known as broadening) the taint of a given object,
 that is, assuming an entire object is tainted instead of just a single field.
 For example, if `foo.a` is tainted,
-Pysa might collapse its taint and assume `foo` as whole is tainted.
+Pysa might collapse its taint and assume `foo` as a whole is tainted.
 This is unwanted behaviour for detecting class pollution,
 given that the return value of `getattr` must flow unchanged to `setattr`.

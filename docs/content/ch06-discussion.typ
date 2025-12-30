@@ -6,9 +6,9 @@
 
 = Discussion <discussion>
 
-In this chapter, an interpretation of the results is presented with regards to
+In this chapter, an interpretation of the results is presented with regard to
 the research questions in @discussion:rq,
-while mitigations to this class of vulnerabilities is discussed
+while mitigations to this class of vulnerabilities are discussed
 in @discussion:mitigations.
 Then, limitations of the developed implementation and method taken are
 discussed in @discussion:limitations,
@@ -59,7 +59,7 @@ is almost never relevant for detecting class pollution, as the value
 returned by `getattr` needs to flow without modifications to `setattr`.
 For this reason, #TheTool was coded to discard some of the issues containing
 broadening during post-processing.
-However, as evidenced by the number of issues being marked as false positive
+However, as evidenced by the number of issues being marked as false positives
 due to _Modified Reference_, further post-processing needs to be done to
 ensure these are correctly filtered out.
 
@@ -78,7 +78,7 @@ Despite the number of false positives, this demonstrates that the implemented de
 that is, the use of static taint analysis, could be a path forward for detecting
 class pollution in Python codebases.
 
-Lastly, it is worth emphasising the two experiments ran alongside the
+Lastly, it is worth emphasising the two experiments run alongside the
 empirical study, with the goal of deciding whether to apply certain changes
 to #TheTool.
 
@@ -94,7 +94,7 @@ did not include a dependency lockfile in their repositories.
 Furthermore, the observed analysis time increased drastically, not just because
 of dependency installation, but also due to Pysa taking significantly more
 time to analyse all dependencies in addition to the primary project in question.
-Moreover, with regards to false positive rates, the inclusion of
+Moreover, with regard to false positive rates, the inclusion of
 third-party code not only increased the amount of taint broadening that occurred,
 but also reported duplicate issues for different projects that used the same
 dependencies, which were usually false positives.
@@ -110,7 +110,7 @@ and it is therefore expected that Pysa might have failed to correctly
 propagate the count of calls to `getattr`.
 
 To conclude, as an answer to @rq-tool-design[], the results indicate that
-the use of static taint analysis is a promising way of detect class
+the use of static taint analysis is a promising way of detecting class
 pollution in Python,
 despite the need for some improvements to reduce the rate of false positives.
 
@@ -178,13 +178,13 @@ by #cite(form: "prose", <probetheproto>),
 prototype pollution appears to be thrice as prevalent as class pollution.
 To perform a fair comparison, only the vulnerabilities found that were labeled
 with _Dict Access_ and _Supports `__setitem__`_ are being accounted for,
-which results in an prevalence of #num(prevalence_cp) in #num(total_cp) (#prevalence_rate_cp%)
+which results in a prevalence of #num(prevalence_cp) in #num(total_cp) (#prevalence_rate_cp%)
 versus a prevalence of #num(prevalence_pp) in #num(total_pp) (#prevalence_rate_pp%) for
 prototype pollution.
 The gap is even more significant if only the single confirmed exploitable project is
 accounted for.
 However, this is not a perfect comparison, as the domain and type of applications
-is clearly different.
+are clearly different.
 Furthermore, this comparison might change once there is further research
 on finding gadgets for class pollution, perhaps showing it could be easier
 to exploit some of the findings from this degree project.
@@ -223,7 +223,7 @@ An example implementation of this fix is presented in @code:cp-fix.
 #mitigation_example
 
 However, for certain libraries or applications, that mitigation might break
-functionality as it could be necessary to traverse through other,
+functionality, as it could be necessary to traverse through other,
 benign, dunder attributes.
 One compromise solution found by the developers of *pydash* has been to forbid only
 problematic dunder attributes such as `__globals__` and `__builtins__`
@@ -243,7 +243,7 @@ simply to detect class pollution, which is just one part of the puzzle.
 To successfully exploit this vulnerability, suitable gadgets need to
 be found, which is out of the scope of this project.
 The gadgets that have been presented throughout this document are mostly
-already known, or in the case of the one showed during the case study,
+already known, or in the case of the one shown during the case study,
 they were immediately apparent from the surrounding context.
 These gadgets have only been used to demonstrate the possible consequences
 of class pollution.
@@ -278,7 +278,7 @@ and should still be conducted on the topic.
 
 Firstly, a second iteration of #TheTool should be developed,
 learning from the results obtained in this degree project.
-For example, it would beneficial to be able to automatically assign features
+For example, it would be beneficial to be able to automatically assign features
 to each detected issue instead of relying on manual labeling.
 This new tool could then be evaluated against this project's results,
 available in @detailed-results and the accompanying repository.
@@ -298,5 +298,5 @@ a focus on improving the user experience for users of #TheTool
 would encourage wider adoption.
 For instance, the results are currently saved to a JSON file,
 but there is no user-friendly interface to explore them.
-Such interface would help developers and maintainers understand
+Such an interface would help developers and maintainers understand
 where and how their code could be vulnerable.

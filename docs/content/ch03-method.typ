@@ -40,7 +40,7 @@ were tested against custom-built artificial benchmarks,
 as well as projects known to be vulnerable,
 in order to decide what approach to use for the final design.
 These benchmarks, while not perfect,
-are small custom-written Python programs that
+are small, custom-written Python programs that
 model common constructs that can lead to class pollution
 and are a great replacement for the lack of a larger dataset of
 known-vulnerable packages.
@@ -49,7 +49,7 @@ Importantly, a major design decision for such a tool is whether to consider
 each project's dependencies during analysis.
 While taking dependencies into account should, in theory,
 increase the accuracy and scope of the taint analysis,
-it comes with a trade off in complexity and execution time.
+it comes with a trade-off in complexity and execution time.
 There are also significant challenges that need to be overcome regarding
 the installation of those dependencies,
 as the Python ecosystem is quite fragmented when it comes to
@@ -65,7 +65,7 @@ where it requires two or more sources to reach the same
 sink at the same time, i.e., in the same call site.
 Using this feature, it is possible to focus on code exploitable
 using class pollution by requiring the second parameter
-of `setattr` to be tainted by user controlled input for an issue to be raised.
+of `setattr` to be tainted by user-controlled input for an issue to be raised.
 
 Finally, Pysa offers the option to annotate taint flows with _features_,
 also known as breadcrumbs,
@@ -156,14 +156,14 @@ Additionally, to aid with reproducibility of this research, the URL of one
 of the wheels (Python's binary packaging format as defined by
 #pep(427)) of the latest version
 of each package was immediately saved.
-If no wheel was available, the URL of source tarball was saved instead.
+If no wheel was available, the URL of the source tarball was saved instead.
 
 #heading(level: 4, numbering: none, outlined: false)[GitHub]
 
 There is a vast amount of projects on GitHub, so only
 Python repositories with more than 1000 stars were taken into account
 for this dataset,
-accounting to around 9000 repositories.
+totalling around 9000 repositories.
 For the purposes of this experiment, a project's star count was deemed
 a good indicator of its real-world usefulness and its overall usage.
 Additionally, a repository is considered a "Python repository" if its most used
