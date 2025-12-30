@@ -1,4 +1,4 @@
-#import "../utils/constants.typ": TheTool
+#import "../utils/constants.typ": TheTool, gh_color, pypi_color
 #import "../utils/global-imports.typ": fletcher, pep
 #import fletcher: diagram, edge, node, shapes
 
@@ -252,6 +252,35 @@ as well.
 If a source binary is chosen, the script prefers a `.tar.gz` archive
 as defined by #pep(625), but also accepts `.tar.bz2`, `.tgz` and `.zip`
 as long as they follow the same file name convention.
+This process is illustrated in @fg:pypi-dataset-flowchart.
+
+#figure(
+  [
+    #set text(size: 0.75em)
+    #diagram(
+      spacing: (2.5em, 3.15em),
+      node-stroke: pypi_color.lighten(60%),
+      node-inset: 0.67em,
+      node((0, 0), [`top-pypi-packages.json` file], shape: shapes.ellipse),
+      edge("-|>", label: [_for each package_]),
+      (
+        node((0, 1), [Fetch archives of \ latest version of package \ using @pypi's Simple API]),
+        node((1, 1), [Sort archives by preference \ (sdist, wheel, platform, etc.)]),
+        node((2, 1), [Pick preferred archive \ and save download URL]),
+        node((2, 2), [Write to `data.json` file]),
+      )
+        .intersperse(edge("-|>"))
+        .join(),
+      node(
+        enclose: ((0, 1), (1, 1), (2, 1)),
+        shape: shapes.hexagon,
+        fill: pypi_color.lighten(90%),
+        stroke: pypi_color.darken(20%),
+      ),
+    )
+  ],
+  caption: [Pipeline for obtaining a list of @pypi packages suitable for analysis and their download URLs],
+) <fg:pypi-dataset-flowchart>
 
 #heading(level: 4, numbering: none, outlined: false)[GitHub]
 
@@ -281,6 +310,44 @@ for the same data.
 
 Finally, the list of repositories and revisions is joined together in the
 same file, ready to be sampled.
+This entire process is illustrated in @fg:github-dataset-flowchart.
+
+#figure(
+  [
+    #set text(size: 0.75em)
+    #diagram(
+      spacing: (2.5em, 3.15em),
+      node-stroke: pypi_color.lighten(60%),
+      node-inset: 0.67em,
+      node((0, 0), [Query `/search/repositories` API for 1000 packages]),
+      edge("-|>", label: [_for each repository_]),
+      edge(
+        (0, 0),
+        (0, 0),
+        "-|>",
+        loop-angle: 30deg,
+        bend: 110deg,
+        kind: "arc",
+        label-anchor: "east",
+        [Repeat until all Python repositories with \ less than 1000 stars are fetched],
+      ),
+      (
+        node((0, 1), [Fetch latest revision of main branch \ using `git ls-remote`]),
+        node((1, 1), [Process GitHub metadata such as \ the repository's star count]),
+        node((1, 2), [Write to `all-repos.json` file]),
+      )
+        .intersperse(edge("-|>"))
+        .join(),
+      node(
+        enclose: ((0, 1), (1, 1)),
+        shape: shapes.hexagon,
+        fill: pypi_color.lighten(90%),
+        stroke: pypi_color.darken(20%),
+      ),
+    )
+  ],
+  caption: [Pipeline for obtaining a list of @pypi packages suitable for analysis and their download URLs],
+) <fg:github-dataset-flowchart>
 
 #heading(level: 4, numbering: none, outlined: false)[Sampling]
 

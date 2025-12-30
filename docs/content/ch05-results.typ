@@ -246,7 +246,8 @@ As shown in @tbl:results-micro-benchmark,
 #TheTool has been run on all 5 of these tests,
 and successfully passed 4 of them,
 having failed to properly identify when the attribute
-passed to `getattr` is a static string.
+passed to `getattr` is a static string,
+as #TheTool does not have that functionality.
 The relevant code of the failing test can be seen in @code:test-static-attr.
 
 #let micro_bench_fail = [#figure(

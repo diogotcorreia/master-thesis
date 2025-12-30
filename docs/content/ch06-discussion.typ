@@ -63,6 +63,14 @@ However, as evidenced by the number of issues being marked as false positives
 due to _Modified Reference_, further post-processing needs to be done to
 ensure these are correctly filtered out.
 
+Despite its high false positive rate,
+#TheTool is still a viable tool for developers that want to analyse their codebase
+for code vulnerable to class pollution,
+as false positives are easily dismissed,
+while #TheTool might surface severe and actionable security problems.
+However, this means the tool is not suitable for automated workflows,
+such as continuous integration pipelines.
+
 Regarding Type-II errors, that is, false negatives, it is unfortunately not
 possible to evaluate #TheTool in that regard due to the lack of a labeled
 dataset to test against.

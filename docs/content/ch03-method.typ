@@ -29,6 +29,8 @@ the cornerstone requirement for such a detector is that it can find code where t
 return value of `getattr` is passed onto the arguments of `setattr`.
 As this is a classic taint analysis problem, a static taint analysis
 tool, Pysa, has been chosen as the base for this higher-order tool.
+Pysa has been picked amongst other similar tools due to its ease of
+configuration and being built specifically to analyse Python programs.
 
 However, Pysa offers many different settings and
 approaches to configuring the project for taint analysis,
@@ -197,6 +199,9 @@ for each platform, and has been fixed as #box($N = #n_pypi$) for @pypi and
 Then, #cohort_size projects were randomly sampled from each cohort,
 resulting in a total of #platform_size projects for each platform,
 and a final dataset of size #dataset_size.
+Using this cohort-based sampling ensures packages and repositories of varying popularity
+are equally represented in the analysed dataset,
+and therefore the results can be generalised regardless of popularity.
 This process is pictured in @fg:dataset-cohorts.
 
 #figure(
