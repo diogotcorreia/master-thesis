@@ -1,6 +1,141 @@
-# Diogo's Master Thesis
+# Diogo's Master Thesis: Classa
 
-// TODO
+- Title: **Classa: Uncovering Class Pollution in Python**
+- Subtitle: **Measuring Class Pollution Vulnerabilities of 3000 Real-World Python Projects**
+- Abstract:
+  > Over the past few decades,
+  > code reuse attacks have shown how malicious actors
+  > can alter a program's intended execution flow
+  > by taking advantage of benign code already present in the application.
+  > Class Pollution in the Python programming language
+  > is a novel variant of a code reuse attack,
+  > which can enable a malicious party to surgically mutate a variable
+  > in any part of the application
+  > in order to trigger a change in its execution flow.
+  >
+  > However, until now,
+  > little to no research has explored class pollution in detail,
+  > and no tool is readily-available to detect it.
+  > For this reason,
+  > as part of this degree project,
+  > a literature review on the causes and consequences of class pollution
+  > has been conducted,
+  > in addition to the methodical development of a tool
+  > capable of detecting class pollution, Classa.
+  >
+  > Additionally, an empirical study on the prevalence of class pollution
+  > in real-world Python code has been performed
+  > by running Classa against a dataset of 3000 Python projects,
+  > revealing, most notably, a critical vulnerability in a popular PyPI package
+  > with more than 30 million downloads.
+  > This vulnerability allowed for Denial of Service and Remote Code Execution,
+  > having since been responsibly disclosed and patched.
+  >
+  > Altogether, the results revealed that while
+  > not many real-world Python projects are susceptible to class pollution,
+  > it is a vulnerability that must be accounted for when
+  > building a secure application
+  > due to the serious consequences it can lead to.
+
+## Building
+
+Building this project and its associated tool (Classa) requires Nix to be installed.
+You can download Nix at the [NixOS website].
+
+Once Nix is installed, run the following command in this project's root directory
+to enter a development shell with all required dependencies:
+
+```sh
+nix develop -f shell.nix
+```
+
+You can expect this command to take longer the first time it is run,
+given Nix might compile Pysa and other required dependencies.
+In subsequent runs, entering the development shell should be significantly faster.
+
+Once inside the development shell, you can compile Classa using cargo:
+
+```sh
+cd tool
+cargo build --release
+```
+
+This will create a binary at `./target/release/classa`.
+If you prefer, you can also run it using cargo, which will (re)build the binary when needed:
+
+```sh
+cargo run --release
+```
+
+## Usage
+
+You can get an overview of Classa's functionality by running `classa --help`:
+
+```
+$ ./target/release/classa --help
+Find class pollution in Python programs
+
+Usage: classa [OPTIONS] <COMMAND>
+
+Commands:
+  analyse  Run analysis on a Python program and try to find class pollution
+  e2e      Run an end-to-end pipeline, analysing the projects declared in the given dataset
+  results  Parse results from a pysa run and summarise them
+  label    Parse reports from a previous e2e run, show issues, and ask for appropriate labels
+  summary  Parse reports from a previous e2e run, and compile it into a JSON file that be used for charts
+  help     Print this message or the help of the given subcommand(s)
+
+Options:
+      --pyre-path <PYRE_PATH>  Path to the pyre (Python) program. If not provided, tries to find it in PATH [env: PYRE_PATH=]
+      --workdir <WORKDIR>      A path to the work directory to use, for storing files during the analysis and also final reports, when applicable [env: WORKDIR=]
+      --keep-workdir           Whether to keep the work directory after exiting, instead of deleting it. This is implicitly true if the --workdir option is given [env: KEEP_WORKDIR=]
+  -h, --help                   Print help
+  -V, --version                Print version
+```
+
+You can get further help about each command by running `classa <COMMAND> --help`.
+
+Below are some common commands you might want to run.
+For simplicity, it is assumed the binary is named `classa`,
+but you might want to use `./target/release/classa` or `cargo run --release --` instead.
+
+You will certainly also want to set the `WORKDIR` environment variable,
+or pass the `--workdir` argument,
+otherwise the detailed results will be immediately deleted.
+
+- **Analyse a single Python program that is already present in the file system:**
+
+  ```sh
+  classa analyse /path/to/project
+  ```
+
+- **Analyse projects in bulk from a dataset**  
+  _Note: To generate a dataset, see the `data` directory of this repository._
+
+  ```sh
+  classa e2e /path/to/dataset.toml
+  ```
+
+  After the analysis is completed, detailed information about the results of each project
+  can be found in their individual reports in the `<workdir>/reports` directory.
+
+- **Label results present in an existing workdir**  
+  _Note: Ensure the workdir is the same generated by a e2e run_
+
+  ```sh
+  classa label
+  ```
+
+- **Generate summary of an e2e analysis**  
+  _Note: Ensure the workdir is the same generated by a e2e run_
+
+  ```sh
+  classa summary
+  ```
+
+  After running this command,
+  a `summary.json` file inside the workdir will contain an overview of all analysed projects
+  along with the issues found.
 
 ## Documents
 
@@ -31,6 +166,7 @@ All the code is licensed under the [GPL-3.0-or-later license](./LICENSE.md), whi
 documents in the `docs` directory are licensed under
 [CC-BY-SA-4.0](./docs/LICENSE.md).
 
+[NixOS website]: https://nixos.org/download/
 [Typst]: https://typst.app/
 [releases tab]: https://github.com/diogotcorreia/master-thesis/releases
 [gpg.diogotc.com]: https://gpg.diogotc.com
