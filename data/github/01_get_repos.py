@@ -108,9 +108,10 @@ def try_resume():
         for entry in it:
             if entry.is_file():
                 match = re.match(file_format, entry.name)
-                page_num = int(match.group(1))
-                if page_num > candidate[1]:
-                    candidate = (entry.name, page_num)
+                if match:
+                    page_num = int(match.group(1))
+                    if page_num > candidate[1]:
+                        candidate = (entry.name, page_num)
 
         if candidate[0]:
             global page
