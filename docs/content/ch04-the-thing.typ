@@ -1,4 +1,4 @@
-#import "../utils/constants.typ": TheTool, gh_color, pypi_color
+#import "../utils/constants.typ": TheTool, gh_color, git_repo_link, pypi_color
 #import "../utils/global-imports.typ": fletcher, pep
 #import fletcher: diagram, edge, node, shapes
 
@@ -175,7 +175,7 @@ in @thing:cli, due to its performance, correctness,
 and the author's existing familiarity with the language.
 
 The full source code for #TheTool can be found in the accompanying repository
-#footnote(link("https://github.com/diogotcorreia/master-thesis"))
+#footnote(git_repo_link)
 on GitHub.
 
 === Nix <thing:nix>
