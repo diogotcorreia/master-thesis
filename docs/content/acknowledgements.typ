@@ -25,7 +25,7 @@ Then, to my family, and especially to my sister who misses me the most,
 thank you for supporting me throughout this adventure,
 and for being understanding when I moved across the continent.
 Rest assured I have missed you all as well,
-always looking forward to the small breaks when I could fly back home.
+always looking forward to when I could fly back home.
 
 To my supervisor, Musard,
 thank you for encouraging me to pursue this topic
@@ -36,6 +36,6 @@ Roberto, thank you for accepting to be the examiner of this degree project,
 for your sharp comments, and for your helpful availability.
 
 Lastly, I want to emphasise that this document is exclusively written by humans,
-as in, no generative artificial intelligence of any kind has been used.
+as in, no generative artificial intelligence has been used.
 This would not have been achievable without the meticulous reviews
 of Rafa, Tomás, Henrique, Musard, and my opponent Yamini, all of whom I thank once again.
