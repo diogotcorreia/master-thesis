@@ -7,6 +7,7 @@ let
   };
 in
   {pkgs ? import nixpkgs {}}: let
+    inherit (pkgs) lib;
     mypkgs = import ./nix {inherit pkgs;};
 
     pyenv = pkgs.python3.withPackages (ps: [
@@ -14,6 +15,11 @@ in
       ps.requests
       ps.tomli-w
     ]);
+
+    typstFonts = [
+      mypkgs.figtree
+      pkgs.liberation_ttf
+    ];
   in
     pkgs.mkShell {
       buildInputs = with pkgs; [
@@ -48,6 +54,6 @@ in
       shellHook = ''
         export UV_NO_MANAGED_PYTHON=1
         export UV_PYTHON="${pkgs.python310}/bin/python"
-        export TYPST_FONT_PATHS="${mypkgs.figtree}"
+        export TYPST_FONT_PATHS="${lib.concatStringsSep ":" typstFonts}"
       '';
     }
