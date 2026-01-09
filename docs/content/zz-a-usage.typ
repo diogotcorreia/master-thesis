@@ -48,7 +48,7 @@ cargo run --release
 An overview of #TheTool's functionality can be seen by passing the `--help`
 flag to the #TheTool binary:
 
-#figure[
+#[
   #set text(size: 0.75em)
   ```
   $ ./target/release/classa --help
