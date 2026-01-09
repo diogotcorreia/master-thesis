@@ -1,0 +1,57 @@
+cff-version: 1.2.0
+title: 'Classa: Uncovering Class Pollution in Python'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Diogo
+    family-names: Correia
+    orcid: 'https://orcid.org/0009-0004-3559-132X'
+    affiliation: KTH Royal Institute of Technology
+  - name: >-
+      Language-Based Security group at KTH Royal Institute
+      of Technology
+repository-code: 'https://github.com/diogotcorreia/master-thesis'
+abstract: >-
+  Over the past few decades, code reuse attacks have shown
+  how malicious actors can alter a program's intended
+  execution flow by taking advantage of benign code already
+  present in the application. Class Pollution in the Python
+  programming language is a novel variant of a code reuse
+  attack, which can enable a malicious party to surgically
+  mutate a variable in any part of the application in order
+  to trigger a change in its execution flow.
+
+
+  However, until now, little to no research has explored
+  class pollution in detail, and no tool is
+  readily-available to detect it. For this reason, as part
+  of this degree project, a literature review on the causes
+  and consequences of class pollution has been conducted, in
+  addition to the methodical development of a tool capable
+  of detecting class pollution, Classa.
+
+
+  Additionally, an empirical study on the prevalence of
+  class pollution in real-world Python code has been
+  performed by running Classa against a dataset of 3000
+  Python projects, revealing, most notably, a critical
+  vulnerability in a popular PyPI package with more than 30
+  million downloads. This vulnerability allowed for Denial
+  of Service and Remote Code Execution, having since been
+  responsibly disclosed and patched.
+
+
+  Altogether, the results revealed that while not many
+  real-world Python projects are susceptible to class
+  pollution, it is a vulnerability that must be accounted
+  for when building a secure application due to the serious
+  consequences it can lead to.
+keywords:
+  - python
+  - code reuse
+  - class pollution
+  - static analysis
+  - taint analysis
+license: GPL-3.0-or-later
