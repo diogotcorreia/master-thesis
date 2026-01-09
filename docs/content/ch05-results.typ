@@ -1633,8 +1633,7 @@ As can be seen in @fg:with-deps-elapsed-seconds-distribution,
 the automated analysis time for each individual successfully analysed project ranged
 between #with_deps_projects_elapsed_seconds.min seconds and
 #format_time_h_min(with_deps_projects_elapsed_seconds.max),
-with a median value of just #with_deps_projects_elapsed_seconds.median seconds,
-and can be visualised in @fg:elapsed-seconds-distribution.
+with a median value of just #with_deps_projects_elapsed_seconds.median seconds.
 
 #figure(
   caption: [Analysis time distribution for the #with_deps_projects_success.len()
