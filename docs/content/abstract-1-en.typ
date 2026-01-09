@@ -1,3 +1,6 @@
+#import "../utils/constants.typ": TheTool
+#import "../content/ch05-results.typ": raw_data
+
 Over the past few decades,
 code reuse attacks have shown how malicious actors
 can alter a program's intended execution flow
@@ -17,11 +20,11 @@ a literature review on the causes and consequences of class pollution
 has been conducted,
 in addition to the methodical development of a tool
 capable of detecting class pollution,
-Classa.
+#TheTool.
 
 Additionally, an empirical study on the prevalence of class pollution
 in real-world Python code has been performed
-by running Classa against a dataset of 3000 Python projects,
+by running #TheTool against a dataset of #raw_data.len() Python projects,
 revealing, most notably, a critical vulnerability in a popular PyPI package
 with more than 30 million downloads.
 This vulnerability allowed for Denial of Service and Remote Code Execution,

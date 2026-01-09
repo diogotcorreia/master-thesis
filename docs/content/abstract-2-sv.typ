@@ -1,3 +1,6 @@
+#import "../utils/constants.typ": TheTool
+#import "../content/ch05-results.typ": raw_data
+
 Under de senaste decennierna
 har attacker med återanvändning av kod visat hur illvilliga parter
 kan förändra ett programs normala exekveringsflöde
@@ -15,11 +18,11 @@ Av denna anledning
 har en litteraturöversikt om orsakerna till och konsekvenserna av klassförorening
 genomförts som en del av detta examensarbete,
 utöver den metodiska utvecklingen av ett verktyg
-som kan upptäcka klassförorening, Classa.
+som kan upptäcka klassförorening, #TheTool.
 
 Dessutom har en empirisk studie om förekomsten av klassförorening
-i verklig Python-kod utförts genom att köra Classa
-mot en datauppsättning med 3000 Python-projekt,
+i verklig Python-kod utförts genom att köra #TheTool
+mot en datauppsättning med #raw_data.len() Python-projekt,
 vilket framför allt avslöjade en kritisk sårbarhet i ett populärt PyPI-paket
 med mer än 30 miljoner nedladdningar.
 Denna sårbarhet möjliggjorde överbelastningsattack och fjärrkodexekvering,

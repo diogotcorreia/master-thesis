@@ -1,5 +1,5 @@
 #import "./utils/constants.typ": TheTool
-#import "./utils/global-imports.typ": codly, codly-languages, content-to-string, glossarium, kthesis, zero
+#import "./utils/global-imports.typ": codly, codly-languages, glossarium, kthesis, zero
 #import "./content/ch05-results.typ": raw_data
 #import kthesis: kth-thesis, setup-appendices
 
@@ -28,10 +28,8 @@
   primary-lang: "en",
   localized-info: (
     en: (
-      title: content-to-string([#TheTool: Uncovering Class Pollution in Python]),
-      subtitle: content-to-string(
-        [Measuring Class Pollution Vulnerabilities of #raw_data.len() Real-World Python Projects],
-      ),
+      title: [#TheTool: Uncovering Class Pollution in Python],
+      subtitle: [Measuring Class Pollution Vulnerabilities of #raw_data.len() Real-World Python Projects],
       abstract: include "./content/abstract-1-en.typ",
       keywords: (
         "python",
@@ -42,10 +40,8 @@
       ),
     ),
     sv: (
-      title: content-to-string([#TheTool: Avslöja klassföroreningar i Python]),
-      subtitle: content-to-string(
-        [Mätning av sårbarheter i klassföroreningar hos #raw_data.len() verkliga Python-projekt],
-      ),
+      title: [#TheTool: Avslöja klassföroreningar i Python],
+      subtitle: [Mätning av sårbarheter i klassföroreningar hos #raw_data.len() verkliga Python-projekt],
       abstract: include "./content/abstract-2-sv.typ",
       keywords: (
         "python",
