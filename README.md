@@ -1,3 +1,10 @@
+> [!IMPORTANT]
+> This work has been conducted as part of [KTH LangSec],
+> and continues at the [KTH-LangSec/classa repository].
+> This repository is now read-only.
+
+---
+
 # Diogo's Master Thesis: Classa
 
 - Title: **Classa: Uncovering Class Pollution in Python**
@@ -166,6 +173,8 @@ All the code is licensed under the [GPL-3.0-or-later license](./LICENSE.md), whi
 documents in the `docs` directory are licensed under
 [CC-BY-SA-4.0](./docs/LICENSE.md).
 
+[KTH LangSec]: https://github.com/KTH-LangSec
+[KTH-LangSec/classa repository]: https://github.com/KTH-LangSec/classa
 [NixOS website]: https://nixos.org/download/
 [Typst]: https://typst.app/
 [releases tab]: https://github.com/diogotcorreia/master-thesis/releases
